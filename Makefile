@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/07/11 15:28:59 by hoomen           ###   ########.fr        #
+#    Updated: 2022/07/11 15:47:58 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ $(LIBS) :
 clean :
 	rm -rf obj
 
-fclean :
+fclean : clean
 	rm -f $(NAME)
 	-(cd libft && make fclean)
 
