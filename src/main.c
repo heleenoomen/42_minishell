@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/11 15:46:22 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/11 15:49:07 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	sighandler(int sig)
 
 int	main(void)
 {
-	char				*buf;
+	char	*buf;
 	
 	exitstatus = 0;
 	if(signal(SIGINT, sighandler) == SIG_ERR)
