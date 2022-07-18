@@ -1,17 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_environment.h                                   :+:      :+:    :+:   */
+/*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 13:44:34 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/18 15:16:49 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/18 19:35:56 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
+
+typedef struct s_env_pair
+{
+	char		*key
+	char		*value
+	bool		export_flag;
+	//s_env_pair	*next;
+}				t_env_pair;
+
+/* t_env_data stores environment data
+ * size = items in environment list
+ * hash table keys:
+ * 		A-Z = 0-25
+ * 		_   = 26
+ * 		a-z = 27-52 */
+typedef struct s_env_data
+{
+	t_env_node	*unsorted;
+	t_env_node	*unsor_last;
+	t_env_node	hash_table[53];
+}				t_env_data;
+
+
 
 /* clear_env_data.c */
 void		clear_env_data(t_env_data *env_data);
