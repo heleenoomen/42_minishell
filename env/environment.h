@@ -6,12 +6,12 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 13:44:34 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/18 13:53:58 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/18 15:16:49 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_ENVIRONMENT_H
-# define MS_ENVIRONMENT_H
+#ifndef ENVIRONMENT_H
+# define ENVIRONMENT_H
 
 /* clear_env_data.c */
 void		clear_env_data(t_env_data *env_data);

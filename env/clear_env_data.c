@@ -6,11 +6,12 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 13:02:12 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/18 13:42:09 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/18 15:15:26 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "environment.h"
 
 void	clear_list(t_env_node **head)
 {

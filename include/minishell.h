@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:35:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/18 13:44:02 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/18 15:41:29 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include<readline/readline.h>
 # include<readline/history.h>
 # include"libft.h"
+# include"environment.h"
 
 int	exitstatus;
 
@@ -44,9 +45,6 @@ typedef struct s_env_data
 
 /*main.c*/
 void		sighandler(int sig);
-
-/*parse.c*/
-void		parse(char *buf);
 
 /*panic.c*/
 void		panic(char *message, t_env_data *env_data);

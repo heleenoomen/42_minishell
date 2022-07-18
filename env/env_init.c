@@ -6,11 +6,12 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 11:13:58 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/18 13:54:14 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/18 15:15:36 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "environment.h"
 
 char	**make_envp_cpy(t_env_data *env_data, char **envp, size_t size)
 {
