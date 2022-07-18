@@ -11,60 +11,53 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
+#include "minishell.h"
 
-/* add to minishell.h:
- *
- *	typedef struct s_envp
- *	{
- *		size_t		size;
- *		char		**envp;
- *		char		**envp_hash[26];
- *	} 				t_envp;
- *
- *	#define PREFIX_PRINT_ENVP "declare -x "
- *	#define PREFIX_PRINT_ENVP_LEN 11
- *
- */
-
-void	print_envp(t_envp *envp)
+void	print_envp(t_env_data *env_data)
 {
-	int		i;
+	int			i;
+	t_env_node	*trav;
 
 	i = 0;
-	while (envp->envp[i] != NULL)
+	while (i < 53)
 	{
-		write(1, "declare -x ", 11);
-		write(1, envp[i], ft_strlen(envp[i]);
-		write(1, "\n", 1);
-		i++; 
+		if (env_data->hash_table[i] != NULL)
+		{
+			trav = hash_table[i];
+			while (trav != NULL)
+			{
+				write(1, "declare -x ", 11);
+				write(1, trav->env_var, ft_strlen(trav->env_var);
+				write(1, "\n", 1);
+				trav = trav->next;
+			}
+		}	
+		i++;
 	}
 }
 
-void	export(int argc, char **argv, t_envp *envp)
+void	export(int argc, char **argv, t_env_data *env_data)
 {
-	t_envp	*envp;
-	char 	**envp_new;
-	int		i;
+	char	**envp_new;
+	size_t	i;
 	
 	if (argc == 1)
-		print_envp(envp);`	
-	envp_new = ft_calloc(envp->size + 1, sizeof(char *));
+		print_env_data(env_data);	
+	envp_new = ft_calloc(env_data->size + 2, sizeof(char *));
 	if (envp_new == NULL)
-		panic("malloc failed", envp);
+		panic(NULL, env_data);
 	i = 0;
-	while (i < envp->size)
+	while (i < env_data->size)
 	{
-		envp_new[i] = envp->envp[i];
+		envp_new[i] = env_data->envp[i];
 		i++;
 	}
 	envp_new[i] = ft_strdup(argv[1]);
 	if (envp_new[i] == NULL)
-		panic("malloc failed", envp);
-	free(envp->envp);
-	envp->envp = envp_new;
-	envp->size++;
+		panic(NULL, env_data);
+	free_envp(env_data);
+	env_data->envp = envp_new;
+	env_data->size++;
+	add_to_hash_table(env_data, size - 1);
 }	
+
