@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/11 15:49:07 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/18 15:51:33 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ void	sighandler(int sig)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*buf;
-	
+	char		*buf;
+	t_env_data	env_data;
+		
 	exitstatus = 0;
+	init_env_data(env_data, envp);
 	if(signal(SIGINT, sighandler) == SIG_ERR)
 		exit(EXIT_FAILURE);
 	if(signal(SIGQUIT, sighandler) == SIG_ERR)
