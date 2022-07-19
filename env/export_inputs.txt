@@ -1,0 +1,23 @@
+
+	export "a'a'a"=b
+		>> not a valid identifier
+	export "aaaa'?'a"=b
+
+
+
+	valid:
+	
+	export 'a'a=b
+	export "a"a=b
+	export "a"a"=b"
+	export a'_'a=b
+
+
+	not valid:
+
+	export a'?'=b
+	export a" "=b
+	export ""=b
+	export "a   "=b
+	export "a   a"=b
+	export 'aaaaa"b"a'=c
