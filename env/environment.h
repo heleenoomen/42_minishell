@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/19 13:28:58 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/20 13:59:23 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,18 @@ typedef struct s_env_pair
 	bool	export_flag;
 }			t_env_pair;
 
+typedef struct s_node_env
+{
+	t_env_pair			*env_pair;
+	struct s_node_env	*next;
+}						t_node_env;
+
 typedef struct s_env
 {
 	t_env_pair	*arr_pairs;
 	int			size;
 	int			free;
+	t_node_env	hash[53];
 }				t_env;
 
 
@@ -48,5 +55,8 @@ void		add_pair(t_env *env, t_env_pair *new_pair);
 
 /*make key and value pointer*/
 char		*make_key_and_value(char *s, char **value);
+
+/*make hash table*/
+
 
 #endif
