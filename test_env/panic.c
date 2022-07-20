@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   panic.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 15:35:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/20 17:52:53 by hoomen           ###   ########.fr       */
+/*   Created: 2022/07/18 12:57:59 by hoomen            #+#    #+#             */
+/*   Updated: 2022/07/20 18:00:18 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include<stdio.h>
-# include<stdlib.h>
-# include<unistd.h>
-# include<signal.h>
-# include<limits.h>
-# include<stdbool.h>
-# include<readline/readline.h>
-# include<readline/history.h>
-# include"libft.h"
-# include"environment.h"
+void	panic(char *message, t_env *env)
+{
+	perror(message);
+	clear_env_data(env);
+	exit(errno);
+}
 
-#endif

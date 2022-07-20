@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:35:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/20 17:52:53 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/20 18:02:56 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@
 # include<readline/history.h>
 # include"libft.h"
 # include"environment.h"
+
+/*panic.c*/
+void	panic(char *message, t_env *env);
 
 #endif

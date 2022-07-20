@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:00:35 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/20 13:52:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/20 17:30:09 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ typedef struct s_char_buf
 # define DOUBLE_QUOTE 2
 
 # define ENDOFVAR "\'\"\$ "
-# define MEM_ERROR 1
-# define INVALID_INPUT 2
 
 /*init_char_buff
  * allocates 128 chars in buffer

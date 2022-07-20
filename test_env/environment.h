@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/20 17:42:29 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/20 18:39:30 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		init_env_struct(t_env *env);
 int			resize_arr_pairs(t_env *env);
 
 /*add element*/
-void		add_pair(t_env *env, t_env_pair *new_pair);
+void		add_pair(t_env *env, t_env_pair new_pair);
 
 /*delete element*/
 

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:44:42 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/20 18:00:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/07/20 18:58:05 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	resize_arr_pairs(t_env *env)
 	{
 		new_arr[i] = env->arr_pairs[i];
 		i++;
-	
+	}	
 	free(env->arr_pairs);
 	env->arr_pairs = new_arr;
 	env->size += 256;
@@ -63,9 +63,11 @@ int	resize_arr_pairs(t_env *env)
 }
 
 /*usage: initialization of minishell, builtins*/
-void	add_pair(t_env *env, t_env_pair *new)
+void	add_pair(t_env *env, t_env_pair new)
 {
-	env->arr_pairs[size] = new;
+	env->arr_pairs[env->size].key = new.key;
+	env->arr_pairs[env->size].value = new.value;
+	env->arr_pairs[env->size].export_flag = new.export_flag;
 	env->size++;
 	env->free--;
 }	
@@ -85,15 +87,12 @@ void	init_env_struct(t_env *env)
 char	*make_key_and_value(char *s, char **value)
 {
 	char	*end_pointer;
-	size_t	len;
 
-	len = ft_strlen(s);
-	s[len - 1] = '\0';
 	end_pointer = s;
-	while (*s != '=')
+	while (*end_pointer != '=')
 		end_pointer++;
 	*end_pointer = '\0';
-	*value = end_pointer + 2;
+	*value = end_pointer + 1;
 	return (s);
 }
 
@@ -101,21 +100,18 @@ char	*make_key_and_value(char *s, char **value)
 void	init_env(t_env *env, char **envp)
 {
 	int			i;
-	t_env_pair	*new;
+	t_env_pair	new;
 	char		*value;
 
 	init_env_struct(env);
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		new = ft_calloc(1, sizeof(t_env_pair));
-		if (new == NULL)
+		new.key = ft_strdup(make_key_and_value(envp[i], &value));
+		new.value = ft_strdup(value);
+		if (new.key == NULL || new.value == NULL)
 			panic("System error", env);
-		new->key = ft_strdup(make_key_and_value(envp[i], &value));
-		new->value = ft_strdup(value);
-		if (new->key == NULL || new->value == NULL)
-			panic("System error", env);
-		new->export_flag = 1;
+		new.export_flag = 1;
 		add_pair(env, new);
 		i++;
 		if (i == INT_MAX)
@@ -128,4 +124,16 @@ int	main(int argc, char **argv, char **envp)
 	t_env	env;
 
 	init_env(&env, envp);
+	//int i = 0;
+	//while (i < env.size)
+	//{
+		//printf("--------------\n");
+		//printf("key = %s\n", env.arr_pairs[i].key);
+		//printf("value = %s\n", env.arr_pairs[i].value);
+		//printf("export flag = %d\n", env.arr_pairs[i].export_flag);
+		//printf("--------------\n");
+		//i++;
+	//}
+	clear_env_data(&env);
+	system("leaks a.out");
 }
