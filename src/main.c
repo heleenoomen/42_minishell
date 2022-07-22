@@ -35,13 +35,32 @@ void	sighandler(int sig)
 	}
 }
 
+void	parse(char *buf, t_env *env)
+{
+	char	*new;
+	char	*dup;
+	
+	new = ft_split(buf);
+	dup = expander(new, env);
+	free_argv_dup(new);
+	int i = 0;
+	while (dup[i])
+	{
+		printf("%s\n", dup[i]);
+		free(dup[i]);
+		i++;
+	}
+	free(dup);	
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*buf;
-	t_env_data	env_data;
+	t_env		env;
 		
-	exitstatus = 0;
-	init_env_data(env_data, envp);
+	(void)argc;
+	(void)argv;
+	init_env(&env, envp);
 	if(signal(SIGINT, sighandler) == SIG_ERR)
 		exit(EXIT_FAILURE);
 	if(signal(SIGQUIT, sighandler) == SIG_ERR)
@@ -51,13 +70,14 @@ int	main(int argc, char **argv, char **envp)
 		buf = readline("Minishell>>> ");
 		if (buf  == NULL)
 			break ;
-	//	else
-	//		parse(buf);
+		else
+			parse(buf, &env);
 		add_history(rl_line_buffer);
 		free(buf);
 		buf = NULL;
 	}
 	clear_history();
+	clear_env_data(&env);
 	printf("\033[2K");
 	printf("\033[0F");
 	printf("Minishell>>> exit\n");

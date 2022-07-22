@@ -24,6 +24,8 @@ typedef struct s_char_buf
 # define SINGLE_QUOTES 1
 # define DOUBLE_QUOTES 2
 
+void	free_argv_dup(char **argv_dup);
+
 # define ENDOFVAR "\'\" $"
 
 /*init_char_buff
