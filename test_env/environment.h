@@ -34,23 +34,25 @@ typedef struct s_env
 # define SINGLE_QUOTES 1
 # define DOUBLE_QUOTE 2
 
-/*constructor*/
+/*deconstructor*/
+void	clear_env_data(t_env *env);
+
+/*initializes env struct*/
+void	init_env_struct(t_env *env);
+
+/*constructor for array of key-value pairs*/
 t_env_pair	*construct_pairs(void);
 
-/*initialize structs*/
-void		init_env_struct(t_env *env);
+/*resize array of key-value pairs*/
+int	resize_arr_pairs(t_env *env);
 
-/*realloc*/
-int			resize_arr_pairs(t_env *env);
+/*add new key-value pair to env struct array of pairs*/
+void	add_pair(t_env *env, t_env_pair new_pair);
 
-/*add element*/
-void		add_pair(t_env *env, t_env_pair new_pair);
+/*make new key and value pair from input or envp string*/
+char	*make_key_and_value(char *s, char **value);
 
-/*delete element*/
-
-/*make key and value pointer*/
-char		*make_key_and_value(char *s, char **value);
-
-/*make hash table*/
+/*initialize environment at initialization of minishell*/
+void	init_env(t_env *env, char **envp);
 
 #endif

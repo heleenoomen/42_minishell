@@ -119,21 +119,21 @@ void	init_env(t_env *env, char **envp)
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_env	env;
-
-	init_env(&env, envp);
-	//int i = 0;
-	//while (i < env.size)
-	//{
-		//printf("--------------\n");
-		//printf("key = %s\n", env.arr_pairs[i].key);
-		//printf("value = %s\n", env.arr_pairs[i].value);
-		//printf("export flag = %d\n", env.arr_pairs[i].export_flag);
-		//printf("--------------\n");
-		//i++;
-	//}
-	clear_env_data(&env);
-	system("leaks a.out");
-}
+//int	main(int argc, char **argv, char **envp)
+//{
+//	t_env	env;
+//
+//	init_env(&env, envp);
+//	int i = 0;
+//	while (i < env.size)
+//	{
+//		printf("--------------\n");
+//		printf("key = %s\n", env.arr_pairs[i].key);
+//		printf("value = %s\n", env.arr_pairs[i].value);
+//		printf("export flag = %d\n", env.arr_pairs[i].export_flag);
+//		printf("--------------\n");
+//		i++;
+//	}
+//	clear_env_data(&env);
+//	system("leaks a.out");
+//}

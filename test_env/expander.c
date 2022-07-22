@@ -12,110 +12,176 @@
 
 #include "minishell.h"
 #include "environment.h"
-#include "expand.h"
+#include "expander.h"
 
-void	init_char_buf(t_char_buf *charbuf)
+/*free argv_dup in case malloc fails somewhere in the
+ * process of expanding*/
+void	free_argv_dup(char ***argv_dup)
 {
-	charbuf->char_buf = ft_calloc(128, sizeof(char));
+	int	i;
+	char	**argv_dup_ptr;
+
+	i = 0;
+	while (argv_dup_ptr[i])
+	{
+		free(argv_dup_ptr[i]);
+		i++;
+		argv_dup_ptr[i] = NULL;
+	}
+	free(argv_dup_ptr);
+	*argv_dup = NULL;
+}
+
+/*initialize the buffer struct. Allocates an initial 128 bytes
+ * in the char_buf (enough for 128 characters). Sets size to 0 
+ * and free to 128*/
+void	init_char_buf(t_char_buf *buffer)
+{
+	buffer->char_buf = ft_calloc(128, sizeof(char));
 	if (buffer == NULL)
 		return ;
-	charbuf->size = 0;
-	charbuf->free = 128;
+	buffer->size = 0;
+	buffer->free = 128;
 }
 
-void	resize_buffer(t_char_buf *charbuf)
+/*allocates a new char buffer that is 128 bytes bigger than the
+ * existing buffer. copies the string in the existing buffer to 
+ * the new buffer, fills the remaining space in the new buffer 
+ * with nul bytes. sets the free field in the buffer struct to
+ * 128. Frees the old character buffer and sets the char_buf 
+ * pointer in the buffer struct to the newly created char buffer.
+ */
+void	resize_buffer(t_char_buf *buffer)
 {
 	char	*new;
-	int		i;
+	int	i;
+	int	j;
 	
-	new = ft_calloc(charbuf->size + 128, sizeof(char));
+	new = malloc((buffer->size + 128) * sizeof(char));
 	if (new != NULL)
 	{
-		while (i < charbuf->size)
+		i = 0;
+		while (i < buffer->size)
 		{
-			new[i] = charbuf->char_buf[i];
-			i++:
+			new[i] = buffer->char_buf[i];
+			i++;
 		}	
-		charbuf->free = 128;
+		j = 0;
+		while (j < 128)
+		{
+			new[i + j] = '\0';
+			j++;
+		}
 	}
-	free(charbuf->char_buf);
-	charbuf->char_buf = new;
+	buffer->free = 128;
+	free(buffer->char_buf);
+	buffer->char_buf = new;
 }
 
+/*adds a character to the buffer and adjusts size and free accordingly.
+ * If there is no free space left, resize_buffer is called to expand the
+ * existing buffer*/
 void	add_to_buf(t_char_buf *buffer, char c)
 {
 	if (buffer->char_buf == NULL)
 		return ;
 	if (buffer->free == 0)
 	{
-		resize_buuffer(charbuf);
+		resize_buffer(buffer);
 		if (buffer->char_buf == NULL)
 			return ;
 	}
-	key->char_buf[key->size] = c;
-	key->size++;
-	key->free--;
+	buffer->char_buf[buffer->size] = c;
+	buffer->size++;
+	buffer->free--;
 }
 
-void	quote_modus(int *quotes, int quotechar)
+/*takes as a parameter a pointer to the quote mode (int quote_modus) and 
+ * the type of quotes found (either SINGLE_QUOTES or DOUBLE_QUOTES).
+ * If the quotes found are the same as the actual quote mode, it means that we
+ * have found the end of the quotation, so quote_modus is set to NO_QUOTES.
+ * If the actual modus is NO_QUOTES, it means that we have found the beginning
+ * of a quotation and *quote is set to the type of quotations found.
+ * single quotes are ignored when we are in double quote modus and vice versa
+ * returns 1 if quote_modus is changed, otherwise returns 0*/
+int	change_quote_modus(int *in_quotes, int quote_found)
 {
-	if (*quotes == NO_QUOTES)
-		*quotes = quotechar;
-	else if (*quotes == quotechar)
-		*quotes = NO_QUOTES;
-}
-
-void	copy_to_buf(t_char_buf *buffer, char *value)
-{
-	int	i;
-
-	while (value[i])
+	if (*in_quotes == NO_QUOTES)
 	{
-		add_to_buf(buffer, value[i]);
-		if (buffer->char_buf == NULL)
-			return ;
-		i++;
+		*in_quotes = quote_found;
+		return (1);
 	}
+	if (*in_quotes == quote_found)
+	{
+		*in_quotes = NO_QUOTES;
+		return (1);
+	}
+	return (0);
 }
 
-void	add_value_to_buf(t_char_buf *buffer, char *key, int len, t_env *env)
+/*copies string to buffer*/
+void	add_value_to_buf(t_char_buf *buffer, char *s)
 {
 	int	i;
 
 	i = 0;
-	while (i < env_size)
+	while (s[i])
 	{
-		if (ft_strncmp(env->arr_pairs[i]->key, key, end_of_key - key) == 0)
-		{
-			cpy_to_buf(buffer, env->arr_pairs[i]->value);
-			break ;
-		}
+		add_to_buf(buffer, s[i]);
+		if (buffer->char_buf == NULL)
+			return ;
 		i++;
 	}
 }
 
+/*saves the char at end_of_key in temp and sets end_of_key to nul, so that key is a nul 
+ * terminated string. Iterates through environment to search for matching key, using strcmp.
+ * If found, returns a value to the corresponding value. If not found, returns NULL. Sets
+ * the char at end_of_key back to its original char before returning*/
+char	*find_key_value_pair(t_char_buf *buffer, char *key, char *end_of_key, t_env *env)
+{
+	int	i;
+	char	temp;
+	char	*value;
 
-void	expand_substr(char **ptr, t_char_buffer *buffer, t_env *env)
+	i = 0;
+	temp = *end_of_key;
+	*end_of_key = '\0';
+	while (i < env->size)
+	{
+		if (ft_strcmp(env->arr_pairs[i].key, key) == 0)
+		{
+			*end_of_key = temp;
+			return (env->arr_pairs[i].value);
+		}
+		i++;
+	}
+	*end_of_key = temp;
+	return (NULL);
+}
+
+/*sets pointer to beginning of key. Searches for end of key and sets end_of_key
+ * pointer to first character after end of key. calls find_key_value_pair to check
+ * if key exists and receives a pointer to value back (or NULL if key is not found)
+ * calls add_value_to_buf to copy the value string to the buffer. Sets *ptr to
+ * end_of_key*/
+void	expand_substr(char **ptr, t_char_buf *buffer, t_env *env)
 {
 	char	*key;
-	char	*end_oof_key;
-	int		keylen;
+	char	*end_of_key;
+	char	*value;
 
-	key = *ptr;
+	key = *ptr + 1;
 	end_of_key = *ptr + 1;
 	while (*end_of_key)
 	{
-		if (ft_strchr(ENDOFKEY, *end_of_key);
+		if (ft_strchr(ENDOFVAR, *end_of_key))
 			break ;
 		end_of_key++;
 	}
-	keylen = end_of_key - key;
-	if (len == 1)
-	{
-		add_to_buffer(buffer, '$');
-		return ;
-	}
-	add_value_to_buf(buffer, key, keylen, env);
+	value = find_key_value_pair(buffer, key, end_of_key, env);
+	if (value != NULL)
+		add_value_to_buf(buffer, value);
 	*ptr = end_of_key;
 }
 
@@ -123,7 +189,7 @@ void	expand_substr(char **ptr, t_char_buffer *buffer, t_env *env)
  * Based on this, returns true if the expression following $ should indeed be expanded. 
  * If not, copies  $ to buffer (if needed, depending on quote mode) and moves ptr to next 
  * character */ 
-bool	should_be_expanded(char **ptr, t_char_buffer *buffer, t_env *env, int quotes)
+bool	should_be_expanded(char **ptr, t_char_buf *buffer, t_env *env, int quotes_mode)
 {
 	char	*loc;
 	char	next_char;
@@ -132,7 +198,7 @@ bool	should_be_expanded(char **ptr, t_char_buffer *buffer, t_env *env, int quote
 	next_char = *(loc + 1);
 	if (next_char == '\'' || next_char == '\"')
 	{
-		if (quotes == DOUBLE_QUOTES)
+		if (quotes_mode == DOUBLE_QUOTES)
 			add_to_buf(buffer, *loc);
 		loc++;
 		*ptr = loc;
@@ -153,25 +219,26 @@ bool	should_be_expanded(char **ptr, t_char_buffer *buffer, t_env *env, int quote
 /*copies string into the buffer. Whenever a dollar sign is found and the quote modus is
  * not SINGLE_QUOTES (in single quote modus, dolllar signs are never expanded and left as
  * they are), expand_substr is called. */ 
-void	copy_and_expand(char *s, t_char_buf *buffer, t_env *env, int *quotes)
+void	copy_and_expand(char *s, t_char_buf *buffer, t_env *env)
 {
 	char *ptr;
+	int	in_quotes;
 
-	quotes = NO_QUOTES
+	in_quotes = NO_QUOTES;
 	ptr = s;
 	while (*ptr)
 	{
-		if (*ptr == '$' && *quotes != SINGLE_QUOTES)
+		if (*ptr == '$' && in_quotes != SINGLE_QUOTES)
 		{
-			if (should_be_expanded(&ptr, buffer, env, quotes)
-				expand_substr(&ptr, buffer, env, quotes);
-			expand_substr(&ptr, buffer, env, quotes);
+			if (should_be_expanded(&ptr, buffer, env, in_quotes))
+				expand_substr(&ptr, buffer, env);
+		}
 		else
 		{	
 			if (*ptr == '\'')
-				quote_modus(quotes, SINGLE_QUOTES);
+				change_quote_modus(&in_quotes, SINGLE_QUOTES);
 			else if (*ptr == '\"')
-				quote_modus(quotes, DOUBLE_QUOTES);
+				change_quote_modus(&in_quotes, DOUBLE_QUOTES);
 			add_to_buf(buffer, *ptr);
 			ptr++;
 		}
@@ -196,7 +263,7 @@ void	join_strings(t_char_buf *buffer)
 	src_ptr = buffer->char_buf;
 	while (*src_ptr)
 	{
-		src++;
+		src_ptr++;
 		i++;
 	}
 	dst_ptr = src_ptr;
@@ -225,46 +292,54 @@ void	join_strings(t_char_buf *buffer)
  * join_substrings is called to join all these strings into one big nul terminated string*/
 void	remove_quotes(t_char_buf *buffer)
 {
-	int		quotes;
+	int		in_quotes;
 	char	*ptr;
 	
 	ptr = buffer->char_buf;
-	quotes = NO_QUOTES;
+	in_quotes = NO_QUOTES;
 	while (*ptr)
 	{
-		if (*ptr == '\'' && quotes == NO_QUOTES)
+		if (in_quotes == NO_QUOTES)
+			printf("NO_QUOTES modus, *ptr = %c\n", *ptr);
+		if (in_quotes == SINGLE_QUOTES)
+			printf("SINGLE_QUOTES modus, *ptr = %c\n", *ptr);
+		if (in_quotes == DOUBLE_QUOTES)
+			printf("DOUBLE_QUOTES modus, *ptr = %c\n", *ptr);
+		if (*ptr == '\'')
 		{
-			quotes = SINGLE_QUOTES;
-			*ptr == '\0';
+			if (change_quote_modus(&in_quotes, SINGLE_QUOTES))
+				*ptr = '\0';
 		}
-		else if (*ptr == '\"' && quotes == NO_QUOTES)
+		else if (*ptr == '\"')
 		{
-			quotes = DOUBLE_QUOTES;
-			*ptr == '\0';
+			if (change_quote_modus(&in_quotes, DOUBLE_QUOTES))
+				*ptr = '\0';
 		}
+		ptr++;
 	}
 	join_strings(buffer);
 }
 
-/*copies string into a char buffer, expands substrings if there is a dollar sign
+/* initializes char buffer struct
+ * copies string into a char buffer, expands substrings if there is a dollar sign
  * removes quotes from char buffer
  * duplicates the resultin null terminated buffer and returns this duplicates*/
-char	*expand_and_remove_quotes(char *s, int *quotes, t_env *env)
+char	*expand_and_remove_quotes(char *s, t_env *env)
 {
 	t_char_buf	buffer;
 	char		*ret;
 
-	init_char_buffer(&buffer);
-	if (buffer->char_buf == NULL)
+	init_char_buf(&buffer);
+	if (buffer.char_buf == NULL)
 		return (NULL);
-	copy_and_expand(s, &buffer, env, &quotes);
-	if (buffer->char_buf == NULL)
+	copy_and_expand(s, &buffer, env);
+	if (buffer.char_buf == NULL)
 		return (NULL);
-	remove_quotes(buffer);
-	if (buffer->char_buf == NULL)
+	remove_quotes(&buffer);
+	if (buffer.char_buf == NULL)
 		return (NULL);
-	ret = ft_strdup(buffer->char_buf);
-	free(buffer->char_buf);
+	ret = ft_strdup(buffer.char_buf);
+	free(buffer.char_buf);
 	return (ret);
 }
 
@@ -272,7 +347,6 @@ char	*expand_and_remove_quotes(char *s, int *quotes, t_env *env)
 char	**expander(char **argv, t_env *env)
 {
 	char 		**argv_dup;
-	int			quotes
 	int			i;
 	
 	i = 0;
@@ -289,7 +363,7 @@ char	**expander(char **argv, t_env *env)
 		{
 			free_argv_dup(&argv_dup);
 			printf("System error\n");
-			return (NULL):
+			return (NULL);
 		}
 		i++;
 	}
@@ -297,23 +371,40 @@ char	**expander(char **argv, t_env *env)
 }
 
 /*this function we can use before parsing, just to check if there are unclosed quotes*/
-int		unclosed_quotes(char *line)
+int	unclosed_quotes(char *line)
 {
 	char	*ptr;
-	int		quotes;
+	int	in_quotes;
 
 	ptr = line;
-	quotes = NO_QUOTES;
+	in_quotes = NO_QUOTES;
 	while (*ptr)
 	{
 		if (*ptr == '\'')			
-			status_quotes(&quotes, SINGLE_QUOTES);
+			change_quote_modus(&in_quotes, SINGLE_QUOTES);
 		else if (*ptr == '\"');
-			status_quotes(&quotes, DOUBLE_QUOTES);
+			change_quote_modus(&in_quotes, DOUBLE_QUOTES);
 		ptr++;
 	}
-	if (quotes != NO_QUOTES)
+	if (in_quotes != NO_QUOTES)
 		return (1);
 	return (0);
 }
 
+int	main(int argc, char **argv, char **envp)
+{
+	t_env	env;
+	char	**argv_expanded;
+
+	init_env(&env, envp);
+	argv_expanded = expander(argv, &env);
+	int i = 0;
+	while (argv_expanded[i])
+	{
+		printf("%s\n", argv_expanded[i]);
+		free(argv_expanded[i]);
+		i++;
+	}
+	free(argv_expanded);
+	clear_env_data;
+}
