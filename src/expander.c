@@ -301,12 +301,12 @@ void	remove_quotes(t_char_buf *buffer)
 	in_quotes = NO_QUOTES;
 	while (*ptr)
 	{
-		if (in_quotes == NO_QUOTES)
-			printf("NO_QUOTES modus, *ptr = %c\n", *ptr);
-		if (in_quotes == SINGLE_QUOTES)
-			printf("SINGLE_QUOTES modus, *ptr = %c\n", *ptr);
-		if (in_quotes == DOUBLE_QUOTES)
-			printf("DOUBLE_QUOTES modus, *ptr = %c\n", *ptr);
+		//if (in_quotes == NO_QUOTES)
+//			printf("NO_QUOTES modus, *ptr = %c\n", *ptr);
+//		if (in_quotes == SINGLE_QUOTES)
+//			printf("SINGLE_QUOTES modus, *ptr = %c\n", *ptr);
+//		if (in_quotes == DOUBLE_QUOTES)
+//			printf("DOUBLE_QUOTES modus, *ptr = %c\n", *ptr);
 		if (*ptr == '\'')
 		{
 			if (change_quote_modus(&in_quotes, SINGLE_QUOTES))

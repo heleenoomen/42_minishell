@@ -21,9 +21,10 @@
 # include<stdbool.h>
 # include<readline/readline.h>
 # include<readline/history.h>
-# include"libft.h"
 # include<errno.h>
 # include"environment.h"
+# include"expander.h"
+# include"libft.h"
 
 /*panic.c*/
 void	panic(char *message, t_env *env);

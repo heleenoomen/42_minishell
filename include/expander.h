@@ -24,7 +24,7 @@ typedef struct s_char_buf
 # define SINGLE_QUOTES 1
 # define DOUBLE_QUOTES 2
 
-void	free_argv_dup(char **argv_dup);
+void	free_argv_dup(char ***argv_dup);
 
 # define ENDOFVAR "\'\" $"
 
@@ -36,4 +36,11 @@ void	free_argv_dup(char **argv_dup);
  */
 void		init_char_buf(t_char_buf *charbuf);
 
+/*frees an array of char pointers and sets the pointer to the
+ * array to NULL*/
+void		free_argv_dup(char ***argv_dup);
+
+/*expands dollar signs and removes quotes. Returns the cleaned up
+ * argv as a malloced element*/
+char		**expander(char **argv, t_env *env);
 #endif

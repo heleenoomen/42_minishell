@@ -37,12 +37,12 @@ void	sighandler(int sig)
 
 void	parse(char *buf, t_env *env)
 {
-	char	*new;
-	char	*dup;
+	char	**new;
+	char	**dup;
 	
-	new = ft_split(buf);
+	new = ft_split(buf, ' ');
 	dup = expander(new, env);
-	free_argv_dup(new);
+	free_argv_dup(&new);
 	int i = 0;
 	while (dup[i])
 	{
