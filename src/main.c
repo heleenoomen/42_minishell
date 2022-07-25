@@ -13,6 +13,9 @@
 #include"minishell.h"
 #include "termios.h"
 
+/*signal handler. Removal of ^C and ^\ was first done with writing backspace, 
+ * but is now handled by termios structur (part of termios.h library) and the 
+ * termios functions below*/
 void	sighandler(int sig)
 {
 	if (sig == SIGQUIT)
@@ -36,6 +39,8 @@ void	sighandler(int sig)
 	}
 }
 
+/* for now, this "parser" only shows us if the expansion of dollar signs and
+ * removal of single and double quotes work correctly*/
 void	parse(char *buf, t_env *env)
 {
 	char	**new;
@@ -54,6 +59,8 @@ void	parse(char *buf, t_env *env)
 	free(dup);	
 }
 
+/*unsetting ECHOCTL flag in termios struct so that ctrl-C and ctrl-D etc.
+ * don't get printed*/
 void	cancel_echoctl(void)
 {
 	struct termios settings;
@@ -63,6 +70,9 @@ void	cancel_echoctl(void)
 	tcsetattr(1, TCSAFLUSH, &settings);
 }
 
+/*at the end of the program, we reset the echoctl function. In our final minishell, we
+ * should make the termios settings part of our minishell-struct (t_minishell, where we include
+ * the t_env struct)*/
 void	reset_echoctl(void)
 {
 	struct termios settings;
@@ -72,6 +82,9 @@ void	reset_echoctl(void)
 	tcsetattr(1, TCSAFLUSH, &settings);
 }
 
+/* this is still very much simplified, but we can now see that signals are handled correctly,
+ * prompt and history are working correctly, expanding and removal of quotes works correctly
+ * if we run this simplified minishell */
 int	main(int argc, char **argv, char **envp)
 {
 	char		*buf;
