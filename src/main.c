@@ -11,23 +11,23 @@
 /* ************************************************************************** */
 
 #include"minishell.h"
-#include "termcap.h"
+#include "termios.h"
 
 void	sighandler(int sig)
 {
 	if (sig == SIGQUIT)
 	{
-		write(1, "\b\b", 2);
-		write(1, "  ", 2);
-		write(1, "\b\b", 2);
+		//write(1, "\b\b", 2);
+		//write(1, "  ", 2);
+		//write(1, "\b\b", 2);
 		rl_replace_line("", 0);
 		return ;
 	}
 	if (sig == SIGINT)
 	{
-		write(1, "\b\b", 2);
-		write(1, "  ", 2);
-		write(1, "\b\b", 2);
+		//write(1, "\b\b", 2);
+		//write(1, "  ", 2);
+		//write(1, "\b\b", 2);
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -54,6 +54,23 @@ void	parse(char *buf, t_env *env)
 	free(dup);	
 }
 
+void	cancel_echoctl(void)
+{
+	struct termios settings;
+
+	tcgetattr(1, &settings);
+	settings.c_lflag &= ~ECHOCTL;
+	tcsetattr(1, TCSAFLUSH, &settings);
+}
+
+void	reset_echoctl(void)
+{
+	struct termios settings;
+
+	tcgetattr(1, &settings);
+	settings.c_lflag |= ECHOCTL;
+	tcsetattr(1, TCSAFLUSH, &settings);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -64,6 +81,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	init_env(&env, envp);
+	cancel_echoctl();
 	if(signal(SIGINT, sighandler) == SIG_ERR)
 		exit(EXIT_FAILURE);
 	if(signal(SIGQUIT, sighandler) == SIG_ERR)
@@ -82,5 +100,6 @@ int	main(int argc, char **argv, char **envp)
 	clear_history();
 	clear_env_data(&env);
 	write(1, "exit\n", 5);
+	reset_echoctl();
 	return (1);
 }
