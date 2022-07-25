@@ -18,23 +18,26 @@ void	echo(int argc, char **argv)
 
 	if (argc == 1)
 		return ;
-	else if (argv[1][0] == '-' && argv[1][1] == 'n')
+	else if (argv[1][0] == '-' && argv[1][1] == 'n' && argv[1][2] == '\0')
 	{
 		i = 2;
 		while (argv[i + 1] != NULL)	
 		{
-			printf("%s\n", argv[i]);
-			printf(" ");
+			write(1, argv + i, ft_strlen(argv[i]);
+			write(1, " ", 1);
 			i++;
 		}
+		write(1, argv + i, ft_strlen(argv[i]);
 		return ;
 	}
 	i = 1;
 	while (argv[i + 1] != NULL)
 	{
-		printf("%s\n", argv[i];	
-		printf(" ");
+		write(1, argv + i, ft_strlen(argv[i]);	
+		write(" ");
 		i++;
 	}
+	write(1, argv + i, ft_strlen(argv[i]);
+	write(1, "\n", 1);
 }
 
