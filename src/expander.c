@@ -99,12 +99,12 @@ void	add_to_buf(t_char_buf *buffer, char c)
 	buffer->free--;
 }
 
-/*takes as a parameter a pointer to the quote mode (int quote_modus) and 
+/*takes as a parameter a pointer to the quote mode (int in_quotes) and 
  * the type of quotes found (either SINGLE_QUOTES or DOUBLE_QUOTES).
  * If the quotes found are the same as the actual quote mode, it means that we
- * have found the end of the quotation, so quote_modus is set to NO_QUOTES.
+ * have found the end of the quotation, so in_quotes is set to NO_QUOTES.
  * If the actual modus is NO_QUOTES, it means that we have found the beginning
- * of a quotation and *quote is set to the type of quotations found.
+ * of a quotation and *in_quotes is set to the type of quotations found.
  * single quotes are ignored when we are in double quote modus and vice versa
  * returns 1 if quote_modus is changed, otherwise returns 0*/
 int	change_quote_modus(int *in_quotes, int quote_found)
@@ -122,7 +122,7 @@ int	change_quote_modus(int *in_quotes, int quote_found)
 	return (0);
 }
 
-/*copies string to buffer*/
+/*copies a string to the char buffer*/
 void	add_value_to_buf(t_char_buf *buffer, char *s)
 {
 	int	i;
@@ -139,7 +139,7 @@ void	add_value_to_buf(t_char_buf *buffer, char *s)
 
 /*saves the char at end_of_key in temp and sets end_of_key to nul, so that key is a nul 
  * terminated string. Iterates through environment to search for matching key, using strcmp.
- * If found, returns a value to the corresponding value. If not found, returns NULL. Sets
+ * If found, returns a pointer to the corresponding value. If not found, returns NULL. Sets
  * the char at end_of_key back to its original char before returning*/
 char	*find_key_value_pair(char *key, char *end_of_key, t_env *env)
 {
@@ -163,7 +163,7 @@ char	*find_key_value_pair(char *key, char *end_of_key, t_env *env)
 }
 
 /*sets pointer to beginning of key. Searches for end of key and sets end_of_key
- * pointer to first character after end of key. calls find_key_value_pair to check
+ * pointer accordingly. Calls find_key_value_pair to check
  * if key exists and receives a pointer to value back (or NULL if key is not found)
  * calls add_value_to_buf to copy the value string to the buffer. Sets *ptr to
  * end_of_key*/
@@ -290,7 +290,7 @@ void	join_strings(t_char_buf *buffer)
 	
 /*goes through the buffer after expansion happened, checks for quotes that should
  * be removed and replaces these quotes with nul bytes.
- * the result is a buffer of null terminated strings
+ * the result is a buffer of nul terminated strings
  * join_substrings is called to join all these strings into one big nul terminated string*/
 void	remove_quotes(t_char_buf *buffer)
 {
@@ -301,12 +301,6 @@ void	remove_quotes(t_char_buf *buffer)
 	in_quotes = NO_QUOTES;
 	while (*ptr)
 	{
-		//if (in_quotes == NO_QUOTES)
-//			printf("NO_QUOTES modus, *ptr = %c\n", *ptr);
-//		if (in_quotes == SINGLE_QUOTES)
-//			printf("SINGLE_QUOTES modus, *ptr = %c\n", *ptr);
-//		if (in_quotes == DOUBLE_QUOTES)
-//			printf("DOUBLE_QUOTES modus, *ptr = %c\n", *ptr);
 		if (*ptr == '\'')
 		{
 			if (change_quote_modus(&in_quotes, SINGLE_QUOTES))
