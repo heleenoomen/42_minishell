@@ -11,24 +11,33 @@
 /* ************************************************************************** */
 
 #include"minishell.h"
-#include "termcap.h"
+#include "termios.h"
 
 void	sighandler(int sig)
 {
+	struct termios	old_settings;
+	struct termios	new_settings;
+
+	tcgetattr(1, &old_settings);
+	new_settings = old_settings; 
+
+	new_settings.c_lflag &= ~(ICANON | ECHO);
+	tcsetattr(1, TCSANOW, &newsettings);
+
 	if (sig == SIGQUIT)
 	{
-		write(1, "\b\b", 2);
-		write(1, "  ", 2);
-		write(1, "\b\b", 2);
+//		printf("\033[2K");
+//		printf("\033[0E");
 		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
 		return ;
 	}
 	if (sig == SIGINT)
 	{
-		write(1, "\b\b", 2);
-		write(1, "  ", 2);
-		write(1, "\b\b", 2);
-		write(1, "\n", 1);
+//		printf("\033[13C");
+//		printf("\033[2P");
+		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -53,7 +62,6 @@ void	parse(char *buf, t_env *env)
 	}
 	free(dup);	
 }
-
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -81,6 +89,8 @@ int	main(int argc, char **argv, char **envp)
 	}
 	clear_history();
 	clear_env_data(&env);
-	write(1, "exit\n", 5);
+	printf("\033[2K");
+	printf("\033[0F");
+	printf("Minishell>>> exit\n");
 	return (1);
 }
