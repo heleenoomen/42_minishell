@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 // Never returns
-void	runcmd(struct cmd *cmd)
+void	runcmd(struct cmd *cmd, t_env *env)
 {
 	int	p[2];
 	//int	real_stdout;
@@ -26,7 +26,7 @@ void	runcmd(struct cmd *cmd)
 			ecmd = (struct execcmd*)cmd;
 			if (ecmd->argv[0] == 0)
 				exit(1);
-			execvp(ecmd->argv[0], ecmd->argv);
+			execvpe(ecmd->argv[0], ecmd->argv, env->envp);
 			dprintf(2, "exec %s failed\n", ecmd->argv[0]);
 			break;
 
@@ -38,13 +38,13 @@ void	runcmd(struct cmd *cmd)
 				dprintf(2, "open %s failed\n", rcmd->file);
 				exit(1);
 			}
-			runcmd(rcmd->cmd);
+			runcmd(rcmd->cmd, env);
 			break;
 
 		case LIST:
 			lcmd = (struct listcmd*)cmd;
 			if (fork1() == 0)
-				runcmd(lcmd->left);
+				runcmd(lcmd->left, env);
 			wait(0);
 			runcmd(lcmd->right);
 			break;
