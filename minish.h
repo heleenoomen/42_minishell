@@ -3,7 +3,7 @@
 
 enum e_type{
 	EXEC,
-	REDER,	
+	REDIR,	
 	PIPE,
 	LIST,
 	BLOCK,
