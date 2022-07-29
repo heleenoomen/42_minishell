@@ -7,6 +7,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 	//int	real_stdout;
 	char	*line;
 	int	len;
+	char	**argv_expanded;
 	struct backcmd	*bcmd;
 	struct execcmd	*ecmd;
 	struct listcmd	*lcmd;
@@ -26,7 +27,9 @@ void	runcmd(struct cmd *cmd, t_env *env)
 			ecmd = (struct execcmd*)cmd;
 			if (ecmd->argv[0] == 0)
 				exit(1);
-			execvpe(ecmd->argv[0], ecmd->argv, env->envp);
+			argv_expanded = expander(ecmd->argv, env);
+			execvpe(argv_expanded[0], argv_expanded, env->envp);
+			//execvpe(ecmd->argv[0], ecmd->argv, env->envp);
 			dprintf(2, "exec %s failed\n", ecmd->argv[0]);
 			break;
 
@@ -46,7 +49,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 			if (fork1() == 0)
 				runcmd(lcmd->left, env);
 			wait(0);
-			runcmd(lcmd->right);
+			runcmd(lcmd->right, env);
 			break;
 
 		case PIPE:
@@ -60,7 +63,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 				dup(p[1]);
 				close(p[0]);
 				close(p[1]);
-				runcmd(pcmd->left);
+				runcmd(pcmd->left, env);
 			}
 			if (fork1() == 0)
 			{
@@ -69,7 +72,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 				dup(p[0]);
 				close(p[0]);
 				close(p[1]);
-				runcmd(pcmd->right);
+				runcmd(pcmd->right, env);
 			}
 			close(p[0]);
 			close(p[1]);
@@ -102,8 +105,10 @@ void	runcmd(struct cmd *cmd, t_env *env)
 					//else 
 					//	dprintf(2, "strcmp(line, hcdm->limt) = %d\n", strcmp(line, hcmd->limit));
 					write(p[1], line, strlen(line));
+					write(p[1], "\n", 1);
 					free(line);
 				}
+				close(p[1]);
 				exit(0);
 			}
 			close(p[1]);
@@ -113,7 +118,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 				close(0);
 				dup(p[0]);
 				close(p[0]);
-				runcmd(hcmd->cmd);
+				runcmd(hcmd->cmd, env);
 			}
 			close(p[0]);
 			wait (0);
@@ -121,7 +126,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 		case BACK:
 			bcmd = (struct backcmd*)cmd;
 			if ((fork1()) == 0)
-				runcmd(bcmd->cmd);
+				runcmd(bcmd->cmd, env);
 			break;
 		default:
 			panic("runcmd");

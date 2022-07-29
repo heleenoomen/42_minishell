@@ -10,17 +10,17 @@
 #                                                                              #
 # **************************************************************************** #
 
-VPATH	=	src
+VPATH	=	src gnl
 INCFL	=	-I libft -I include -I gnl
 
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 
 NAME	=	minishell
-SRC		=	main.c env.c expander.c panic.c\
+SRC		=	main.c env.c expander.c panic_builtins.c\
 			constructors.c runcmd.c parsecmd.c\
-			gettoken.c get_next_line.c\
-			get_next_line_utils.c
+			gettoken.c fork1_panic.c get_next_line.c\
+			get_next_line_utils.c 
 LIBS	=	libft/libft.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))
 

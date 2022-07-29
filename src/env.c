@@ -114,7 +114,10 @@ void	init_env_struct(t_env *env)
 	ft_memset(env, 0, sizeof(t_env));
 	env->arr_pairs = construct_pairs();
 	if (env->arr_pairs == NULL)
-		panic("System error", env);
+		panic_builtins("System error", env);
+	env->envp = ft_calloc(256, sizeof(char *));
+	if (env->envp == NULL)
+		panic_builtins("System error", env);
 	env->size = 0;
 	env->free = 256;
 }
@@ -132,7 +135,6 @@ char	*make_key_and_value(char *s, char **value)
 	return (s);
 }
 
-/*initialization of minishell only*/
 void	init_env(t_env *env, char **envp)
 {
 	int			i;
@@ -146,13 +148,12 @@ void	init_env(t_env *env, char **envp)
 		new.key = ft_strdup(make_key_and_value(envp[i], &value));
 		new.value = ft_strdup(value);
 		if (new.key == NULL || new.value == NULL)
-			panic("System error", env);
+			panic_builtins("System error", env);
 		new.export_flag = 1;
-		if (add_pair(env, new) == 1)
-			panic("System error", env);
+		add_pair(env, new, envp[i]);
 		i++;
 		if (i == INT_MAX)
-			panic("System error", env);
+			panic_builtins("System error", env);
 	}
 }
 

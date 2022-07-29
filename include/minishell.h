@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define _GNU_SOURCE
 # include<stdlib.h>
 # include<unistd.h>
 # include<stdio.h>
@@ -34,5 +35,9 @@
 
 /*panic.c*/
 void	panic_builtins(char *message, t_env *env);
+
+/*fork1_panic.c*/
+int	fork1(void);
+void	panic(char *s);
 
 #endif

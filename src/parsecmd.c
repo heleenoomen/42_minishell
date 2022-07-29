@@ -37,7 +37,7 @@ struct cmd	*parseexec(char **ps, char *es)
 	cmd->argc = argc;
 	cmd->argv[argc] = 0;
 	cmd->eargv[argc] = 0;
-	dprintf(2, "%d\n", cmd->type);
+	//dprintf(2, "%d\n", cmd->type);
 	return ret;
 }
 
@@ -85,13 +85,13 @@ struct cmd	*parsepipe(char **ps, char *es)
 		gettoken(ps, es, 0, 0);
 		cmd = pipecmd(cmd, parsepipe(ps, es));
 	}
-	dprintf(2, "type at end of parsepipe: %d\n", cmd->type);
-	if (cmd->type == PIPE)
-	{
-		struct pipecmd *pcmd = (struct pipecmd *)cmd;
-		dprintf(2, "type left branch: %d\n", pcmd->left->type);
-		dprintf(2, "type right branch: %d\n", pcmd->right->type);
-	}
+//	dprintf(2, "type at end of parsepipe: %d\n", cmd->type);
+//	if (cmd->type == PIPE)
+//	{
+//		struct pipecmd *pcmd = (struct pipecmd *)cmd;
+//		dprintf(2, "type left branch: %d\n", pcmd->left->type);
+//		dprintf(2, "type right branch: %d\n", pcmd->right->type);
+//	}
 	return cmd;
 }
 
@@ -110,7 +110,7 @@ struct cmd	*parseline(char **ps, char *es)
 		gettoken(ps, es, 0, 0);
 		cmd = listcmd(cmd, parseline(ps, es));
 	}
-	dprintf(2, "parseline, cmd->type = %d\n", cmd->type);
+	//dprintf(2, "parseline, cmd->type = %d\n", cmd->type);
 	return cmd;
 }
 
@@ -136,16 +136,16 @@ struct cmd	*parsecmd(char *s)
 
 	es = s + strlen(s);
 	cmd = parseline(&s, es);
-	dprintf(2, "parsecmd, cmd->type = %d\n", cmd->type);
+//	dprintf(2, "parsecmd, cmd->type = %d\n", cmd->type);
 	peek(&s, es, ""); // by "" he possibly means \0 char, (14.12) in "Shell Code -- More Detail"//
 	if (s != es)
 	{
 		dprintf(2, "leftovers: %s\n", s);
 		panic("syntax error");
 	}
-	dprintf(2, "parsecmd before nulterminate, cmd->type = %d\n", cmd->type);
+//	dprintf(2, "parsecmd before nulterminate, cmd->type = %d\n", cmd->type);
 	nulterminate(cmd);
-	dprintf(2, "parsecmd after nulterminate, cmd->type = %d\n", cmd->type);
+//	dprintf(2, "parsecmd after nulterminate, cmd->type = %d\n", cmd->type);
 	return cmd;
 }
 

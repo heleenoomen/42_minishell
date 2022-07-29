@@ -48,7 +48,7 @@ t_env_pair	*construct_pairs(void);
 int	resize_arr_pairs(t_env *env);
 
 /*add new key-value pair to env struct array of pairs*/
-void	add_pair(t_env *env, t_env_pair new_pair);
+void	add_pair(t_env *env, t_env_pair new_pair, char *s);
 
 /*make new key and value pair from input or envp string*/
 char	*make_key_and_value(char *s, char **value);

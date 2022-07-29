@@ -91,8 +91,14 @@ int	main(int argc, char **argv, char **envp)
 		buf = readline("Minishell>>> ");
 		if (buf  == NULL)
 			break ;
+		if (unclosed_quotes(buf))
+		{
+			dprintf(2, "Unclosed quotes\n");
+			rl_on_new_line();
+			continue ;
+		}
 		if (fork1() == 0)
-			runcmd(buf, &env);
+			runcmd(parsecmd(buf), &env);
 		add_history(buf);
 		free(buf);
 		buf = NULL;

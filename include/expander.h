@@ -43,4 +43,12 @@ void		free_argv_dup(char ***argv_dup);
 /*expands dollar signs and removes quotes. Returns the cleaned up
  * argv as a malloced element*/
 char		**expander(char **argv, t_env *env);
+
+/* checks for unclosed quotes. Returns 0 if all quotes are closed
+ * properly, returns 1 in case of unclosed quotes */
+int		unclosed_quotes(char *s);
+
+/* changes quote modus, passed by addres. The type of quotes found are paseed as an integer (SINGLE_QUOTES or DOUBLE_QUOTES)*/
+int		change_quote_modus(int *in_quotes, int quote_found);
+
 #endif

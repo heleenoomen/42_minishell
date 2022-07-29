@@ -1,5 +1,5 @@
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef CMDS_H
+# define CMDS_H
 
 # include <unistd.h>
 # include <stdio.h>
@@ -99,5 +99,5 @@ struct cmd		*parsecmd(char *s);
 void			nulterminate(struct cmd *cmd);
 
 /*runcmd.c*/
-void			runcmd(struct cmd *cmd);
+void			runcmd(struct cmd *cmd, t_env *env);
 #endif

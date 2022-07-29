@@ -1,37 +1,37 @@
 #include "minishell.h"
 
-int	main(void)
-{
-	static char	*buf;
-	int		fd;
-
+//int	main(void)
+//{
+//	static char	*buf;
+//	int		fd;
+//
 	//Ensure that three file descriptors are open.
-	while ((fd = open("console", O_RDWR)) >= 0) 
-	{
-		if (fd >= 3)
-		{
-			close (fd);
-			break;
-		}
-	}
+//	while ((fd = open("console", O_RDWR)) >= 0) 
+//	{
+//		if (fd >= 3)
+//		{
+//			close (fd);
+//			break;
+//		}
+//	}
 	//Read and run input commands.
-	while (1)//getcmd(buf, sizeof(buf)) >= 0)
-	{
-		buf = readline("Minishell>>> ");
-		if (buf == NULL)
-			break ;
-		else
-		{
-			if (fork1() == 0)
-				runcmd(parsecmd(buf));
-			wait(0);
-			add_history(buf);
-			free(buf);
-		}
-	}
-	clear_history();
-	return (0);
-}
+//	while (1)//getcmd(buf, sizeof(buf)) >= 0)
+//	{
+//		buf = readline("Minishell>>> ");
+//		if (buf == NULL)
+//			break ;
+//		else
+//		{
+//			if (fork1() == 0)
+//				runcmd(parsecmd(buf));
+//			wait(0);
+//			add_history(buf);
+//			free(buf);
+//		}
+//	}
+//	clear_history();
+//	return (0);
+//}
 
 
 //		if (buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' ')
