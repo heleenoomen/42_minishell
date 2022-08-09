@@ -21,7 +21,7 @@ struct cmd	*parseexec(char **ps, char *es)
 	while (!peek(ps, es, "|)&;"))
 	{
 		tok = gettoken(ps, es, &q, &eq);
-		//dprintf(2, "24, tk = %d\n", tok);
+		//dprintf(2, "24, tok = %d\n", tok);
 		if (tok == 0)
 			break ;
 		//dprintf(2, "26, tok = %d\n", tok);

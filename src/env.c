@@ -123,13 +123,14 @@ void	init_env_struct(t_env *env)
 }
 
 /*usage: initialization of minishell, builtins*/
-char	*make_key_and_value(char *s, char **value)
+char	*make_key_and_value(char *s, char **value, char **ptr_equalsign)
 {
 	char	*end_pointer;
 
 	end_pointer = s;
 	while (*end_pointer != '=')
 		end_pointer++;
+	*ptr_equalsign = end_pointer;
 	*end_pointer = '\0';
 	*value = end_pointer + 1;
 	return (s);
@@ -140,16 +141,18 @@ void	init_env(t_env *env, char **envp)
 	int			i;
 	t_env_pair	new;
 	char		*value;
+	char		*ptr_equalsign;
 
 	init_env_struct(env);
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		new.key = ft_strdup(make_key_and_value(envp[i], &value));
+		new.key = ft_strdup(make_key_and_value(envp[i], &value, &ptr_equalsign));
 		new.value = ft_strdup(value);
 		if (new.key == NULL || new.value == NULL)
 			panic_builtins("System error", env);
 		new.export_flag = 1;
+		*ptr_equalsign = '=';
 		add_pair(env, new, envp[i]);
 		i++;
 		if (i == INT_MAX)

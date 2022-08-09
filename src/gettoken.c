@@ -45,20 +45,12 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 {
 	char	*s;
 	int	ret;
+	int	quote_modus;
 
 	s = *ps;
+	quote_modus = NO_QUOTES;
 	while (s < es && strchr(whitespace, *s))
 		s++;
-	if (*s == '\'')
-	{
-		*ps = s;
-		return (gettoken_single_quotes(ps, es, q, eq));
-	}
-	if (*s == '\"')
-	{
-		*ps = s;
-		return (gettoken_double_quotes(ps, es, q, eq));
-	}
 	if (q)
 		*q = s;
 	ret = *s;
@@ -90,8 +82,16 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 			break ;
 		default:
 			ret = 'a';
-			while (s < es && !strchr(whitespace, *s) && !strchr(symbols, *s))
+			while (s < es && !strchr(symbols, *s))
+			{
+				if (*s == '\'')
+					change_quote_modus(&quote_modus, SINGLE_QUOTES);
+				else if (*s == '\"')
+					change_quote_modus(&quote_modus, DOUBLE_QUOTES);
+				else if (ft_strchr(whitespace, *s) && quote_modus == NO_QUOTES)
+					break ;
 				s++;
+			}	
 			break ;
 	}
 	//dprintf(2, "45, ret = %c\n", ret);
@@ -101,6 +101,8 @@ int	gettoken(char **ps, char *es, char **q, char **eq)
 		s++;
 	*ps = s;
 	//dprintf(2, "51, ret = %c\n", ret);
+	//if (q)
+		//dprintf(2, "gettoken, token is: %s\n", *q);
 	return (ret);
 }
 

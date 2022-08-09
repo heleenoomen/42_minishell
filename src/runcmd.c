@@ -28,6 +28,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 			if (ecmd->argv[0] == 0)
 				exit(1);
 			argv_expanded = expander(ecmd->argv, env);
+			//dprintf(2, "argv_expanded[0] = %s", argv_expanded[0]);
 			execvpe(argv_expanded[0], argv_expanded, env->envp);
 			//execvpe(ecmd->argv[0], ecmd->argv, env->envp);
 			dprintf(2, "exec %s failed\n", ecmd->argv[0]);

@@ -31,6 +31,7 @@ struct execcmd
 {
 	int	type;
 	int	argc;
+	int	quote_modus;
 	char	*argv[MAXARGS];
 	char	*eargv[MAXARGS];
 };
@@ -38,6 +39,7 @@ struct execcmd
 struct redircmd
 {
 	int		type;
+	int		quote_modus;
 	struct cmd	*cmd;
 	char		*file;
 	char		*efile;
@@ -68,6 +70,7 @@ struct backcmd
 struct herecmd
 {
 	int		type;
+	int		quote_modus;
 	char		*limit;
 	char		*elimit;
 	struct cmd	*cmd;

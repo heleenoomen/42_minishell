@@ -51,7 +51,7 @@ int	resize_arr_pairs(t_env *env);
 void	add_pair(t_env *env, t_env_pair new_pair, char *s);
 
 /*make new key and value pair from input or envp string*/
-char	*make_key_and_value(char *s, char **value);
+char	*make_key_and_value(char *s, char **value, char **ptr_equalsign);
 
 /*initialize environment at initialization of minishell*/
 void	init_env(t_env *env, char **envp);
