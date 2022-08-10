@@ -1,0 +1,10 @@
+a.out
+constructors.c
+gettoken.c
+gettoken2.c
+main.c
+minish.h
+minishell.h
+outfile
+parsecmd.c
+runcmd.c

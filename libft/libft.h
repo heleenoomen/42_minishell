@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:24:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/05 15:35:45 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/09 16:23:17 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ bool		ft_isspace(int c);
 int			ft_strncmp_uplo(const char *s1, const char *s2, size_t n);
 int			ft_strisfloat(char *s);
 double		ft_pow(double base, int power);
+int			ft_strcmp(const char *s1, const char *s2);
 
 #endif

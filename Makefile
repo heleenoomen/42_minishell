@@ -6,18 +6,21 @@
 #    By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/07/11 15:47:58 by hoomen           ###   ########.fr        #
+#    Updated: 2022/08/10 16:46:56 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-VPATH	=	src
+VPATH	=	src 
 INCFL	=	-I libft -I include
 
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 
 NAME	=	minishell
-SRC		=	main.c
+SRC		=	main.c env.c expander.c panic_builtins.c\
+			constructors.c runcmd.c parsecmd.c\
+			gettoken.c fork1_panic.c\
+			find_path.c echo.c
 LIBS	=	libft/libft.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))
 
