@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 14:19:38 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:55:28 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_env
 	int			size;
 	int			free;
 	char		**envp;
+	char		*cwd;
 }				t_env;
 
 

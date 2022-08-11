@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:44:42 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 15:08:55 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 16:28:27 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	clear_env_data(t_env *env)
 		i++;
 	}
 	free(env->arr_pairs);
+	free(env->cwd);
 }
 
 /*usage: initialization of minishell only*/
@@ -136,28 +137,38 @@ char	*make_key_and_value(char *s, char **value, char **ptr_equalsign)
 	return (s);
 }
 
-char	**make_minimal_envp(void)
+void	free_minimal_envp(char ***min_envp)
+{
+	free((*min_envp)[0]);
+	free((*min_envp)[1]);
+	free((*min_envp)[2]);
+	free(*min_envp);
+	*min_envp = NULL;
+}
+
+char	**make_minimal_envp(t_env *env)
 {
 	char	**envp;
-	char	*cwd;
 
 	envp = ft_calloc(4, sizeof(char *));
 	if (envp == NULL)
 		panic_builtins("System error", NULL);
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-		panic_builtins("System error", NULL);
-	envp[0] = ft_strjoin("PWD=", cwd);
+	envp[0] = ft_strjoin("PWD=", env->cwd);
 	envp[1] = ft_strdup("SHLVL=1");
 	if (envp[0] == NULL || envp[1] == NULL)
 	{
-		free(envp[0]);
-		free(envp[1]);
-		free(envp);
+		free_minimal_envp(&envp);
 		panic_builtins("System error", NULL);
 	}
-	envp[2] = envp[0];
+	envp[2] = ft_strjoin("_=", env->cwd);
 	return (envp);
+}
+
+void	set_cwd(t_env *env)
+{
+	env->cwd = getcwd(NULL, 0);
+	if (env->cwd == NULL)
+		panic_builtins("System error", NULL);
 }
 
 void	init_env(t_env *env, char **envp)
@@ -169,10 +180,11 @@ void	init_env(t_env *env, char **envp)
 	bool		minimal;
 
 	init_env_struct(env);
+	set_cwd(env);
 	i = 0;
 	if (envp[i] == NULL)
 	{
-		envp = make_minimal_envp();//("No environment", NULL);
+		envp = make_minimal_envp(env);//("No environment", NULL);
 		minimal = 1;
 	}
 	else
@@ -191,11 +203,7 @@ void	init_env(t_env *env, char **envp)
 			panic_builtins("System error", env);
 	}
 	if (minimal)
-	{
-		free(envp[0]);
-		free(envp[1]);
-		free(envp);
-	}
+		free_minimal_envp(&envp);
 }
 
 //int	main(int argc, char **argv, char **envp)

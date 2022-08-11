@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 11:33:39 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 14:22:43 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:40:30 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,14 @@ int	update_envp(t_env *env, char *key, char *new_value)
 		ms_exit_status = ENOMEM;
 		return (NO_MEM);
 	}
+	dprintf(2, "comp = %s\n", comp);
 	comp_len = ft_strlen(comp);
 	i = 0;
 	while (env->envp[i] != NULL)
 	{
 		if (ft_strncmp(env->envp[i], comp, comp_len) == 0)
 		{
+			dprintf(2, "PWD variable found\n");
 			new_entry = ft_strjoin(comp, new_value);
 			if (new_entry == NULL)
 			{
@@ -86,6 +88,7 @@ int	update_envp(t_env *env, char *key, char *new_value)
 			}
 			free(env->envp[i]);
 			env->envp[i] = new_entry;
+			break ;
 		}
 		i++;
 	}
@@ -106,10 +109,16 @@ int	update_env(t_env *env, char *key, char *new_value)
 {
 	int	ret;
 
+	dprintf(2, "in update_env\n");
 	ret = update_arr_pairs(env, key, new_value);
 	if (ret)
+	{
+		dprintf(2, "update_arr_pairs failed\n");
 		return (ret);
+	}
 	ret = update_envp(env, key, new_value);
+	if (ret)
+		dprintf(2, "update_envp failed\n");
 	return (ret);
 }
 

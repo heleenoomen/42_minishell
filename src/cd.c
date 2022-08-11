@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 17:37:38 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 14:19:04 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:54:55 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,20 @@ void		go_home(t_env *env)
 	int		i;
 
 	i = 0;
+	dprintf(2, "in go_home\n");
 	while (i < env->size)
 	{
 		if (ft_strcmp(env->arr_pairs[i].key, "HOME") == 0)
 		{
+			dprintf(2, "home found\n");
 			if (chdir(env->arr_pairs[i].value) == -1)
 			{
-				perror(NULL);
+				dprintf(2, "env->arr_pairs[i].value = %s\n", env->arr_pairs[i].value);
+				perror(env->arr_pairs[i].value);
 				ms_exit_status = errno;
 				return ;
 			}
+			dprintf(2, "changed directory\n");
 			i = update_env(env, "PWD", env->arr_pairs[i].value);
 			if (i)
 				perror(NULL);
@@ -40,8 +44,11 @@ void	mini_cd(int argc, char **argv, t_env *env)
 {
 	int	i;
 
+//	dprintf(2, "in mini_cd\n");
+//	dprintf(2, "argc = %i\n", argc);
 	if (argc == 1)
 	{
+//		dprintf(2, "go_home\n");
 		go_home(env);
 		return ;
 	}
