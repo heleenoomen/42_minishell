@@ -45,6 +45,7 @@ char	*make_path(char *s, t_env *env)
 		free(full_path);
 		i++;
 	}
+	panic_builtins(s, env);
 	return (NULL);
 }
 

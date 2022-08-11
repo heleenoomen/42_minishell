@@ -17,9 +17,9 @@ int	builtin(char **argv, t_env *env)
 	argc = get_argc(argv);
 	if (ft_strncmp(argv[0], "echo", 5) == 0)
 		mini_echo(argc, argv);
-	if (ft_strncmp(argv[0], "cd", 3) == 0)
+	else if (ft_strncmp(argv[0], "cd", 3) == 0)
 		mini_cd(argc, argv, env);
-	if (ft_strncmp(argv[0], "env", 4) == 0)
+	else if (ft_strncmp(argv[0], "env", 4) == 0)
 		mini_env(env);
 	else
 		return (0);
@@ -62,12 +62,16 @@ void	runcmd(struct cmd *cmd, t_env *env)
 				exit(1);
 			argv_expanded = expander(ecmd->argv, env);
 			if (builtin(argv_expanded, env))
-					exit(ms_exit_status);
+			{
+			//	dprintf(2, "I'm inside builtin statement\n");
+				exit(ms_exit_status);
+			}
+			//dprintf(2, "I'm passed builtin statement\n");
 			//dprintf(2, "argv_expanded[0] = %s", argv_expanded[0]);
 			path = make_path(argv_expanded[0], env);
 			execve(path, argv_expanded, env->envp);
 			//execvpe(ecmd->argv[0], ecmd->argv, env->envp);
-			dprintf(2, "exec %s failed\n", ecmd->argv[0]);
+			perror(argv_expanded[0]);//d>printf(2, "exec %s failed\n", argv_expanded[0]);
 			break;
 
 		case REDIR:

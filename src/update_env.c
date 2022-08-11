@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 11:33:39 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 15:40:30 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 18:37:51 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	update_envp(t_env *env, char *key, char *new_value)
 int	update_env(t_env *env, char *key, char *new_value)
 {
 	int	ret;
-
+	
 	dprintf(2, "in update_env\n");
 	ret = update_arr_pairs(env, key, new_value);
 	if (ret)

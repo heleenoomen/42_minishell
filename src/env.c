@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:44:42 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 16:36:06 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 18:49:06 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,20 @@ char	**make_minimal_envp(t_env *env)
 	return (envp);
 }
 
+int		get_key_index(t_env *env, char *key)
+{
+	int	i;
+
+	i = 0;
+	while (i < env->size)
+	{
+		if (strcmp(env->arr_pairs[i].key, key) == 0)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 void	set_cwd(t_env *env)
 {
 	env->cwd = getcwd(NULL, 0);
@@ -173,8 +187,49 @@ void	set_cwd(t_env *env)
 
 void	update_shlvl(t_env *env)
 {
+	int		i;
+	int		nbr;
+	char	*new_value;
+	char	*new_envp_entry;
+	char	*warning = "Warning: Shell level (1000)\
+						to high, resetting to 0\n";
 
+//	dprintf(2, "in update_shlvl\n");
+	i = get_key_index(env, "SHLVL");
+	if (i == -1)
+	{
+		dprintf(2, "SHLVL not found\n");
+		return ;
+	}
+	nbr = ft_atoi(env->arr_pairs[i].value);
+//	dprintf(2, "nbr = %i\n", nbr);
+	if (nbr == 1000)
+	{
+		write(2, warning, ft_strlen(warning)); 
+		nbr = 0;
+	}
+	new_value = ft_itoa(nbr + 1);
+//	dprintf(2, "new_value = %s\n", new_value);
+	if (new_value == NULL)
+	{
+		perror("env");
+		ms_exit_status = ENOMEM;
+	}
+	free(env->arr_pairs[i].value);
+	env->arr_pairs[i].value = new_value;
+//	dprintf(2, "env->arr_pairs[i].value = %s\n", env->arr_pairs[i].value);
+//	dprintf(2, "i = %i\n", i);
+	new_envp_entry = ft_strjoin(env->arr_pairs[i].key, "=");
+	if (new_envp_entry == NULL)
+		panic_builtins("System error", env);
+	new_envp_entry = ft_strjoin(new_envp_entry, env->arr_pairs[i].value);
+	if (new_envp_entry == NULL)
+		panic_builtins("System error", env);
+	free(env->envp[i]);
+	env->envp[i] = new_envp_entry;
+}
 
+		
 void	init_env(t_env *env, char **envp)
 {
 	int			i;
