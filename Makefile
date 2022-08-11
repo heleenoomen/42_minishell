@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/08/10 16:46:56 by hoomen           ###   ########.fr        #
+#    Updated: 2022/08/11 14:17:13 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,14 +20,14 @@ NAME	=	minishell
 SRC		=	main.c env.c expander.c panic_builtins.c\
 			constructors.c runcmd.c parsecmd.c\
 			gettoken.c fork1_panic.c\
-			find_path.c echo.c
+			find_path.c echo.c cd.c update_env.c
 LIBS	=	libft/libft.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))
 
 all : $(NAME)
 
 $(NAME) : $(OBJ) | $(LIBS)
-	$(CC) $(CFLAGS) -o $@ $^ -Llibft -lft -lreadline
+	$(CC) $(CFLAGS) -o $@ $^ -Llibft -lft -lreadline -ltermcap
 
 obj/%.o : %.c $(LIBS) | obj
 	$(CC) $(CFLAGS) $(INCFL) -c $< -o $@

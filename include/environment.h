@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/20 18:39:30 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 14:19:38 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,11 @@ char	*make_key_and_value(char *s, char **value, char **ptr_equalsign);
 
 /*initialize environment at initialization of minishell*/
 void	init_env(t_env *env, char **envp);
+
+/*update_env.c
+ * functions update environment structure when a value to an * existing key is changed by a builtin*/
+int		update_arr_pairs(t_env *env, char *key, char *new_value);
+int		update_envp(t_env *env, char *key, char *new_value);
+int		update_env(t_env *env, char *key, char *new_value);
 
 #endif

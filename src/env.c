@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:44:42 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/20 18:58:05 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:08:55 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,15 +136,47 @@ char	*make_key_and_value(char *s, char **value, char **ptr_equalsign)
 	return (s);
 }
 
+char	**make_minimal_envp(void)
+{
+	char	**envp;
+	char	*cwd;
+
+	envp = ft_calloc(4, sizeof(char *));
+	if (envp == NULL)
+		panic_builtins("System error", NULL);
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		panic_builtins("System error", NULL);
+	envp[0] = ft_strjoin("PWD=", cwd);
+	envp[1] = ft_strdup("SHLVL=1");
+	if (envp[0] == NULL || envp[1] == NULL)
+	{
+		free(envp[0]);
+		free(envp[1]);
+		free(envp);
+		panic_builtins("System error", NULL);
+	}
+	envp[2] = envp[0];
+	return (envp);
+}
+
 void	init_env(t_env *env, char **envp)
 {
 	int			i;
 	t_env_pair	new;
 	char		*value;
 	char		*ptr_equalsign;
+	bool		minimal;
 
 	init_env_struct(env);
 	i = 0;
+	if (envp[i] == NULL)
+	{
+		envp = make_minimal_envp();//("No environment", NULL);
+		minimal = 1;
+	}
+	else
+		minimal = 0;
 	while (envp[i] != NULL)
 	{
 		new.key = ft_strdup(make_key_and_value(envp[i], &value, &ptr_equalsign));
@@ -157,6 +189,12 @@ void	init_env(t_env *env, char **envp)
 		i++;
 		if (i == INT_MAX)
 			panic_builtins("System error", env);
+	}
+	if (minimal)
+	{
+		free(envp[0]);
+		free(envp[1]);
+		free(envp);
 	}
 }
 

@@ -14,12 +14,11 @@ int	builtin(char **argv, t_env *env)
 {
 	int	argc;
 
-	(void) env;
+	argc = get_argc(argv);
 	if (ft_strncmp(argv[0], "echo", 5) == 0)
-	{
-		argc = get_argc(argv);
 		mini_echo(argc, argv);
-	}
+	if (ft_strncmp(argv[0], "cd", 3) == 0)
+		mini_cd(argc, argv, env);
 	else
 		return (0);
 	argc = 0;
@@ -61,7 +60,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 				exit(1);
 			argv_expanded = expander(ecmd->argv, env);
 			if (builtin(argv_expanded, env))
-					exit(0);
+					exit(ms_exit_status);
 			//dprintf(2, "argv_expanded[0] = %s", argv_expanded[0]);
 			path = make_path(argv_expanded[0], env);
 			execve(path, argv_expanded, env->envp);

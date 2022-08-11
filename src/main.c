@@ -6,12 +6,13 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/10 17:11:22 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:14:02 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 #include "termios.h"
+#include "termcap.h"
 
 void	sighandler(int sig)
 {
@@ -67,16 +68,49 @@ void	reset_echoctl(void)
 	tcsetattr(1, TCSAFLUSH, &settings);
 }
 
+void	init_termcap(char *termcap)
+{
+	char	*term;
+	int		succes;
+
+	termcap = malloc(248 * sizeof(char));
+	if (termcap == NULL)
+		panic_builtins("System error", NULL);
+	term = getenv("TERM");
+	if (term == NULL)
+		term = "xterm-256color";
+	succes = tgetent(termcap, term);
+	if (succes < 0)
+	{
+		free(termcap);
+		panic_builtins("Could not open the termcap data base", NULL);
+	}
+	if (succes == 0)
+	{
+		free(termcap);
+		panic_builtins("Terminal type not defined", NULL);
+	}
+}
+
+int	ft_putchar_int(int c)
+{
+	unsigned char	cc;
+
+	cc = (unsigned char) c;
+	write(1, &cc, 1);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*buf;
 	t_env		env;
-//	char		termcap[2048];
+	char		termcap[2048];
 		
 	(void)argc;
 	(void)argv;
 
-//	init_termcap(termcap);
+	init_termcap(termcap);
 	init_env(&env, envp);
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
@@ -107,6 +141,8 @@ int	main(int argc, char **argv, char **envp)
 	}
 	clear_history();
 	clear_env_data(&env);
+	tputs(tgetstr("up", NULL), 1, &ft_putchar_int);
+	tputs(tgetstr("cr", NULL), 1, &ft_putchar_int);
 	write(1, "Minishell>>> exit\n", 18);
 	reset_echoctl();
 	return (1);

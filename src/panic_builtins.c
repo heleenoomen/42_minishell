@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   panic.c                                            :+:      :+:    :+:   */
+/*   panic_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:57:59 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/20 18:00:18 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 14:25:27 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	panic_builtins(char *message, t_env *env)
 {
 	perror(message);
-	clear_env_data(env);
+	if (env != NULL)
+		clear_env_data(env);
 	exit(errno);
 }
 
