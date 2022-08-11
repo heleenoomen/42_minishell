@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:44:42 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 16:28:27 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/11 16:36:06 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,10 @@ void	set_cwd(t_env *env)
 		panic_builtins("System error", NULL);
 }
 
+void	update_shlvl(t_env *env)
+{
+
+
 void	init_env(t_env *env, char **envp)
 {
 	int			i;
@@ -204,6 +208,8 @@ void	init_env(t_env *env, char **envp)
 	}
 	if (minimal)
 		free_minimal_envp(&envp);
+	else
+		update_shlvl(env);
 }
 
 //int	main(int argc, char **argv, char **envp)

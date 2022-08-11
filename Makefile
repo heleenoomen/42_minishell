@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/08/11 16:26:02 by hoomen           ###   ########.fr        #
+#    Updated: 2022/08/11 16:31:48 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC		=	main.c env.c expander.c panic_builtins.c\
 			constructors.c runcmd.c parsecmd.c\
 			gettoken.c fork1_panic.c\
 			find_path.c echo.c cd.c update_env.c\
+			mini_env.c
 LIBS	=	libft/libft.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))
 

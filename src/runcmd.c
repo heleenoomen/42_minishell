@@ -19,6 +19,8 @@ int	builtin(char **argv, t_env *env)
 		mini_echo(argc, argv);
 	if (ft_strncmp(argv[0], "cd", 3) == 0)
 		mini_cd(argc, argv, env);
+	if (ft_strncmp(argv[0], "env", 4) == 0)
+		mini_env(env);
 	else
 		return (0);
 	argc = 0;
