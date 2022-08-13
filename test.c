@@ -2,9 +2,14 @@
 #include <stdio.h>
 #include <unistd.h>
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	char *name = ttyname(0);
+	int	i;
 
-	printf("%s\n", name);
+	i = 0;
+	while (envp[i] != NULL)
+	{
+		printf("%s\n", envp[i]);
+		i++;
+	}
 }

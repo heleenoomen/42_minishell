@@ -17,7 +17,7 @@ char	*make_path(char *s, t_env *env)
 		{
 			paths = ft_split(env->arr_pairs[i].value, ':');
 			if (paths == NULL)
-				panic("System error", env);
+				panic("No such file or directory", env);
 			break ;
 		}
 		i++;

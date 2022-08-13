@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 15:55:28 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/13 18:25:27 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 # include<limits.h>
 
-typedef struct s_env_pair
+typedef struct env_hash
 {
 	char	*key;
 	char	*value;
-	bool	export_flag;
-}			t_env_pair;
+	bool	for_export;
+}			t_env_hash;
 
 typedef struct s_env
 {
-	t_env_pair	*arr_pairs;
+	t_env_hash	*env_hash;
 	int			size;
 	int			free;
 	char		**envp;
@@ -35,6 +35,13 @@ typedef struct s_env
 # define NO_QUOTES 0
 # define SINGLE_QUOTES 1
 # define DOUBLE_QUOTE 2
+
+# define EXPORT 1
+# define NO_EXPORT 0
+
+# define UNKNOWN -1
+
+# define WARNING_TOO_MANY_SHELLS "Minishell: Warning: level of shells (1000) too high, resetting to 0"
 
 /*deconstructor*/
 void	clear_env_data(t_env *env);

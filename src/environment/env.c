@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:44:42 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/13 14:50:41 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/13 15:28:25 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,6 @@ void	update_shlvl(t_env *env)
 	char	*warning = "Warning: Shell level (1000)\
 						to high, resetting to 0\n";
 
-//	dprintf(2, "in update_shlvl\n");
 	i = get_key_index(env, "SHLVL");
 	if (i == -1)
 	{
@@ -204,14 +203,12 @@ void	update_shlvl(t_env *env)
 		return ;
 	}
 	nbr = ft_atoi(env->arr_pairs[i].value);
-//	dprintf(2, "nbr = %i\n", nbr);
 	if (nbr == 1000)
 	{
 		write(2, warning, ft_strlen(warning)); 
 		nbr = 0;
 	}
 	new_value = ft_itoa(nbr + 1);
-//	dprintf(2, "new_value = %s\n", new_value);
 	if (new_value == NULL)
 	{
 		perror("env");
@@ -219,8 +216,6 @@ void	update_shlvl(t_env *env)
 	}
 	free(env->arr_pairs[i].value);
 	env->arr_pairs[i].value = new_value;
-//	dprintf(2, "env->arr_pairs[i].value = %s\n", env->arr_pairs[i].value);
-//	dprintf(2, "i = %i\n", i);
 	new_envp_entry = ft_strjoin(env->arr_pairs[i].key, "=");
 	if (new_envp_entry == NULL)
 		panic("System error", env);
