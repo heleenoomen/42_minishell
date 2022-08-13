@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/09 16:18:40 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/13 18:05:51 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,38 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <../libft/libft.h>
+# include "lists/list.h"
+// # include <../libft/libft.h>
 
 # define EOL -1
 # define SUCCESS 0
 # define ERROR 1
 # define CHAR_ERR 2
-# define NONTERM 20
 # define TOKENS 14
+# define NONTERM 20
 
 typedef enum e_grammar
 {
+	NT_START,
+	NT_PREFIX,
+	NT_PREFIX1,
+	NT_SUFFIX,
+	NT_SUFFIX1,
+	NT_AND_OR,
+	NT_AND_OR1,
+	NT_PIPESPLIT,
+	NT_PIPESPLIT1,
+	NT_COMMANDSET,
+	NT_COMMANDSET1,
+	NT_SUBSHELL,
+	NT_CMD,
+	NT_CMD1,
+	NT_CMD2,
+	NT_REDIR,
+	NT_REDIR1,
+	NT_IO_REDIR,
+	NT_IO_FILE,
+	NT_IO_HERE,
 	T_PIPE,
 	T_LBRACE,
 	T_RBRACE,
@@ -41,26 +62,6 @@ typedef enum e_grammar
 	T_STRING,
 	T_EOF,
 	T_UNKNOWN,
-	TK_START,
-	TK_PREFIX,
-	TK_PREFIX1,
-	TK_SUFFIX,
-	TK_SUFFIX1,
-	TK_AND_OR,
-	TK_AND_OR1,
-	TK_PIPELINE,
-	TK_PIPELINE1,
-	TK_COMMAND,
-	TK_COMMAND1,
-	TK_SUBSHELL,
-	TK_SIMPLE_CMD,
-	TK_SIMPLE_CMD1,
-	TK_SIMPLE_CMD2,
-	TK_REDIR,
-	TK_REDIR1,
-	TK_IO_REDIRECT,
-	TK_IO_FILE,
-	TK_IO_HERE,
 }	t_grammar;
 
 typedef struct s_prompt
@@ -176,5 +177,36 @@ void	init_parse(t_list **cmds_list, t_ast **node);
 t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar));
 void	init_content(t_prompt *content, char *input);
 t_ast	*ast_builder(char *input, void (***table)(t_list **, t_grammar));
+
+/* LL1 grammar table */
+void	run_redirections_grand(void (***table)(t_list **, t_grammar));
+void	get_suffix_cmd(void (***table)(t_list **, t_grammar));
+void	split_to_prefix(void (***table)(t_list **, t_grammar));
+void	child_commands(void (***table)(t_list **, t_grammar));
+void	commandset_and_io_here_file(void (***table)(t_list **, t_grammar));
+void	pipe_and_subshell(void (***table)(t_list **, t_grammar));
+void	start_and_or(void (***table)(t_list **, t_grammar));
+
+void	run_start(t_list **stack_table, t_grammar type);
+void	run_and_or(t_list **stack_table, t_grammar type);
+void	run_and_or1(t_list **stack_table, t_grammar type);
+void	set_epsilon(t_list **stack_table, t_grammar type);
+void	run_pipe(t_list **stack_table, t_grammar type);
+void	run_pipe1(t_list **stack_table, t_grammar type);
+void	run_subshell(t_list **stack_table, t_grammar type);
+void	run_commandset(t_list **stack_table, t_grammar type);
+void	run_commandset1(t_list **stack_table, t_grammar type);
+void	run_command(t_list **stack_table, t_grammar type);
+void	run_command1(t_list **stack_table, t_grammar type);
+void	run_command2(t_list **stack_table, enum e_symbol tok_type);
+
+
+
+/* TRAVERSE AST */
+void	branch_node(t_parser **new_node, t_parser *old_node, int node_type);
+void	branch_child_node(t_parser **new_node, t_parser *prev_node, int type);
+void	*create_new_node(t_grammar tok_type);
+void	*lst_get_content(t_list **lst);
+void	*lst_get_cmd(t_list *cmd);
 
 #endif

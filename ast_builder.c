@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/28 07:42:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/09 11:09:39 by ktashbae         ###   ########.fr       */
+/*   Created: 2022/08/10 16:10:51 by ktashbae          #+#    #+#             */
+/*   Updated: 2022/08/10 20:43:23 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,6 @@
 #include "ast.h"
 
 /*free node */
-
-void	*lst_get_cmd(t_list *cmd)
-{
-	if (cmd)
-	{
-		return (cmd->content);
-	}
-	return (NULL);
-}
-
-void	*lst_get_content(t_list **lst)
-{
-	void	*content;
-	t_list	*temp;
-
-	content = NULL;
-	if (lst && *lst)
-	{
-		temp = (*lst)->next;
-		content = (*lst)->content;
-		free(*lst);
-		*lst = temp;
-	}
-	return (content);
-}
 
 void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd)
 {
@@ -74,8 +49,8 @@ t_list **cmds, void (***table)(t_list **, t_grammar))
 	flag = 1;
 	tab = NULL;
 	token_type = ((t_token *)token_list->content)->type;
-	if (node_p->node_type < TOK_KEYS)
-		tab = table[node_p->node_type][token_type - TOK_KEYS];
+	if (node_p->node_type < TOKENS)
+		tab = table[node_p->node_type][token_type - TOKENS];
 	if (tab != NULL)
 		tab(cmds, ((t_token *)token_list->content)->type);
 	else
@@ -127,7 +102,7 @@ t_ast	*add_child(t_ast *top, t_ast *child)
 	return (child);
 }
 
-t_ast	*init_new_node(t_node__type n_type)
+t_ast	*init_new_node(t_node_type n_type)
 {
 	t_ast	*node;
 
@@ -159,8 +134,8 @@ void	init_parse(t_list **cmds_list, t_ast **node)
 	*cmds_list = NULL;
 	*node = init_new_node(N_DUMM);
 	ft_lstpush(cmds_list, create_node(T_EOF));
-	ft_lstpush(cmds_list, create_node(TK_START));
-	((t_parser *)(*cmds_list)->content)->node = *ast;
+	ft_lstpush(cmds_list, create_node(NT_START));
+	((t_parser *)(*cmds_list)->content)->node = *node;
 }
 
 t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar))
@@ -185,8 +160,8 @@ t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar))
 		perror("Parser: token not verified");
 		/* destroy ast */
 	}
-	remove_ast_node(&ast);
-	return (ast);
+	remove_ast_node(&node);
+	return (node);
 }
 
 void	init_content(t_prompt *content, char *input)
