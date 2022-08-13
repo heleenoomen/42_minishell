@@ -96,7 +96,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 		case PIPE:
 			pcmd = (struct pipecmd*)cmd;
 			if (pipe(p) < 0)
-				panic("pipe");
+				panic("pipe", NULL);
 			if (fork1() == 0)
 			{
 		//		dprintf(2, "run left cmd");
@@ -125,7 +125,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 			hcmd = (struct herecmd*)cmd;
 			//dprintf(2, "HERE: limit = %s\n", hcmd->limit);
 			if (pipe(p) < 0)
-				panic("pipe");
+				panic("pipe", NULL);
 			if (fork1() == 0)
 			{
 				close(p[0]);
@@ -176,7 +176,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 				runcmd(bcmd->cmd, env);
 			break;
 		default:
-			panic("runcmd");
+			panic("runcmd", NULL);
 	}
 	exit(0);
 }

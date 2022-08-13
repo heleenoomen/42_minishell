@@ -49,11 +49,11 @@
 //	exit(0);
 //}
 	
-void	panic(char *s)
-{
-	dprintf(2, "%s\n", s);
-	exit(1);
-}
+//void	panic(char *s)
+//{
+//	dprintf(2, "%s\n", s);
+//	exit(1);
+//}
 
 int	fork1(void)
 {
@@ -61,7 +61,7 @@ int	fork1(void)
 
 	pid = fork();
 	if (pid == -1)
-		panic("fork");
+		panic("fork", NULL);
 	return pid;
 }
 

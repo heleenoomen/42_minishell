@@ -26,12 +26,12 @@ struct cmd	*parseexec(char **ps, char *es)
 			break ;
 		//dprintf(2, "26, tok = %d\n", tok);
 		if (tok != 'a')
-			panic("syntax 26");
+			panic("syntax 26", NULL);
 		cmd->argv[argc] = q;
 		cmd->eargv[argc] = eq;
 		argc++;
 		if (argc >= MAXARGS)
-			panic("too many args");
+			panic("too many args", NULL);
 		ret = parseredirs(ret, ps, es);
 	}
 	cmd->argc = argc;
@@ -53,9 +53,9 @@ struct cmd *parseredirs(struct cmd *cmd, char **ps, char *es)
 		if (gettoken(ps, es, &q, &eq) != 'a')
 		{
 			if (tok != '-')
-				panic("missing file for redirection");
+				panic("missing file for redirection", NULL);
 			else
-				panic("heredoc: missing delimiter");
+				panic("heredoc: missing delimiter", NULL);
 		}
 		switch(tok)
 		{
@@ -119,11 +119,11 @@ struct cmd	*parseblock(char **ps, char *es)
 	struct	cmd *cmd;
 
 	if (!peek(ps, es, "("))
-		panic("parseblock");
+		panic("parseblock", NULL);
 	gettoken(ps, es, 0, 0);
 	cmd = parseline(ps, es);
 	if (!peek(ps, es, ")"))
-		panic("sytanx - missing )");
+		panic("sytanx - missing )", NULL);
 	gettoken(ps, es, 0, 0);
 	cmd = parseredirs(cmd, ps, es);
 	return cmd;
@@ -141,7 +141,7 @@ struct cmd	*parsecmd(char *s)
 	if (s != es)
 	{
 		dprintf(2, "leftovers: %s\n", s);
-		panic("syntax error");
+		panic("syntax error", NULL);
 	}
 //	dprintf(2, "parsecmd before nulterminate, cmd->type = %d\n", cmd->type);
 	nulterminate(cmd);

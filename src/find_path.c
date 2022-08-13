@@ -17,13 +17,13 @@ char	*make_path(char *s, t_env *env)
 		{
 			paths = ft_split(env->arr_pairs[i].value, ':');
 			if (paths == NULL)
-				panic_builtins("System error", env);
+				panic("System error", env);
 			break ;
 		}
 		i++;
 	}
 	if (paths == NULL)
-		panic_builtins("Path variable not set", env);
+		panic("Path variable not set", env);
 	i = 0;
 	while (paths[i] != NULL)
 	{
@@ -45,7 +45,7 @@ char	*make_path(char *s, t_env *env)
 		free(full_path);
 		i++;
 	}
-	panic_builtins(s, env);
+	panic(s, env);
 	return (NULL);
 }
 

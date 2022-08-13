@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 15:14:02 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/12 17:44:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	init_termcap(char *termcap)
 
 	termcap = malloc(248 * sizeof(char));
 	if (termcap == NULL)
-		panic_builtins("System error", NULL);
+		panic("System error", NULL);
 	term = getenv("TERM");
 	if (term == NULL)
 		term = "xterm-256color";
@@ -83,12 +83,12 @@ void	init_termcap(char *termcap)
 	if (succes < 0)
 	{
 		free(termcap);
-		panic_builtins("Could not open the termcap data base", NULL);
+		panic("Could not open the termcap data base", NULL);
 	}
 	if (succes == 0)
 	{
 		free(termcap);
-		panic_builtins("Terminal type not defined", NULL);
+		panic("Terminal type not defined", NULL);
 	}
 }
 

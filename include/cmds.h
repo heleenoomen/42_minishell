@@ -77,7 +77,6 @@ int			gettoken(char **ps, char *es, char **q, char **eq);
 int			peek(char **ps, char *es, char *toks);
 
 /*main.c*/
-void			panic(char *s);
 int			fork1(void);
 
 /*parsecmd.c*/

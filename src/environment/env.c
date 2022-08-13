@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:44:42 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 18:49:06 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/13 14:50:41 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	clear_env_data(t_env *env)
 {
 	int	i;
 
+	if (env == NULL)
+		return ;
 	i = 0;
 	while (i < env->size)
 	{
@@ -95,13 +97,13 @@ void	add_pair(t_env *env, t_env_pair new, char *s)
 	if (env->free == 0)
 	{
 		if (resize_arr_pairs(env) == 1)
-			panic_builtins("System error", env);
+			panic("System error", env);
 		if (resize_envp(env) == 1)
-			panic_builtins("System error", env);
+			panic("System error", env);
 	}
 	env->envp[env->size] = ft_strdup(s);
 	if (env->envp[env->size] == NULL)
-		panic_builtins("System error", env);
+		panic("System error", env);
 	env->arr_pairs[env->size].key = new.key;
 	env->arr_pairs[env->size].value = new.value;
 	env->arr_pairs[env->size].export_flag = new.export_flag;
@@ -115,10 +117,10 @@ void	init_env_struct(t_env *env)
 	ft_memset(env, 0, sizeof(t_env));
 	env->arr_pairs = construct_pairs();
 	if (env->arr_pairs == NULL)
-		panic_builtins("System error", env);
+		panic("System error", env);
 	env->envp = ft_calloc(256, sizeof(char *));
 	if (env->envp == NULL)
-		panic_builtins("System error", env);
+		panic("System error", env);
 	env->size = 0;
 	env->free = 256;
 }
@@ -152,13 +154,13 @@ char	**make_minimal_envp(t_env *env)
 
 	envp = ft_calloc(4, sizeof(char *));
 	if (envp == NULL)
-		panic_builtins("System error", NULL);
+		panic("System error", NULL);
 	envp[0] = ft_strjoin("PWD=", env->cwd);
 	envp[1] = ft_strdup("SHLVL=1");
 	if (envp[0] == NULL || envp[1] == NULL)
 	{
 		free_minimal_envp(&envp);
-		panic_builtins("System error", NULL);
+		panic("System error", NULL);
 	}
 	envp[2] = ft_strjoin("_=", env->cwd);
 	return (envp);
@@ -182,7 +184,7 @@ void	set_cwd(t_env *env)
 {
 	env->cwd = getcwd(NULL, 0);
 	if (env->cwd == NULL)
-		panic_builtins("System error", NULL);
+		panic("System error", NULL);
 }
 
 void	update_shlvl(t_env *env)
@@ -221,10 +223,10 @@ void	update_shlvl(t_env *env)
 //	dprintf(2, "i = %i\n", i);
 	new_envp_entry = ft_strjoin(env->arr_pairs[i].key, "=");
 	if (new_envp_entry == NULL)
-		panic_builtins("System error", env);
+		panic("System error", env);
 	new_envp_entry = ft_strjoin(new_envp_entry, env->arr_pairs[i].value);
 	if (new_envp_entry == NULL)
-		panic_builtins("System error", env);
+		panic("System error", env);
 	free(env->envp[i]);
 	env->envp[i] = new_envp_entry;
 }
@@ -253,13 +255,13 @@ void	init_env(t_env *env, char **envp)
 		new.key = ft_strdup(make_key_and_value(envp[i], &value, &ptr_equalsign));
 		new.value = ft_strdup(value);
 		if (new.key == NULL || new.value == NULL)
-			panic_builtins("System error", env);
+			panic("System error", env);
 		new.export_flag = 1;
 		*ptr_equalsign = '=';
 		add_pair(env, new, envp[i]);
 		i++;
 		if (i == INT_MAX)
-			panic_builtins("System error", env);
+			panic("System error", env);
 	}
 	if (minimal)
 		free_minimal_envp(&envp);

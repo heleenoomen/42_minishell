@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:35:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 11:48:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/12 17:55:00 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,18 @@
 # include"builtins.h"
 # include"cmds.h"
 # include"ms_exit.h"
+# include"ft_printf.h"
 # include"libft.h"
 
 /*global variable that keeps track of exit status*/
 int	ms_exit_status;
 
 /*panic.c*/
-void	panic_builtins(char *message, t_env *env);
+void	panic(char *message, t_env *env);
+void	panic_file(char *file, bool exists, t_env *env, int type);
 
 /*fork1_panic.c*/
 int	fork1(void);
-void	panic(char *s);
 
 /*find_path.c*/
 char	*make_path(char *s, t_env *env);

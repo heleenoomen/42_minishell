@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 11:33:39 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/11 18:37:51 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/13 14:53:09 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,14 @@ int	update_envp(t_env *env, char *key, char *new_value)
 	}
 	dprintf(2, "comp = %s\n", comp);
 	comp_len = ft_strlen(comp);
+	i = get_key_index(env, key);
+	if (i == -1)
+		{
+			ms_exit_status = ENOMEM;
+			free(comp);
+			return (NO_MEM);
+		}
+		
 	i = 0;
 	while (env->envp[i] != NULL)
 	{
@@ -105,7 +113,7 @@ int	update_envp(t_env *env, char *key, char *new_value)
  * Calls update_arr_pairs to update the hash table (array of key-value pairs, env->arr_pairs)
  * Calls update_envp to update envp (stored in env->envp)
  * If one of them could not be updated correctly, returns an error code. Otherwwise, returns 0 */
-int	update_env(t_env *env, char *key, char *new_value)
+int	update_env(t_env *env, char *key, char *new_value, bool set_ifndef)
 {
 	int	ret;
 	
