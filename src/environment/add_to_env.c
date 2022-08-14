@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 16:10:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/13 18:39:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 12:47:03 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,22 @@ static int	key_value_to_envp_entry(char **envp_entry, char *key, char *value)
 }
 
 /* change value to existing key
+ * if key does not exist, add new key_value pair and set for_export to EXPORT
+ * return -1 for error
+ * return 1 if new key was created
+ * return 0 if value was succesfully added
  */
-int	change_value_existing_key(t_env *env, char *value, char *key, int i)
+int	change_value(t_env *env, char *value, char *key, int i)
 {
 	char	*new_value;
 	char	*new_envp_entry;
 
-	if (i = UNKNOWN)
-		i = key_index(env, key);
+	if (i= UNKNOWN)
+		i= i(env, key);
+	if (i== -1 && add_key_value_pair_to_env(env, key, value, EXPORT) == -1)
+		return (-1);
+	else if (i== -1)
+		return (1);
 	new_value = ft_strdup(value);
 	if (new_value == NULL)
 		return (-1);

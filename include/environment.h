@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/13 18:25:27 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 12:53:38 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,26 @@ typedef struct s_env
 
 # define WARNING_TOO_MANY_SHELLS "Minishell: Warning: level of shells (1000) too high, resetting to 0"
 
-/*deconstructor*/
-void	clear_env_data(t_env *env);
-
-/*initializes env struct*/
+/* env_init.c */
 void	init_env_struct(t_env *env);
-
-/*constructor for array of key-value pairs*/
-t_env_pair	*construct_pairs(void);
-
-/*resize array of key-value pairs*/
-int	resize_arr_pairs(t_env *env);
-
-/*add new key-value pair to env struct array of pairs*/
-void	add_pair(t_env *env, t_env_pair new_pair, char *s);
-
-/*make new key and value pair from input or envp string*/
-char	*make_key_and_value(char *s, char **value, char **ptr_equalsign);
-
-/*initialize environment at initialization of minishell*/
+void	startup_without_environment(t_env *env);
+void	set_shlvl(t_env *env, char *value, int i);
+void	update_shlvl(t_env *env);
 void	init_env(t_env *env, char **envp);
 
-/*update_env.c
- * functions update environment structure when a value to an * existing key is changed by a builtin*/
-int		update_arr_pairs(t_env *env, char *key, char *new_value);
-int		update_envp(t_env *env, char *key, char *new_value);
-int		update_env(t_env *env, char *key, char *new_value);
+/* add_to_env.c */
+static void	manipulate_ptrs(char *envp_entry, char **value_ptr);
+static int	key_value_to_envp_entry(char **envp_entry, char *key, char *value);
+int			change_value(t_env *env, char *value, char *key, int i);
+int			add_envp_entry_to_env(t_env *env, char *envp_entry, bool for_export);
+int			add_key_value_pair_to_env(t_env *env, char *key, char *value, bool for_export);
 
-#endif
+/* resize_env.c */
+static int	resize_hashtable(t_env *env);
+static int	resize_envp(t_env *env);
+int			resize_env(t_env *env);
+
+/* env_utils.c */
+void		clear_env(t_env *env);
+int			get_key(t_env *env, char *key);
+

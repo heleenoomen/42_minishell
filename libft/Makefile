@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/22 15:22:54 by hoomen            #+#    #+#              #
-#    Updated: 2022/08/09 16:25:58 by hoomen           ###   ########.fr        #
+#    Updated: 2022/08/14 13:05:34 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ ft_split.c ft_putchar_fd.c ft_putstr_fd.c \
 ft_putnbr_fd.c ft_putendl_fd.c ft_itoa.c \
 ft_strmapi.c ft_striteri.c ft_strncmp_uplo.c \
 ft_atof.c ft_isspace.c ft_strisfloat.c ft_pow.c \
-ft_strcmp.c
+ft_strcmp.c ft_freestrarr.c
 #define the sourcefiles that the bonuspart needs
 BSRC = ft_lstnew.c ft_lstadd_front.c ft_lstlast.c \
 ft_lstsize.c ft_lstadd_back.c ft_lstdelone.c \

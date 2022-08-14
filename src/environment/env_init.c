@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/13 18:32:21 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 12:49:17 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /* sets al bytes in env struct to zero
  * asks space for env->env_hash and env->envp
- * sets env-size to 0 and env->free to 256
+ * sets env->size to 0 and env->free to 255 so that env->envp and env->env_hash
+ * will be always null terminated throughout the program.
  * saves cwd in env struct 
  */ 
 void	init_env_struct(t_env *env)
@@ -27,7 +28,7 @@ void	init_env_struct(t_env *env)
 	if (env->envp == NULL)
 		panic("System error", env);
 	env->size = 0;
-	env->free = 256;
+	env->free = 255;
 	env->cwd = getcwd(NULL, 0);
 	if (env->cwd == NULL)
 		panic("System error", NULL);
@@ -51,18 +52,10 @@ void	startup_without_environment(t_env *env)
 		panic("System error", env);
 }
 
-/*
- * checks if SHLVL variable is set to a number between 0 and 999
- */
-
-bool	invalid_shlvl(char *value)
+void	set_shlvl(t_env *env, char *value, int i)
 {
-	int	nbr;
-
-	nbr = ft_itoa(value);
-	if (nbr < 1 || nbr > 999)
-		return (TRUE);
-	return (FALSE);
+	if (change_value(env, value, "SHLVL", i) == -1)
+		panic("System error", env);
 }
 
 /* increases the SHLVL (shell level) variable by one. If not specified or 0
@@ -79,27 +72,23 @@ void	update_shlvl(t_env *env)
 	{
 		if (add_key_value_pair_to_env(env, "SHLVL", "1") == -1)
 			panic("System error", env);
-		return ;
 	}
-	if (env->env_hash[i].value = NULL || invalid_shlvl(env->env_hash[i].value))
-	{
-		if (change_value_existing_key(env, "1", "SHLVL", i) == -1)
-			panic("System error", env);
-		return ;
-	}
-	nbr = ft_itoa(env->env_hash[i].value);
+	nbr = ft_atoi(env_hash[i].value);
+	if (nbr < 1)
+		set_shlvl(env, "1", SHLVL, i);
 	if (nbr == 999)
 	{
-		write(2, WARNING, ft_strlen(WARNING));
-		if (change_value_existing_key(env, "0", "SHLVL", i) == -1)
-			panic("System error", env);
+		set_shlvl(env, "0", SHLVL, i);
+		write(2, WARNING_TOO_MANY_SHLVLS, ft_strlen(WARNINGi_TOO_MANY_SHLVLS));
 	}
-	value = ft_atoi(nbr + 1);
+	value = ft_itoa(nbr + 1);
+	if (value == NULL)
+		panic("System error", env);
 	if (change_value_existing_key(env, value, "SHLVL", i) == -1)
 		panic("System error", env);
 	free(value);
 }
-		
+
 /*
  * initializes env struct. If no environment was given, calls
  * startup_without_environment to give minishell a minimal environment
@@ -126,3 +115,4 @@ void	init_env(t_env *env, char **envp)
 	if (update_shlvl(env) == -1)
 		panic("System error", env);
 }
+

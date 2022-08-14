@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:00:35 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/20 17:30:09 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 14:26:28 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct s_char_buf
 {
-	char	*char_buf;
+	char	*buf;
 	int		size;
 	int		free;
 }			t_char_buf;
