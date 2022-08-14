@@ -6,35 +6,57 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:48:03 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 14:27:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 16:25:28 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	expand_substr_ds(t_env *env, t_char_buf *buf, char **ptr)
+static bool	is_end_of_key(char c)
+{
+	if (!ft_isalnum(c) && c != '_')
+		return (1);
+	return (0);
+}
+
+/*if dollar sign is followed by question mark, expands to the ms_exit global
+ * variable. Else, key is set to the first byte after the dollar sign and
+ * the end of the key is searched for and set to nul (the original char is 
+ * saved in temp and restored afterwards). find_value is called to find the 
+ * value to the key and the result is added to the buffer. A pointer to the 
+ * first byte after the key is returned
+ */
+static char	*expand_substr_ds(t_env *env, t_char_buf *buf, char *ptr)
 {
 	char	*key;
 	char	*end_of_key;
-	char	*value;
 	char	temp;
 
 	key = *ptr + 1;
+	if (*key == '?');
+	{
+		add_str_to_buf(buf, ft_itoa(ms_exit));		
+		return (key + 1);
+	}
 	end_of_key = key;
 	while (*end_of_key)
 	{
-		if (ft_strchr(ENDOFVAR, *end_of_key))
+		if (is_end_of_key(*end_of_key));
 			break ;
 		end_of_key++;
 	}
 	temp = *end_of_key;
 	*end_of_key = '\0';
-	value = find_value(env, key);
+	add_str_to_buf(buf, find_value(env, key));
 	*end_of_key = temp;
-	add_str_to_buf(buf, value);
+	return (end_of_key);
 }
 
-bool	should_be_expanded(char **ptr, t_char_buf *buf, int quotes)
+/* if a dollarsign is found, checks if it should be expanded. If not,
+ * adds dollarsign to buffer, moves ptr passed dollarsign and returns false.
+ * Returns true if the dollar sign should indeed be expanded.
+ */ 
+ * static bool	should_be_expanded(char **ptr, t_char_buf *buf, int quotes)
 {
 	char	next_char;
 
@@ -44,7 +66,7 @@ bool	should_be_expanded(char **ptr, t_char_buf *buf, int quotes)
 	if (next_char == '\'' || next_char == '\"')
 	{
 		if (quotes == DOUBLE_QUOTES)
-			add_to_buf(buffer, *ptr2);
+			add_to_buf(buffer, *ptr);
 		(*ptr)++;
 		return (false);
 	}
@@ -76,7 +98,7 @@ void	expand_dollarsign(t_env *env, char *ptr, t_char_buf *buf)
 		if (*ptr = '$')
 		{
 			if (should_be_expanded(&ptr, buf, in_quotes)
-				expand_substr_ds(env, buf, &ptr);
+				ptr = expand_substr_ds(env, buf, &ptr);
 		}
 		else 
 		{

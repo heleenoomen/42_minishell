@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 14:00:01 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 15:51:49 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_argc(char **argv)
 /* expands a single string. Expands dollar sign, expands tilde if tilde_exp is set
  * and removes quotes if quote_removal is set.
  */
-char	*expand_string(t_env *env, char *ptr, bool tilde_exp, bool quote_removal)
+static char	*expand_string(t_env *env, char *ptr, bool tilde_exp, bool quote_removal)
 {
 	t_char_buf	buf;
 	char		*ret;
