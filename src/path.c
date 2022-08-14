@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path_2.c                                           :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/12 15:18:56 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 19:00:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,23 @@ int	my_access(char *command, bool *file_exists)
 	if (access(command, F_OK) == 0)
 	{
 		*file_exists = 1;
-		if (access(commd, X_OK) == 0)
+		if (access(command, X_OK) == 0)
 			return (0);
 	}
 	return (-1);
 }
 
-int	extract_all_paths(char ***all_paths, bool *file_exists, t_env *env)
+int	extract_all_paths(char ***all_paths, t_env *env)
 {
-	int	i;
+	char	*paths_value;
 
-	i = 0;
-	while (env->envp[i] != NULL)
-	{
-		if (ft_strncmp(env->envp[i], "PATH=", 5) == 0)
-		{
-			*all_paths = ft_split(env->envp[i] + 5);
-			if (*all_paths == NULL)
-				return (NO_MEM);
-			return (0);
-		}
-		i++;
-	}
-	return (NO_FILE);
+	paths_value = find_value(env, "PATH");
+	if (paths_value == NULL)
+		return (NO_FILE);
+	*all_paths = ft_split(paths_value, ':');
+	if (*all_paths == NULL)
+		return (NO_MEM);
+	return (0);
 }
 
 int	assemble_path(char **path, char *command, char **all_paths, bool *file_exists)
@@ -54,14 +48,11 @@ int	assemble_path(char **path, char *command, char **all_paths, bool *file_exist
 		if (with_slash == NULL)
 			return (NO_MEM);
 		*path = ft_strjoin(with_slash, command);
-		if (*path == NULL)
-		{
-			free(with_slash);
-			return (NO_MEM);
-		}
-		if (my_access(*path, file_exists) == 0)
-			return ;
 		free(with_slash);
+		if (*path == NULL)
+			return (NO_MEM);
+		if (my_access(*path, file_exists) == 0)
+			return (0);
 		free(*path);
 		i++;
 	}
@@ -74,22 +65,21 @@ char	*find_path(char *command, t_env *env)
 	bool	file_exists;
 	char	**all_paths;
 	char	*path;
-	int		i;
 	int		ret;
 
 	file_exists = 0;
-	ret = extract_all_paths(&all_paths, &file_exists, env);
+	ret = extract_all_paths(&all_paths, env);
 	if (ret == NO_MEM)
-		panic_builtins("System error", env);
+		panic("System error", env);
 	if (ret == NO_FILE)
 		panic_file(command, file_exists, env, PA);
 	ret = assemble_path(&path, command, all_paths, &file_exists);
 	if (ret == NO_MEM)
-		panic_builtins("System error", env);
+		panic("System error", env);
 	if (ret == NO_FILE)
 		panic_file(command, file_exists, env, EX);
 	if (path == NULL)
-		panic_builtins("Undefined error", env);
+		panic("Undefined error", env);
 	return (path);
 }
 

@@ -60,15 +60,13 @@ void	runcmd(struct cmd *cmd, t_env *env)
 			ecmd = (struct execcmd*)cmd;
 			if (ecmd->argv[0] == 0)
 				exit(1);
-			argv_expanded = expander(ecmd->argv, env);
+			argv_expanded = expander(ecmd->argv, env, true, true);
 			if (builtin(argv_expanded, env))
 			{
 			//	dprintf(2, "I'm inside builtin statement\n");
-				exit(ms_exit_status);
+				exit(ms_exit);
 			}
-			//dprintf(2, "I'm passed builtin statement\n");
-			//dprintf(2, "argv_expanded[0] = %s", argv_expanded[0]);
-			path = make_path(argv_expanded[0], env);
+			path = find_path(argv_expanded[0], env);
 			execve(path, argv_expanded, env->envp);
 			//execvpe(ecmd->argv[0], ecmd->argv, env->envp);
 			perror(argv_expanded[0]);//d>printf(2, "exec %s failed\n", argv_expanded[0]);

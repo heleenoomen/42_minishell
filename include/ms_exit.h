@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 11:46:13 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/12 17:37:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 18:59:35 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define MS_EXIT_H
 
 /*malloc failed, no memory available*/
-# define NO_MEM		0
+# define NO_MEM		1	
 
 /*environment variable not set*/
-# define NO_ENV		1
+# define NO_ENV		2
 
 /*file not found*/
-# define NO_FILE	2
+# define NO_FILE	3
 
 /*types of file errors*/
 # define EX			0

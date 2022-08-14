@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 11:59:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 12:18:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 18:03:05 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,30 @@ void	clear_env(t_env *env)
 /* returns the index of a key in the env hash table. In case no key is found,
  * -1 is returned
  */
-int	get_key(t_env *env, char *key)
+int	key_index(t_env *env, char *key)
 {
 	int	i;
 
 	i = 0;
-	while (i < size)
+	while (i < env->size)
 	{
 		if (ft_strcmp(env->env_hash[i].key, key) == 0)
 			return (i);
 		i++;
 	}
 	return (-1);
+}
+
+/* returns a pointer to the value for a given key. Returns NULL if the key is
+ * not found or if the value is not set
+ */
+char	*find_value(t_env *env, char *key)
+{
+	int	i;
+
+	i = key_index(env, key);
+	if (i == -1)
+		return (NULL);
+	return (env->env_hash[i].value);
 }
 

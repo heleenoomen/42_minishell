@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 11:45:48 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 13:54:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 17:45:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	resize_hashtable(t_env *env)
 	env->free = 256;
 	while (i < env->free + 1)
 	{
-		ft_memset(new_hash + i, 0, sizeof(t_env_hash);
+		ft_memset(new_hash + i, 0, sizeof(t_env_hash));
 		i++;
 	}
 	free(env->env_hash);

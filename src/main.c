@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/12 17:44:57 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 18:47:52 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,6 @@ void	sighandler(int sig)
 		rl_redisplay();
 		return ;
 	}
-}
-
-void	parse(char *buf, t_env *env)
-{
-	char	**new;
-	char	**dup;
-	
-	new = ft_split(buf, ' ');
-	dup = expander(new, env);
-	free_argv_dup(&new);
-	int i = 0;
-	while (dup[i])
-	{
-		printf("%s\n", dup[i]);
-		free(dup[i]);
-		i++;
-	}
-	free(dup);	
 }
 
 void	cancel_echoctl(void)
@@ -101,6 +83,24 @@ int	ft_putchar_int(int c)
 	return (0);
 }
 
+bool	unclosed_quotes(char *s)
+{
+	int	i;
+	int	modus;
+	
+	modus = NO_QUOTES;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\'' || s[i] == '\"')
+			change_quote_modus(&modus, s[i]);
+		i++;
+	}
+	if (modus != NO_QUOTES)
+		return (true);
+	return (false);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*buf;
@@ -112,6 +112,7 @@ int	main(int argc, char **argv, char **envp)
 
 	init_termcap(termcap);
 	init_env(&env, envp);
+	ms_exit = 0;
 	signal(SIGQUIT, SIG_IGN);
 	while (1)
 	{
@@ -140,7 +141,7 @@ int	main(int argc, char **argv, char **envp)
 		wait(0);
 	}
 	clear_history();
-	clear_env_data(&env);
+	clear_env(&env);
 	tputs(tgetstr("up", NULL), 1, &ft_putchar_int);
 	tputs(tgetstr("cr", NULL), 1, &ft_putchar_int);
 	write(1, "Minishell>>> exit\n", 18);

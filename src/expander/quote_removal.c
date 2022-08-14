@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:31:32 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 15:48:39 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 18:32:02 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * shifts bytes in buffer to the left whenever it finds a nul byte, so that
  * buf becomes one nul terminated string again.
  */
-void	join_strings(t_char_buf *buf)
+static void	join_strings(t_char_buf *buf)
 {
 	int		i;
 	char	*src_ptr;
@@ -24,6 +24,7 @@ void	join_strings(t_char_buf *buf)
 
 	i = 0;
 	src_ptr = buf->buf;
+	dst_ptr = buf->buf;
 	while (i < buf->size)
 	{
 		while (*src_ptr)
@@ -52,9 +53,9 @@ void	remove_quotes(t_char_buf *buf)
 	ptr = buf->buf;
 	while (*ptr)
 	{
-		if (*ptr == '\' || *ptr == '\"')
+		if (*ptr == '\'' || *ptr == '\"')
 		{
-			if (change_quote_modus(&in_quotes, *ptr)
+			if (change_quote_modus(&quotes, *ptr))
 				*ptr = '\0';
 		}
 		ptr++;

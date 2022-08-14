@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 16:10:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 12:47:03 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 17:45:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ int	change_value(t_env *env, char *value, char *key, int i)
 	char	*new_value;
 	char	*new_envp_entry;
 
-	if (i= UNKNOWN)
-		i= i(env, key);
+	if (i == UNKNOWN)
+		i = key_index(env, key);
 	if (i== -1 && add_key_value_pair_to_env(env, key, value, EXPORT) == -1)
 		return (-1);
 	else if (i== -1)
@@ -87,10 +87,10 @@ int	change_value(t_env *env, char *value, char *key, int i)
 	new_value = ft_strdup(value);
 	if (new_value == NULL)
 		return (-1);
-	if (new_envp_entry = key_value_to_envp_entry(&new_envp_entry, key, value) == -1)
+	if (key_value_to_envp_entry(&new_envp_entry, key, value) == -1)
 		return (-1);
 	free(env->env_hash[i].value);
-	env->env_hash[i] = new_value;
+	env->env_hash[i].value = new_value;
 	free(env->envp[i]);
 	env->envp[i] = new_envp_entry;
 	return (0);
@@ -103,6 +103,7 @@ int	add_envp_entry_to_env(t_env *env, char *envp_entry, bool for_export)
 {
 	char	*key;
 	char	*value_ptr;
+	char	*value;
 	int		i;
 
 	if (env->free == 0 && resize_env(env) == -1)
@@ -113,8 +114,10 @@ int	add_envp_entry_to_env(t_env *env, char *envp_entry, bool for_export)
 		return (-1);
 	manipulate_ptrs(envp_entry, &value_ptr);
 	key = ft_strdup(envp_entry);
-	value = ft_strdup(value);
-	if (key == NULL || (value == NULL && value_ptr != NULL))
+	if (key == NULL)
+		return (-1);
+	value = ft_strdup(value_ptr);
+	if (value == NULL && value_ptr != NULL)
 		return (-1);
 	env->env_hash[i].key = key;
 	env->env_hash[i].value = value;
@@ -136,7 +139,7 @@ int	add_key_value_pair_to_env(t_env *env, char *key, char *value, bool for_expor
 
 	if (env->free == 0 && resize_env(env) == -1)
 		return (-1);
-	if (key_value_to_envp_entry(&envp_entry, key, vlue) == -1)
+	if (key_value_to_envp_entry(&envp_entry, key, value) == -1)
 		return (-1);
 	i = env->size;
 	env->envp[i] = envp_entry;

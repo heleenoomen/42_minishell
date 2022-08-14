@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 15:51:49 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 18:30:03 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static char	*expand_string(t_env *env, char *ptr, bool tilde_exp, bool quote_rem
 	char		*ret;
 
 	init_char_buf(&buf);
-	if (buf == NULL)
+	if (buf.buf == NULL)
 		return (NULL);
-	expand_dollarsign(env, ptr, buf);
+	expand_dollarsign(env, ptr, &buf);
 	if (buf.buf != NULL && tilde_exp)
-		expand_tilde(env, ptr, buf);
+		expand_tilde(env, ptr, &buf);
 	if (buf.buf != NULL && quote_removal)
-		remove_quotes(env, ptr, buf);
+		remove_quotes(&buf);
 	ret = ft_strdup(buf.buf);
 	free(buf.buf);
 	return (ret);
@@ -61,11 +61,11 @@ char	**expander(char **argv, t_env *env, bool tilde_exp, bool quote_removal)
 	i = 0;
 	while (argv[i] != NULL)
 	{
-		argv_dup[i] = expand_string(argv[i], env, tilde_exp, quote_removal);
+		argv_dup[i] = expand_string(env, argv[i], tilde_exp, quote_removal);
 		if (argv_dup[i] == NULL)
 		{
 			ft_freestrarr(&argv_dup);
-			write(2, "System error\n");
+			write(2, "System error\n", 14);
 			return (NULL);
 		}
 		i++;

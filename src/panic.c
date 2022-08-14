@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   panic_builtins.c                                   :+:      :+:    :+:   */
+/*   panic.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 12:57:59 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/12 17:53:58 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 17:14:29 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	panic(char *message, t_env *env)
 {
 	perror(message);
 	if (env != NULL)
-		clear_env_data(env);
+		clear_env(env);
 	exit(errno);
 }
 
@@ -25,19 +25,19 @@ void	panic_file(char *file, bool file_exists, t_env *env, int type)
 	if (file_exists)
 	{
 		ft_printf("%s: permisson denied", file);
-		clear_env_data(env);
+		clear_env(env);
 		exit(128);
 	}
 	if (type == PA)
 	{
 		ft_printf("%s: no such file or directory", file);
-		clear_env_data(env);
+		clear_env(env);
 		exit(127);
 	}
 	if (type == EX)
 	{
 		ft_printf("%s: command not found", file);
-		clear_env_data(env);
+		clear_env(env);
 		exit(126);
 	}
 }

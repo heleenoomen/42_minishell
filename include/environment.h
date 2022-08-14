@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 12:53:38 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 18:02:09 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_env
 
 # define UNKNOWN -1
 
-# define WARNING_TOO_MANY_SHELLS "Minishell: Warning: level of shells (1000) too high, resetting to 0"
+# define WARNING_TOO_MANY_SHLVLS "Minishell: Warning: level of shells (1000) too high, resetting to 0"
 
 /* env_init.c */
 void	init_env_struct(t_env *env);
@@ -51,18 +51,17 @@ void	update_shlvl(t_env *env);
 void	init_env(t_env *env, char **envp);
 
 /* add_to_env.c */
-static void	manipulate_ptrs(char *envp_entry, char **value_ptr);
-static int	key_value_to_envp_entry(char **envp_entry, char *key, char *value);
 int			change_value(t_env *env, char *value, char *key, int i);
 int			add_envp_entry_to_env(t_env *env, char *envp_entry, bool for_export);
 int			add_key_value_pair_to_env(t_env *env, char *key, char *value, bool for_export);
 
 /* resize_env.c */
-static int	resize_hashtable(t_env *env);
-static int	resize_envp(t_env *env);
 int			resize_env(t_env *env);
 
 /* env_utils.c */
 void		clear_env(t_env *env);
-int			get_key(t_env *env, char *key);
+int			key_index(t_env *env, char *key);
+char		*find_value(t_env *env, char *key);
+
+#endif
 
