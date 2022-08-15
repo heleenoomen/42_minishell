@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 18:02:09 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/15 11:37:44 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 
 # include<limits.h>
 
-typedef struct env_hash
+typedef struct s_env_hash
 {
 	char	*key;
 	char	*value;
 	bool	for_export;
 }			t_env_hash;
 
+typedef struct s_env_node
+{
+	t_env_hash			*entry;
+	struct s_env_node	*next;
+}						t_env_node;
+
 typedef struct s_env
 {
 	t_env_hash	*env_hash;
+	t_env_node	*sorted[53];
 	int			size;
 	int			free;
 	char		**envp;
@@ -62,6 +69,9 @@ int			resize_env(t_env *env);
 void		clear_env(t_env *env);
 int			key_index(t_env *env, char *key);
 char		*find_value(t_env *env, char *key);
+
+/* sort_env.c */
+int			sort_hash_entry(t_env *env, int i);
 
 #endif
 

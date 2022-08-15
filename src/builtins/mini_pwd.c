@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_env.c                                         :+:      :+:    :+:   */
+/*   mini_pwd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/11 16:29:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/15 11:36:57 by hoomen           ###   ########.fr       */
+/*   Created: 2022/08/11 15:46:10 by hoomen            #+#    #+#             */
+/*   Updated: 2022/08/15 10:58:31 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_env(t_env *env)
+void	mini_pwd(void)
 {
-	int	i;
+	char	*cwd;
 
-	i = 0;
-	while (i < env->size)
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
 	{
-		if (env->env_hash[i].for_export == true)
-		{
-			write(1, env->envp[i], ft_strlen(env->envp[i]));
-			write(1, "\n", 1);
-			i++;
-		}
+		perror("pwd");
+		ms_exit = errno;
+		return ;
 	}
+	write(1, cwd, ft_strlen(cwd));
+	free(cwd);
 }
+

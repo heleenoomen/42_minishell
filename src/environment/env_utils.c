@@ -6,11 +6,32 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 11:59:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 18:03:05 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/15 12:21:08 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	clear_sorted(t_env *env)
+{
+	t_env_node	*cur;
+	t_env_node	*next;
+	int			i;
+	
+	i = 0;
+	while (i < 53)
+	{
+		cur = env->sorted[i];
+		while (cur != NULL)
+		{
+			next = cur->next;
+			free(cur);
+			cur = next;
+		}
+		env->sorted[i] = NULL;
+		i++;
+	}
+}
 
 /* clears the env struct. Looks always one element past env->size in case a
  * resizing or update was left incomplete.
@@ -20,6 +41,7 @@ void	clear_env(t_env *env)
 	int	i;
 
 	i = 0;
+	clear_sorted(env);
 	while (i < env->size + 1)
 	{
 		free(env->env_hash[i].key);

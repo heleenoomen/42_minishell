@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 18:51:25 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/15 13:15:24 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 void	init_env_struct(t_env *env)
 {
 	ft_memset((void *)env, 0, sizeof(env));
+	ft_memset((void *)env->sorted, 0, 53 * sizeof(t_env_node *));
 	env->env_hash = ft_calloc(256, sizeof(t_env_hash));
 	if (env->env_hash == NULL)
 		panic("System error", env);
