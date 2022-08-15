@@ -30,7 +30,7 @@ ft_strcmp.c
 #define the sourcefiles that the bonuspart needs
 BSRC = ft_lstnew.c ft_lstadd_front.c ft_lstlast.c \
 ft_lstsize.c ft_lstadd_back.c ft_lstdelone.c \
-ft_lstclear.c ft_lstiter.c ft_lstmap.c
+ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_lstpush.c
 #define the objectfiles that the project needs
 OBJ = $(SRC:.c=.o)
 #define the objectfiles that the bonuspart needs
