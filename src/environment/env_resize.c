@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 11:45:48 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 17:45:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/15 16:18:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,35 @@ int	resize_env(t_env *env)
 		return (-1);
 	return (0);
 }
+
+int	shrink_env(t_env *env)
+{
+	int		src;
+	int		dst;
+	int		del;
+
+	src = 0;
+	while (src < env->size && env->envp[src] != NULL)
+		src++;
+	dst = src;
+	del = 0;
+	while (src < env->size)
+	{
+		if (env->envp[src] == NULL)
+			src++;
+		else
+		{
+			env->envp[dst] = env->envp[src];
+			env->env_hash[dst].key = env->env_hash[src].key;
+			env->env_hash[dst].value = env->env_hash[src].value;
+			env->env_hash[dst].for_export = env->env_hash[src].for_export;
+			del++;
+		}
+	}
+	env->size -= del;
+	env->free += del;
+	return (0);
+}
+
+					
 

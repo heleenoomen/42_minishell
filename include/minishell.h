@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:35:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 18:42:05 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/15 14:42:05 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ int	ms_exit;
 void	panic(char *message, t_env *env);
 void	panic_file(char *file, bool exists, t_env *env, int type);
 
-/*fork1_panic.c*/
+/*fork1.c*/
 int	fork1(void);
 
 /*find_path.c*/
 char	*find_path(char *s, t_env *env);
+
+/*ms_utils.c*/
+int		get_argc(char **argv);
 
 #endif

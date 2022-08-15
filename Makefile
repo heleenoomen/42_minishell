@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/08/15 11:31:51 by hoomen           ###   ########.fr        #
+#    Updated: 2022/08/15 14:42:18 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS	=	-Wall -Wextra -Werror
 
 NAME	=	minishell
 SRC		=	main.c panic.c fork1.c gettoken.c parsecmd.c path.c runcmd.c\
-			constructors.c\
+			constructors.c ms_utils.c\
 			env_init.c add_to_env.c env_resize.c env_utils.c sort_env.c\
 			buf_utils.c dollarsign.c exp_utils.c expander2.c quote_removal.c\
 			tilde.c mini_echo.c mini_cd.c mini_env.c

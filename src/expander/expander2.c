@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 18:30:03 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/15 14:43:40 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ char	**expander(char **argv, t_env *env, bool tilde_exp, bool quote_removal)
 {
 	char	**argv_dup;
 	int		i;
+	int		argc;
 
-	if (argv == NULL)
+	argc = get_argc(argv);
+	if (argc == -1)
 		return (NULL);
-	argv_dup = ft_calloc((ft_argc(argv) + 1), sizeof(char *));
+	argv_dup = ft_calloc(argc + 1, sizeof(char *));
 	if (argv_dup == NULL)
 		return (NULL);
 	i = 0;

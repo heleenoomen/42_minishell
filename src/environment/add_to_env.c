@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 16:10:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/15 12:26:26 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/15 15:51:39 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@
 /* changes equal sign to nul byte so that envp_entry becomes a
  * pointer to the key only. Sets value_ptr (passed by reference) to the byte after
  * the equal sign or to nul if no equal sign is found.
+ * returns -1 if an equal sign was found, otherwise, returns the index of the 
+ * equalsign
  */
-static void	manipulate_ptrs(char *envp_entry, char **value_ptr)
+int	manipulate_ptrs(char *envp_entry, char **value_ptr)
 {
 	char	*ptr;
 
@@ -38,9 +40,10 @@ static void	manipulate_ptrs(char *envp_entry, char **value_ptr)
 	{
 		*ptr = '\0';
 		*value_ptr = ptr + 1;
+		return (ptr - env_entry);
 	}
-	else
-		*value_ptr = NULL;
+	*value_ptr = NULL;
+	return (-1);
 }
 
 /* converts two strings (key and value) to a full envp entry of 
@@ -70,8 +73,8 @@ static int	key_value_to_envp_entry(char **envp_entry, char *key, char *value)
 /* change value to existing key
  * if key does not exist, add new key_value pair and set for_export to EXPORT
  * return -1 for error
- * return 1 if new key was created
- * return 0 if value was succesfully added
+ * return 0 if new key was created
+ * return 1 if value was succesfully added or changed
  */
 int	change_value(t_env *env, char *value, char *key, int i)
 {
@@ -80,10 +83,8 @@ int	change_value(t_env *env, char *value, char *key, int i)
 
 	if (i == UNKNOWN)
 		i = key_index(env, key);
-	if (i== -1 && add_key_value_pair_to_env(env, key, value, EXPORT) == -1)
-		return (-1);
-	else if (i== -1)
-		return (1);
+	if (i == -1) 
+		return (add_key_value_pair_to_env(env, key, value, EXPORT));
 	new_value = ft_strdup(value);
 	if (new_value == NULL)
 		return (-1);
@@ -93,7 +94,7 @@ int	change_value(t_env *env, char *value, char *key, int i)
 	env->env_hash[i].value = new_value;
 	free(env->envp[i]);
 	env->envp[i] = new_envp_entry;
-	return (0);
+	return (1);
 }
 
 /* adds a full declaration string (of type "key" or "key=value") to the env 
@@ -124,9 +125,7 @@ int	add_envp_entry_to_env(t_env *env, char *envp_entry, bool for_export)
 	env->env_hash[i].for_export = for_export;
 	env->size++;
 	env->free--;
-	if (sort_hash_entry(env, i) == -1)
-		return (-1);
-	return (0);
+	return (sort_hash_entry(env, i);
 }
 
 
@@ -156,8 +155,6 @@ int	add_key_value_pair_to_env(t_env *env, char *key, char *value, bool for_expor
 	env->env_hash[i].for_export = for_export;
 	env->size++;
 	env->free--;
-	if (sort_hash_entry(env, i) == -1)
-		return (-1);
-	return (0);
+	return (sort_hash_entry(env, i);
 }
 
