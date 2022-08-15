@@ -171,7 +171,7 @@ int		scan_nodes_parser(t_list *token_list, t_parser *node_p, \
 t_list **cmds, void (***table)(t_list **, t_grammar));
 void	remove_ast_node(t_ast **node);
 t_ast	*add_child(t_ast *top, t_ast *child);
-t_ast	*init_new_node(t_node__type n_type);
+t_ast	*init_new_node(t_node_type n_type);
 void	*create_node(t_grammar tok_type);
 void	init_parse(t_list **cmds_list, t_ast **node);
 t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar));
@@ -198,9 +198,7 @@ void	run_commandset(t_list **stack_table, t_grammar type);
 void	run_commandset1(t_list **stack_table, t_grammar type);
 void	run_command(t_list **stack_table, t_grammar type);
 void	run_command1(t_list **stack_table, t_grammar type);
-void	run_command2(t_list **stack_table, enum e_symbol tok_type);
-
-
+void	run_command2(t_list **stack_table, t_grammar tok_type);
 
 /* TRAVERSE AST */
 void	branch_node(t_parser **new_node, t_parser *old_node, int node_type);
