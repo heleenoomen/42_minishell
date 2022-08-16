@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 10:19:31 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/16 13:30:33 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:18:30 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ int	update_buffer(t_lexer *lex, t_prompt *line, char c)
 		if (lex->index > 0)
 			found = 1;
 	}
-	else if (c == '\n' || c == '|' || c == '>' || c == '<')
+	else if (c == '&' || c == '(' || c == ')' || \
+		|| c == '|' || c == '>' || c == '<' || c == '\n')
 	{
 		token_operator(lex, line, c);
 		found = 1;

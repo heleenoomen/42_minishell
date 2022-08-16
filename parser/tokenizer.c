@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:30:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/16 13:42:15 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:25:14 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ the position of the input line.
 void	token_operator(t_lexer *lex, t_prompt *line, char c)
 {
 	char	peek;
+	char	temp;
 
 	peek = set_peek(line);
 	if (lex->index == 0 && (c == '<' || c == '>'))
@@ -31,6 +32,13 @@ void	token_operator(t_lexer *lex, t_prompt *line, char c)
 			c = get_charbychar(line);
 			save_buffer(lex, c);
 		}
+	}
+	else if (lex->index == 0 && ((c == '&' && peek == '&') || \
+		(c == '|' && peek == '|')))
+	{
+		save_buffer(lex, c);
+		temp = get_charbychar(line);
+		save_buffer(lex, temp);
 	}
 	else if (lex->index > 0)
 		update_char(line);
@@ -54,6 +62,14 @@ void	get_token_type(t_token *token, char *lex)
 		token->type = T_DGREAT;
 	else if (ft_strcmp(lex, "<<") == 0)
 		token->type = T_DLESS;
+	else if (ft_strcmp(lex, "(") == 0)
+		token->type = T_LBRACE;
+	else if (ft_strcmp(lex, ")") == 0)
+		token->type = T_RBRACE;
+	else if (ft_strcmp(lex, "&&") == 0)
+		token->type = T_AND;
+	else if (ft_strcmp(lex, "||") == 0)
+		token->type = T_OR;
 	else if (ft_strcmp(lex, "=") && check_value_assign(lex) == 0)
 		token->type = T_ASSIGN;
 	else
