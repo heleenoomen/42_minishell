@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/13 18:05:51 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/08/16 16:54:22 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ typedef struct s_parser
 
 typedef struct s_minishell
 {
-	int		line;
+	int		line_len;
 	char	*line;
 	void	(***table)(t_list **, t_grammar);
 	t_list	*env;
@@ -148,7 +148,10 @@ void	run_lexer(t_lexer *lex);
 t_list	*get_token_list(t_lexer *lex, char *line);
 void	type_checker(t_token *token, int *cmd, int *flag);
 int		flag_checker(char *line);
+void	init_lexer(t_lexer *lex);
 t_list	*lexer(t_prompt *line);
+void	flag_exists(int flag);
+void	delete_token(void *token);
 
 /* TOKENIZER and support functions*/
 t_token	*init_token(void);
@@ -164,29 +167,24 @@ void	init_buffer(t_lexer *lexer);
 t_token	*tokenizer(t_lexer *lex, t_prompt *line);
 
 /* PARSER and AST building */
-void	*lst_get_cmd(t_list *cmd);
-void	*lst_get_content(t_list **lst);
-void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd);
-int		scan_nodes_parser(t_list *token_list, t_parser *node_p, \
-t_list **cmds, void (***table)(t_list **, t_grammar));
-void	remove_ast_node(t_ast **node);
-t_ast	*add_child(t_ast *top, t_ast *child);
-t_ast	*init_new_node(t_node_type n_type);
-void	*create_node(t_grammar tok_type);
-void	init_parse(t_list **cmds_list, t_ast **node);
-t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar));
-void	init_content(t_prompt *content, char *input);
 t_ast	*ast_builder(char *input, void (***table)(t_list **, t_grammar));
+void	init_content(t_prompt *content, char *input);
+t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, \
+		t_grammar));
+int		scan_nodes_parser(t_list *token_list, t_parser *node_p, \
+		t_list **cmds, void (***table)(t_list **, t_grammar));
+void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd);
+void	*create_node(t_grammar tok_type);
+void	free_ast_tree(t_ast **ast);
+void	free_ast_commands(t_cmd_def **cmds);
+void	remove_ast_node(t_ast **node);
+void	init_parse(t_list **cmds_list, t_ast **node);
+t_ast	*init_new_node(t_node_type n_type);
+void	free_token(void *token);
+t_ast	*add_child(t_ast *top, t_ast *child);
+void	free_node(t_ast *node);
 
-/* LL1 grammar table */
-void	run_redirections_grand(void (***table)(t_list **, t_grammar));
-void	get_suffix_cmd(void (***table)(t_list **, t_grammar));
-void	split_to_prefix(void (***table)(t_list **, t_grammar));
-void	child_commands(void (***table)(t_list **, t_grammar));
-void	commandset_and_io_here_file(void (***table)(t_list **, t_grammar));
-void	pipe_and_subshell(void (***table)(t_list **, t_grammar));
-void	start_and_or(void (***table)(t_list **, t_grammar));
-
+/* Parse TRAVERSER */
 void	run_start(t_list **stack_table, t_grammar type);
 void	run_and_or(t_list **stack_table, t_grammar type);
 void	run_and_or1(t_list **stack_table, t_grammar type);
@@ -194,17 +192,35 @@ void	set_epsilon(t_list **stack_table, t_grammar type);
 void	run_pipe(t_list **stack_table, t_grammar type);
 void	run_pipe1(t_list **stack_table, t_grammar type);
 void	run_subshell(t_list **stack_table, t_grammar type);
+void	run_prefix_with_cmd(t_list **stack_table, t_grammar type);
+void	run_prefix_with_cmd1(t_list **stack_table, t_grammar type);
+void	run_cmd_suffix(t_list **stack_table, t_grammar type);
+void	run_cmd_suffix1(t_list **stack_table, t_grammar type);
+void	redirect_to_file(t_list **stack_table, t_grammar type);
+void	run_redirections(t_list **stack_table, t_grammar type);
+void	run_redirections1(t_list **stack_table, t_grammar type);
+void	run_io_file(t_list **stack_table, t_grammar type);
+void	run_io_here(t_list **stack_table, t_grammar type);
 void	run_commandset(t_list **stack_table, t_grammar type);
 void	run_commandset1(t_list **stack_table, t_grammar type);
 void	run_command(t_list **stack_table, t_grammar type);
 void	run_command1(t_list **stack_table, t_grammar type);
-void	run_command2(t_list **stack_table, t_grammar tok_type);
+void	run_command2(t_list **stack_table, t_grammar type);
 
-/* TRAVERSE AST */
+/* Traversing utils */
 void	branch_node(t_parser **new_node, t_parser *old_node, int node_type);
 void	branch_child_node(t_parser **new_node, t_parser *prev_node, int type);
 void	*create_new_node(t_grammar tok_type);
 void	*lst_get_content(t_list **lst);
 void	*lst_get_cmd(t_list *cmd);
+
+/* LL1 main table */
+void	start_and_or(void (***table)(t_list **, t_grammar ));
+void	pipe_and_subshell(void (***table)(t_list **, t_grammar));
+void	split_to_prefix(void (***table)(t_list **, t_grammar));
+void	run_redirections_grand(void (***table)(t_list **, t_grammar));
+void	commandset_and_io_here_file(void (***table)(t_list **, t_grammar));
+void	get_suffix_cmd(void (***table)(t_list **, t_grammar));
+void	child_commands(void (***table)(t_list **, t_grammar));
 
 #endif
