@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 16:10:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/15 15:51:39 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/16 09:44:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	manipulate_ptrs(char *envp_entry, char **value_ptr)
 	{
 		*ptr = '\0';
 		*value_ptr = ptr + 1;
-		return (ptr - env_entry);
+		return (ptr - envp_entry);
 	}
 	*value_ptr = NULL;
 	return (-1);
@@ -125,7 +125,7 @@ int	add_envp_entry_to_env(t_env *env, char *envp_entry, bool for_export)
 	env->env_hash[i].for_export = for_export;
 	env->size++;
 	env->free--;
-	return (sort_hash_entry(env, i);
+	return (sort_hash_entry(env, i));
 }
 
 
@@ -155,6 +155,6 @@ int	add_key_value_pair_to_env(t_env *env, char *key, char *value, bool for_expor
 	env->env_hash[i].for_export = for_export;
 	env->size++;
 	env->free--;
-	return (sort_hash_entry(env, i);
+	return (sort_hash_entry(env, i));
 }
 

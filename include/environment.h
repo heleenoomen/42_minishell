@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/15 11:37:44 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/16 13:08:15 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,21 @@ typedef struct s_env_node
 	struct s_env_node	*next;
 }						t_env_node;
 
+typedef struct s_tree_node
+{
+	t_env_hash			*entry;
+	struct s_tree_node	*left;
+	struct s_tree_node	*right;
+}						t_tree_node;
+
 typedef struct s_env
 {
 	t_env_hash	*env_hash;
 	t_env_node	*sorted[53];
+	t_env_tree	tree;
 	int			size;
 	int			free;
+	int			deleted;
 	char		**envp;
 	char		*cwd;
 }				t_env;

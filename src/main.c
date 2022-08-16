@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/15 12:15:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/16 10:06:48 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	atexit(check);
+	//atexit(check);
 	init_termcap(termcap);
 	init_env(&env, envp);
 	ms_exit = 0;

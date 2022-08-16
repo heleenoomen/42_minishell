@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:47:58 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/15 19:27:33 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/16 12:17:48 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	copy_to_temp(t_env_hash **temp, t_env_hash **table_ptrs, int l, int r)
 {
 	int	i;
 
+	dprintf(2, "sizeof temp[0] = %lu\n", (sizeof(temp[0]) / sizeof(t_env_hash *)));
+	return ;
 	i = 0;
 	while (i <= r)
 	{
@@ -35,8 +37,7 @@ int	make_temps(t_env_hash **temps[2], int size_t1, int size_t2)
 
 int	free_temps(t_env_hash **temps[2], int ret)
 {
-	free(temps[0]);
-	free(temps[1]);
+	(void) temps;
 	return (ret);
 }
 
@@ -47,11 +48,18 @@ void	set_vars(int i[3], int l)
 	i[2] = l;
 }
 
-void	add_leftovers(t_env_hash ***table_ptrs, t_env_hash **temp, int i, int end)
+void	add_leftovers(t_env_hash **table_ptrs, t_env_hash **temp, int i, int end)
 {
+	int	k;
+
+	k = 0;
 	while (i < end)
 	{
-		*table_
+		table_ptrs[k] = temp[i];
+		i++;
+		k++;
+	}
+}
 
 int		ms_merge(t_env_hash **table_ptrs, int l, int m, int r)
 {
@@ -61,23 +69,24 @@ int		ms_merge(t_env_hash **table_ptrs, int l, int m, int r)
 	if (make_temps(temps, m - l + 1, r - m) == -1)
 		return (-1);
 	copy_to_temp(temps[0], table_ptrs, l, m);
+	return (0);
 	copy_to_temp(temps[1], table_ptrs, m + 1, r);
 	set_vars(i, l);
 	while (i[0] < (m - l + 1) && i[1] < (r - m))
 	{
-		if (ft_strcmp(left[i[0]]->key, right[i[1]]->key < 0))
+		if (ft_strcmp(temps[0][i[0]]->key, temps[1][i[1]]->key) < 0) //temps[1][i[1]]->key < 0))
 		{
-			table_ptrs[i[2]] = left[i[0]];
+			table_ptrs[i[2]] = temps[0][i[0]];
 			i[0]++;
 		}
 		else
 		{
-			table_ptrs[i[2]] = right[i[1]];
+			table_ptrs[i[2]] = temps[1][i[1]];
 			i[1]++;
 		}
 		i[2]++;
 	}
-	add_leftovers(table_ptrs, temps[0], i[0], m - l + 1);
-	add_leftovers(&(table_ptrsi[2]), temps[1], i[1], r - m);
-	return (free_temps(left, right, 0);
+	add_leftovers(table_ptrs + i[2], temps[0], i[0], m - l + 1);
+	add_leftovers(table_ptrs + i[2], temps[1], i[1], r - m);
+	return (free_temps(temps, 0));
 }

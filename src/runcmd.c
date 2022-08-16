@@ -21,6 +21,8 @@ int	builtin(char **argv, t_env *env)
 		mini_cd(argc, argv, env);
 	else if (ft_strncmp(argv[0], "env", 4) == 0)
 		mini_env(env);
+	else if (ft_strcmp(argv[0], "unset") == 0)
+		mini_unset(argv, env);
 	else
 		return (0);
 	argc = 0;
