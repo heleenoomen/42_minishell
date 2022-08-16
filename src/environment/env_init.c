@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/15 13:15:24 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/16 19:37:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@
  */ 
 void	init_env_struct(t_env *env)
 {
-	ft_memset((void *)env, 0, sizeof(env));
-	ft_memset((void *)env->sorted, 0, 53 * sizeof(t_env_node *));
-	env->env_hash = ft_calloc(256, sizeof(t_env_hash));
-	if (env->env_hash == NULL)
-		panic("System error", env);
+	env->tree = NULL;	
 	env->envp = ft_calloc(256, sizeof(char *));
 	if (env->envp == NULL)
 		panic("System error", env);
@@ -43,49 +39,37 @@ void	init_env_struct(t_env *env)
  */
 void	startup_without_environment(t_env *env)
 {
-	if (add_key_value_pair_to_env(env, "PWD", env->cwd, EXPORT) == -1)
+	if (add_key_value_dup_to_env(env, "PWD", env->cwd, EXPORT) == -1)
 		panic("System error", env);
-	if (add_envp_entry_to_env(env, "SHLVL=1", EXPORT) == -1)
+	if (add_str_to_env(env, "SHLVL=1", EXPORT) == -1)
 		panic("System error", env);
-	if (add_key_value_pair_to_env(env, "_=", env->cwd, EXPORT) == -1)	
-		panic("System error", env);
-}
-
-void	set_shlvl(t_env *env, char *value, int i)
-{
-	if (change_value(env, value, "SHLVL", i) == -1)
+	if (add_key_value_dup_to_env(env, "_=", env->cwd, EXPORT) == -1)	
 		panic("System error", env);
 }
 
 /* increases the SHLVL (shell level) variable by one. If not specified or 0
  * or invalid, sets SHLVL to 1.
  */
-void	update_shlvl(t_env *env)
+int	update_shlvl(t_env *env)
 {
-	int		i;
-	char	*value;
-	int		nbr;
-
-	i = key_index(env, "SHLVL");
-	if (i == -1)
-	{
-		if (add_key_value_pair_to_env(env, "SHLVL", "1", EXPORT) == -1)
-			panic("System error", env);
-	}
-	nbr = ft_atoi(env->env_hash[i].value);
+	t_tree_node	*node;
+	
+	node = find_node(env->tree, "SHLVL");
+	if (node == NULL)
+		return (add_key_value_dup_to_env(env, "SHLVL", "1", EXPORT));
+	nbr = ft_atoi(node->value);
 	if (nbr < 1)
-		set_shlvl(env, "1", i);
+		return (update_value_dup(node, "1", EXPORT));
 	if (nbr == 999)
 	{
-		set_shlvl(env, "0", i);
-		write(2, WARNING_TOO_MANY_SHLVLS, ft_strlen(WARNING_TOO_MANY_SHLVLS));
+		if (update_value_dup(node, "0", EXPORT) == -1)
+			return (-1);
+		return (1);
 	}
 	value = ft_itoa(nbr + 1);
 	if (value == NULL)
-		panic("System error", env);
-	if (change_value(env, value, "SHLVL", i) == -1)
-		panic("System error", env);
-	free(value);
+		return (-1);
+	return (update_value(node, value, EXPORT));		
 }
 
 /*
@@ -111,6 +95,9 @@ void	init_env(t_env *env, char **envp)
 			panic("System error", env);
 		i++;
 	}
-	update_shlvl(env);
+	if (update_shlvl(env) == -1)
+		panic("System error", env);
+	if (update_shlvl(env) == 1)
+		write(2, WARNING_TOO_MANY_SHLVLS, ft_strlen(WARNING_TOO_MANY_SHLVLS));
 }
 

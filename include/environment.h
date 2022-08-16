@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 13:22:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/16 19:53:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,29 @@
 
 # include<limits.h>
 
-typedef struct s_env_hash
+typedef struct t_env_hash
 {
 	char	*key;
 	char	*value;
 	bool	for_export;
-}			t_env_hash;
+}
 
-typedef struct s_env_node
+typedef struct s_env_tree
 {
-	t_env_hash			*entry;
-	struct s_env_node	*next;
-}						t_env_node;
-
-typedef struct s_tree_node
-{
-	t_env_hash			*entry;
+	char				*key;
+	char				*value;
+	bool				for_export;
 	struct s_tree_node	*left;
 	struct s_tree_node	*right;
-}						t_tree_node;
+}						t_env_tree;
 
 typedef struct s_env
 {
-	t_env_hash	*env_hash;
-	t_env_node	*sorted[53];
 	t_env_tree	tree;
 	int			size;
 	int			free;
 	int			deleted;
-	char		**envp;
+	t_env_hash	*hash;	
 	char		*cwd;
 }				t_env;
 
@@ -67,10 +61,21 @@ void	update_shlvl(t_env *env);
 void	init_env(t_env *env, char **envp);
 
 /* add_to_env.c */
-int			change_value(t_env *env, char *value, char *key, int i);
-int			add_envp_entry_to_env(t_env *env, char *envp_entry, bool for_export);
-int			add_key_value_pair_to_env(t_env *env, char *key, char *value, bool for_export);
+int		manipulate_ptrs(char *envp_entry, char **value_ptr);
+int		add_to_hash(t_env *env, char *key, char *value, for_export);
+int		add_key_value_to_env(t_env *env, char *key, char *value, bool for_export)
+int		add_str_to_env(t_env *env, char *s, bool for_export)
+int		add_key_value_dup_to_env(t_env *env, char *key, char *value, bool for_export); // yet to write
 
+/* update_value.c */
+int		update_value(t_env *env, t_tree_node *node, char *value, bool for_export); // yet to write
+void	update_hash(t_env *env, t_tree_node *leaf); //written, in add_to_env.c
+int		update_value_dup(t_tree_node *node, char *value, bool for_export); //dups value, free existing value and adds new value
+
+/* tree_utils.c */
+t_tree_node		*find_node(t_tree_node *root, char *key); //todo
+char			*get_value(t_tree_node *root, char *key); //todo
+		
 /* resize_env.c */
 int			resize_env(t_env *env);
 

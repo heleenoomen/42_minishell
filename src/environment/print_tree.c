@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_utils.c                                         :+:      :+:    :+:   */
+/*   print_tree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 13:17:09 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 18:45:39 by hoomen           ###   ########.fr       */
+/*   Created: 2022/08/16 18:57:53 by hoomen            #+#    #+#             */
+/*   Updated: 2022/08/16 18:59:45 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_arg(char **argv)
+void	print_tree(t_env_tree *root, int fd)
 {
-	int	i;
-
-	if (argv == NULL)
-		return (-1);
-	i = 0;
-	while (argv[i] != NULL)
-		i++;
-	return (i);
-}
-
-int	free_ret(void *ptr, void *ptr2, int ret)
-{
-	free(ptr);
-	ptr = NULL;
-	free(ptr2);
-	ptr = NULL;
-	return (ret);
+	if (root == NULL)
+		return ;
+	print_tree(root->left, fd);
+	print_tree(root->right, fd);
+	ft_putstr_fd(root->key, fd);
+	write(fd, "\n", 1);
 }

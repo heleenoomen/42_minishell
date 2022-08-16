@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:35:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 13:21:53 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/16 19:00:45 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ char	*find_path(char *s, t_env *env);
 
 /*ms_utils.c*/
 int		get_argc(char **argv);
+int		free_ret(void *ptr, void *ptr2, int ret);
 
 #endif

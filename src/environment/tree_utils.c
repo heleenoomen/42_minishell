@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_utils.c                                         :+:      :+:    :+:   */
+/*   tree_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 13:17:09 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 18:45:39 by hoomen           ###   ########.fr       */
+/*   Created: 2022/08/16 19:58:20 by hoomen            #+#    #+#             */
+/*   Updated: 2022/08/16 20:01:43 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_arg(char **argv)
+t_tree_node	*find_node(t_tree_node *root, char *key)
 {
-	int	i;
-
-	if (argv == NULL)
-		return (-1);
-	i = 0;
-	while (argv[i] != NULL)
-		i++;
-	return (i);
+	int	ret;
+	
+	if (root == NULL)
+		return (NULL);
+	ret = ft_strcmp(key, root->key);
+	if (ret == 0)
+		return (root);
+	if (ret < 0)
+		return (find_node(root->left, key));
+	return (find_node(root->right, key));
 }
 
-int	free_ret(void *ptr, void *ptr2, int ret)
+char	*get_value(t_tree_node *root, char *key)
 {
-	free(ptr);
-	ptr = NULL;
-	free(ptr2);
-	ptr = NULL;
-	return (ret);
+	t_tree_node *node;
+
+	node = find_node(root, key);
+	if (node == NULL)
+		return (NULL);
+	return (node->value);
 }
+
+	
