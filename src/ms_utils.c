@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ms_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 11:03:26 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/13 16:58:26 by hoomen           ###   ########.fr       */
+/*   Created: 2022/08/15 13:17:09 by hoomen            #+#    #+#             */
+/*   Updated: 2022/08/15 14:41:12 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+int	get_arg(char **argv)
 {
-	char	*s;
-	int		i;
+	int	i;
 
-	if (s1 == NULL)
-		return (NULL);
-	s = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (s == NULL)
-		return (NULL);
+	if (argv == NULL)
+		return (-1);
 	i = 0;
-	while (s1[i])
-	{
-		s[i] = s1[i];
+	while (argv[i] != NULL)
 		i++;
-	}
-	s[i] = '\0';
-	return (s);
+	return (i);
 }

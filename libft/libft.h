@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/22 12:24:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/17 19:27:41 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/16 13:20:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,6 @@ int			ft_strncmp_uplo(const char *s1, const char *s2, size_t n);
 int			ft_strisfloat(char *s);
 double		ft_pow(double base, int power);
 int			ft_strcmp(const char *s1, const char *s2);
+void		ft_freestrarr(char ***strarr);
 
 #endif

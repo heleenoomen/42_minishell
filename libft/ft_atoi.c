@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 14:35:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/06/29 11:29:20 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/14 12:46:46 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	ft_atoi(const char *str)
 	long int	nb;
 	int			sign;
 
+	if (str == NULL)
+		return (0);
 	nb = 0;
 	i = 0;
 	sign = 1;

@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 11:03:26 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/13 16:58:26 by hoomen           ###   ########.fr       */
+/*   Created: 2022/04/17 16:59:17 by hoomen            #+#    #+#             */
+/*   Updated: 2022/04/20 15:41:24 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include"ft_printf.h"
 
-char	*ft_strdup(const char *s1)
+static void	ft_initio(t_io *io, const char *format, va_list ap)
 {
-	char	*s;
-	int		i;
+	io->format = format;
+	va_copy(io->ap, ap);
+	va_end(ap);
+	io->nprinted = 0;
+	io->pos = 0;
+}
 
-	if (s1 == NULL)
-		return (NULL);
-	s = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (s == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		s[i] = s1[i];
-		i++;
-	}
-	s[i] = '\0';
-	return (s);
+int	ft_printf(const char *format, ...)
+{
+	va_list	ap;
+	t_mod	mods;
+	t_io	io;
+
+	va_start(ap, format);
+	ft_initio(&io, format, ap);
+	ft_initmods(&mods);
+	ft_parse(&io, &mods);
+	va_end(ap);
+	return (io.nprinted);
 }

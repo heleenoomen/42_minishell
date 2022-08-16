@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_initmods.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 11:03:26 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/13 16:58:26 by hoomen           ###   ########.fr       */
+/*   Created: 2022/04/17 18:56:14 by hoomen            #+#    #+#             */
+/*   Updated: 2022/04/19 16:55:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include"ft_printf.h"
 
-char	*ft_strdup(const char *s1)
+void	ft_initmods(t_mod *mods)
 {
-	char	*s;
-	int		i;
-
-	if (s1 == NULL)
-		return (NULL);
-	s = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (s == NULL)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		s[i] = s1[i];
-		i++;
-	}
-	s[i] = '\0';
-	return (s);
+	mods->altform = 0;
+	mods->zeropad = 0;
+	mods->leftadj = 0;
+	mods->space = 0;
+	mods->plus = 0;
+	mods->width = 0;
+	mods->precision = -1;
+	mods->adj_precision = 0;
+	mods->conspec = 0;
+	mods->base = 0;
+	mods->putminus = 0;
+	mods->pads = 0;
 }

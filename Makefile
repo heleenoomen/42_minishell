@@ -6,34 +6,41 @@
 #    By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/07/11 15:47:58 by hoomen           ###   ########.fr        #
+#    Updated: 2022/08/16 11:33:12 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-VPATH	=	src
-INCFL	=	-I libft -I include
+VPATH	=	src src/environment src/builtins src/expander
+INCFL	=	-I libft -I include -I ftprintf
 
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 
 NAME	=	minishell
-SRC		=	main.c
-LIBS	=	libft/libft.a
+SRC		=	main.c panic.c fork1.c gettoken.c parsecmd.c path.c runcmd.c\
+			constructors.c ms_utils.c\
+			env_init.c add_to_env.c env_resize.c env_utils.c sort_env.c\
+			buf_utils.c dollarsign.c exp_utils.c expander2.c quote_removal.c\
+			tilde.c mini_echo.c mini_cd.c mini_env.c sort_env2.c mini_unset.c\
+			merge2.c
+LIBS	=	libft/libft.a ftprintf/libftprintf.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))
 
 all : $(NAME)
 
 $(NAME) : $(OBJ) | $(LIBS)
-	$(CC) $(CFLAGS) -o $@ $^ -Llibft -lft -lreadline
+	$(CC) $(CFLAGS) -o $@ $^ -Llibft -lft -Lftprintf -lftprintf -lreadline -ltermcap
 
-obj/%.o : %.c $(LIBS) | obj
+obj/%.o : %.c | obj
 	$(CC) $(CFLAGS) $(INCFL) -c $< -o $@
 
 obj :
 	mkdir obj
 
 $(LIBS) :
-	- (cd libft && make && make clean)
+	- (cd libft && make)
+	- (cd ftprintf && make && make clean)
+	- (cd libft && make clean)
 
 clean :
 	rm -rf obj
@@ -41,6 +48,7 @@ clean :
 fclean : clean
 	rm -f $(NAME)
 	-(cd libft && make fclean)
+	-(cd ftprintf && make fclean)
 
 re : clean all
 

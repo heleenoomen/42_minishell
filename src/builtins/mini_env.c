@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   mini_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 11:03:26 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/13 16:58:26 by hoomen           ###   ########.fr       */
+/*   Created: 2022/08/11 16:29:53 by hoomen            #+#    #+#             */
+/*   Updated: 2022/08/15 11:36:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "minishell.h"
 
-char	*ft_strdup(const char *s1)
+void	mini_env(t_env *env)
 {
-	char	*s;
-	int		i;
+	int	i;
 
-	if (s1 == NULL)
-		return (NULL);
-	s = malloc(sizeof(char) * (ft_strlen(s1) + 1));
-	if (s == NULL)
-		return (NULL);
 	i = 0;
-	while (s1[i])
+	while (i < env->size)
 	{
-		s[i] = s1[i];
-		i++;
+		if (env->env_hash[i].for_export == true)
+		{
+			write(1, env->envp[i], ft_strlen(env->envp[i]));
+			write(1, "\n", 1);
+			i++;
+		}
 	}
-	s[i] = '\0';
-	return (s);
 }
