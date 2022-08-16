@@ -6,45 +6,15 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:15:57 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/02 10:41:28 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/16 14:10:17 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 
-int	flag_checker(char *line)
-{
-	int	quote;
-	int	dquote;
-	int	flag;
-	int	i;
-
-	quote = 0;
-	dquote = 0;
-	flag = 1;
-	i = 0;
-	while (line[i] != '\0')
-	{
-		if (line[i] == '\'' && !dquote)
-		{
-			quote = !quote;
-			flag = !flag;
-		}
-		if (line[i] == '\"' && !quote)
-		{
-			dquote = !dquote;
-			flag = !flag;
-		}
-		i++;
-	}
-	if (flag == 0)
-	{
-		perror("Not enough quotes");
-		exit(1);
-	}
-	return (flag);
-}
-
+/* checks for token, if pipe, and, or operators are found it sets cmd value to zero,
+if type is string - recognized as cmd. If previous type was string, current assignment
+is changed into type string */
 void	type_checker(t_token *token, int *cmd, int *flag)
 {
 	if (*flag == 0)
@@ -57,6 +27,8 @@ void	type_checker(t_token *token, int *cmd, int *flag)
 		token->type = T_STRING;
 }
 
+/* loops over the lexer and adds token structure into
+the linked list. In case of, check flag failure, it cleans the list */
 t_list	*get_token_list(t_lexer *lex, char *line)
 {
 	int		cmd_found;
@@ -80,19 +52,30 @@ t_list	*get_token_list(t_lexer *lex, char *line)
 	return (token_list);
 }
 
-void	run_lexer(t_lexer *lex)
+/*
+initializes the structure of a lexer and sets all 
+values to NULL. It has:
+- token as a string;
+- length af a token;
+- index of current position.
+ */
+void	init_lexer(t_lexer *lex)
 {
 	lex->tokens = NULL;
 	lex->len = 0;
 	lex->index = -1;
 }
 
+/*
+creates a structure for lexer, gets a list of tokens retrieved char by char
+the input line and returns a list of tokens
+*/
 t_list	*lexer(t_prompt *line)
 {
 	t_list	*tokens;
 	t_lexer	lex;
 
-	run_lexer(&lexer);
+	init_lexer(&lexer);
 	tokens = get_token_list(&lexer, line);
 	free(lex.tokens);
 	return (tokens);

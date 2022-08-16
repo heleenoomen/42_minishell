@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   char_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 08:32:38 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/01 17:13:06 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/08/16 12:52:09 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 
+/* from the source string reads character by character and updates the prompt 
+structure that holds information of the input. In case of an error, returns 
+error code CHAR_ERR 2 */
 char	get_charbychar(t_prompt *line)
 {
 	char	c;
@@ -29,6 +32,9 @@ char	get_charbychar(t_prompt *line)
 	return (c);
 }
 
+/* gets the character for the curret index
+poisition of input line and returns as a peek
+char to token operator */
 char	set_peek(t_prompt *line)
 {
 	char	c;
@@ -45,6 +51,8 @@ char	set_peek(t_prompt *line)
 	return (c);
 }
 
+/* updates the position of index in source input line.
+Called by token operator */
 void	update_char(t_prompt *line)
 {
 	if (line->index < 0)
@@ -53,6 +61,7 @@ void	update_char(t_prompt *line)
 		line->index--;
 }
 
+/* skips whitespace by looping char by char*/
 void	skip_whitespace(t_prompt *line)
 {
 	char	c;
@@ -61,5 +70,5 @@ void	skip_whitespace(t_prompt *line)
 		return ;
 	c = set_peek(line);
 	while (c != EOL && (c == ' ' || c == '\t'))
-		get_charbychar(line);
+		c = get_charbychar(line);
 }
