@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/08/17 16:43:20 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/08/17 17:03:38 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "lists/list.h"
 # include "../ast.h"
 
-g_global_exit_status 
 typedef struct s_exec
 {
 	char		**curr_cmd;
@@ -34,6 +33,14 @@ typedef struct s_exec
 	t_list		**cmds_list;
 	t_cmd_def	*cmd_type;
 }	t_exec;
+
+int				main_executor(char *readline, t_minishell *minishell);
+int				start_execution(t_list **nodes, t_minishell *minishell);
+void			init_exec_struct(t_exec *exec, t_list **cmds_list);
+int				execute_commands(t_exec *exec_cmds, t_minishell *minishell);
+void			execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *minishell);
+void			get_tree(t_list **nodes, t_ast *tree, int node_id);
+
 
 
 #endif
