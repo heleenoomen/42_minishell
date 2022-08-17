@@ -70,28 +70,6 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 	return (status);
 }
 
-static void	ft_cmd_send(t_shell *shell, t_cmd_data *data, t_ast **ast)
-{
-	t_ast	*ast_nxt;
-
-	ast_nxt = (t_ast *)ft_lsttop(*data->cmd_stk);
-	data->pipe_flag = 0;
-	if (ast_nxt && ast_nxt->type == AST_PIPE)
-		data->pipe_flag = 1;
-	data->cmd_stk = data->cmd_stk;
-	if ((*ast)->blk->cmd && (*ast)->blk->cmd->content \
-		&& ft_isbuiltin((char *)(*ast)->blk->cmd->content))
-	{
-		ft_builtin_run(shell, data, *ast);
-	}
-	else
-	{
-		ft_cmd_run(shell, data, *ast);
-	}
-	*ast = NULL;
-}
-
-
 void	init_exec_struct(t_exec *exec, t_list **cmds_list)
 {
 	exec->cmds_list = cmds_list;
