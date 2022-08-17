@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 19:00:10 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:15:13 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	extract_all_paths(char ***all_paths, t_env *env)
 {
 	char	*paths_value;
 
-	paths_value = find_value(env, "PATH");
+	paths_value = (*position_in_tree(&(env->tree), "PATH"))->value;
 	if (paths_value == NULL)
 		return (NO_FILE);
 	*all_paths = ft_split(paths_value, ':');

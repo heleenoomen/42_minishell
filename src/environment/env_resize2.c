@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 11:45:48 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 14:02:05 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:51:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	grow_env_hash(t_env *env)
 	int			i;
 
 	if (env->deleted > 63)
-		return (shrink_env_hash(env));
+		return (cleanup_env_hash(env));
 	if (env->size >= INT_MAX - 256)
 		return (-1);
 	new_hash = malloc((env->size + 256) * sizeof(t_env_hash));
-	if (new_hash = -1);
+	if (new_hash == NULL)
 		return (-1);
 	i = 0;
 	env->free += 256;
@@ -42,13 +42,13 @@ int	grow_env_hash(t_env *env)
 		copy_hash(new_hash + i, env->env_hash[i]);
 		i++;
 	}
-	while (i < free + 1)
+	while (i < env->free + 1)
 	{
 		ft_memset(new_hash + i, 0, sizeof(t_env_hash));
 		i++;
 	}
 	free(env->env_hash);
-	env->env_hash = new;
+	env->env_hash = new_hash;
 	return (0);
 }
 
@@ -61,10 +61,10 @@ void	shrink_env_hash(t_env *env)
 	t_env_hash	*new;
 	int			i;
 
-	total = env->free + 1 + env->size + env->del;
+	total = env->free + 1 + env->size + env->deleted;
 	free_up = (env->free % 256) * 256;
 	new = malloc((total - free_up) * sizeof(t_env_hash));
-	if (new = NULL)
+	if (new == NULL)
 		return ;
 	i = 0;
 	while (i < env->size)
@@ -74,7 +74,7 @@ void	shrink_env_hash(t_env *env)
 	}
 	while (i < env->free + 1)
 	{
-		ft_memset(new_hash + i, 0, sizeof(t_env_hash));
+		ft_memset(new + i, 0, sizeof(t_env_hash));
 		i++;
 	}
 	free(env->env_hash);
@@ -82,7 +82,7 @@ void	shrink_env_hash(t_env *env)
 }
 
 /* moves hash table entries if too much space is being wasted */
-void	clean_env_hash(t_env *env)
+int	cleanup_env_hash(t_env *env)
 {
 	int		src;
 	int		dst;
@@ -95,8 +95,8 @@ void	clean_env_hash(t_env *env)
 		{
 			if (dst != src)
 			{
-				copy_hash(&(env->envp[dst]), env->env[src]);
-				ft_memset(&(env->env[src]), 0, sizeof(t_env_hash));
+				copy_hash(&(env->env_hash[dst]), env->env_hash[src]);
+				ft_memset(&(env->env_hash[src]), 0, sizeof(t_env_hash));
 			}
 			dst++;
 		}

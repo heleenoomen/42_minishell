@@ -6,22 +6,28 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:28:51 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 12:20:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:46:31 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
+
+/* adds duplicated key and value to the hash table.
+ */
 int	add_to_hash(t_env *env, char *key, char *value, short flags)
 {
-	int	i;
-
-	if (env->size == 0 && resize_hash(env) == -1)
+	if (env->size == 0 && grow_env_hash(env) == -1)
 		return (-1);
-	env->env_hash[i].key = key;
-	env->env_hash[i].value = value;
-	env->env_hash[i].for_export = flags & EXPORT;
-	returnn (0);
+	env->env_hash[env->size].key = key;
+	env->env_hash[env->size].value = value;
+	env->env_hash[env->size].for_export = flags & EXPORT;
+	env->size++;
+	env->free--;
+	return (0);
 }
 
+/* adds duplicated tree and value to the tree
+ */
 int	add_to_tree(t_env *env, char *key, char *value, short flags)
 {
 	t_tree_node *new;
@@ -33,6 +39,9 @@ int	add_to_tree(t_env *env, char *key, char *value, short flags)
 	return (0);
 }
 
+/* adds a key value pair to env struct (both to the tree and the hash table).
+ * Duplicates key and value if needed
+ */
 int	add_key_value_to_env(t_env *env, char *key, char *value, short flags)
 {
 	char		*key_dup;
@@ -41,7 +50,7 @@ int	add_key_value_to_env(t_env *env, char *key, char *value, short flags)
 	if (flags & KEY_DUP)
 	{
 		if (ft_strdup_int(&key_dup, key) == -1)
-			return (-1)
+			return (-1);
 	}
 	else
 		key_dup = key;
@@ -54,11 +63,15 @@ int	add_key_value_to_env(t_env *env, char *key, char *value, short flags)
 		val_dup = value;
 	if (add_to_tree(env, key_dup, val_dup, flags) == -1)
 		return (del_key_value(key, value, flags, -1));
-	if (add_to_hash(env, key_dup, val_dup, falgs) == -1)
+	if (add_to_hash(env, key_dup, val_dup, flags) == -1)
 		return (del_tree_node(&(env->tree), NULL, key, -1));
 	return (0);
 }
 
+/* searches for equal sign in s. If found, replaces it with '\0', sets value_ptr
+ * (passed by referenc) to one byte after the equalsign and returns a pointer to 
+ * the equalsign. If not found, sets value_pointer to NULL and returns NULL.
+ */
 char	*manipulate_ptrs(char *s, char **value_ptr)
 {
 	while (*s && *s != '=')
@@ -73,6 +86,11 @@ char	*manipulate_ptrs(char *s, char **value_ptr)
 	return (NULL);
 }
 
+/* takes a string s of type "KEY" or "KEY=VALUE" and manipulates ptrs so that s
+ * becomes a nul terminated string to key and value_ptr becomes a pointer to value.
+ * Calls add_key_value_to_env to add the elements to the environment struct.
+ * Places back the equal sign if it was found. Returns 0 upon success, -1 if malloc fails.
+ */
 int	add_string_to_env(t_env *env, char *s, short flags)
 {
 	char	*value_ptr;
@@ -80,9 +98,9 @@ int	add_string_to_env(t_env *env, char *s, short flags)
 	int		ret;
 
 	equalsign = manipulate_ptrs(s, &value_ptr);
-	flags = flags | VAL_DUP | KEY_DUP;
-	ret = add_key_value_to_env(env, s, value_ptr, flags);
-	*equalsign = '=';
+	ret = add_key_value_to_env(env, s, value_ptr, flags | VAL_DUP | KEY_DUP);
+	if (equalsign != NULL)
+		*equalsign = '=';
 	return (ret);
 }
 

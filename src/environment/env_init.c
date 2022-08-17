@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 19:37:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:43:03 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@
 void	init_env_struct(t_env *env)
 {
 	env->tree = NULL;	
-	env->envp = ft_calloc(256, sizeof(char *));
-	if (env->envp == NULL)
-		panic("System error", env);
+	env->env_hash = ft_calloc(256, sizeof(char *));
+	if (env->env_hash == NULL)
+		panic("System error", NULL);
 	env->size = 0;
 	env->free = 255;
+	env->deleted = 0;
 	env->cwd = getcwd(NULL, 0);
 	if (env->cwd == NULL)
-		panic("System error", NULL);
+		panic("System error", env);
 }
 
 /* creates a minimal envorionment if minishell was not give an 
@@ -39,11 +40,11 @@ void	init_env_struct(t_env *env)
  */
 void	startup_without_environment(t_env *env)
 {
-	if (add_key_value_dup_to_env(env, "PWD", env->cwd, EXPORT) == -1)
+	if (add_key_value_to_env(env, "PWD", env->cwd, EXPORT | VAL_DUP | KEY_DUP) == -1)
 		panic("System error", env);
-	if (add_str_to_env(env, "SHLVL=1", EXPORT) == -1)
+	if (add_string_to_env(env, "SHLVL=1", EXPORT) == -1)
 		panic("System error", env);
-	if (add_key_value_dup_to_env(env, "_=", env->cwd, EXPORT) == -1)	
+	if (add_key_value_to_env(env, "_=", env->cwd, EXPORT | KEY_DUP) == -1)	
 		panic("System error", env);
 }
 
@@ -53,23 +54,25 @@ void	startup_without_environment(t_env *env)
 int	update_shlvl(t_env *env)
 {
 	t_tree_node	*node;
+	int			nbr;
+	char		*value;
 	
-	node = find_node(env->tree, "SHLVL");
+	node = *(position_in_tree(&(env->tree), "SHLVL"));
 	if (node == NULL)
-		return (add_key_value_dup_to_env(env, "SHLVL", "1", EXPORT));
+		return (add_key_value_to_env(env, "SHLVL", "1", EXPORT | VAL_DUP | KEY_DUP));
 	nbr = ft_atoi(node->value);
 	if (nbr < 1)
-		return (update_value_dup(node, "1", EXPORT));
+		return (update_env_node(env, node, "1", EXPORT | VAL_DUP));
 	if (nbr == 999)
 	{
-		if (update_value_dup(node, "0", EXPORT) == -1)
+		if ((update_env_node(env, node, "0", EXPORT | VAL_DUP) == -1))
 			return (-1);
 		return (1);
 	}
 	value = ft_itoa(nbr + 1);
 	if (value == NULL)
 		return (-1);
-	return (update_value(node, value, EXPORT));		
+	return (update_env_node(env, node, value, EXPORT));	
 }
 
 /*
@@ -80,7 +83,7 @@ int	update_shlvl(t_env *env)
  */
 void	init_env(t_env *env, char **envp)
 {
-	int			i;
+	int	i;
 
 	init_env_struct(env);
 	if (envp == NULL || envp[0] == NULL)
@@ -91,7 +94,7 @@ void	init_env(t_env *env, char **envp)
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		if (add_envp_entry_to_env(env, envp[i], EXPORT) == -1)
+		if (add_string_to_env(env, envp[i], EXPORT) == -1)
 			panic("System error", env);
 		i++;
 	}
@@ -99,5 +102,6 @@ void	init_env(t_env *env, char **envp)
 		panic("System error", env);
 	if (update_shlvl(env) == 1)
 		write(2, WARNING_TOO_MANY_SHLVLS, ft_strlen(WARNING_TOO_MANY_SHLVLS));
+	print_hash(env, 2);
 }
 

@@ -6,12 +6,15 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:20:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 11:33:22 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 19:29:56 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
+/* builins.c */
+//int		builtin(char *argv, t_env *env);
 
 /* builtin echo */
 void	mini_echo(int argc, char **argv);

@@ -6,37 +6,51 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:53:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/10 17:06:51 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 19:23:44 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* checks if argv[1] is -n option. if so, sets the value at i to 2. Checks for
- * and moves through any subsequent arguments equal to the string "-n", which
- * will not be printed and have no effect. If the first element after the last
- * "-n" argument is not NULL, newline is set to zero (i.e. mini_echo will not 
- * print a newline). If the first argument after the last "-n" argument is
- * NULL, newline is set to 1 (i.e. a newline will be printed if echo is called
- * without any arguments (=with only "-n" options)
- */
-void	set_newline(char **argv, bool *newline, int *i)
+bool	is_minus_n(char *s)
 {
-	if (ft_strncmp(argv[1], "-n", 3) == 0)
+	if (*s != '-')
+		return (false);
+	s++;
+	while (*s)
 	{
-		*i = 2;
-		while (argv[*i] != NULL && ft_strncmp(argv[*i], "-n", 3) == 0)
-			(*i)++;
-		if (argv[*i] == NULL)
-			*newline = 1;
-		else
-			*newline = 0;
+		if (*s != 'n')
+			return (false);
+		s++;
+	}
+	return (true);
+}
+
+/* sets newline to false if output should not be followed by a newline, sets it to true
+ * if there should be a newline. Returns the index of the first non -n type string in argv.
+ * if only -n type options are found, followed by NULL, they should be treated as arguments
+ * and thus newline is set to true and i is set back to 1.
+ */
+int	set_newline(char **argv, bool *newline)
+{
+	int	i;
+
+	if (!is_minus_n(argv[1]))
+	{
+		*newline = true;
+		return (1);
+	}
+	i = 2;
+	while (argv[i] != NULL && is_minus_n(argv[i]))
+		i++;
+	if (argv[i] == NULL)
+	{
+		*newline = true;
+		i = 1;
 	}
 	else
-	{
-		*newline = 1;
-		*i = 1;
-	}
+		*newline = false;
+	return (i);
 }
 
 /* checks if echo is called without any arguments, in that case, prints a
@@ -56,14 +70,14 @@ void	mini_echo(int argc, char **argv)
 		write (1, "\n", 1);
 		return ;
 	}
-	set_newline(argv, &newline, &i);
+	i = set_newline(argv, &newline);
 	while (argv[i + 1] != NULL)
 	{
-		write(1, argv[i], ft_strlen(argv[i]));
+		ft_putstr_fd(argv[i], 1);
 		write(1, " ", 1);
 		i++;
 	}
-	write(1, argv[i], ft_strlen(argv[i]));
+	ft_putstr_fd(argv[i], 1);
 	if (newline)
 		write(1, "\n", 1);
 }

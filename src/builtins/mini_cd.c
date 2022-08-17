@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 18:35:10 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:05:00 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 void	mini_cd_update_env(t_env *env, char *oldpwd, char *newpwd)
 {
-	if (change_value(env, oldpwd, "OLDPWD", UNKNOWN) == -1)
+	if (update_env(env, "OLDPWD", oldpwd, EXPORT) == -1)
 		ft_putstr_fd("Warning: Minishell: could not update OLDPWD variable (System\
 error)\n", 2);
-	if (change_value(env, newpwd, "PWD", UNKNOWN) == -1)
+	if (update_env(env, "PWD", newpwd, EXPORT) == -1)
 		ft_putstr_fd("Warning: Minishell: could not update PWD variable (System\
 error)\n", 2);
 }
 
 void	go_home(t_env *env, char *oldpwd)
 {
-	int		i;
+	char *home;
 
-	i = key_index(env, "HOME");
-	if (i == -1)
+	home = find_value(env, "HOME");
+	if (home == NULL)
 		return ;
-	if (chdir(env->env_hash[i].value) == -1)
+	if (chdir(home) == -1)
 	{
 		perror("cd");
 		return ;
 	}
-	mini_cd_update_env(env, oldpwd, env->env_hash[i].value);
+	mini_cd_update_env(env, oldpwd, home);
 	return ;
 }
 

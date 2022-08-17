@@ -1,14 +1,5 @@
 #include "minishell.h"
 // Never returns
-int	get_argc(char **argv)
-{
-	int	argc;
-
-	argc = 0;
-	while (argv[argc] != NULL)
-		argc++;
-	return (argc);
-}
 		
 int	builtin(char **argv, t_env *env)
 {
@@ -21,8 +12,8 @@ int	builtin(char **argv, t_env *env)
 		mini_cd(argc, argv, env);
 	else if (ft_strncmp(argv[0], "env", 4) == 0)
 		mini_env(env);
-	else if (ft_strcmp(argv[0], "unset") == 0)
-		mini_unset(argv, env);
+//	else if (ft_strcmp(argv[0], "unset") == 0)
+//		mini_unset(argv, env);
 	else
 		return (0);
 	argc = 0;
@@ -41,6 +32,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 	//int	real_stdout;
 	char	*line;
 	char	*path;
+	char	**envp;
 	int	len;
 	char	**argv_expanded;
 	struct backcmd	*bcmd;
@@ -68,8 +60,9 @@ void	runcmd(struct cmd *cmd, t_env *env)
 			//	dprintf(2, "I'm inside builtin statement\n");
 				exit(ms_exit);
 			}
+			envp = make_envp(env);
 			path = find_path(argv_expanded[0], env);
-			execve(path, argv_expanded, env->envp);
+			execve(path, argv_expanded, envp);
 			//execvpe(ecmd->argv[0], ecmd->argv, env->envp);
 			perror(argv_expanded[0]);//d>printf(2, "exec %s failed\n", argv_expanded[0]);
 			break;

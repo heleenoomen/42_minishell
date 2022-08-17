@@ -6,19 +6,19 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:23:30 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 12:51:08 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:24:27 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	update_node(t_tree_node *node, char *value, short flags)
+void	update_node(t_tree_node *node, char *value, short flags)
 {
 	node->value = value;
-	node->export = flags & EXPORT;
+	node->for_export = flags & EXPORT;
 }
 
-int	update_hash(t_env *env, char *key, char *value, short flags)
+void	update_hash(t_env *env, char *key, char *value, short flags)
 {
 	int	i;
 
@@ -42,14 +42,34 @@ int update_env(t_env *env, char *key, char *value, short flags)
 		if (flags & VAL_DUP)
 		{
 			if (ft_strdup_int(&val_dup, value) == -1)
-				return (-1)
+				return (-1);
 		}
 		else
 			val_dup = value;
 		free((*pos)->value);
 		update_node(*pos, value, flags);
-		update_hash(env, key, value);
+		update_hash(env, key, value, flags & ~VAL_DUP);
 	}
 	return (0);
 }
 
+int update_env_node(t_env *env, t_tree_node *node, char *value, short flags)
+{
+	char	*val_dup;
+
+	if (value != NULL || flags & VAL_OVERW)
+	{
+		if (flags & VAL_DUP)
+		{
+			if (ft_strdup_int(&val_dup, value) == -1)
+				return (-1);
+		}
+	}
+	else
+		val_dup = value;
+	free(node->value);
+	update_node(node, value, flags & ~VAL_DUP);
+	update_hash(env, node->key, value, flags & ~VAL_DUP);
+	return (0);
+}
+	

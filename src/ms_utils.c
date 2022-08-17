@@ -6,13 +6,13 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:17:09 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 18:45:39 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:54:13 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	get_arg(char **argv)
+int	get_argc(char **argv)
 {
 	int	i;
 

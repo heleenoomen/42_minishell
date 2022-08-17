@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 13:21:23 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/17 19:42:32 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ int	main(int argc, char **argv, char **envp)
 	tputs(tgetstr("up", NULL), 1, &ft_putchar_int);
 	tputs(tgetstr("cr", NULL), 1, &ft_putchar_int);
 	write(1, "Minishell>>> exit\n", 18);
+	free(buf);
 	reset_echoctl();
 	return (1);
 }
