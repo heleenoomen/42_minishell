@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:20:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 19:29:56 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:02:49 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ void	mini_env(t_env *env);
 /* builtin mini_unset */
 void	mini_unset(char **argv, t_env *env);
 
-/* sort_env2.c */
-int		sort_env2(t_env *env);
-
-/* merge2.c */
-int		ms_merge(t_env_hash **table_ptrs, int l, int m, int r);
+/* builtin mini_pwd */
+void	mini_pwd(void);
 
 #endif

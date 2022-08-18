@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 18:43:03 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 10:41:53 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,10 @@
 void	init_env_struct(t_env *env)
 {
 	env->tree = NULL;	
-	env->env_hash = ft_calloc(256, sizeof(char *));
-	if (env->env_hash == NULL)
-		panic("System error", NULL);
-	env->size = 0;
-	env->free = 255;
-	env->deleted = 0;
 	env->cwd = getcwd(NULL, 0);
 	if (env->cwd == NULL)
 		panic("System error", env);
+	env->size = 0;
 }
 
 /* creates a minimal envorionment if minishell was not give an 
@@ -44,7 +39,7 @@ void	startup_without_environment(t_env *env)
 		panic("System error", env);
 	if (add_string_to_env(env, "SHLVL=1", EXPORT) == -1)
 		panic("System error", env);
-	if (add_key_value_to_env(env, "_=", env->cwd, EXPORT | KEY_DUP) == -1)	
+	if (add_key_value_to_env(env, "_=", env->cwd, EXPORT | VAL_DUP | KEY_DUP) == -1)	
 		panic("System error", env);
 }
 
@@ -62,17 +57,17 @@ int	update_shlvl(t_env *env)
 		return (add_key_value_to_env(env, "SHLVL", "1", EXPORT | VAL_DUP | KEY_DUP));
 	nbr = ft_atoi(node->value);
 	if (nbr < 1)
-		return (update_env_node(env, node, "1", EXPORT | VAL_DUP));
+		return (update_env_node(node, "1", EXPORT | VAL_DUP));
 	if (nbr == 999)
 	{
-		if ((update_env_node(env, node, "0", EXPORT | VAL_DUP) == -1))
+		if ((update_env_node(node, "0", EXPORT | VAL_DUP) == -1))
 			return (-1);
 		return (1);
 	}
 	value = ft_itoa(nbr + 1);
 	if (value == NULL)
 		return (-1);
-	return (update_env_node(env, node, value, EXPORT));	
+	return (update_env_node(node, value, EXPORT));	
 }
 
 /*
@@ -102,6 +97,5 @@ void	init_env(t_env *env, char **envp)
 		panic("System error", env);
 	if (update_shlvl(env) == 1)
 		write(2, WARNING_TOO_MANY_SHLVLS, ft_strlen(WARNING_TOO_MANY_SHLVLS));
-	print_hash(env, 2);
 }
 

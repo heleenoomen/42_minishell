@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 17:05:00 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:57:28 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	mini_cd_update_env(t_env *env, char *oldpwd, char *newpwd)
 	if (update_env(env, "OLDPWD", oldpwd, EXPORT) == -1)
 		ft_putstr_fd("Warning: Minishell: could not update OLDPWD variable (System\
 error)\n", 2);
-	if (update_env(env, "PWD", newpwd, EXPORT) == -1)
+	if (update_env(env, "PWD", newpwd, EXPORT | VAL_DUP) == -1)
 		ft_putstr_fd("Warning: Minishell: could not update PWD variable (System\
 error)\n", 2);
 }
@@ -58,5 +58,6 @@ void	mini_cd(int argc, char **argv, t_env *env)
 		perror(argv[1]);
 		return ;
 	}
+	mini_cd_update_env(env, oldpwd, argv[1]);
 }
 

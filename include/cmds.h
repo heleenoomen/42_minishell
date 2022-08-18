@@ -89,5 +89,5 @@ struct cmd		*parsecmd(char *s);
 void			nulterminate(struct cmd *cmd);
 
 /*runcmd.c*/
-void			runcmd(struct cmd *cmd, t_env *env);
+void			runcmd(struct cmd *cmd, t_env *env, int forked);
 #endif

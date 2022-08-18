@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:57:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 18:43:22 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 09:50:13 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,3 @@ void	print_tree(t_tree_node *root, int fd)
 	print_tree(root->right, fd);
 }
 
-void	print_hash(t_env *env, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (i < env->size)
-	{
-		ft_putstr_fd(env->env_hash[i].key, fd);
-		write(fd, "\n", 1);
-		i++;
-	}
-}

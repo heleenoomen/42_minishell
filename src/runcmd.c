@@ -26,7 +26,7 @@ int	builtin(char **argv, t_env *env)
 	return (1);
 }
 
-void	runcmd(struct cmd *cmd, t_env *env)
+void	runcmd(struct cmd *cmd, t_env *env, int	forked)
 {
 	int	p[2];
 	//int	real_stdout;
@@ -41,6 +41,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 	struct pipecmd	*pcmd;
 	struct redircmd	*rcmd;
 	struct herecmd	*hcmd;
+	int				pid;
 
 //	dprintf(2, "runcmd\n");
 	if (cmd == 0)
@@ -58,13 +59,27 @@ void	runcmd(struct cmd *cmd, t_env *env)
 			if (builtin(argv_expanded, env))
 			{
 			//	dprintf(2, "I'm inside builtin statement\n");
-				exit(ms_exit);
+				return ;
 			}
 			envp = make_envp(env);
+			int i = 0;
+			while (envp[i])
+			{
+				dprintf(2, "%s\n", envp[i]);
+				i++;
+			}
 			path = find_path(argv_expanded[0], env);
-			execve(path, argv_expanded, envp);
+			if (!forked)
+			{
+				pid = fork1();
+				if (pid == 0)
+				{	
+					execve(path, argv_expanded, envp);
 			//execvpe(ecmd->argv[0], ecmd->argv, env->envp);
-			perror(argv_expanded[0]);//d>printf(2, "exec %s failed\n", argv_expanded[0]);
+					perror(argv_expanded[0]);//d>printf(2, "exec %s failed\n", argv_expanded[0]);
+				}
+				wait(0);
+			}
 			break;
 
 		case REDIR:
@@ -75,15 +90,15 @@ void	runcmd(struct cmd *cmd, t_env *env)
 				dprintf(2, "open %s failed\n", rcmd->file);
 				exit(1);
 			}
-			runcmd(rcmd->cmd, env);
+			runcmd(rcmd->cmd, env, forked);
 			break;
 
 		case LIST:
 			lcmd = (struct listcmd*)cmd;
 			if (fork1() == 0)
-				runcmd(lcmd->left, env);
+				runcmd(lcmd->left, env, forked);
 			wait(0);
-			runcmd(lcmd->right, env);
+			runcmd(lcmd->right, env, forked);
 			break;
 
 		case PIPE:
@@ -93,20 +108,22 @@ void	runcmd(struct cmd *cmd, t_env *env)
 			if (fork1() == 0)
 			{
 		//		dprintf(2, "run left cmd");
+				forked = 1;
 				close(1);
 				dup(p[1]);
 				close(p[0]);
 				close(p[1]);
-				runcmd(pcmd->left, env);
+				runcmd(pcmd->left, env, forked);
 			}
 			if (fork1() == 0)
 			{
 		//		dprintf(2, "run right cmd");
+				forked = 1;
 				close(0);
 				dup(p[0]);
 				close(p[0]);
 				close(p[1]);
-				runcmd(pcmd->right, env);
+				runcmd(pcmd->right, env, forked);
 			}
 			close(p[0]);
 			close(p[1]);
@@ -158,7 +175,7 @@ void	runcmd(struct cmd *cmd, t_env *env)
 				close(0);
 				dup(p[0]);
 				close(p[0]);
-				runcmd(hcmd->cmd, env);
+				runcmd(hcmd->cmd, env, forked);
 			}
 			close(p[0]);
 			wait (0);
@@ -166,10 +183,10 @@ void	runcmd(struct cmd *cmd, t_env *env)
 		case BACK:
 			bcmd = (struct backcmd*)cmd;
 			if ((fork1()) == 0)
-				runcmd(bcmd->cmd, env);
+				runcmd(bcmd->cmd, env, forked);
 			break;
 		default:
 			panic("runcmd", NULL);
 	}
-	exit(0);
+	return ;
 }

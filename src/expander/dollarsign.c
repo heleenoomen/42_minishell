@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:48:03 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 18:26:26 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 10:48:46 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ static bool	should_be_expanded(char **ptr, t_char_buf *buf, int quotes)
 	next_char = *(*ptr + 1);
 	if (quotes == SINGLE_QUOTES)
 		return (false);
+	if (next_char == '\0')
+	{
+		add_char_to_buf(buf, **ptr);
+		(*ptr)++;
+		return (false);
+	}
 	if (next_char == '\'' || next_char == '\"')
 	{
 		if (quotes == DOUBLE_QUOTES)

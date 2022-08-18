@@ -5,82 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/14 11:59:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/15 16:37:24 by hoomen           ###   ########.fr       */
+/*   Created: 2022/08/17 12:13:39 by hoomen            #+#    #+#             */
+/*   Updated: 2022/08/18 10:42:05 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clear_sorted(t_env *env)
-{
-	t_env_node	*cur;
-	t_env_node	*next;
-	int			i;
-	
-	i = 0;
-	while (i < 53)
-	{
-		cur = env->sorted[i];
-		while (cur != NULL)
-		{
-			next = cur->next;
-			free(cur);
-			cur = next;
-		}
-		env->sorted[i] = NULL;
-		i++;
-	}
-}
-
-/* clears the env struct. Looks always one element past env->size in case a
- * resizing or update was left incomplete.
- */
 void	clear_env(t_env *env)
 {
-	int	i;
-
-	i = 0;
-	clear_sorted(env);
-	while (i < env->size + 1)
-	{
-		free(env->env_hash[i].key);
-		free(env->env_hash[i].value);
-		free(env->envp[i]);
-		i++;
-	}
-	free(env->env_hash);
-	free(env->envp);
+	free_tree(&(env->tree));
 	free(env->cwd);
 }
-
-/* returns the index of a key in the env hash table. In case no key is found,
- * -1 is returned
- */
-int	key_index(t_env *env, char *key)
+		
+int	ft_strdup_int(char **dup, char *s)
 {
-	int	i;
-
-	i = 0;
-	while (i < env->size)
-	{
-		if (ft_strcmp(env->env_hash[i].key, key) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
+	*dup = ft_strdup(s);
+	if (*dup == NULL && s != NULL)
+		return (-1);
+	return (0);
 }
 
-/* returns a pointer to the value for a given key. Returns NULL if the key is
- * not found or if the value is not set
- */
-char	*find_value(t_env *env, char *key)
+int	ft_strjoin_int(char **join, char *s1, char *s2)
 {
-	int	i;
-
-	i = key_index(env, key);
-	if (i == -1)
-		return (NULL);
-	return (env->env_hash[i].value);
+	*join = ft_strjoin(s1, s2);
+	if (*join == NULL)
+		return (-1);
+	return (0);
 }
 
+int	del_key_value(char *key, char *value, short flags, int ret)
+{
+	if (key != NULL && flags & KEY_DUP)
+		free(key);
+	if (value != NULL && flags & VAL_DUP)
+		free(value);
+	return (ret);
+}
+
+char *find_value(t_env *env, char *key)
+{
+	return ((*(position_in_tree(&(env->tree), key)))->value);
+}

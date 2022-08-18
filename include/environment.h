@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 18:42:21 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 12:10:14 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,6 @@
 # define ENVIRONMENT_H
 
 # include<limits.h>
-
-/* entries in the hash table. Hash tables' only function is to imitate the order
- * bash puts the env variables in when you call "env" command without options*/
-typedef struct s_env_hash
-{
-	char	*key;
-	char	*value;
-	bool	for_export;
-}			t_env_hash;
 
 /* tree structure where key/value pairs of environment are stored */
 typedef struct s_tree_node
@@ -43,9 +34,6 @@ typedef struct s_env
 {
 	t_tree_node	*tree;
 	int			size;
-	int			free;
-	int			deleted;
-	t_env_hash	*env_hash;	
 	char		*cwd;
 }				t_env;
 
@@ -75,41 +63,31 @@ void		startup_without_environment(t_env *env);
 int			update_shlvl(t_env *env);
 void		init_env(t_env *env, char **envp);
 
-/* add_to_env2.c */
-int			add_to_hash(t_env *env, char *key, char *value, short flags);
+/* add_to_env.c */
 int			add_to_tree(t_env *env, char *key, char *value, short flags);
 int			add_key_value_to_env(t_env *env, char *key, char *value, short flags);
 char		*manipulate_ptrs(char *s, char **value_ptr);
 int			add_string_to_env(t_env *env, char *s, short flags);
 
-/* update_env2.c */
+/* update_env.c */
 void		update_node(t_tree_node *node, char *value, short flags);
-void		update_hash(t_env *env, char *key, char *value, short flags);
 int 		update_env(t_env *env, char *key, char *value, short flags);
-int 		update_env_node(t_env *env, t_tree_node *node, char *value, short flags);
+int 		update_env_node(t_tree_node *node, char *value, short flags);
 
-/* remove_from_env2.c */
-int			remove_from_env(t_env *env, char *key);
-
-/* env_resize2.c */
-void		copy_hash(t_env_hash *new_hash, t_env_hash old_hash);
-int			grow_env_hash(t_env *env);
-void		shrink_env_hash(t_env *env);
-int			cleanup_env_hash(t_env *env);
-
-/* env_utils2.c */
+/* env_utils.c */
 void		clear_env(t_env *env);
 int			ft_strdup_int(char **dup, char *s);
 int			del_key_value(char *key, char *value, short flags, int ret);
 char		*find_value(t_env *env, char *key);
 
 /* make_envp.c */
-char		**free_strarr(char **strarr);
+int			free_strarr(char ***strarr, int ret);
 int			triple_strjoin_int(char **triple, char *s1, char *s2, char *s3);
+int			tree_to_strarr(t_tree_node *branch, char ***envp, int *i);
 char		**make_envp(t_env *env);
 
 /* print_tree.c */
 void		print_tree(t_tree_node *node, int fd);
-void		print_hash(t_env *env, int fd);
+
 #endif
 

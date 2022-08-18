@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 19:42:32 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 11:48:35 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,14 +137,12 @@ int	main(int argc, char **argv, char **envp)
 			rl_on_new_line();
 			continue ;
 		}
-		if (fork1() == 0)
-			runcmd(parsecmd(buf), &env);
 		signal(SIGINT, SIG_IGN);
+		runcmd(parsecmd(buf), &env, 0);
 		//signal(SIGQUIT, SIG_IGN);
 		add_history(buf);
 		free(buf);
 		buf = NULL;
-		wait(0);
 	}
 	clear_history();
 	clear_env(&env);
