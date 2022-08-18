@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:13:39 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 10:42:05 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 18:46:25 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,11 @@ int	ft_strdup_int(char **dup, char *s)
 	return (0);
 }
 
-int	ft_strjoin_int(char **join, char *s1, char *s2)
-{
-	*join = ft_strjoin(s1, s2);
-	if (*join == NULL)
-		return (-1);
-	return (0);
-}
-
 int	del_key_value(char *key, char *value, short flags, int ret)
 {
-	if (key != NULL && flags & KEY_DUP)
+	if (key != NULL && (flags & KEY_DUP))
 		free(key);
-	if (value != NULL && flags & VAL_DUP)
+	if (value != NULL && (flags & VAL_DUP))
 		free(value);
 	return (ret);
 }
@@ -47,3 +39,4 @@ char *find_value(t_env *env, char *key)
 {
 	return ((*(position_in_tree(&(env->tree), key)))->value);
 }
+

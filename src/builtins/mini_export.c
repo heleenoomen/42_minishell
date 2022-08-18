@@ -6,53 +6,47 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 13:33:26 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 18:33:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* prints the env variables in alphabetical order to standard output. Only
- * variables with the for_export variable set are printed
+/* traverses the environment tree. Prints everything on the left of branch first,
+ * the prints the branch itself: "declar -x " prefix, followed by the key. If
+ * value is not NULL, value is printed in between dubble quotes. Finally, a new-
+ * line is printed. Then everything to the right is printed.
  */
-void	export_print(t_env *env)
+void	print_tree_mini_exp(t_tree_node *branch)
 {
-	t_env_node	*head;
-	t_env_node	*trav;
-	int			i;
-
-	i = 0;
-	while (i < 53)
+	if (branch == NULL)
+		return ;
+	print_tree_mini_exp(branch->left);
+	ft_putstr_fd("declare -x ", 1);
+	ft_putstr_fd(branch->key, 1);
+	if (branch->value != NULL)
 	{
-		if (env->sorted[i] != NULL)
-		{
-			trav = env->sorted[i];
-			while (trav != NULL)
-			{
-				if (trav->entry->for_export)
-				{
-					ft_putstr_fd(1, "declare -x ");
-					ft_putstr_fd(1, trav->entry->key);
-					write(1, "\n", 1);
-				}
-				trav = trav->next;
-			}
-			i++;
-		}
+		ft_putstr_fd("=\"", 1);
+		ft_putstr_fd(branch->value, 1);
+		write(1, "\"", 1);
 	}
+	write(1, "\n", 1);
+	print_tree_mini_exp(branch->right);
 }
+		
 
 /* checks if the first char of the key is either alphabetical or underscore
+ * if not, the key or key value pair is not valid
  */
-bool	first_char_not_valid(char c)
+bool	first_char_valid(char c)
 {
 	if (c >= 'a' && c <= 'z')
-		return (false);
+		return (true);
 	if (c >= 'A' && c <= 'Z')
-		return (false);
-	if (c == '_');
-		return (false);
-	return (true);
+		return (true);
+	if (c == '_')
+		return (true);
+	return (false);
 }
 
 /* checks if argument for export is valid. Before the '=' sign, only alphanumerical
@@ -63,7 +57,8 @@ bool	is_valid(char *s)
 {
 	size_t	i;
 	
-	if (first_char_not_valid)
+	i = 0;
+	if (!first_char_valid(s[i]))
 		return (false);
 	i = 0;
 	while (s[i])
@@ -76,37 +71,27 @@ bool	is_valid(char *s)
 		if (i == (size_t) -1)
 			return (false);
 	}
+	i++;
 	while (s[i])
 	{
 		if (i == (size_t) -1)
 			return (false);
-		if (s[i] > 0 || s[i] > 256)
+		if ((int) s[i] < 0 || (int) s[i] > 256)
 			return (false);
 		i++;
 	}
 	return (true);
 }
 
-int	check_if_exists_add(t_env *env, char *s)
-{
-	char	*value;
-	int		i;
-	int		ret;
-
-	i = manipulate_ptrs(s, &value);
-	ret = change_value(env, s, value, UNKNOWN); 
-	if (i > -1)
-		s[i] = '=';
-	return (ret);
-}
-
 void	mini_export(int argc, char **argv, t_env *env)
 {
 	int	i;
 
+	dprintf(2, "in mini export\n");
 	if (argc == 1)
 	{
-		export_print(env);
+		dprintf(2, "argc = 1");
+		(print_tree_mini_exp(env->tree));
 		return ;
 	}
 	i = 1;
@@ -114,20 +99,20 @@ void	mini_export(int argc, char **argv, t_env *env)
 	{
 		if (is_valid(argv[i]))
 		{
-			if (check_if_exists_add(env, argv[i]) == -1)
+			if (update_env_string(env, argv[i], EXPORT | KEY_DUP | VAL_DUP) == -1)
 			{
-				ft_putstr_fd(2, "System error\n");
-				ms_exit = 1;
-				return ;
+				ft_putstr_fd("System error\n", 2);
+				return ;	
 			}
-			else
-			{
-				ft_putstr_fd(2, "export: '");
-				ft_putstr_fd(2, argv[i]);
-				ft_putstr_fd(2, ": not a valid identifier");
-				ms_exit = 1;
-			}	
 		}
+		else
+		{
+				ft_putstr_fd("export: '", 2);
+				ft_putstr_fd(argv[i], 2);
+				ft_putstr_fd(": not a valid identifier", 2);
+				ms_exit = 1;
+		}	
 		i++;
 	}
 }
+

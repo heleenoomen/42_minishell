@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 12:10:14 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 17:09:36 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int			add_string_to_env(t_env *env, char *s, short flags);
 void		update_node(t_tree_node *node, char *value, short flags);
 int 		update_env(t_env *env, char *key, char *value, short flags);
 int 		update_env_node(t_tree_node *node, char *value, short flags);
+int			update_env_string(t_env *env, char *value, short flags);
 
 /* env_utils.c */
 void		clear_env(t_env *env);

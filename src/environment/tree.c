@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:06:20 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 18:01:26 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/18 18:50:12 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,20 @@ int	del_tree_node(t_tree_node **tree, t_tree_node **node, char *key, int ret)
 {
 	t_tree_node	*left;
 	t_tree_node	*right;
-	t_tree_node	*to_free;	
+	t_tree_node	*del;
 	
 	if (node == NULL)
-		to_free = *(position_in_tree(tree, key));
-	else
-		to_free = *node;
-	if (to_free == NULL)
-		return (1);
-	left = to_free->left;
-	right = to_free->right;
-	free(to_free->key);
-	to_free->key = NULL;
-	free(to_free->value);
-	to_free->value = NULL;
-	free(to_free);
+		node = position_in_tree(tree, key);
+	del = *node;
+	if (del ==  NULL)
+		return (0);
+	left = del->left;
+	right = del->right;
+	free(del->key);
+	del->key = NULL;
+	free(del->value);
+	del->value = NULL;
+	free(del);
 	*node = NULL;
 	if (left != NULL)
 		*(position_in_tree(tree, left->key)) = left;

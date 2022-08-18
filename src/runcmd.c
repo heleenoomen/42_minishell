@@ -1,30 +1,31 @@
 #include "minishell.h"
 // Never returns
 		
-int	builtin(char **argv, t_env *env)
-{
-	int	argc;
-
-	argc = get_argc(argv);
-	if (ft_strncmp(argv[0], "echo", 5) == 0)
-		mini_echo(argc, argv);
-	else if (ft_strncmp(argv[0], "cd", 3) == 0)
-		mini_cd(argc, argv, env);
-	else if (ft_strncmp(argv[0], "env", 4) == 0)
-		mini_env(env);
-//	else if (ft_strcmp(argv[0], "unset") == 0)
-//		mini_unset(argv, env);
-	else
-		return (0);
-	argc = 0;
-	while (argv[argc] != NULL)
-	{
-		free(argv[argc]);
-		argc++;
-	}
-	free(argv);
-	return (1);
-}
+//int	builtin(char **argv, t_env *env)
+//{
+//	int	argc;
+//
+//	argc = get_argc(argv);
+//	if (ft_strncmp(argv[0], "echo", 5) == 0)
+//		mini_echo(argc, argv);
+//	else if (ft_strncmp(argv[0], "cd", 3) == 0)
+//		mini_cd(argc, argv, env);
+//	else if (ft_strncmp(argv[0], "env", 4) == 0)
+//		mini_env(env);
+//	else if (ft_strcmp(argv[0]
+////	else if (ft_strcmp(argv[0], "unset") == 0)
+////		mini_unset(argv, env);
+//	else
+//		return (0);
+//	argc = 0;
+//	while (argv[argc] != NULL)
+//	{
+//		free(argv[argc]);
+//		argc++;
+//	}
+//	free(argv);
+//	return (1);
+//}
 
 void	runcmd(struct cmd *cmd, t_env *env, int	forked)
 {
@@ -62,12 +63,6 @@ void	runcmd(struct cmd *cmd, t_env *env, int	forked)
 				return ;
 			}
 			envp = make_envp(env);
-			int i = 0;
-			while (envp[i])
-			{
-				dprintf(2, "%s\n", envp[i]);
-				i++;
-			}
 			path = find_path(argv_expanded[0], env);
 			if (!forked)
 			{
