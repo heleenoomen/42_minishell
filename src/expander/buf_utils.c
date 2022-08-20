@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:52:19 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 17:56:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/19 14:34:53 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	resize_buffer(t_char_buf *buf)
 	int		i;
 	int		j;
 	
-	new = malloc((buf->size + 128) * sizeof(char));
+	new = malloc((buf->size + 1 + 128) * sizeof(char));
 	if (new != NULL)
 	{
 		i = 0;

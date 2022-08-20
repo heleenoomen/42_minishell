@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 10:41:53 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/19 18:57:46 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,10 @@ void	init_env(t_env *env, char **envp)
 			panic("System error", env);
 		i++;
 	}
-	if (update_shlvl(env) == -1)
+	i = update_shlvl(env);
+	if (i == -1)
 		panic("System error", env);
-	if (update_shlvl(env) == 1)
+	if (i == 1)
 		write(2, WARNING_TOO_MANY_SHLVLS, ft_strlen(WARNING_TOO_MANY_SHLVLS));
 }
 

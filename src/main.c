@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 11:48:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/19 21:45:41 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,8 @@ int	main(int argc, char **argv, char **envp)
 	char		*buf;
 	t_env		env;
 	char		termcap[2048];
-		
+	int			pipe;	
+
 	(void)argc;
 	(void)argv;
 
@@ -138,7 +139,8 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		signal(SIGINT, SIG_IGN);
-		runcmd(parsecmd(buf), &env, 0);
+		pipe = false;
+		runcmd(parsecmd(buf), &env, &pipe);
 		//signal(SIGQUIT, SIG_IGN);
 		add_history(buf);
 		free(buf);

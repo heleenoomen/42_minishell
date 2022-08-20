@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/08/18 18:29:12 by hoomen           ###   ########.fr        #
+#    Updated: 2022/08/19 20:11:14 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,12 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 
 NAME	=	minishell
-SRC		=	main.c panic.c fork1.c gettoken.c parsecmd.c path.c runcmd.c\
+SRC		=	main.c panic.c fork1.c gettoken.c parsecmd.c path.c runcmd2.c\
 			constructors.c ms_utils.c tree.c update_env.c\
 			env_init.c add_to_env.c env_utils.c make_envp.c\
 			buf_utils.c dollarsign.c exp_utils.c expander.c quote_removal.c\
 			tilde.c mini_echo.c mini_cd.c mini_env.c print_tree.c mini_pwd.c\
-			mini_export.c builtins.c mini_pwd.c mini_unset.c
+			mini_export.c builtins.c mini_pwd.c mini_unset.c mini_exit.c
 LIBS	=	libft/libft.a ftprintf/libftprintf.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))
 

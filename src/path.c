@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 16:15:13 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/20 13:20:19 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	assemble_path(char **path, char *command, char **all_paths, bool *file_exist
 	return (NO_FILE);
 }	
 
-char	*find_path(char *command, t_env *env)
+char	*find_path(char *command, t_env *env, bool *parent)
 {
 	bool	file_exists;
 	char	**all_paths;
@@ -68,18 +68,25 @@ char	*find_path(char *command, t_env *env)
 	int		ret;
 
 	file_exists = 0;
+
 	ret = extract_all_paths(&all_paths, env);
 	if (ret == NO_MEM)
 		panic("System error", env);
 	if (ret == NO_FILE)
 		panic_file(command, file_exists, env, PA);
 	ret = assemble_path(&path, command, all_paths, &file_exists);
+	if (ret != 0 && my_access(command, &file_exists) == 0)
+		return (command);dprintf(2, "%s\n", path);
 	if (ret == NO_MEM)
-		panic("System error", env);
+		panic_cp("System error", env, parent);
 	if (ret == NO_FILE)
-		panic_file(command, file_exists, env, EX);
+	{
+		if (*parent == false)
+			panic_file(command, file_exists, env, EX);
+		panic_file_parent(command, file_exists, EX);
+	}
 	if (path == NULL)
-		panic("Undefined error", env);
+		panic_cp("Undefined error", env, parent);
 	return (path);
 }
 

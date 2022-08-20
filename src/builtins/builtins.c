@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 17:46:40 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/19 13:56:20 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	builtin(char **argv, t_env *env)
 		mini_unset(argc, argv, env);
 	else if (ft_strcmp(argv[0], "env") == 0)
 		mini_env(env);
-//	else if (t_strcmp(argv[0], "exit") == 0)
-//		mini_exit(argc, argv, env);
+	else if (ft_strcmp(argv[0], "exit") == 0)
+		mini_exit(env);
 	else
 		return (0);
 	return (1);
