@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 17:24:22 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/19 18:04:30 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/20 14:01:38 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	tilde_to_new_buf(char *tilde, t_char_buf *buf, int tilde_len)
 	char	*new_buf;
 	int		i;
 
-	new_buf = malloc((((buf->size / 128) * 128) + 256) * sizeof(char));
+	new_buf = malloc((((buf->size / BUFSIZE) * BUFSIZE) + 256) * sizeof(char));
 	if (new_buf == NULL)
 	{
 		free(buf->buf);
@@ -33,21 +33,22 @@ void	tilde_to_new_buf(char *tilde, t_char_buf *buf, int tilde_len)
 	free(buf->buf);
 	buf->buf = new_buf;
 	buf->size += tilde_len - 1;
-	buf->free += 128;
+	buf->free += BUFSIZE;
 }
 			
-void	expand_tilde(t_env *env, char *ptr, t_char_buf *buf)
+void	expand_tilde(t_env *env, t_char_buf *buf)
 {
 	char	*tilde;
 	int		len;
 
-	if (*ptr != '~')
+	if (buf->buf[0] != '~')
 		return ;
-	if (*(ptr + 1) != '/' && (*(ptr +1)) != '\0')
+	if (buf->buf[1] != '/' && buf->buf[1] != '\0')
 		return ;
 	tilde = find_value(env, "HOME");
 	if (tilde == NULL)
 		return ;
+	dprintf(2, "in tilde, tilde = %s\n", tilde);
 	len = ft_strlen(tilde);
 	if ((int) ft_strlen(tilde) + buf->size > buf->free)
 		return (tilde_to_new_buf(tilde, buf, len));

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:13:39 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 18:46:25 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/20 15:40:18 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ int	del_key_value(char *key, char *value, short flags, int ret)
 
 char *find_value(t_env *env, char *key)
 {
+	t_tree_node	**position;
+
+	position = position_in_tree(&(env->tree), key);
+	if (*position == NULL)
+		return (NULL);
 	return ((*(position_in_tree(&(env->tree), key)))->value);
 }
 

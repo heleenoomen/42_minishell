@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ms_signals.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/19 17:00:35 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/19 18:13:50 by hoomen           ###   ########.fr       */
+/*   Created: 2022/08/20 18:00:49 by hoomen            #+#    #+#             */
+/*   Updated: 2022/08/20 18:13:05 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#ifndef MS_SIGNALS_H
+# define MS_SIGNALS_H
 
-typedef struct s_char_buf
-{
-	char	*char_buf;
-	int		size;
-	int		free;
-}
-
-# define NO_QUOTES 0
-# define SINGLE_QUOTES 1
-# define DOUBLE_QUOTE 2
-
-# define FIRST_CHAR_KEY "\"\'_$"
-
-# define MEM_ERROR 1
-# define INVALID_INPUT 2
+void	ms_signal(t_env *env);
+void	ms_sig_dfl(t_env *env);
+void	ms_sigint_ignore(t_env *env);
+void	ms_sigint(t_env *env);
 
 #endif

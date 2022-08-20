@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/16 19:47:18 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/20 14:01:52 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*expand_string(t_env *env, char *ptr, bool tilde_exp, bool quote_rem
 		return (NULL);
 	expand_dollarsign(env, ptr, &buf);
 	if (buf.buf != NULL && tilde_exp)
-		expand_tilde(env, ptr, &buf);
+		expand_tilde(env, &buf);
 	if (buf.buf != NULL && quote_removal)
 		remove_quotes(&buf);
 	ret = ft_strdup(buf.buf);

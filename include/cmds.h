@@ -5,10 +5,12 @@
 # define REDIR	2
 # define PIPE	3
 # define LIST	4
-# define BACK	5
+# define BLOCK	5
 # define HERE	6
+# define AND	7
+# define OR		8
 
-# define MAXARGS 10
+# define ARGS 10
 
 struct cmd
 {
@@ -17,11 +19,12 @@ struct cmd
 
 struct execcmd
 {
-	int	type;
-	int	argc;
-	int	quote_modus;
-	char	*argv[MAXARGS];
-	char	*eargv[MAXARGS];
+	int		type;
+	int		argc;
+	int		quote_modus;
+	char	*argv[ARGS];
+	char	*eargv[ARGS];
+	int		free;
 };
 
 struct redircmd
@@ -49,7 +52,7 @@ struct listcmd
 	struct cmd	*right;
 };
 
-struct backcmd 
+struct blockcmd 
 {
 	int		type;
 	struct cmd	*cmd;
@@ -69,7 +72,7 @@ struct cmd		*execcmd(void);
 struct cmd		*redircmd(struct cmd *subcmd, char *file, char *efile, int mode, int fd);
 struct cmd		*pipecmd(struct cmd *left, struct cmd *right);
 struct cmd		*listcmd(struct cmd *left, struct cmd *right);
-struct cmd		*backcmd(struct cmd *subcmd);
+struct cmd		*blockcmd(struct cmd *subcmd);
 struct cmd		*herecmd(struct cmd *subcmd, char *limit, char *elimit);
 
 /*gettoken2.c*/

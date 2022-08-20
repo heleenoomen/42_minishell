@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 11:46:13 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 18:59:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/20 16:06:23 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,14 @@
 /*file not found*/
 # define NO_FILE	3
 
-/*types of file errors*/
-# define EX			0
-# define PA			1
+/*file error flags for panic_file function*/
+/*file type is executable*/
+# define ISEXEC		0b10
+
+/*file exists*/
+# define EXIST		0b100
+
+/*path variable not set*/
+# define NOPA		0b1000
 
 #endif

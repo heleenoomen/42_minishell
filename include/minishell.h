@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:35:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/20 13:19:45 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/20 18:14:32 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include<readline/history.h>
 # include<errno.h>
 # include"environment.h"
+# include"ms_signals.h"
+# include"ms_termios.h"
 # include"expander.h"
 # include"builtins.h"
 # include"cmds.h"
@@ -38,9 +40,11 @@ int	ms_exit;
 
 /*panic.c*/
 void	panic(char *message, t_env *env);
-void	panic_file(char *file, bool exists, t_env *env, int type);
-void	panic_file_parent(char *file, bool exists, int type);
+void	panic_file(char *file, t_env *env, short flags, bool *parent);
 void	panic_cp(char *s, t_env *env, bool *parent);
+char	*panic_cp_null(char *s, t_env *env, bool *parent);
+char	*panic_file_null(char *file, t_env *env, short flags, bool *parent);
+
 
 /*fork1.c*/
 int	fork1(void);
