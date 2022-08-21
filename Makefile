@@ -17,8 +17,8 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 
 NAME	=	minishell
-SRC		=	main.c panic.c fork1.c gettoken.c parsecmd.c path.c runcmd2.c\
-			constructors.c ms_utils.c tree.c update_env.c\
+SRC		=	main.c panic.c path.c \
+			ms_utils.c env_tree.c update_env.c\
 			env_init.c add_to_env.c env_utils.c make_envp.c\
 			buf_utils.c dollarsign.c exp_utils.c expander.c quote_removal.c\
 			tilde.c mini_echo.c mini_cd.c mini_env.c print_tree.c mini_pwd.c\

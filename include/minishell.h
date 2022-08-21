@@ -45,7 +45,6 @@ void	panic_cp(char *s, t_env *env, bool *parent);
 char	*panic_cp_null(char *s, t_env *env, bool *parent);
 char	*panic_file_null(char *file, t_env *env, short flags, bool *parent);
 
-
 /*fork1.c*/
 int	fork1(void);
 

@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   panic.c                                            :+:      :+:    :+:   */
+/*   ft_lstpush.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/18 12:57:59 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/18 13:00:17 by hoomen           ###   ########.fr       */
+/*   Created: 2022/08/15 12:48:58 by ktashbae          #+#    #+#             */
+/*   Updated: 2022/08/15 12:49:33 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	panic(char *message, t_env_data *env_data)
+void	ft_lstpush(t_list **lst, void *data)
 {
-	perror(message);
-	clear_env_data(env_data);
-	exit(errno);
+	t_list	*new;
+
+	new = ft_lstnew(data);
+	ft_lstadd_front(lst, new);
 }

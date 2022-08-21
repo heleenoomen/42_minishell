@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include"minishell.h"
-#include "termios.h"
-#include "termcap.h"
-
 /* checks for unclosed quotes. If any, line is not even parsed */
 int	unclosed_quotes(char *s)
 {
@@ -24,7 +21,7 @@ int	unclosed_quotes(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] == '\'' || s[i] == '\"')
+    if (s[i] == '\'' || s[i] == '\"')
 			change_quote_modus(&modus, s[i]);
 		i++;
 	}
