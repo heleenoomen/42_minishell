@@ -1,3 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmds.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/21 14:47:46 by hoomen            #+#    #+#             */
+/*   Updated: 2022/08/21 14:48:27 by hoomen           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* this header file was what I used for my version of minishell. It can be dis-
+ * carded, but it might help you if you want to read my versio of the execution
+ * files
+ */
+
 #ifndef CMDS_H
 # define CMDS_H
 
@@ -9,8 +26,6 @@
 # define HERE	6
 # define AND	7
 # define OR		8
-
-# define ARGS 10
 
 struct cmd
 {
@@ -43,19 +58,6 @@ struct pipecmd
 	int		type;
 	struct cmd	*left;
 	struct cmd	*right;
-};
-
-struct listcmd
-{
-	int		type;
-	struct cmd	*left;
-	struct cmd	*right;
-};
-
-struct blockcmd 
-{
-	int		type;
-	struct cmd	*cmd;
 };
 
 struct herecmd

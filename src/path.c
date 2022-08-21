@@ -6,11 +6,20 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/20 16:14:51 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/08/21 14:50:41 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* function to search the path argument in execve, based on argv[0] and t_env
+ * struct. If path is unset, or if system is out of memory, or if the file
+ * is not found or if permissions are denied, path wil call one of the
+ * panic functions to print error message and either return (if the process
+ * is the minishell parent process) or exit (if the process is some child
+ * process)
+ */
+
 
 int	my_access(char *command, short *flags)
 {
