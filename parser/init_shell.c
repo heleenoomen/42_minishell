@@ -38,7 +38,8 @@ void	launch_table(void (***table)(t_list **, t_grammar))
 	child_commands(table);
 }
 
-void	init_minishell(t_minishell *shell)
+void	init_minishell(t_minishell *shell) /* pass envp from main to initialize env >>
+						void	init_minishell(t_minishell *shell, char **envp) */
 {
 	int	col;
 
@@ -46,6 +47,8 @@ void	init_minishell(t_minishell *shell)
 	shell->line_len = 0;
 	shell->value = NULL;
 	/*env */
+	/* to initialize env: 
+	init_env(minishell->env, envp); */
 	shell->table = malloc(NONTERM * sizeof(void***));
 	while (col < NONTERM)
 	{
