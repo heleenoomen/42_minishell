@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traverser_more.c                                   :+:      :+:    :+:   */
+/*   traverser_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:42:54 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/16 14:27:38 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:07:12 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	run_subshell(t_list **stack_table, t_grammar type)
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
-		temp_node->node->type = NT_SUBSHELL;
+		temp_node->node->type = N_SUB;
 		branch_node(&node, temp_node, T_RBRACE);
 		ft_lstpush(stack_table, node);
 		branch_child_node(&node, temp_node, NT_AND_OR);

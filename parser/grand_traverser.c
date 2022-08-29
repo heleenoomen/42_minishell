@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traverser_redirections.c                           :+:      :+:    :+:   */
+/*   grand_traverser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/16 14:25:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/18 16:07:32 by kanykei          ###   ########.fr       */
+/*   Created: 2022/08/16 14:21:22 by ktashbae          #+#    #+#             */
+/*   Updated: 2022/08/18 15:41:33 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
 
-void	redirect_to_file(t_list **stack_table, t_grammar type)
+void	run_start(t_list **stack_table, t_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -20,17 +20,13 @@ void	redirect_to_file(t_list **stack_table, t_grammar type)
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
-		branch_node(&node, temp_node, T_STRING);
-		node->node_type = N_REDIR;
-		ft_lstpush(stack_table, node);
-		branch_node(&node, temp_node, type),
-		node->node_type = N_REDIR;
+		node = NULL;
 		ft_lstpush(stack_table, node);
 		free(temp_node);
 	}
 }
 
-void	run_redirections(t_list **stack_table, t_grammar type)
+void	run_and_or(t_list **stack_table, t_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -38,29 +34,15 @@ void	run_redirections(t_list **stack_table, t_grammar type)
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
-		branch_node(&node, temp_node, NT_REDIR1);
+		branch_node(&node, temp_node, NT_AND_OR1);
 		ft_lstpush(stack_table, node);
-		branch_node(&node, temp_node, NT_IO_REDIR);
-		ft_lstpush(stack_table, node);
-		free(temp_node);
-	}
-}
-
-void	run_redirections1(t_list **stack_table, t_grammar type)
-{
-	t_parser	*node;
-	t_parser	*temp_node;
-
-	if (type >= 0)
-	{
-		temp_node = (t_parser *)lst_get_content(stack_table);
-		branch_node(&node, temp_node, NT_REDIR);
+		branch_child_node(&node, temp_node, NT_PIPESPLIT);
 		ft_lstpush(stack_table, node);
 		free(temp_node);
 	}
 }
 
-void	run_io_file(t_list **stack_table, t_grammar type)
+void	run_and_or1(t_list **stack_table, t_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -68,29 +50,25 @@ void	run_io_file(t_list **stack_table, t_grammar type)
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
-		if (type == T_DLESS)
-			branch_node(&node, temp_node, NT_IO_HERE);
+		if (type == T_OR)
+			temp_node->node->type = N_OR;
 		else
-			branch_node(&node, temp_node, NT_IO_FILE);
+			temp_node->node->type = N_AND;
+		branch_child_node(&node, temp_node, NT_AND_OR);
+		ft_lstpush(stack_table, node);
+		branch_node(&node, temp_node, type);
 		ft_lstpush(stack_table, node);
 		free(temp_node);
 	}
 }
 
-void	run_io_here(t_list **stack_table, t_grammar type)
+void	set_epsilon(t_list **stack_table, t_grammar type)
 {
-	t_parser	*node;
 	t_parser	*temp_node;
 
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
-		branch_node(&node, temp_node, T_STRING);
-		node->node_type = N_REDIR;
-		ft_lstpush(stack_table, node);
-		branch_node(&node, temp_node, T_DLESS);
-		node->node_type = N_REDIR;
-		ft_lstpush(stack_table, node);
 		free(temp_node);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/15 22:01:46 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:59:49 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_ast	*init_new_node(t_node_type n_type)
 
 /* Initializes parses by setting up the list of commands and 
 launching the start of the node for the AST */
-void	init_parse(t_list **cmds_list, t_ast **node)
+void	init_parser(t_list **cmds_list, t_ast **node)
 {
 	*cmds_list = NULL;
 	*node = init_new_node(N_DUMM);

@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 08:32:38 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/16 12:52:09 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/23 18:12:25 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	get_charbychar(t_prompt *line)
 		return (CHAR_ERR);
 	if (line->index == -2)
 		line->index = -1;
-	if (line->index + 1 >= line->len)
+	if (++line->index >= line->len)
 	{
 		line->index = line->len;
 		return (EOL);
@@ -45,6 +45,7 @@ char	set_peek(t_prompt *line)
 	index = line->index;
 	if (index == -2)
 		index++;
+	index++;
 	if (index >= line->len)
 		return (EOL);
 	c = line->input[index];

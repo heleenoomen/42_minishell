@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/16 16:54:22 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/26 14:57:59 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include "lists/list.h"
-// # include <../libft/libft.h>
-
+# include <string.h>
+# include "minishell.h"
+# include "libft/libft.h"
 # define EOL -1
 # define SUCCESS 0
 # define ERROR 1
@@ -29,10 +29,6 @@
 typedef enum e_grammar
 {
 	NT_START,
-	NT_PREFIX,
-	NT_PREFIX1,
-	NT_SUFFIX,
-	NT_SUFFIX1,
 	NT_AND_OR,
 	NT_AND_OR1,
 	NT_PIPESPLIT,
@@ -43,6 +39,10 @@ typedef enum e_grammar
 	NT_CMD,
 	NT_CMD1,
 	NT_CMD2,
+	NT_PREFIX,
+	NT_PREFIX1,
+	NT_SUFFIX,
+	NT_SUFFIX1,
 	NT_REDIR,
 	NT_REDIR1,
 	NT_IO_REDIR,
@@ -85,12 +85,6 @@ typedef struct s_lexer
 	int		len;
 	int		index;
 }			t_lexer;
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}					t_list;
 
 typedef enum e_node_type
 {
@@ -139,42 +133,44 @@ typedef struct s_minishell
 	t_list	*value;
 }	t_minishell;
 
+// void	init_minishell(t_minishell *shell);
+
 /* LEXER and support functions*/
-void	skip_whitespace(t_prompt *line);
-void	update_char(t_prompt *line);
-char	set_peek(t_prompt *line);
-char	get_charbychar(t_prompt *line);
-void	run_lexer(t_lexer *lex);
-t_list	*get_token_list(t_lexer *lex, char *line);
-void	type_checker(t_token *token, int *cmd, int *flag);
-int		flag_checker(char *line);
-void	init_lexer(t_lexer *lex);
 t_list	*lexer(t_prompt *line);
+t_lexer	*init_lexer(void);
+t_list	*get_token_list(t_lexer *lex, t_prompt *line);
+void	type_checker(t_token *tok, int *is_balanced, int *cmd_flag);
+int		quote_checker(char *line);
 void	flag_exists(int flag);
 void	delete_token(void *token);
-
-/* TOKENIZER and support functions*/
-t_token	*init_token(void);
-t_token	*launch_tokens(t_token *token, t_prompt *line, char *lex);
-void	parser(t_lexer *lex, t_prompt *line);
-void	get_token_type(t_token *token, char *lex);
-int		check_value_assign(char *str);
-int		update_buffer(t_lexer *lex, t_prompt *line, char c);
-void	token_operator(t_lexer *lex, t_prompt *line, char c);
-void	save_buffer(t_lexer *lex, char c);
+char	get_charbychar(t_prompt *line);
+char	set_peek(t_prompt *line);
+void	update_char(t_prompt *line);
+void	skip_whitespace(t_prompt *line);
+void	save_to_lexer(t_lexer *lex, char c);
+int		update_lexer(t_lexer *lex, t_prompt *line, char c);
 char	*increase_buffer(void *temp1, int current_size, int update_size);
 void	init_buffer(t_lexer *lexer);
+void	lexer_get_value(t_lexer *lex, t_prompt *line);
+
+/* TOKENIZER and support functions*/
 t_token	*tokenizer(t_lexer *lex, t_prompt *line);
+t_token	*create_token(t_token *token, t_prompt *line, char *value);
+void	token_operator(t_lexer *lex, t_prompt *line, char c);
+void	set_token_type(t_token *token, char *lex);
+void	token_operator(t_lexer *lex, t_prompt *line, char c);
+int		check_value_assign(char *str);
+t_token	*init_token(void);
 
 /* PARSER and AST building */
 t_ast	*ast_builder(char *input, void (***table)(t_list **, t_grammar));
-void	init_content(t_prompt *content, char *input);
+void	copy_input_line(t_prompt *line, char *readline);
 t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, \
 		t_grammar));
 int		scan_nodes_parser(t_list *token_list, t_parser *node_p, \
 		t_list **cmds, void (***table)(t_list **, t_grammar));
 void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd);
-void	*create_node(t_grammar tok_type);
+void	*create_new_node(t_grammar tok_type);
 void	free_ast_tree(t_ast **ast);
 void	free_ast_commands(t_cmd_def **cmds);
 void	remove_ast_node(t_ast **node);
@@ -183,6 +179,8 @@ t_ast	*init_new_node(t_node_type n_type);
 void	free_token(void *token);
 t_ast	*add_child(t_ast *top, t_ast *child);
 void	free_node(t_ast *node);
+void	init_parser(t_list **cmds_list, t_ast **node);
+void	*create_node(t_grammar tok_type);
 
 /* Parse TRAVERSER */
 void	run_start(t_list **stack_table, t_grammar type);

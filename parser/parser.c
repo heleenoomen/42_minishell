@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/15 22:01:52 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:01:31 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd)
 		node_p->node->cmds->assign = NULL;
 		node_p->node->cmds->redir = NULL;
 	}
-	new = ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->line));
+	new = ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->input));
 	if (node_p->node_type == N_CMD)
 		ft_lstadd_back(&node_p->node->cmds->cmd, new);
 	if (node_p->node_type == N_ASSIGN)
@@ -94,7 +94,7 @@ t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar))
 	flag = 1;
 	while (flag && ft_lstsize(cmds) > 0)
 	{
-		node_p = (t_parser *)get_cmd(cmds);
+		node_p = (t_parser *)lst_get_cmd(cmds);
 		if (((t_token *)token_list->content)->type == node_p->token_type)
 			add_nodes_parser(&token_list, node_p, &cmds);
 		else

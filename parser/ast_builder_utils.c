@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 14:58:11 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/15 21:57:17 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/24 11:55:39 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /* After saving string into the node of AST, frees the token input that was 
 allocated before*/
-
 void	free_token(void *token)
 {
 	if (((t_token *)token)->input)
@@ -23,9 +22,9 @@ void	free_token(void *token)
 }
 
 /* Initializes the prompt structure by saving the input line */
-void	init_content(t_prompt *content, char *input)
+void	copy_input_line(t_prompt *line, char *readline)
 {
-	content->input = ft_strdup(input);
-	content->len = ft_strlen(input);
-	content->index = -2;
+	line->input = ft_strdup(readline);
+	line->len = ft_strlen(readline);
+	line->index = -2;
 }
