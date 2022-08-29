@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/26 14:57:59 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/26 14:54:27 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,8 @@ typedef struct s_minishell
 	t_list	*value;
 }	t_minishell;
 
-// void	init_minishell(t_minishell *shell);
+void	init_minishell(t_minishell *shell);
+void	copy_input_line(t_prompt *line, char *readline);
 
 /* LEXER and support functions*/
 t_list	*lexer(t_prompt *line);
@@ -164,7 +165,7 @@ t_token	*init_token(void);
 
 /* PARSER and AST building */
 t_ast	*ast_builder(char *input, void (***table)(t_list **, t_grammar));
-void	copy_input_line(t_prompt *line, char *readline);
+void	init_content(t_prompt *content, char *input);
 t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, \
 		t_grammar));
 int		scan_nodes_parser(t_list *token_list, t_parser *node_p, \

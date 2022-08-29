@@ -6,11 +6,12 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:40:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/22 22:17:37 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:08:20 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
+#include "../ast.h"
 
 void	launch_table(void (***table)(t_list **, t_grammar))
 {
@@ -44,6 +45,7 @@ void	init_minishell(t_minishell *shell)
 	col = 0;
 	shell->line_len = 0;
 	shell->value = NULL;
+	/*env */
 	shell->table = malloc(NONTERM * sizeof(void***));
 	while (col < NONTERM)
 	{
