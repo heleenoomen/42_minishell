@@ -129,8 +129,9 @@ typedef struct s_minishell
 	int		line_len;
 	char	*line;
 	void	(***table)(t_list **, t_grammar);
-	t_list	*env;
-	t_list	*value;
+	t_list	*env; /* what is this env? Is it the environment of our minishell? Then:
+	t_env	*env       I will adapt the init_env function so that I malloc t_env (previously, it was on the stack */
+	t_list	*value;   /* was this part of env? then it can now go ;-) */
 }	t_minishell;
 
 void	init_minishell(t_minishell *shell);
