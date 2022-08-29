@@ -14,14 +14,18 @@
 
 int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 {
-	char	**env;
+	char	**env;   /* if you want to get the path, add: char *path. */
 
 	close(exec->pipe_fd[0]);
 	exec->curr_cmd = /* put into array the list of cmds*/;
 	if (exec->curr_cmd)
 	{
 		duplicate_fd(exec)
-		env = /*get env // path */;
+		//env = /*get env // path */; 
+		/* to extract env from t_env struct:
+		env = make_envp(minishell->env)
+		if (env == NULL)
+			perror("exec failed"); //i.e. not enough memory to make envp */
 		if (execve(exec->curr_cmd[0], exec->curr_cmd, env) == -1)
 			perror("exec failed");
 		/*free env // path */
