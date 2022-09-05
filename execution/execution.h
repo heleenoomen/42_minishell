@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/08/28 20:37:04 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:37:05 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,23 @@
 # include <stdlib.h>
 # include "../parser/ast.h"
 # include <signal.h>
+# include <sys/types.h>
+# include <dirent.h>
+
 
 extern int	g_global_exit_status;
+
+enum	e_type
+{
+	FILE,
+	DIRECTORY,
+};
+
+typedef struct s_expansion
+{
+	char		*file;
+	enum e_type	type;
+}	t_expansion;
 
 typedef struct s_exec
 {
@@ -76,5 +91,21 @@ void			parent_sigint(void);
 void			parent_sigquit(void);
 void			call_process_exit(int signal);
 void			send_exit_status(int signal);
+
+/* Redirection && filename expansion */
+char			*remove_quotes(char *str);
+void			filename_expansion(t_list **redir_list);
+
+
+
+/* Filename expansion */ 
+void			filename_expansion(t_list **redir_list);
+t_list			*expand_star(char *str);
+void			merge_to_list(t_list **curr_lst, t_list *new, t_list *prev, t_lst **lst);
+void			get_expand_direct(t_list **lst, t_list *path);
+t_list			*get_path_for_expansion(char *str);
+void			push_to_redirlst(t_list *path, t_list **lst, char *dir);
+int				file_cmp(char *search, char	*files);
+
 
 #endif
