@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:38:17 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/28 20:33:06 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:56:17 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	child_sigquit(void)
 
 	sn.sa_handler = SIG_DFL;
 	sn.sa_flags = SA_RESTART;
-	sigemptyset(&sa.sa_mask);
-	sigaction(SIGQUIT, &sa, NULL);
+	sigemptyset(&sn.sa_mask);
+	sigaction(SIGQUIT, &sn, NULL);
 }
 
 void	child_send_signal(void)
