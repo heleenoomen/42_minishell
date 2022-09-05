@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/05 14:37:05 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/05 14:57:59 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <dirent.h>
-
 
 extern int	g_global_exit_status;
 
@@ -94,11 +93,6 @@ void			send_exit_status(int signal);
 
 /* Redirection && filename expansion */
 char			*remove_quotes(char *str);
-void			filename_expansion(t_list **redir_list);
-
-
-
-/* Filename expansion */ 
 void			filename_expansion(t_list **redir_list);
 t_list			*expand_star(char *str);
 void			merge_to_list(t_list **curr_lst, t_list *new, t_list *prev, t_lst **lst);
