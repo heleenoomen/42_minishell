@@ -6,26 +6,16 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/20 14:01:52 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 11:12:41 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_argc(char **argv)
-{
-	int	i;
-
-	i = 0;
-	while (argv[i] != NULL)
-		i++;
-	return (i);
-}
-
 /* expands a single string. Expands dollar sign, expands tilde if tilde_exp is set
  * and removes quotes if quote_removal is set.
  */
-static char	*expand_string(t_env *env, char *ptr, bool tilde_exp, bool quote_removal)
+static char	*expand_string(char *s, t_env *env)
 {
 	t_char_buf	buf;
 	char		*ret;
@@ -33,45 +23,62 @@ static char	*expand_string(t_env *env, char *ptr, bool tilde_exp, bool quote_rem
 	init_char_buf(&buf);
 	if (buf.buf == NULL)
 		return (NULL);
-	expand_dollarsign(env, ptr, &buf);
-	if (buf.buf != NULL && tilde_exp)
+	expand_dollarsign(env, s, &buf);
+	if (buf.buf != NULL)
 		expand_tilde(env, &buf);
-	if (buf.buf != NULL && quote_removal)
+	if (buf.buf != NULL)
 		remove_quotes(&buf);
 	ret = ft_strdup(buf.buf);
 	free(buf.buf);
 	return (ret);
 }
 
-/* expands argv. Expands dollar signs. Expands tilde if tilde_exp is set,
- * removes quotes if quote_removal is set. Returns the expanded argv.
- * Returns NULL if argv was NULL in the first place or if malloc fails somewhere
- * along the way.
- */
-char	**expander(char **argv, t_env *env, bool tilde_exp, bool quote_removal)
+/** traverses the list and expands all of its contents */
+void	expand_list(t_list *lst_of_strings, t_env *env)
 {
-	char	**argv_dup;
-	int		i;
-	int		argc;
+	t_list	*trav;
+	char	*new_content;
 
-	argc = get_argc(argv);
-	if (argc == -1)
-		return (NULL);
-	argv_dup = ft_calloc(argc + 1, sizeof(char *));
-	if (argv_dup == NULL)
-		return (NULL);
-	i = 0;
-	while (argv[i] != NULL)
+	if (t_global_exit_status != NULL)
+		return ;
+	trav = lst_of_strings;
+	while (trav != NULL)
 	{
-		argv_dup[i] = expand_string(env, argv[i], tilde_exp, quote_removal);
-		if (argv_dup[i] == NULL)
-		{
-			ft_freestrarr(&argv_dup);
-			write(2, "System error\n", 14);
-			return (NULL);
-		}
-		i++;
+		new_content = expand_string(lst->content, env);
+		if (new_content == NULL)
+			return ;	
+		free(trav->content);
+		trav->content = (void *) new_content;
+		trav = trav->next;
 	}
-	return (argv_dup);
+}
+
+/** goes through the list of t_ast nodes. For every nodes, checks if the *cmds pointer is not
+ * NULL. If it is not NULL, checks for every pointer in the t_cmd_def struct if the pointers to
+ * *cmd, *redir and *assign are not NULL. If they are not NULL, calls expand_list to expand the nodes
+ * in the list
+ **/ 
+void	expander(t_list *nodes, t_env *env)
+{
+	t_list	*traverser;
+	t_ast	*current;
+
+	traverser = nodes;
+	while (traverser != NULL)
+	{
+		current = traverser->content;
+		if (current->cmds)
+		{
+			if (current->cmds->cmd)
+				expand_list(current->cmds->cmd, env);
+			if (current->cmds->redir)
+				expand_list(current->cmds->redir, env);
+			if (current->cmds->assign)
+				expand_list(current->cmds->assign, env);
+		}
+		if (g_global_exit_status != NULL)
+			return ;
+		traverser = traverser->next;
+	}
 }
 

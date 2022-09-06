@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/06 09:56:08 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 11:17:35 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *min
 		exec_cmds->pipe = 1;
 	exec_cmds->cmds_list = exec_cmds->cmds_list;
 	if ((*node)->cmds->cmd && (*node)->cmds->cmd->content && builtin((*node)->cmds->cmd, minishell)
-		return ;
+		return ; // OK like this? the "builtin" function will call the function to do the builtin
+		// command and then return. It sets the global exit status if something goes wrong. If the
+		// command is not a builtin, 'builtin' returns false, so we continue to execute_cmd_block //
 	else
 		execute_cmd_block(exec_cmds, *ast, minishell);
 	*node = NULL;
@@ -64,7 +66,7 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 
 	status = 0;
 	total_cmds = ft_lstsize(*exec_cmds->cmds_list);
-	while (total_cmds > 0 && exec_cmds->cmds_list && status = 0)
+	while (total_cmds > 0 && exec_cmds->cmds_list && status == 0)
 	{
 		node = (t_ast *)lst_get_content(exec_cmds->cmds_list);
 		if (node->type == N_CMD && minishell)
@@ -146,8 +148,11 @@ int	main_executor(char *readline, t_minishell *minishell)
 	if (tree)
 	{
 		get_tree(&nodes, tree, 0);
-		// expand variables //
-		start_execution(&node, minishell);
+		expander(nodes, minishell->env); // check if global exit status is still 0 ? In case
+										// malloc fails in the expander? There are other possible
+										// solutions of course, e.g. I could make expander return -1
+										// if malloc fails somewhere, and then we return. We can discuss 											the best way to do this :-). //
+		start_execution(&nodes, minishell);
 	}
 	else
 		status = 1;

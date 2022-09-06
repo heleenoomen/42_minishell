@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/28 18:14:29 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/06 12:31:02 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,30 @@
 
 int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 {
-	char	**env;
+	char	**envp;
+	char	*path;
 
 	close(exec->pipe_fd[0]);
-	exec->curr_cmd = /* put into array the list of cmds*/;
-	if (exec->curr_cmd)
+	exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
+	envp = make_envp(minishell->env); /*get env */
+	path = get_path(exec->curr_cmd[0], env); /* get path */
+	if (exec->curr_cmd != NULL && envp != NULL && path != NULL)
 	{
 		duplicate_fd(exec)
-		env = /*get env // path */;
-		if (execve(exec->curr_cmd[0], exec->curr_cmd, env) == -1)
+		if (execve(path, exec->curr_cmd, env) == -1) /* I think execve can also return other 
+														exit statuses than -1, no? */
 			perror("exec failed");
-		/*free env // path */
+		/* Alternatively, since execve only returns when it fails or when signaled:
+		execve(path, exec->curr_cmd, env);
+		perror("exec->curr_cmd[0]");
+		*/
 	}
 	if (exec->fd_in > 0)
 		close(exec->fd_in);
 	close(exec->pipe_fd[1]);
-	free(exec->curr_cmd);
+	ft_freestrarr(exec->curr_cmd);
+	ft_freestrarr(envp);
+	free(path);
 	/*free list of cmnds */
 	/*free minishell */
 	exit(g_global_exit_status);
