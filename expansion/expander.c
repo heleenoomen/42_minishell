@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 11:12:41 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 15:39:49 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	expand_list(t_list *lst_of_strings, t_env *env)
 	t_list	*trav;
 	char	*new_content;
 
-	if (t_global_exit_status != NULL)
+	if (t_global_exit_status)
 		return ;
 	trav = lst_of_strings;
 	while (trav != NULL)
@@ -60,13 +60,13 @@ void	expand_list(t_list *lst_of_strings, t_env *env)
  **/ 
 void	expander(t_list *nodes, t_env *env)
 {
-	t_list	*traverser;
+	t_list	*ptr;
 	t_ast	*current;
 
-	traverser = nodes;
-	while (traverser != NULL)
+	ptr = nodes;
+	while (ptr != NULL)
 	{
-		current = traverser->content;
+		current = ptr->content;
 		if (current->cmds)
 		{
 			if (current->cmds->cmd)
@@ -78,7 +78,7 @@ void	expander(t_list *nodes, t_env *env)
 		}
 		if (g_global_exit_status != NULL)
 			return ;
-		traverser = traverser->next;
+		ptr = ptr->next;
 	}
 }
 

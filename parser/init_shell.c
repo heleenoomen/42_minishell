@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:40:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/26 12:08:20 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/06 17:43:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,25 @@ void	launch_table(void (***table)(t_list **, t_grammar))
 	child_commands(table);
 }
 
-void	init_minishell(t_minishell *shell)
+void	init_minishell(t_minishell *shell, char **envp)
 {
 	int	col;
 
 	col = 0;
 	shell->line_len = 0;
 	shell->value = NULL;
-	/*env */
-	shell->table = malloc(NONTERM * sizeof(void***));
+	shell->env = ft_malloc(sizeof(env), NULL);
+	init_env(shell->env, envp);
+	if (g_global_exit_status)
+		return ;
+	shell->table = ft_malloc(NONTERM * sizeof(void***), NULL); /* added protection */
+	if (g_global_exit_status)
+		return ;
 	while (col < NONTERM)
 	{
-		shell->table[col] = malloc(TOKENS * sizeof(void**));
+		shell->table[col] = ft_malloc(TOKENS * sizeof(void**), NULL); /* added protection */
+		if (g_global_exit_status)
+			return ;
 		col++;
 	}
 	launch_table(shell->table);

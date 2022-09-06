@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:00:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 17:49:17 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 15:11:33 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,15 @@ bool	is_valid_mini_us(char *s)
 	return (true);
 }
 
-void	mini_unset(int argc, char **argv, t_env *env)
+void	mini_unset(t_list *cmd, t_env *env)
 {
-	int	i;
+	int		i;
+	int		argc;
+	char	**argv;
 
+	argv = list_to_argv(cmd);
+	if (argv == NULL)
+		return ;
 	if (argc == 0)
 		return ;
 	i = 0;
@@ -47,5 +52,6 @@ void	mini_unset(int argc, char **argv, t_env *env)
 		}
 		i++;
 	}
+	free(argv);
 }
 

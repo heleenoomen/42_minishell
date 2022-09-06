@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:27:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 14:39:37 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 17:20:58 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * If the quotes_modus was NO_QUOTES, we are entering quotes, so quote_modus is
  * set to the modus of the quote found. If the quote_modus was equal to the 
  * quotes found, it means that we are closing quotes, so quote_modus is set back
- * NO_QUOTES.In all other cases, we have single quotes within double quotes
+ * to NO_QUOTES.In all other cases, we have single quotes within double quotes
  * or vice versa, they are read verbatim, thus quote_modus remains unchanged.
  * Function returns 1 if quote_modus was changed, 0 if it was left unchanged.
  */  

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:52:19 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/20 13:36:05 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 16:21:58 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
  * to 127*/
 void	init_char_buf(t_char_buf *buf)
 {
-	buf->buf = ft_calloc(BUFSIZE, sizeof(char));
+	buf->buf = ft_calloc2(BUFSIZE, NULL);
 	if (buf->buf == NULL)
-		return ;
+		return (NULL);
 	buf->size = 0;
 	buf->free = 127;
 }
@@ -34,7 +34,7 @@ void	resize_buffer(t_char_buf *buf)
 	int		i;
 	int		j;
 	
-	new = malloc((buf->size + 1 + BUFSIZE) * sizeof(char));
+	new = ft_malloc((buf->size + 1 + BUFSIZE) * sizeof(char), NULL);
 	if (new != NULL)
 	{
 		i = 0;

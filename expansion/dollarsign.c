@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:48:03 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 10:48:46 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 15:55:36 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,25 @@ static bool	is_end_of_key(char c)
 	if (!ft_isalnum(c) && c != '_')
 		return (1);
 	return (0);
+}
+
+/* converts g_global_exit_status to string (ft_itoa) and copies
+ * this string to the char buffer. In case malloc fails, sets global exit status, frees buffer and sets it to NULL, so that no further expansion will happen.
+ */
+void	expand_global_exit_status(t_char_buf *buf)
+{
+	char	*nbr;
+
+	nbr = ft_itoa(g_global_exit_status);
+	if (nbr == NULL)
+	{
+		g_global_exit_status == ENOMEM;
+		free(buf->buf);
+		buf->buf == NULL;
+		return ;
+	}
+	add_str_to_buf(buf, nbr);
+	free(nbr);
 }
 
 /*if dollar sign is followed by question mark, expands to the ms_exit global
@@ -34,8 +53,8 @@ static char	*expand_substr_ds(t_env *env, t_char_buf *buf, char *ptr)
 
 	key = ptr + 1;
 	if (*key == '?')
-	{
-		add_str_to_buf(buf, ft_itoa(ms_exit));		
+	{	
+		expand_global_exit_status(buf);
 		return (key + 1);
 	}
 	end_of_key = key;
@@ -94,7 +113,6 @@ void	expand_dollarsign(t_env *env, char *ptr, t_char_buf *buf)
 {
 	int			quotes;
 
-	init_char_buf(buf);
 	if (buf->buf == NULL)
 		return ;
 	quotes = NO_QUOTES;

@@ -6,18 +6,22 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:13:39 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/20 15:40:18 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 18:02:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clear_env(t_env *env)
+void	clear_env(t_env **env_dir)
 {
+	t_env *env;
+
+	env = *env_dir;
 	free_tree(&(env->tree));
 	free(env->cwd);
+	*env_dir = NULL;
 }
-		
+
 int	ft_strdup_int(char **dup, char *s)
 {
 	*dup = ft_strdup(s);
