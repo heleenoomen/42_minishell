@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/26 14:54:27 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/05 15:46:36 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,7 @@ typedef struct s_minishell
 	int		line_len;
 	char	*line;
 	void	(***table)(t_list **, t_grammar);
-	t_list	*env;
-	t_list	*value;
+	t_env	*env;
 }	t_minishell;
 
 void	init_minishell(t_minishell *shell);

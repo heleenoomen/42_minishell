@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   main_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/28 18:17:32 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/05 17:02:45 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *min
 	if (temp && temp->type == N_PIPE)
 		exec_cmds->pipe = 1;
 	exec_cmds->cmds_list = exec_cmds->cmds_list;
-	if ((*node)->cmds->cmd && (*node)->cmds->cmd->content && /*check string if it is builtin*/)
-		/*execute builtin */
+	if ((*node)->cmds->cmd && (*node)->cmds->cmd->content && builtin((*node)->cmds->cmd, minishell)
+		return ;
 	else
 		execute_cmd_block(exec_cmds, *ast, minishell);
 	*node = NULL;
@@ -141,7 +141,7 @@ int	main_executor(char *readline, t_minishell *minishell)
 	t_ast	*tree;
 
 	status = 0;
-	node = NULL;
+	nodes = NULL;
 	tree = ast_builder(readline, minishell->table);
 	if (tree)
 	{
