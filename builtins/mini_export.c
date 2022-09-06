@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 18:33:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 13:54:42 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,18 @@ bool	is_valid(char *s)
 	return (true);
 }
 
-void	mini_export(int argc, char **argv, t_env *env)
+void	mini_export(t_list *cmd, t_env *env)
 {
-	int	i;
+	int		i;
+	int		argc;
+	char	**argv;
 
-	dprintf(2, "in mini export\n");
+	argv = list_to_argv(cmd, &argc);
+	if (argv == NULL)
+		return ;
 	if (argc == 1)
 	{
-		dprintf(2, "argc = 1");
-		(print_tree_mini_exp(env->tree));
+		print_tree_mini_exp(env->tree);
 		return ;
 	}
 	i = 1;
@@ -114,5 +117,6 @@ void	mini_export(int argc, char **argv, t_env *env)
 		}	
 		i++;
 	}
+	free(argv);
 }
 

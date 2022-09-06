@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:53:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 19:23:44 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 13:44:16 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,16 @@ int	set_newline(char **argv, bool *newline)
  * by spaces. Prints a newline after last arguments if newline was set
  * to 1.
  */
-void	mini_echo(int argc, char **argv)
+void	mini_echo(t_list *cmd)
 {
+	char	**argv;
+	int		argc;
 	bool	newline;
 	int		i;
 
+	argv = list_to_argv(cmd, *argc);
+	if (argv == NULL)
+		return ;
 	if (argc == 1)
 	{
 		write (1, "\n", 1);
@@ -80,5 +85,6 @@ void	mini_echo(int argc, char **argv)
 	ft_putstr_fd(argv[i], 1);
 	if (newline)
 		write(1, "\n", 1);
+	free(argv);
 }
 

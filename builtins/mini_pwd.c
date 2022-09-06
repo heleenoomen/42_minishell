@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:46:10 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 17:27:07 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 13:52:14 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 void	mini_pwd(void)
 {
-	ft_putstr_fd(getcwd(NULL, 0), 1);
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
+	{
+		g_global_exit_status = errno;
+		return ;
+	}
+	ft_putstr_fd(pwd, 1);
 	write(1, "\n", 1);
 }
+

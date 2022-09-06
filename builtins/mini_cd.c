@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 11:57:28 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 13:50:22 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,19 @@ void	go_home(t_env *env, char *oldpwd)
 	return ;
 }
 
-void	mini_cd(int argc, char **argv, t_env *env)
+void	mini_cd(t_list *cmd, t_env *env)
 {
 	char	*oldpwd;
+	int		argc;
+	char	**argv;
 
+	argv = list_to_argv(cmd, &argc);
+	if (argv == NULL)
+		return ;
 	oldpwd = getcwd(NULL, 0);
 	if (oldpwd == NULL)
 	{
-		write(2, "System error\n", 13);
+		g_global_exit_status = errno;
 		return ;
 	}
 	if (argc == 1)
@@ -55,9 +60,10 @@ void	mini_cd(int argc, char **argv, t_env *env)
 	}
 	if (chdir(argv[1]) == -1)
 	{
-		perror(argv[1]);
+		g_global_exit_status = errno;
 		return ;
 	}
 	mini_cd_update_env(env, oldpwd, argv[1]);
+	free(argv);
 }
 

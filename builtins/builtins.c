@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 10:18:26 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 13:38:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,22 @@
  */
 int	builtin(t_list *cmd, t_minishell *minishell)
 {
-	int		argc;
-	char	**argv;
+	char	*s;
 
-	argv = list_to_argv(cmd, &argc);
-	if (ft_strncmp_uplo(argv[0], "echo", 5) == 0)
-		mini_echo(argc, argv);
-	else if (ft_strcmp(argv[0], "cd") == 0)
-		mini_cd(argc, argv, minishell->env);
-	else if (ft_strcmp(argv[0], "pwd") == 0)
+	s = cmd->content;
+	if (ft_strncmp_uplo(s, "echo", 5) == 0)
+		mini_echo(cmd);
+	else if (ft_strcmp(s, "cd") == 0)
+		mini_cd(cmd, minishell->env);
+	else if (ft_strcmp(s, "pwd") == 0)
 		mini_pwd();
-	else if (ft_strcmp(argv[0], "export") == 0)
-		mini_export(argc, argv, minishell->env);
-	else if (ft_strcmp(argv[0], "unset") == 0)
-		mini_unset(argc, argv, minishell->env);
-	else if (ft_strcmp(argv[0], "env") == 0)
+	else if (ft_strcmp(s, "export") == 0)
+		mini_export(cmd, minishell->env);
+	else if (ft_strcmp(s, "unset") == 0)
+		mini_unset(s, minishell->env);
+	else if (ft_strcmp(s, "env") == 0)
 		mini_env(minishell->env);
-	else if (ft_strcmp(argv[0], "exit") == 0)
+	else if (ft_strcmp(s, "exit") == 0)
 		mini_exit(minishell->env);
 	else
 		return (false);

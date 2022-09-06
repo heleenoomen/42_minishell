@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/06 11:17:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/06 13:34:09 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	init_exec_struct(&exec_cmds, node);
 	total_cmds = ft_lstsize(*nodes);
 	status = 0;
-	if (total_cmds == 1)
+	if (total_cmds == 1 && builtin((*nodes)->cmds->cmd, minishell->env))
+		return (g_global_exit_status);
 		/* status = single builtin */
 	status = execute_commands(&exec_cmds, minishell);
 	if (status && t_lstsize(*nodes))
