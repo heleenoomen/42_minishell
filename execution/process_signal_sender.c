@@ -6,12 +6,13 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:38:17 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/05 15:56:17 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:30:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <execution.h>
 
+/* HO: question: This is the same as SIG_DFL for sigint, no? */
 void	call_process_exit(int signal)
 {
 	exit(128 + signal);
@@ -71,6 +72,7 @@ void	child_sigquit(void)
 	sigaction(SIGQUIT, &sn, NULL);
 }
 
+/* HO: I thought that for the children, sigint and sigquit both go to their defaults */
 void	child_send_signal(void)
 {
 	child_sigint();

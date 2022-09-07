@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_tree.c                                       :+:      :+:    :+:   */
+/*   ms_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/16 18:57:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 15:39:58 by hoomen           ###   ########.fr       */
+/*   Created: 2022/08/15 13:17:09 by hoomen            #+#    #+#             */
+/*   Updated: 2022/09/07 11:30:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_tree(t_tree_node *root, int fd)
+int	free_ret(void *ptr, void *ptr2, int ret)
 {
-	if (root == NULL)
-		return ;
-	print_tree(root->left, fd);
-	ft_putstr_fd(root->key, fd);
-	write(fd, "\n", 1);
-	print_tree(root->right, fd);
+	free(ptr);
+	ptr = NULL;
+	free(ptr2);
+	ptr = NULL;
+	return (ret);
 }
-

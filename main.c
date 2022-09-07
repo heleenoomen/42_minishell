@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 18:02:57 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/07 11:37:37 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	g_global_exit_status = 0;
 	init_minishell(&minishell, envp);
-	ms_signal(env);
 	while (1)
 	{
 		cancel_echoctl();
+		signal_interactive_mode();
 		buf = readline("Minishell>>> ");
 		if (buf  == NULL)
 			break ;
