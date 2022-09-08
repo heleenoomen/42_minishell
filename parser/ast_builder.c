@@ -6,12 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:10:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/26 11:42:51 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:36:34 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "minishell.h"
-#include "ast.h"
+#include "minishell.h"
 
 void	ft_print_recurs(t_ast **root, int space)
 {

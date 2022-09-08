@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:53:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 13:44:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:35:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	mini_echo(t_list *cmd)
 
 	argv = list_to_argv(cmd, *argc);
 	if (argv == NULL)
-		return ;
+		return (print_error_builtins("echo", SYS_ERR));
 	if (argc == 1)
 	{
 		write (1, "\n", 1);

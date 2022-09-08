@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:50:25 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/02 19:53:37 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 char	*remove_quotes(char *str)
 {

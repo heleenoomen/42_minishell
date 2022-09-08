@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/07 11:53:12 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/08 19:36:34 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC		=	main.c\
 			buf_utils.c dollarsign.c exp_utils.c expander.c quote_removal.c\
 			tilde.c\
 			# parser
-			ast.h ast_builder.c ast_builder_utils.c char_lexer.c\
+			ast_builder.c ast_builder_utils.c char_lexer.c\
 			grand_traverser.c init_shell.c lexer.c lexer_utils.c\
 			ll1_table_rules.c ll1_table_rules_more.c parser.c parser_utils.c\
 			tokenizer.c tokenizer_utils.c tokenizer_utils_more.c traverser.c\

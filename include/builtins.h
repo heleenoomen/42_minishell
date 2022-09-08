@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:20:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/07 09:56:18 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 19:21:43 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,10 @@ void	mini_export(t_list *cmd, t_env *env);
 
 /* builtin mini_exit */
 void	mini_exit(t_env *env);
+
+# define WARNING_OLDPWD "minishell: unable to update OLDPWD variable\
+(System error)"
+# define WARNING_PWD "minishell: unable to update PWD variable\
+(System error)"
 
 #endif

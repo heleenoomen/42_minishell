@@ -6,11 +6,11 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:25:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/18 16:07:32 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 void	redirect_to_file(t_list **stack_table, t_grammar type)
 {

@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 14:58:11 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/24 11:55:39 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:36:34 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 /* After saving string into the node of AST, frees the token input that was 
 allocated before*/

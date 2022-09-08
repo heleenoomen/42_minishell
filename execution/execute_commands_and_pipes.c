@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:11:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/28 19:53:48 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 void	execute_cmd_block(t_exec *exec_cmds, t_ast *node,t_minishell *minishell)
 {

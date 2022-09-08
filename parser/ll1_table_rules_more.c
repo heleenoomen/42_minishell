@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:13:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/16 14:16:56 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 void	commandset_and_io_here_file(void (***table)(t_list **, t_grammar))
 {

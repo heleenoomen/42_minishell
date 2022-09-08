@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_pwd.c                                         :+:      :+:    :+:   */
+/*   ms_error.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/11 15:46:10 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 17:42:13 by hoomen           ###   ########.fr       */
+/*   Created: 2022/09/08 19:09:04 by hoomen            #+#    #+#             */
+/*   Updated: 2022/09/08 19:15:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MS_ERROR_H
+# define MS_ERROR_H
 
-void	mini_pwd(void)
-{
-	char	*pwd;
+# define MALLOC_ERR "Failed at allocating memory."
+# define GETCWD "Cannot establish current working directory."
+# define INIT "Cannot initialize minishell"
+# define SYS_ERR "System error"
 
-	pwd = getcwd(NULL, 0);
-	if (pwd == NULL)
-	{
-		g_global_exit_status = errno;
-		return (print_error_builtins("pwd", SYS_ERR));
-	}
-	ft_putstr_fd(pwd, 1);
-	write(1, "\n", 1);
-	free(pwd);
-}
 
+#endif

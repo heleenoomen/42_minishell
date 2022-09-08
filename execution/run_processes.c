@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/06 12:31:02 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 {

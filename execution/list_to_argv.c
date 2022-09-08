@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:02:25 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 13:43:42 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:40:12 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**list_to_argv(t_list *cmd, int *argc)
 	}
 	if (argc != NULL)
 		*argc = i;
-	argv = ft_malloc((i + 1) * sizeof(char *), NULL);
+	argv = ft_malloc((i + 1) * sizeof(char *), cmd->content, NO_EXIT, NULL);
 	if (argv == NULL)
 		return (NULL);
 	traverser = cmd;

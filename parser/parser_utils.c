@@ -6,11 +6,11 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/18 15:59:49 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 /* Initializes a new node and assigns a node type to it*/
 t_ast	*init_new_node(t_node_type n_type)

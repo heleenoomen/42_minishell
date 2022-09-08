@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:40:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/19 17:21:22 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 void	start_and_or(void (***table)(t_list **, t_grammar ))
 {

@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:30:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/24 11:43:07 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 /* sets the current operator symbol that as a peek, in case of
 redirection it gets next character to save into the lexing buffer.

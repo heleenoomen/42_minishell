@@ -6,11 +6,11 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/18 16:01:31 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 /* Creates a new node for parser and assigns a token type */
 void	*create_node(t_grammar tok_type)

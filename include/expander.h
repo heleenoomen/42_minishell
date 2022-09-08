@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:00:35 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/07 10:01:30 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 19:33:31 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_char_buf
 # define BUFSIZE 128
 
 /* expander.c */
-void		expander(t_list *nodes, t_env *env)
+int	expander(t_list *nodes, t_env *env);
 
 /* dollarsign.c */
 void		expand_dollarsign(t_env *env, char *ptr, t_char_buf *buf);

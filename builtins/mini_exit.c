@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 13:46:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/19 13:57:09 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 18:40:25 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 void	mini_exit(t_env *env)
 {
 	ft_putstr_fd("exit\n", 1);
-	clear_env(env);
-	exit(ms_exit);
+	exit_minishell(NULL, NULL, env->minishell);
 }
 
 

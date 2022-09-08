@@ -1,4 +1,4 @@
-* ************************************************************************** */
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main_execution.c                                   :+:      :+:    :+:   */
@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/06 13:34:09 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 /* get nodes from tree into the ordered linked lists */
 void	get_tree(t_list **nodes, t_ast *tree, int node_id)
@@ -41,9 +41,7 @@ void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *min
 		exec_cmds->pipe = 1;
 	exec_cmds->cmds_list = exec_cmds->cmds_list;
 	if ((*node)->cmds->cmd && (*node)->cmds->cmd->content && builtin((*node)->cmds->cmd, minishell)
-		return ; // OK like this? the "builtin" function will call the function to do the builtin
-		// command and then return. It sets the global exit status if something goes wrong. If the
-		// command is not a builtin, 'builtin' returns false, so we continue to execute_cmd_block //
+		return ;
 	else
 		execute_cmd_block(exec_cmds, *ast, minishell);
 	*node = NULL;
@@ -80,7 +78,6 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 			if (node->cmd_type)
 				/* free list of commands */
 			free(node);
-		}
 	}
 	if (exec_cmds->forks)
 		close(exec_cmds->pipe_fd[0]);
@@ -118,8 +115,7 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	total_cmds = ft_lstsize(*nodes);
 	status = 0;
 	if (total_cmds == 1 && builtin((*nodes)->cmds->cmd, minishell->env))
-		return (g_global_exit_status);
-		/* status = single builtin */
+		status = 1;
 	status = execute_commands(&exec_cmds, minishell);
 	if (status && t_lstsize(*nodes))
 		/* free all nodes of ast */
@@ -137,6 +133,7 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 }
 
 /* main execution function */
+/* >>> maybe this function could be void function? So far we do not use its return value */
 int	main_executor(char *readline, t_minishell *minishell)
 {
 	int		status;
@@ -149,11 +146,9 @@ int	main_executor(char *readline, t_minishell *minishell)
 	if (tree)
 	{
 		get_tree(&nodes, tree, 0);
-		expander(nodes, minishell->env); // check if global exit status is still 0 ? In case
-										// malloc fails in the expander? There are other possible
-										// solutions of course, e.g. I could make expander return -1
-										// if malloc fails somewhere, and then we return. We can discuss 											the best way to do this :-). //
-		start_execution(&nodes, minishell);
+		status = expander(nodes, minishell->env);
+		if (!status)
+			start_execution(&node, minishell);
 	}
 	else
 		status = 1;

@@ -6,14 +6,14 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 15:39:49 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 19:34:24 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* expands a single string. Expands dollar sign, expands tilde if tilde_exp is set
- * and removes quotes if quote_removal is set.
+/* expands a single string. Expands dollar sign, expands tilde and 
+ * removes quotes if quote_removal is set.
  */
 static char	*expand_string(char *s, t_env *env)
 {
@@ -34,19 +34,22 @@ static char	*expand_string(char *s, t_env *env)
 }
 
 /** traverses the list and expands all of its contents */
-void	expand_list(t_list *lst_of_strings, t_env *env)
+int	expand_list(t_list *lst_of_strings, t_env *env, int status)
 {
 	t_list	*trav;
 	char	*new_content;
 
-	if (t_global_exit_status)
-		return ;
+	if (status)
+		return (1);
 	trav = lst_of_strings;
 	while (trav != NULL)
 	{
 		new_content = expand_string(lst->content, env);
 		if (new_content == NULL)
-			return ;	
+		{
+			g_global_exit_status = ENOMEM;
+			return (1);	
+		}
 		free(trav->content);
 		trav->content = (void *) new_content;
 		trav = trav->next;
@@ -58,27 +61,28 @@ void	expand_list(t_list *lst_of_strings, t_env *env)
  * *cmd, *redir and *assign are not NULL. If they are not NULL, calls expand_list to expand the nodes
  * in the list
  **/ 
-void	expander(t_list *nodes, t_env *env)
+int	expander(t_list *nodes, t_env *env)
 {
 	t_list	*ptr;
 	t_ast	*current;
+	int		status;
 
 	ptr = nodes;
-	while (ptr != NULL)
+	status = 0;
+	while (ptr != NULL && !status)
 	{
 		current = ptr->content;
 		if (current->cmds)
 		{
 			if (current->cmds->cmd)
-				expand_list(current->cmds->cmd, env);
-			if (current->cmds->redir)
-				expand_list(current->cmds->redir, env);
-			if (current->cmds->assign)
-				expand_list(current->cmds->assign, env);
+				status = expand_list(current->cmds->cmd, env, status);
+			if (current->cmds->redir && !status)
+				status = expand_list(current->cmds->redir, env, status);
+			if (current->cmds->assign && !status)
+				status = expand_list(current->cmds->assign, env, status);
 		}
-		if (g_global_exit_status != NULL)
-			return ;
 		ptr = ptr->next;
 	}
+	return (status);
 }
 

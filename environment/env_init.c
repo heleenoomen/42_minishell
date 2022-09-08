@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 18:02:57 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 16:26:15 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
  * will be always null terminated throughout the program.
  * saves cwd in env struct 
  */ 
-void	init_env_struct(t_env *env)
+void	init_env_struct(t_env *env, t_minishell *minishell)
 {
 	env->tree = NULL;	
 	env->cwd = getcwd(NULL, 0);
 	if (env->cwd == NULL)
-		return (clear_env(&env));
+		exit_minishell(INIT, GETCWD, minishell);
 	env->size = 0;
+	env->minishell = minishell;
 }
 
 /* creates a minimal envorionment if minishell was not give an 
@@ -36,11 +37,11 @@ void	init_env_struct(t_env *env)
 void	startup_without_environment(t_env *env)
 {
 	if (add_key_value_to_env(env, "PWD", env->cwd, EXPORT | VAL_DUP | KEY_DUP) == -1)
-		return (clear_env(&env));
+		exit_minishell(INIT, MALLOC_ERR, minishell);
 	if (add_string_to_env(env, "SHLVL=1", EXPORT) == -1)
-		return (clear_env(&env));
+		exit_minishell(INIT, MALLOC_ERR, minishell);
 	if (add_key_value_to_env(env, "_=", env->cwd, EXPORT | VAL_DUP | KEY_DUP) == -1)	
-		return (clear_env(&env));
+		exit_minishell(INIT, MALLOC_ERR, minishell);
 }
 
 /* increases the SHLVL (shell level) variable by one. If not specified or 0
@@ -62,14 +63,12 @@ int	update_shlvl(t_env *env)
 	{
 		if ((update_env_node(node, "0", EXPORT | VAL_DUP) == -1))
 			return (-1);
+		ft_putstr_fd(WARNING_TOO_MANY_SHLVLS, 2);
 		return (1);
 	}
 	value = ft_itoa(nbr + 1);
 	if (value == NULL)
-	{
-		g_global_exit_status = ENOMEM;
-		return (-1);
-	}
+		exit_minishell(INIT, MALLOC_ERR, minishell);
 	return (update_env_node(node, value, EXPORT));	
 }
 
@@ -79,13 +78,11 @@ int	update_shlvl(t_env *env)
  * cycles through envp an adds and entry to environment struct for each
  * element of envp.
  */
-void	init_env(t_env *env, char **envp)
+void	init_env(t_env *env, char **envp, t_minishell *minishell)
 {
 	int	i;
 
-	if (env == NULL)
-		return ;
-	init_env_struct(env);
+	init_env_struct(env, minishell);
 	if (envp == NULL || envp[0] == NULL)
 	{
 		startup_without_environment(env);
@@ -95,13 +92,10 @@ void	init_env(t_env *env, char **envp)
 	while (envp[i] != NULL)
 	{
 		if (add_string_to_env(env, envp[i], EXPORT) == -1)
-			return (clear_env(&env));
+			exit_minishell(INIT, MALLOC_ERR, minishell);
 		i++;
 	}
-	i = update_shlvl(env);
-	if (i == -1)
-		return (clear_env(&env));
-	if (i == 1)
-		write(2, WARNING_TOO_MANY_SHLVLS, ft_strlen(WARNING_TOO_MANY_SHLVLS));
+	if (update_shlvl(env) == -1)
+		exit_minishell(INIT, MALLOC_ERR, minishell);
 }
 

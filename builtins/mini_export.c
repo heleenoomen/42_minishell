@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 13:54:42 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/08 17:48:18 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,14 @@ bool	is_valid(char *s)
 	return (true);
 }
 
+void	mini_export_invalid_identifier(char *s)
+{
+	ft_putstr_fd("export: '", 2);
+	ft_putstr_fd(s, 2);
+	ft_putstr_fd(": not a valid identifier", 2);
+	g_global_exit_status = 1;
+}
+
 void	mini_export(t_list *cmd, t_env *env)
 {
 	int		i;
@@ -91,7 +99,7 @@ void	mini_export(t_list *cmd, t_env *env)
 
 	argv = list_to_argv(cmd, &argc);
 	if (argv == NULL)
-		return ;
+		return (print_error_builtins("export", SYS_ERR));
 	if (argc == 1)
 	{
 		print_tree_mini_exp(env->tree);
@@ -104,17 +112,12 @@ void	mini_export(t_list *cmd, t_env *env)
 		{
 			if (update_env_string(env, argv[i], EXPORT | KEY_DUP | VAL_DUP) == -1)
 			{
-				ft_putstr_fd("System error\n", 2);
-				return ;	
+				g_global_exit_status = ENOMEM;
+				return (print_error_builtins("cd", SYS_ERR));
 			}
 		}
 		else
-		{
-				ft_putstr_fd("export: '", 2);
-				ft_putstr_fd(argv[i], 2);
-				ft_putstr_fd(": not a valid identifier", 2);
-				ms_exit = 1;
-		}	
+			mini_export_invalid_identifier(argv[i]);
 		i++;
 	}
 	free(argv);

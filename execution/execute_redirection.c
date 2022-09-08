@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:24:26 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/02 19:56:49 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 void	execute_redirect_in(char *file, int	*fd)
 {
