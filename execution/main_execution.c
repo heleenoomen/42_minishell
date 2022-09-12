@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/12 13:48:04 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,3 +154,4 @@ int	main_executor(char *readline, t_minishell *minishell)
 		status = 1;
 	return (status);
 }
+

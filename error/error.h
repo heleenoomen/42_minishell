@@ -6,13 +6,12 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/12 13:26:19 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/12 14:49:58 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ERROR_H
-# define FT_ERROR_H
-// # include <errno.h>
+#ifndef ERROR_H
+# define ERROR_H
 # include "../include/minishell.h"
 # include "../libft/libft.h"
 # include <string.h>
@@ -43,5 +42,8 @@ int		error_shell(char *error_message, int flag);
 void	exec_command_error(char *cmd, int flag);
 int		parsing_lexer_error(void);
 void	parsing_syntax_error(char *token);
+int		expansion_error(char *error_message, int flag);
+void	simple_command_error(char *error_message);
+int		redirect_error(char *error_message);
 
 #endif
