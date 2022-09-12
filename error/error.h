@@ -43,5 +43,8 @@ int		error_shell(char *error_message, int flag);
 void	exec_command_error(char *cmd, int flag);
 int		parsing_lexer_error(void);
 void	parsing_syntax_error(char *token);
+int		expansion_error(char *error_message, int flag);
+void	simple_command_error(char *error_message);
+int		redirect_error(char *error_message);
 
 #endif
