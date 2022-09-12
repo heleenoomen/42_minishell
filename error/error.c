@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/12 13:22:30 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/12 13:43:01 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,31 @@ void	exec_command_error(char *cmd, int flag)
 	error_shell(error_message, ERROR_UNDEFINED);
 	free(error_message);
 	g_global_exit_status = (127 - flag);
+}
+
+int	redirect_error(char *error_message)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(error_message, 2);
+	ft_putendl_fd(": failed to redirect", 2);
+	g_global_exit_status = 1;
+}
+
+int	expansion_error(char *error_message, int flag)
+{
+	if (flag == ERROR_REDIR)
+		redirect_error(error_message);
+	if (flag == ERROR_CMD)
+		simple_command_error(error_message);
+	return (1);
+}
+
+void	simple_command_error(char *error_message)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(error_message, 2);
+	ft_putendl_fd(": argument is too long", 2);
+	g_global_exit_status = EXIT_CANNOT_EXECUTE;
 }
 
 int	error_shell(char *error_message, int flag)
