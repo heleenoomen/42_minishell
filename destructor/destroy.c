@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:41:05 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/12 14:56:21 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/12 16:23:26 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_ast_node(t_list **node)
 	}
 }
 
-void	free_ast_recurs(t_ast **node)
+static void	free_ast_recurs(t_ast **node)
 {
 	if (!(*node))
 		return ;
@@ -62,3 +62,35 @@ void	free_cmd_defs(t_cmd_def **cmds)
 		*cmds = NULL;
 	}
 }
+
+void	free_syntax_table(void (***table)(t_list **, t_grammar))
+{
+	int	col;
+
+	col = 0;
+	if (*table)
+	{
+		while (col < NONTERM)
+		{
+			free((*table)[col]);
+			col++;
+		}
+		free(*table);
+		*table = NULL;
+	}
+}
+
+void	free_minishell(t_minishell *minishell)
+{
+	if (minishell)
+	{
+		if (minishell->line)
+			free(minishell->line);
+		if (minishell->env)
+			/*free environment*/
+		if (minishell->table)
+			free_syntax_table(&minishell->table);
+		minishell->line = NULL;
+	}
+}
+
