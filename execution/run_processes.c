@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/09 18:51:27 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 	close(exec->pipe_fd[0]);
 	exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
 	envp = make_envp(minishell->env); /*get env */
-	path = get_path(exec->curr_cmd[0], env); /* get path */
+	path = find_path(exec->curr_cmd[0], env); /* get path */
 	if (exec->curr_cmd != NULL && envp != NULL && path != NULL)
 	{
 		duplicate_fd(exec)

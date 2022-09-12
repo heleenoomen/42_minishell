@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:23:56 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 19:06:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/12 13:03:53 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,3 @@ void	*ft_calloc2(size_t size, int *status)
 	ft_memset(ret, 0, size);
 	return (ret);
 }
-
