@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_ERROR_H
-# define FT_ERROR_H
-// # include <errno.h>
+#ifndef ERROR_H
+# define ERROR_H
 # include "../include/minishell.h"
 # include "../libft/libft.h"
 # include <string.h>
