@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 11:54:36 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar))
 	}
 	if (!flag)
 	{
-		perror("Parser: token not verified");
+		parsing_syntax_error(((t_token *)token_list->content)->input);
 		free_ast_tree(&node);
 	}
 	remove_ast_node(&node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:41:05 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/12 16:23:26 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:33:53 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,3 @@ void	free_minishell(t_minishell *minishell)
 		minishell->line = NULL;
 	}
 }
-

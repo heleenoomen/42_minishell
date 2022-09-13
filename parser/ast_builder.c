@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ast_builder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:10:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:36:34 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 11:34:00 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_print_recurs(t_ast **root, int space)
-{
-	t_ast	*temp;
-	int		i;
-
-	if (root == NULL)
-		return ;
-	temp = *root;
-	space += 10;
-	if (temp->next_sibling)
-		ft_print_recurs(&(temp->next_sibling), space);
-	printf("\n");
-	i = 10;
-	while (i < space)
-	{
-		printf(" ");
-		i++;
-	}
-	printf("| %d |", *(int *)temp->type);
-	if (temp->child)
-		ft_print_recurs(&(temp->child), space);
-}
-
-void	ft_print_btree(t_ast **root)
-{
-	ft_print_recurs(root, 0);
-}
 
 /* to existing parent node adds child node, if child node exists - 
 assigns incoming to a next sibling */
@@ -92,8 +64,8 @@ and list of tokens.
 
 t_ast	*ast_builder(char *input, void (***table)(t_list **, t_grammar))
 {
-	t_ast		*node;
 	t_prompt	content;
+	t_ast		*node;
 	t_list		*token_list;
 
 	node = NULL;
@@ -104,6 +76,5 @@ t_ast	*ast_builder(char *input, void (***table)(t_list **, t_grammar))
 		node = check_syntax(token_list, table);
 		ft_lstclear(&token_list, &free_token);
 	}
-	ft_print_btree(&node);
 	return (node);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:30:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 12:15:20 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_token	*create_token(t_token *token, t_prompt *line, char *value)
 	temp = ft_strdup(value);
 	if (!temp)
 	{
-		perror("Buffer for token not copied");
+		error_shell("Failed to create a token", ERROR_PERROR);
 		token->type = T_EOF;
 		return (token);
 	}

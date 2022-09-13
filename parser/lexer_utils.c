@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:07:44 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 12:00:16 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ void	delete_token(void *token)
 void	flag_exists(int flag)
 {
 	if (!flag)
-	{
-		perror("Not enough quotes");
-		exit(1);
-	}
+		parsing_lexer_error();
 }
 
 /* checks if line string contains double/single quotes that a complete,

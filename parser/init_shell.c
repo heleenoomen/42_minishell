@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:40:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 11:56:42 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "minishell.h"
 
 void	launch_table(void (***table)(t_list **, t_grammar))
