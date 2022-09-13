@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 17:27:13 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 21:55:40 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 			status = execute_and_or_cmd(exec_cmds, node);
 		if (node)
 		{
-			if (node->cmd_type)
-				free_cmd_defs(&node->cmd_type);
+			if (node->cmds)
+				free_cmd_defs(&node->cmds);
 			free(node);
+		}
 	}
 	if (exec_cmds->forks)
 		close(exec_cmds->pipe_fd[0]);
@@ -111,12 +112,12 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	
 	status = 0;
 	fd_temp = dup(0);
-	init_exec_struct(&exec_cmds, node);
+	init_exec_struct(&exec_cmds, nodes);
 	total_cmds = ft_lstsize(*nodes);
-	if (total_cmds == 1 && builtin((*nodes)->cmds->cmd, minishell->env))
+	if (total_cmds == 1 && builtin(*nodes, minishell))
 		status = 1;
 	status = execute_commands(&exec_cmds, minishell);
-	if (status && t_lstsize(*nodes))
+	if (status && ft_lstsize(*nodes))
 		free_ast_node(nodes);
 	if (exec_cmds.forks && (!exec_cmds.builtin || total_cmds > 1))
 	{
@@ -147,7 +148,7 @@ int	main_executor(char *readline, t_minishell *minishell)
 	{
 		get_tree(&nodes, tree, 0);
 		status = expander(nodes, minishell->env);
-		start_execution(&node, minishell);
+		start_execution(&nodes, minishell);
 	}
 	else
 		status = 1;

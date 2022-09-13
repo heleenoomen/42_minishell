@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:57:38 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 14:19:13 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/13 21:24:05 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	execute_assignment(t_list *assign_lst, t_minishell *shell)
 		return (status);
 	while (assign_lst && status == 0)
 	{
-		status = add_string_to_environment(shell->env, assign_lst->content, NO_EXPORT); /* this function will take care of everything :-) */
+		status = add_string_to_env(shell->env, assign_lst->content, NO_EXPORT); /* this function will take care of everything :-) */
 /*		pair = get_keyvalue_pair((char *)assign_lst->content);
  *			else add it into the env list 
  *			if (!pair->key || !pair->value)

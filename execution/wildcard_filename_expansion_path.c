@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_filename_expansion_path.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 21:22:02 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	update_type_file(t_list	*lst)
 
 	last_file = ft_lstlast(list);
 	file = (t_expansion *)last_file->content;
-	file->type = FILE;
+	file->type = type_file;
 }
 
 int	init_path_lst(char **path, t_list **list)
@@ -31,7 +31,7 @@ int	init_path_lst(char **path, t_list **list)
 	i = 0;
 	while(path[i] != '\0')
 	{
-		file = init_file(path[i], DIRECTORY);
+		file = init_file(path[i], type_dir);
 		if (!file)
 			return (-1);
 		new_path = ft_lstnew(file);

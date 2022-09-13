@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/13 17:39:48 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 21:50:49 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ extern int	g_global_exit_status;
 
 enum	e_type
 {
-	FILE,  /// HO: This type is already declared by some other library
-	DIRECTORY,
+	type_file,
+	type_dir
 };
 
 typedef struct s_expansion
@@ -51,21 +51,23 @@ int				execute_commands(t_exec *exec_cmds, t_minishell *minishell);
 void			execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, \
 				t_minishell *minishell);
 void			get_tree(t_list **nodes, t_ast *tree, int node_id);
-void			execute_cmd_block(t_exec *exec_cmds, t_ast *node, \
+int				execute_cmd_block(t_exec *exec_cmds, t_ast *node, \
 				t_minishell *minishell);
-void			execute_pipe(t_exec *exec);
+int				execute_pipe(t_exec *exec);
 void			duplicate_fd(t_exec *exec);
-
+int				execute_assignment(t_list *assign_lst, t_minishell *shell);
 /* && and || operators */
 int				execute_and_or_cmd(t_exec *exec, t_ast *node);
 void			reset_node(t_exec *exec);
 
 /* Redirections  - incopmlete file is missing*/
-void			execute_redirect_in(char *file, int	*fd);
-void			execute_redirect_overwrite(char *file, int	*fd);
-void			execute_redirect_append(char *file, int	*fd);
-void			execute_redirect_inout(char *file, int	*fd_in, int *fd_out);
-void			execute_redirection(t_exec	*exec, t_minishell *minishell);
+int				execute_redirect_in(char *file, int	*fd);
+int				execute_redirect_overwrite(char *file, int	*fd);
+int				execute_redirect_append(char *file, int	*fd);
+int				execute_redirect_inout(char *file, int	*fd_in, int *fd_out);
+int				execute_redirection(t_exec	*exec, t_minishell *minishell);
+int				execute_heredoc(char *delim, t_exec *exec, t_minishell *shell);
+
 
 /* Run COMMANDS !!! ENV AND PATH NEEDED !!!*/
 int				run_cmd_child(t_exec *exec, t_cmd_def *cmd, \

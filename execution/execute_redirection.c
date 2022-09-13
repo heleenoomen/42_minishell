@@ -6,13 +6,13 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:24:26 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 14:26:32 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/13 21:39:17 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_redirect_in(char *file, int	*fd)
+int	execute_redirect_in(char *file, int	*fd)
 {
 	int	status;
 
@@ -33,7 +33,7 @@ void	execute_redirect_in(char *file, int	*fd)
 	return (status);
 }
 
-void	execute_redirect_overwrite(char *file, int	*fd)
+int	execute_redirect_overwrite(char *file, int	*fd)
 {
 	int	status;
 
@@ -54,7 +54,7 @@ void	execute_redirect_overwrite(char *file, int	*fd)
 	return (status);
 }
 
-void	execute_redirect_append(char *file, int	*fd)
+int	execute_redirect_append(char *file, int	*fd)
 {
 	int	status;
 
@@ -75,7 +75,7 @@ void	execute_redirect_append(char *file, int	*fd)
 	return (status);
 }
 
-void	execute_redirect_inout(char *file, int	*fd_in, int *fd_out)
+int	execute_redirect_inout(char *file, int	*fd_in, int *fd_out)
 {
 	int	status;
 
@@ -99,32 +99,33 @@ void	execute_redirect_inout(char *file, int	*fd_in, int *fd_out)
 	return (status);
 }
 
-void	get_redirect_file(t_list **redir_list, char **file)
+int	get_redirect_file(t_list **redir_list, char **file)
 {
 	t_list	*temp;
 	void	*hold;
 	int		status;
 
 	status = 0;
-	temp = ft_lstnew(ft_strdup(*redir_list)->content);
+	temp = ft_lstnew(ft_strdup((char *)(*redir_list)->content));
 	filename_expansion(&temp);
 	if (ft_lstsize(temp) <= 1)
 	{
-		hold = *redir_list->content;
-		*redir_list->content = temp->content;
-		new->content = hold;
+		hold = (*redir_list)->content;
+		(*redir_list)->content = temp->content;
+		temp->content = hold;
 		*file = remove_quotes((char *)(*redir_list)->content);
 		ft_lstdelone(temp, &free);
 	}
 	else
 	{
-		status = /*error */
+		status = expansion_error((char *)(*redir_list)->content, ERROR_REDIR);
 		ft_lstclear(&temp, &free);
+		*file = NULL;
 	}
 	return (status);
 }
 
-void	execute_redirection(t_exec	*exec, t_minishell *minishell)
+int	execute_redirection(t_exec	*exec, t_minishell *minishell)
 {
 	t_list	*redir;
 	char	*file;
@@ -144,7 +145,7 @@ void	execute_redirection(t_exec	*exec, t_minishell *minishell)
 		else if (!status && ft_strcmp((char *)redir->content, "<<") == 0)
 			status = execute_heredoc(file, exec, minishell);
 		else if (!status && ft_strcmp((char *)redir->content, "<>") == 0)
-			status = execute_inout(file, &exec->fd_in, &exec->fd_out);
+			status = execute_redirect_inout(file, &exec->fd_in, &exec->fd_out);
 		if (redir->next)
 			redir = redir->next->next;
 		free(file);

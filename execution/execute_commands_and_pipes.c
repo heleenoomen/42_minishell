@@ -6,13 +6,13 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:11:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 14:22:21 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/13 21:28:51 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_cmd_block(t_exec *exec_cmds, t_ast *node,t_minishell *minishell)
+int	execute_cmd_block(t_exec *exec_cmds, t_ast *node,t_minishell *minishell)
 {
 	t_cmd_def	*cmds_cpy;
 	int			status;
@@ -34,7 +34,7 @@ void	execute_cmd_block(t_exec *exec_cmds, t_ast *node,t_minishell *minishell)
 	return (status);
 }
 
-void	execute_pipe(t_exec *exec)
+int	execute_pipe(t_exec *exec)
 {
 	int	status;
 
