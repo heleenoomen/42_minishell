@@ -24,7 +24,7 @@ void	free_ast_node(t_list **node)
 		{
 			temp_node = (t_ast *)lst_get_content(&lst_node);
 			if (temp_node->cmds)
-				free_ast_node(&temp_node->cmds);
+				free_cmd_defs(&temp_node->cmds);
 			free(temp_node);
 		}
 		*node = NULL;
