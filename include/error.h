@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 16:20:02 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:26:13 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@
 # define EXIT_ERROR_CNRTL_C 130 "Script terminated by Control-C"
 # define EXIT_EXIT_OUT_OF_RANGE 255 "Exit status out of range"
 
-# define ENOENT 2 "No such file or directory"
-# define ECHILD 10 "No child processes"
-# define ENOMEM 12 "Out of memory"
-# define EACCESS 13 "Permission denied"
-# define ENOTDIR 20 "Not a directory"
-# define ENODATA 61 "No data available"
+// # define ENOENT 2 "No such file or directory"
+// # define ECHILD 10 "No child processes"
+// # define ENOMEM 12 "Out of memory"
+// # define EACCESS 13 "Permission denied"
+// # define ENOTDIR 20 "Not a directory"
+// # define ENODATA 61 "No data available"
 
 # define ERROR_UNDEFINED 4
 # define ERROR_PERROR 5

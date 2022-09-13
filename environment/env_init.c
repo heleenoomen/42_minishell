@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 16:26:15 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:49:04 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	init_env_struct(t_env *env, t_minishell *minishell)
 	env->tree = NULL;	
 	env->cwd = getcwd(NULL, 0);
 	if (env->cwd == NULL)
-		exit_minishell(INIT, GETCWD, minishell);
+		exit_minishell(INIT_ENV, "getcwd", minishell);
 	env->size = 0;
 	env->minishell = minishell;
 }
@@ -37,11 +37,11 @@ void	init_env_struct(t_env *env, t_minishell *minishell)
 void	startup_without_environment(t_env *env)
 {
 	if (add_key_value_to_env(env, "PWD", env->cwd, EXPORT | VAL_DUP | KEY_DUP) == -1)
-		exit_minishell(INIT, MALLOC_ERR, minishell);
+		exit_minishell(INIT_ENV, "memory allocation", env->minishell);
 	if (add_string_to_env(env, "SHLVL=1", EXPORT) == -1)
-		exit_minishell(INIT, MALLOC_ERR, minishell);
+		exit_minishell(INIT_ENV, "memory allocation", env->minishell);
 	if (add_key_value_to_env(env, "_=", env->cwd, EXPORT | VAL_DUP | KEY_DUP) == -1)	
-		exit_minishell(INIT, MALLOC_ERR, minishell);
+		exit_minishell(INIT_ENV, "memory allocation", env->minishell);
 }
 
 /* increases the SHLVL (shell level) variable by one. If not specified or 0
@@ -68,7 +68,7 @@ int	update_shlvl(t_env *env)
 	}
 	value = ft_itoa(nbr + 1);
 	if (value == NULL)
-		exit_minishell(INIT, MALLOC_ERR, minishell);
+		exit_minishell(INIT_ENV, "memory allocation", env->minishell);
 	return (update_env_node(node, value, EXPORT));	
 }
 
@@ -92,10 +92,10 @@ void	init_env(t_env *env, char **envp, t_minishell *minishell)
 	while (envp[i] != NULL)
 	{
 		if (add_string_to_env(env, envp[i], EXPORT) == -1)
-			exit_minishell(INIT, MALLOC_ERR, minishell);
+			exit_minishell(INIT_ENV, "memory allocation", minishell);
 		i++;
 	}
 	if (update_shlvl(env) == -1)
-		exit_minishell(INIT, MALLOC_ERR, minishell);
+		exit_minishell(INIT_ENV, "memory allocation", minishell);
 }
 

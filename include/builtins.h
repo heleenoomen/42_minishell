@@ -6,12 +6,14 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:20:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 19:21:43 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:05:16 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
+
+# include "ms_typedefs.h"
 
 /* builins.c */
 int		builtin(t_list *cmd, t_minishell *minishell);
@@ -36,7 +38,7 @@ bool	first_char_valid(char c);
 void	mini_export(t_list *cmd, t_env *env);
 
 /* builtin mini_exit */
-void	mini_exit(t_env *env);
+void	mini_exit(t_minishell *minishell);
 
 # define WARNING_OLDPWD "minishell: unable to update OLDPWD variable\
 (System error)"

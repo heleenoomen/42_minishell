@@ -6,11 +6,11 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:58:52 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 14:15:55 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/13 17:39:47 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 void	reset_node(t_exec *exec)
 {
@@ -37,7 +37,7 @@ int	execute_and_or_cmd(t_exec *exec, t_ast *node)
 
 	last_status = exec->status;
 	node_type = node->type;
-	if (exec->fork)
+	if (exec->forks)
 	{
 		waitpid(exec->pid, &status, 0);
 		last_status = WEXITSTATUS(status);
@@ -47,7 +47,7 @@ int	execute_and_or_cmd(t_exec *exec, t_ast *node)
 		close(exec->fd_out);
 	if ((node_type == N_OR && !last_status) || (last_status && node_type == N_AND))
 		reset_node(exec);
-	exec->fork = 0;
+	exec->forks = 0;
 	exec->status = last_status;
 	g_global_exit_status = last_status;
 	return (last_status);

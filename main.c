@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/07 11:37:37 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:01:17 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	char			*buf;
 	t_minishell		minishell;
+	struct termios	termios_cpy;	
 
 	(void)argc;
 	(void)argv;
@@ -29,7 +30,7 @@ int	main(int argc, char **argv, char **envp)
 	init_minishell(&minishell, envp);
 	while (1)
 	{
-		cancel_echoctl();
+		cancel_echoctl(&termios_cpy);
 		signal_interactive_mode();
 		buf = readline("Minishell>>> ");
 		if (buf  == NULL)
@@ -44,6 +45,6 @@ int	main(int argc, char **argv, char **envp)
 	/* clear minishell struct */
 	write(1, "\n", 1);
 	ft_putstr_fd("exit\n", 1);
-	reset_echoctl();
+	reset_echoctl(&termios_cpy);
 	return (1);
 }

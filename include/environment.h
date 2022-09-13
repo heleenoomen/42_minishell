@@ -6,35 +6,14 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 19:26:10 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:49:35 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
 
-
-/* tree structure where key/value pairs of environment are stored */
-typedef struct s_tree_node
-{
-	char				*key;
-	char				*value;
-	bool				for_export;
-	struct s_tree_node	*left;
-	struct s_tree_node	*right;
-}						t_tree_node;
-
-/* env structure stores a pointer to the key and the current working directory
- * also stores a hash table (array of t_env_hash structs) that grows in size when
- * needed. Struct keeps track of how many entries in hash table, how much entries are
- * free and how much entries were deleted
- */
-typedef struct s_env
-{
-	t_tree_node	*tree;
-	int			size;
-	char		*cwd;
-}				t_env;
+# include "ms_typedefs.h"
 
 /* flags for the functions that add new key/value pairs to the environment. 
  * NO_EXPORT = variable should not be marked for export
@@ -77,7 +56,7 @@ int 		update_env_node(t_tree_node *node, char *value, short flags);
 int			update_env_string(t_env *env, char *value, short flags);
 
 /* env_utils.c */
-void		clear_env(t_env *env);
+void		clear_env(t_env **env);
 int			ft_strdup_int(char **dup, char *s);
 int			del_key_value(char *key, char *value, short flags, int ret);
 char		*find_value(t_env *env, char *key);

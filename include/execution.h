@@ -6,26 +6,20 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 17:39:48 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "ast.h"
-# include <signal.h>
-# include <sys/types.h>
-# include <dirent.h>
+# include "ms_typedefs.h"
 
 extern int	g_global_exit_status;
 
 enum	e_type
 {
-	FILE,
+	FILE,  /// HO: This type is already declared by some other library
 	DIRECTORY,
 };
 
@@ -95,7 +89,7 @@ void			send_exit_status(int signal);
 char			*remove_quotes(char *str);
 void			filename_expansion(t_list **redir_list);
 t_list			*expand_star(char *str);
-void			merge_to_list(t_list **curr_lst, t_list *new, t_list *prev, t_lst **lst);
+void			merge_to_list(t_list **curr_lst, t_list *new_item, t_list *prev, t_list **lst);
 void			get_expand_direct(t_list **lst, t_list *path);
 t_list			*get_path_for_expansion(char *str);
 void			push_to_redirlst(t_list *path, t_list **lst, char *dir);

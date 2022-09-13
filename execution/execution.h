@@ -6,13 +6,14 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/08 19:40:00 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 17:36:05 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
+# include "ms_typedefs.h"
 
 extern int	g_global_exit_status;
 
@@ -88,7 +89,7 @@ void			send_exit_status(int signal);
 char			*remove_quotes(char *str);
 void			filename_expansion(t_list **redir_list);
 t_list			*expand_star(char *str);
-void			merge_to_list(t_list **curr_lst, t_list *new, t_list *prev, t_lst **lst);
+void			merge_to_list(t_list **curr_lst, t_list *new_item, t_list *prev, t_list **lst);
 void			get_expand_direct(t_list **lst, t_list *path);
 t_list			*get_path_for_expansion(char *str);
 void			push_to_redirlst(t_list *path, t_list **lst, char *dir);

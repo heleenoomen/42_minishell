@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/12 13:43:01 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/13 16:18:07 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,17 @@ int	error_shell(char *error_message, int flag)
 	else if (flag == ERROR_PERROR)
 		perror(error_message);
 	return (1);
+}
+
+void	error_builtins(char *s, int flag)
+{
+	ft_putstr_fd("minishell: ", 2);
+	if (flag == SYS_ERR)
+	{
+		ft_putstr_fd(s, 2);
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(SYSTEM_ERROR);
+	}
+	else if (flag == ERROR_PERROR)
+		perror(s);
 }

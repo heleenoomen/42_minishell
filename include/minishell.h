@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:34:29 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 19:44:23 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:28:40 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@
 # include "expander.h"
 # include "builtins.h"
 # include "utils.h"
+# include "error.h"
+# include "destroy.h"
 
 #endif

@@ -6,12 +6,14 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:21:43 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 15:51:34 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
+
+# include "ms_typedefs.h"
 
 # define EOL -1
 # define SUCCESS 0
@@ -19,44 +21,6 @@
 # define CHAR_ERR 2
 # define TOKENS 14
 # define NONTERM 20
-
-typedef enum e_grammar
-{
-	NT_START,
-	NT_AND_OR,
-	NT_AND_OR1,
-	NT_PIPESPLIT,
-	NT_PIPESPLIT1,
-	NT_COMMANDSET,
-	NT_COMMANDSET1,
-	NT_SUBSHELL,
-	NT_CMD,
-	NT_CMD1,
-	NT_CMD2,
-	NT_PREFIX,
-	NT_PREFIX1,
-	NT_SUFFIX,
-	NT_SUFFIX1,
-	NT_REDIR,
-	NT_REDIR1,
-	NT_IO_REDIR,
-	NT_IO_FILE,
-	NT_IO_HERE,
-	T_PIPE,
-	T_LBRACE,
-	T_RBRACE,
-	T_AND,
-	T_OR,
-	T_LESS,
-	T_GREAT,
-	T_DGREAT,
-	T_LESSGREAT,
-	T_DLESS,
-	T_ASSIGN,
-	T_STRING,
-	T_EOF,
-	T_UNKNOWN,
-}	t_grammar;
 
 typedef struct s_prompt
 {
@@ -80,36 +44,6 @@ typedef struct s_lexer
 	int		index;
 }			t_lexer;
 
-typedef enum e_node_type
-{
-	N_CMD,
-	N_PIPE,
-	N_REDIR,
-	N_AND_OR,
-	N_OR,
-	N_AND,
-	N_SUB,
-	N_ASSIGN,
-	N_DUMM,
-}	t_node_type;
-
-typedef struct s_cmd_def
-{
-	t_list	*cmd;
-	t_list	*redir;
-	t_list	*assign;
-}			t_cmd_def;
-
-typedef struct s_ast
-{
-	int				node_id;
-	int				nodes;
-	t_node_type		type;
-	t_cmd_def		*cmds;
-	struct s_ast	*child;
-	struct s_ast	*prev_sibling;
-	struct s_ast	*next_sibling;
-}					t_ast;
 
 typedef struct s_parser
 {
@@ -117,14 +51,6 @@ typedef struct s_parser
 	t_node_type	node_type;
 	t_ast		*node;
 }	t_parser;
-
-typedef struct s_minishell
-{
-	int		line_len;
-	char	*line;
-	void	(***table)(t_list **, t_grammar);
-	t_env	*env;
-}	t_minishell;
 
 void	init_minishell(t_minishell *shell, char **envp);
 void	copy_input_line(t_prompt *line, char *readline);

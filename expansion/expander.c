@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 19:34:24 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:02:42 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*expand_string(char *s, t_env *env)
 	if (buf.buf != NULL)
 		expand_tilde(env, &buf);
 	if (buf.buf != NULL)
-		remove_quotes(&buf);
+		exp_remove_quotes(&buf);
 	ret = ft_strdup(buf.buf);
 	free(buf.buf);
 	return (ret);

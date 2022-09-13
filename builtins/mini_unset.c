@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:00:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 15:11:33 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:30:24 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	mini_unset(t_list *cmd, t_env *env)
 	int		argc;
 	char	**argv;
 
-	argv = list_to_argv(cmd);
+	argv = list_to_argv(cmd, &argc);
 	if (argv == NULL)
 		return ;
 	if (argc == 0)

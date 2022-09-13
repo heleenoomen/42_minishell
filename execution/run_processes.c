@@ -6,33 +6,36 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 14:13:46 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/13 15:42:44 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
+int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // isn't t_cmd_def part of t_exec ? Why both params?//
 {
 	char	**envp;
 	char	*path;
 
 	close(exec->pipe_fd[0]);
-	exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
-	envp = make_envp(minishell->env); /*get env */
-	path = get_path(exec->curr_cmd[0], env); /* get path */
-	if (exec->curr_cmd != NULL && envp != NULL && path != NULL)
-	{
-		duplicate_fd(exec)
-		if (execve(path, exec->curr_cmd, env) == -1)
-			error_shell("exec failed", ERROR_PERROR);
-		ft_freestrarr(envp);
+	if (!builtin(cmd->cmd, minishell))
+	{		
+		exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
+		envp = make_envp(minishell->env); /*get env */
+		path = get_path(exec->curr_cmd[0], env); /* get path */
+		if (!builtin && exec->curr_cmd != NULL && envp != NULL && path != NULL)
+		{
+			duplicate_fd(exec)
+			if (execve(path, exec->curr_cmd, env) == -1)
+				error_shell("exec failed", ERROR_PERROR);
+			ft_freestrarr(exec->curr_cmd);
+			ft_freestrarr(envp);
+			free(path);
+		}
 	}
 	if (exec->fd_in > 0)
 		close(exec->fd_in);
 	close(exec->pipe_fd[1]);
-	ft_freestrarr(exec->curr_cmd);
-	free(path);
 	free_cmd_defs(&cmd);
 	free_minishell(minishell);
 	exit(g_global_exit_status);

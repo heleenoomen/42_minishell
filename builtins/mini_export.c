@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 17:48:18 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:29:21 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	mini_export(t_list *cmd, t_env *env)
 
 	argv = list_to_argv(cmd, &argc);
 	if (argv == NULL)
-		return (print_error_builtins("export", SYS_ERR));
+		return (error_builtins("export", ERROR_PERROR));
 	if (argc == 1)
 	{
 		print_tree_mini_exp(env->tree);
@@ -113,7 +113,7 @@ void	mini_export(t_list *cmd, t_env *env)
 			if (update_env_string(env, argv[i], EXPORT | KEY_DUP | VAL_DUP) == -1)
 			{
 				g_global_exit_status = ENOMEM;
-				return (print_error_builtins("cd", SYS_ERR));
+				return (error_builtins("cd", ERROR_PERROR));
 			}
 		}
 		else

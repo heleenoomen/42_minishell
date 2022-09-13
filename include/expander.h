@@ -6,12 +6,14 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:00:35 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 19:33:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:03:16 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPAND_H
-# define EXPAND_H
+#ifndef EXPANDER_H
+# define EXPANDER_H
+
+# include "ms_typedefs.h"
 
 typedef struct s_char_buf
 {
@@ -33,7 +35,7 @@ int	expander(t_list *nodes, t_env *env);
 void		expand_dollarsign(t_env *env, char *ptr, t_char_buf *buf);
 
 /* quote_removal.c */
-void		remove_quotes(t_char_buf *buf);
+void		exp_remove_quotes(t_char_buf *buf);
 
 /* tilde.c */
 void		expand_tilde(t_env *env, t_char_buf *buf);

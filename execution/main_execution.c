@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 13:06:29 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/13 17:27:13 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,11 @@ void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *min
 	t_ast	*temp;
 
 	exec_cmds->pipe = 0;
-	temp = (t_ast *)lst_get_content(*exec_cmds->cmds_list);
+	temp = (t_ast *)lst_get_content(exec_cmds->cmds_list);
 	if (temp && temp->type == N_PIPE)
 		exec_cmds->pipe = 1;
 	exec_cmds->cmds_list = exec_cmds->cmds_list;
-	if ((*node)->cmds->cmd && (*node)->cmds->cmd->content && builtin((*node)->cmds->cmd, minishell)
-		return ;
-	else
-		execute_cmd_block(exec_cmds, *ast, minishell);
+	execute_cmd_block(exec_cmds, *node, minishell);
 	*node = NULL;
 }
 
@@ -70,7 +67,7 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 	{
 		node = (t_ast *)lst_get_content(exec_cmds->cmds_list);
 		if (node->type == N_CMD && minishell)
-			execute_cmds_and_builtins(exec_cmds, &node, minishell)
+			execute_cmds_and_builtins(exec_cmds, &node, minishell);
 		else if (node->type == N_PIPE)
 			status = execute_pipe(exec_cmds);
 		else if (node->type == N_AND || node->type == N_OR)

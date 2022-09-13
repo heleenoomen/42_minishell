@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 18:39:07 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:07:31 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	builtin(t_list *cmd, t_minishell *minishell)
 	else if (ft_strcmp(s, "export") == 0)
 		mini_export(cmd, minishell->env);
 	else if (ft_strcmp(s, "unset") == 0)
-		mini_unset(s, minishell->env);
+		mini_unset(cmd, minishell->env);
 	else if (ft_strcmp(s, "env") == 0)
 		mini_env(minishell->env);
 	else if (ft_strcmp(s, "exit") == 0)
