@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:40:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/26 12:08:20 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/13 11:56:42 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
-#include "../ast.h"
+#include "minishell.h"
 
 void	launch_table(void (***table)(t_list **, t_grammar))
 {
@@ -38,19 +37,21 @@ void	launch_table(void (***table)(t_list **, t_grammar))
 	child_commands(table);
 }
 
-void	init_minishell(t_minishell *shell)
+void	init_minishell(t_minishell *shell, char **envp)
 {
 	int	col;
 
 	col = 0;
 	shell->line_len = 0;
 	shell->value = NULL;
-	/*env */
-	shell->table = malloc(NONTERM * sizeof(void***));
+	shell->env = ft_malloc(sizeof(env), INIT, EXIT, shell);
+	init_env(shell->env, envp, shell);
+	shell->table = ft_malloc(NONTERM * sizeof(void***), INIT, EXIT, shell); /* added protection */
 	while (col < NONTERM)
 	{
-		shell->table[col] = malloc(TOKENS * sizeof(void**));
+		shell->table[col] = ft_malloc(TOKENS * sizeof(void**), INIT, EXIT, shell); /* added protection */
 		col++;
 	}
 	launch_table(shell->table);
 }
+

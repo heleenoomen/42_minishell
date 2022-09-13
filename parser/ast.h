@@ -6,19 +6,13 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/26 14:54:27 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:39:39 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
-# include "minishell.h"
-# include "libft/libft.h"
 # define EOL -1
 # define SUCCESS 0
 # define ERROR 1
@@ -129,11 +123,10 @@ typedef struct s_minishell
 	int		line_len;
 	char	*line;
 	void	(***table)(t_list **, t_grammar);
-	t_list	*env;
-	t_list	*value;
+	t_env	*env;
 }	t_minishell;
 
-void	init_minishell(t_minishell *shell);
+void	init_minishell(t_minishell *shell, char **envp);
 void	copy_input_line(t_prompt *line, char *readline);
 
 /* LEXER and support functions*/

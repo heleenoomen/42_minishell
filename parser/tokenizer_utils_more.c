@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils_more.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 10:29:33 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/23 18:19:35 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:02:35 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 /* initializes the structure of a token and sets all 
 values to NULL */
@@ -21,8 +21,8 @@ t_token	*init_token(void)
 	token = malloc(sizeof(t_token));
 	if (!token)
 	{
-		perror("Token not created");
-		exit(1);
+		error_shell("Token not initialized", ERROR_PERROR);
+		return (NULL;
 	}
 	token->input_len = 0;
 	token->input = NULL;

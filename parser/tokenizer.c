@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:30:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/24 11:43:07 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/13 12:15:20 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 /* sets the current operator symbol that as a peek, in case of
 redirection it gets next character to save into the lexing buffer.
@@ -92,7 +92,7 @@ t_token	*create_token(t_token *token, t_prompt *line, char *value)
 	temp = ft_strdup(value);
 	if (!temp)
 	{
-		perror("Buffer for token not copied");
+		error_shell("Failed to create a token", ERROR_PERROR);
 		token->type = T_EOF;
 		return (token);
 	}

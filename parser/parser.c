@@ -6,11 +6,11 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/08/18 16:01:31 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/13 11:54:36 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ast.h"
+#include "minishell.h"
 
 /* Creates a new node for parser and assigns a token type */
 void	*create_node(t_grammar tok_type)
@@ -102,7 +102,7 @@ t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar))
 	}
 	if (!flag)
 	{
-		perror("Parser: token not verified");
+		parsing_syntax_error(((t_token *)token_list->content)->input);
 		free_ast_tree(&node);
 	}
 	remove_ast_node(&node);

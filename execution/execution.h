@@ -6,20 +6,13 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/05 14:57:59 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:40:00 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTION_H
 # define EXECUTION_H
 
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include "../parser/ast.h"
-# include <signal.h>
-# include <sys/types.h>
-# include <dirent.h>
 
 extern int	g_global_exit_status;
 
@@ -101,5 +94,11 @@ t_list			*get_path_for_expansion(char *str);
 void			push_to_redirlst(t_list *path, t_list **lst, char *dir);
 int				file_cmp(char *search, char	*files);
 
+/* Find path */
+char			*find_path(char *command, t_env *env);
+
+/* Convert t_list with cmd + argument into argv for execve */
+char			**list_to_argv(t_list *cmd, int *argc);
 
 #endif
+
