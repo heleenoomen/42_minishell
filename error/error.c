@@ -85,4 +85,5 @@ int	error_shell(char *error_message, int flag)
 		ft_putendl_fd(error_message, 2);
 	else if (flag == ERROR_PERROR)
 		perror(error_message);
+	return (1);
 }
