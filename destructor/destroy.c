@@ -93,3 +93,34 @@ void	free_minishell(t_minishell *minishell)
 		minishell->line = NULL;
 	}
 }
+
+void	heredoc_child_helper_destruction(t_exec *exec_cmds, t_minishell *shell)
+{
+	free_minishell(minishell);
+	free_ast_node(exec->cmds_list);
+	free_cmd_defs(&exec->cmd_type);
+	rl_clear_history();
+}
+
+void	heredoc_helper_destruction(char **update, char **line, int *fd, t_exec *exec_cmds)
+{
+	if (fd)
+	{
+		close(fd[1]);
+		if (exec_cmds->cmd)
+			free(exec_cmds->cmd);
+		free_cmd_defs(&exec->cmd_type)
+		free_ast_node(exec->cmds_list);
+	}
+	free(*line);
+	*line = NULL;
+	free(*update);
+	*update = NULL;
+}
+
+void	heredoc_helper_destruction2(char *delim, int status)
+{
+	if (delim)
+		free(delim);
+	exit(status);
+}
