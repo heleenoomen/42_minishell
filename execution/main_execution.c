@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/12 13:48:04 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/13 13:06:29 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,14 @@
 /* get nodes from tree into the ordered linked lists */
 void	get_tree(t_list **nodes, t_ast *tree, int node_id)
 {
+	if (!tree)
+		return ;
 	tree->node_id = node_id;
 	if (tree->child)
-		get_tree(nodes, tree->child->next_sibling, node_id++);
+		get_tree(nodes, tree->child->next_sibling, node_id + 1);
 	if (tree->type != N_SUB)
 		ft_lstpush(nodes, tree);
-	get_tree(nodes, tree->child, node_id++);
+	get_tree(nodes, tree->child, node_id + 1);
 	if (tree->type == N_SUB)
 		ft_lstpush(nodes, tree);
 }
@@ -33,7 +35,7 @@ void	get_tree(t_list **nodes, t_ast *tree, int node_id)
 */
 void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *minishell)
 {
-	t_ast *temp;
+	t_ast	*temp;
 
 	exec_cmds->pipe = 0;
 	temp = (t_ast *)lst_get_content(*exec_cmds->cmds_list);
@@ -76,7 +78,7 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 		if (node)
 		{
 			if (node->cmd_type)
-				/* free list of commands */
+				free_cmd_defs(&node->cmd_type);
 			free(node);
 	}
 	if (exec_cmds->forks)
@@ -110,18 +112,18 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	int		total_cmds;
 	t_exec	exec_cmds;
 	
+	status = 0;
 	fd_temp = dup(0);
 	init_exec_struct(&exec_cmds, node);
 	total_cmds = ft_lstsize(*nodes);
-	status = 0;
 	if (total_cmds == 1 && builtin((*nodes)->cmds->cmd, minishell->env))
 		status = 1;
 	status = execute_commands(&exec_cmds, minishell);
 	if (status && t_lstsize(*nodes))
-		/* free all nodes of ast */
+		free_ast_node(nodes);
 	if (exec_cmds.forks && (!exec_cmds.builtin || total_cmds > 1))
 	{
-		waitpid(exec_cmds.pid, &status, NULL);
+		waitpid(exec_cmds.pid, &status, 0);
 		if (!WIFSIGNALED(status))
 			g_global_exit_status = WEXITSTATUS(status);
 	}
@@ -133,7 +135,8 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 }
 
 /* main execution function */
-/* >>> maybe this function could be void function? So far we do not use its return value */
+/*no need to catch status in the if statement, once content of
+if statement is true, status is 0, else 1*/
 int	main_executor(char *readline, t_minishell *minishell)
 {
 	int		status;
@@ -147,11 +150,9 @@ int	main_executor(char *readline, t_minishell *minishell)
 	{
 		get_tree(&nodes, tree, 0);
 		status = expander(nodes, minishell->env);
-		if (!status)
-			start_execution(&node, minishell);
+		start_execution(&node, minishell);
 	}
 	else
 		status = 1;
 	return (status);
 }
-

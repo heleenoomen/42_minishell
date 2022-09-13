@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:24:26 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 14:26:32 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	execute_redirect_in(char *file, int	*fd)
 		}
 	}
 	if (status)
-		perror("In redirection failure");
+		error_shell(file, ERROR_PERROR);
 	return (status);
 }
 
@@ -50,7 +50,7 @@ void	execute_redirect_overwrite(char *file, int	*fd)
 		}
 	}
 	if (status)
-		perror("Overwrite redirection failure");
+		error_shell(file, ERROR_PERROR);
 	return (status);
 }
 
@@ -71,7 +71,7 @@ void	execute_redirect_append(char *file, int	*fd)
 		}
 	}
 	if (status)
-		perror("Append redirection failure");
+		error_shell(file, ERROR_PERROR);
 	return (status);
 }
 
@@ -95,7 +95,7 @@ void	execute_redirect_inout(char *file, int	*fd_in, int *fd_out)
 			g_global_exit_status = status;
 	}
 	if (status)
-		perror("In and Out redirection failure");
+		error_shell(file, ERROR_PERROR);
 	return (status);
 }
 
@@ -146,7 +146,7 @@ void	execute_redirection(t_exec	*exec, t_minishell *minishell)
 		else if (!status && ft_strcmp((char *)redir->content, "<>") == 0)
 			status = execute_inout(file, &exec->fd_in, &exec->fd_out);
 		if (redir->next)
-			redir = redir->next;
+			redir = redir->next->next;
 		free(file);
 	}
 	return (status);
