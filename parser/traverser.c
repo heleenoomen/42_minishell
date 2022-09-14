@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:16:34 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 13:21:44 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,9 @@ void	branch_child_node(t_parser **new_node, t_parser *prev_node, int type)
 	void	*new_temp;
 
 	*new_node = create_new_node(type);
-	new_temp = create_new_node(N_DUMM);
+	new_temp = create_new_node(T_UNKNOWN);
 	sibling = add_child(prev_node->node, new_temp);
 	(*new_node)->node = sibling;
-	return (sibling);
 }
 
 /* retrieves the data from the linked list and frees the list where the data 

@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 10:29:33 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 12:02:35 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/14 13:20:14 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_token	*init_token(void)
 	if (!token)
 	{
 		error_shell("Token not initialized", ERROR_PERROR);
-		return (NULL;
+		return (NULL);
 	}
 	token->input_len = 0;
 	token->input = NULL;

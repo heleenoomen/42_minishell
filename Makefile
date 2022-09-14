@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+         #
+#    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/13 17:40:41 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/14 13:19:01 by kanykei          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC		=	main.c\
 			tilde.c\
 			ast_builder.c ast_builder_utils.c char_lexer.c\
 			grand_traverser.c init_shell.c lexer.c lexer_utils.c\
-			ll1_table_rules.c ll1_table_rules_more.c parser.c parser_utils.c\
+			syntax_table1.c syntax_table2.c parser.c parser_utils.c\
 			tokenizer.c tokenizer_utils.c tokenizer_utils_more.c traverser.c\
 			traverser_commands.c traverser_pipes.c traverser_pref_suff.c\
 			traverser_redirections.c traverser_utils.c\
