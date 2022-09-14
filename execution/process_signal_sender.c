@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:38:17 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/07 11:30:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 09:57:56 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <execution.h>
+#include "minishell.h"
 
 /* HO: question: This is the same as SIG_DFL for sigint, no? */
 void	call_process_exit(int signal)
@@ -20,7 +20,7 @@ void	call_process_exit(int signal)
 
 void	send_exit_status(int signal)
 {
-	g_exit_status = (128 + signal);
+	g_global_exit_status = (128 + signal);
 	if (signal == SIGQUIT)
 		write(1, "Exit", 4);
 	write(1, "\n", 1);

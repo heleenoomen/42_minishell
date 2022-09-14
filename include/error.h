@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 16:26:13 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 09:53:16 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ int		expansion_error(char *error_message, int flag);
 void	simple_command_error(char *error_message);
 int		redirect_error(char *error_message);
 void	error_builtins(char *error_message, int flag);
+char	*path_error(char *s, int flag);
 
 #endif

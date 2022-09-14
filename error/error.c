@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 16:18:07 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 09:51:07 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,3 +100,20 @@ void	error_builtins(char *s, int flag)
 	else if (flag == ERROR_PERROR)
 		perror(s);
 }
+
+char	*path_error(char *s, int flag)
+{
+	g_global_exit_status = flag;
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(%s, 2);
+	ft_putstr_fd(": ", 2);
+	if (flag == ENOENT)
+		ft_putstr_fd("No such file or directory\n", 2);
+	else if (flag == EACCES)
+		ft_putstr_fd("Permission denied\n", 2);
+	else
+		ft_putstr_fd("Out of memory\n", 2);
+	return (NULL);
+}
+
+

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:20:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:05:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:00:14 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "ms_typedefs.h"
 
 /* builins.c */
-int		builtin(t_list *cmd, t_minishell *minishell);
+bool	builtin(t_list *cmd, t_minishell *minishell);
 
 /* builtin echo */
 void	mini_echo(t_list *cmd);

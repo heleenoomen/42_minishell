@@ -6,11 +6,20 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/09 17:55:03 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/14 09:56:30 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+// /* wrapper: sets global exit status and returns NULL in case path is not found, 
+ // * has no access rights or malloc fails at some point
+ // */
+// char	*path_error(int error)
+// {
+	// g_global_exit_status = error;
+	// return (NULL);
+// }
 
 /** checks if a file exists, in which case it sets file_exists (passed by reference)
  * to true and the checks if access rights are ok for execution. If so, returns 0.
@@ -32,27 +41,18 @@ int	my_access(char *command, bool *file_exists)
  * of the path value, also returns NULL and sets global exit status to ENOMEM. 
  * If all goes correctly, returns an array of paths.
  */
-char	*extract_all_paths(t_env *env)
+char	**extract_all_paths(t_env *env, char *command)
 {
 	char	*paths_value;
 	char	**paths;
 
 	paths_value = find_value(env, "PATH");
 	if (paths_value == NULL)
-		return (path_error(ENOENT));
+		return ((char **) path_error(command, ENOENT));
 	paths = ft_split(paths_value, ':');
 	if (paths == NULL)
-		return (path_error(ENOMEM));
+		return ((char **) path_error(command, ENOMEM));
 	return (paths);
-}
-
-/* wrapper: sets global exit status and returns NULL in case path is not found, 
- * has no access rights or malloc fails at some point
- */
-char	*path_error(int error)
-{
-	g_global_exit_status = error;
-	return (NULL);
 }
 
 /* goes through the array of all paths, for every one, first adds a slash, then adds
@@ -61,7 +61,7 @@ char	*path_error(int error)
  * correctly (to EACCES or ENOENT) and return NULL if no file is found or if for all files
  * found the access is prohibited
  */
-char	*assemble_path(char **all_paths, t_env *env, char *command)
+char	*assemble_path(char **all_paths, char *command)
 {
 	int		i;
 	char	*with_slash;
@@ -74,32 +74,32 @@ char	*assemble_path(char **all_paths, t_env *env, char *command)
 	{
 		with_slash = ft_strjoin(all_paths[i], "/");
 		if (with_slash == NULL)
-			return (path_error(ENOMEM);
-		*path = ft_strjoin(with_slash, command);
+			return (path_error(command, ENOMEM));
+		path = ft_strjoin(with_slash, command);
 		free(with_slash);
-		if (*path == NULL)
-			return (path_error(ENOMEM);
-		if (my_access(path, *file_exists) == 0)
+		if (path == NULL)
+			return (path_error(command, ENOMEM));
+		if (my_access(path, &file_exists) == 0)
 			return (path);
-		free(*path);
+		free(path);
 		i++;
 	}
 	if (file_exists)
-		return (path_error(EACCES));
-	return (path_error(ENOENT));
+		return (path_error(command, EACCES));
+	return (path_error(command, ENOENT));
 }	
 
 /* function is called in case command contains a forward slash. Checks if the path exists
  * and if permissions are given. If so, strdups command and returns it. If not, or if malloc
  * fails (strdup return NULL), NULL is returned and global exit status is set accordingly
  */
-char	*check_full_path(char *command, t_env *env)
+char	*check_full_path(char *command)
 {
 	bool	file_exists;
 	char	*path;
 
 	file_exists = false;
-	if (my_access(command, *file_exists) == 0)
+	if (my_access(command, &file_exists) == 0)
 	{
 		path = ft_strdup(command);
 		if (path == NULL)
@@ -107,8 +107,8 @@ char	*check_full_path(char *command, t_env *env)
 		return (path);
 	}
 	if (file_exists)
-		return (path_error(EACCES));
-	return (path_error(ENOENT));
+		return (path_error(command, EACCES));
+	return (path_error(command, ENOENT));
 }
 
 /* if command contains a forward slash, it means that it is a full path. check_ful_path
@@ -129,8 +129,8 @@ char	*find_path(char *command, t_env *env)
 	all_paths = extract_all_paths(env, command);
 	if (all_paths == NULL)
 		return (NULL);
-	path = assemble_path(all_paths, env, command);
-	ft_freestrarr(all_paths);
+	path = assemble_path(all_paths, command);
+	ft_freestrarr(&all_paths);
 	return (path);
 }
 

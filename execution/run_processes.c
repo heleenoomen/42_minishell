@@ -6,13 +6,13 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 17:43:41 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:02:41 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // isn't t_cmd_def part of t_exec ? Why both params?//
+int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // Heleen: question for Kany: isn't t_cmd_def part of t_exec ? Why both params? I think I'm still confused which one to pass to the builtin checker. //
 {
 	char	**envp;
 	char	*path;
@@ -22,14 +22,14 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // isn't
 	{		
 		exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
 		envp = make_envp(minishell->env); /*get env */
-		path = find_path(exec->curr_cmd[0], env); /* get path */
-		if (!builtin && exec->curr_cmd != NULL && envp != NULL && path != NULL)
+		path = find_path(exec->curr_cmd[0], minishell->env); /* get path */
+		if (!builtin(cmd->cmd, minishell) && exec->curr_cmd != NULL && envp != NULL && path != NULL)
 		{
-			duplicate_fd(exec)
-			if (execve(path, exec->curr_cmd, env) == -1)
+			duplicate_fd(exec);
+			if (execve(path, exec->curr_cmd, envp) == -1)
 				error_shell("exec failed", ERROR_PERROR);
-			ft_freestrarr(exec->curr_cmd);
-			ft_freestrarr(envp);
+			ft_freestrarr(&exec->curr_cmd);
+			ft_freestrarr(&envp);
 			free(path);
 		}
 	}

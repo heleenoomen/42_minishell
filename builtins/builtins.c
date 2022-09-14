@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:07:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:00:14 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	print_error_builtins(char *builtin_name, char *error)
  * execute the builtin command and returns true. If the command is not
  * a builtin, returns false
  */
-int	builtin(t_list *cmd, t_minishell *minishell)
+bool	builtin(t_list *cmd, t_minishell *minishell)
 {
 	char	*s;
 
