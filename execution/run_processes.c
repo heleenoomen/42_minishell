@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/14 10:02:41 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:16:00 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 
 	status = 0;
 	child_send_signal();
-	free_syntax_table(&minishell->table);
-	rl_clear_history();
-	free_ast_node(cmd->cmds_list);
+	free_syntax_table(minishell->table);
+	free_ast_node(&cmd->cmd);
+	/*clean history */
 	if (exec->fd_in >= 0 && exec->fd_out > 0)
 		status = run_cmd_child(exec, cmd, minishell);
 	else
@@ -66,7 +66,7 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 	return (status);
 }
 
-int	parent_process(t_exec *exec, t_cmd_def *cmd)
+void	parent_process(t_exec *exec, t_cmd_def *cmd)
 {
 	t_ast	*node;
 

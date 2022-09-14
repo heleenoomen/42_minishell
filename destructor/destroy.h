@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:39:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 16:41:14 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:10:02 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	free_cmd_defs(t_cmd_def **cmds);
 void	heredoc_child_helper_destruction(t_exec *exec_cmds, t_minishell *shell);
 void	heredoc_helper_destruction(char **update, char **line, int *fd, t_exec *exec_cmds);
 void	heredoc_helper_destruction2(char *delim, int status);
-
+void	free_syntax_table(void (***table)(t_list **, t_grammar));
 
 #endif

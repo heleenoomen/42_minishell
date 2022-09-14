@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:41:05 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 11:33:53 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/14 10:42:38 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,4 +123,17 @@ void	heredoc_helper_destruction2(char *delim, int status)
 	if (delim)
 		free(delim);
 	exit(status);
+}
+
+void	free_expansion_file(t_expansion *file)
+{
+	if (file->name)
+		free(file->file);
+	file->file = NULL;
+	free(file);
+}
+
+void	free_expansion_file_struct(void *content)
+{
+	free_expansion_file((t_expansion *)content);
 }

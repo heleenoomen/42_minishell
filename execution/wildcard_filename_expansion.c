@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_filename_expansion.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:57:57 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:46:16 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* More error handling functions to write :
-free_expansion_file 
 free whole path 
 delete_lst_content
 */
@@ -27,7 +26,7 @@ t_expansion	*init_file(char	*file, enum e_type type)
 	new_file->file = ft_strdup(file);
 	if (!new_file->file)
 	{
-		free(new);
+		free(new_file);
 		return (NULL);
 	}
 	new_file->type = type;
@@ -37,7 +36,7 @@ t_expansion	*init_file(char	*file, enum e_type type)
 
 int	dir_type_checker(enum e_type d_type, int type)
 {
-	if (d_type->type == DIRECTORY)
+	if (d_type == type_dir)
 	{
 		type = dir_type(type);
 		return (type);
@@ -60,7 +59,7 @@ void	get_redirlst(DIR *temp_dir, char *dir, t_list *path, t_list **lst)
 	t_expansion		*file;
 	struct dirent	*entity;
 	char			*folder;
-	t_list			new_lst;
+	t_list			*new_lst;
 
 	entity = readdir(temp_dir);
 	while (entity)
@@ -74,7 +73,7 @@ void	get_redirlst(DIR *temp_dir, char *dir, t_list *path, t_list **lst)
 			else
 				folder = get_path(entity->d_name, dir);
 			new_lst = ft_lstnew(folder);
-			ft_lstadd_back(lst, new);
+			ft_lstadd_back(lst, new_lst);
 		}
 		entity = readdir(temp_dir);
 	}
@@ -109,21 +108,21 @@ t_list	*expand_star(char *str)
 		if (!get_listed)
 			return (NULL);
 		file = (t_expansion *)get_listed->content;
-		list_len = ft_lstsize(get_listed) 
-		if (lst_len > 1 && ft_strchr(file->file, '*'))
+		list_len = ft_lstsize(get_listed);
+		if (list_len > 1 && ft_strchr(file->file, '*'))
 			get_expand_direct(&new_lst, get_listed);
 		else if (!get_listed->next)
 			add_redirlst(NULL, get_listed, &new_lst);
 		else
-			push_to_redirlst(&new_lst, get_listed, file->file);
-		ft_lstclear(&get_listed, &free_get_listed);
+			push_to_redirlst(new_lst, &get_listed, file->file);
+		ft_lstclear(&get_listed, &free_expansion_file_struct);
 		return (new_lst);
 	}
 	else
 		return (new_lst);
 }
 
-void	merge_to_list(t_list **curr_lst, t_list *new, t_list *prev, t_lst **lst)
+void	merge_to_list(t_list **curr_lst, t_list *new, t_list *prev, t_list **lst)
 {
 	t_list	*temp;
 	t_list	*update_lst;
@@ -159,7 +158,7 @@ void	filename_expansion(t_list **redir_list)
 		{
 			new = expand_star((char *)curr->content);
 			if (new)
-				merge_to_list(&curr, new, prev, redir_list)
+				merge_to_list(&curr, new, prev, redir_list);
 		}
 		prev = curr;
 		curr = curr->next;

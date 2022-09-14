@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/13 21:50:49 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/14 11:16:00 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int				run_cmd_child(t_exec *exec, t_cmd_def *cmd, \
 				t_minishell *minishell);
 int				child_process(t_exec *exec, t_cmd_def *cmd, \
 				t_minishell *minishell);
-int				parent_process(t_exec *exec, t_cmd_def *cmd);
+void			parent_process(t_exec *exec, t_cmd_def *cmd);
 int				fork_process(t_exec *exec_cmds, t_cmd_def *cmds, \
 				t_minishell *minishell);
 /* SIGNALS */
@@ -94,9 +94,14 @@ t_list			*expand_star(char *str);
 void			merge_to_list(t_list **curr_lst, t_list *new_item, t_list *prev, t_list **lst);
 void			get_expand_direct(t_list **lst, t_list *path);
 t_list			*get_path_for_expansion(char *str);
+char			*get_path(char *dir_path, char *path);
 void			push_to_redirlst(t_list *path, t_list **lst, char *dir);
 int				file_cmp(char *search, char	*files);
-
+int				dir_type(unsigned char type);
+t_expansion		*init_file(char	*file, enum e_type type);
+int				init_root_dir(t_list **list);
+char			*get_file(t_list *list);
+void			add_redirlst(char *curr_dir, t_list *dir_list, t_list **lst);
 /* Find path */
 char			*find_path(char *command, t_env *env);
 

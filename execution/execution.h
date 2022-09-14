@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/13 21:21:57 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/14 10:32:18 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void			get_expand_direct(t_list **lst, t_list *path);
 t_list			*get_path_for_expansion(char *str);
 void			push_to_redirlst(t_list *path, t_list **lst, char *dir);
 int				file_cmp(char *search, char	*files);
+int				dir_type(unsigned char type);
 
 /* Find path */
 char			*find_path(char *command, t_env *env);

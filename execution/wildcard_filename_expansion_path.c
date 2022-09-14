@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 21:22:02 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/14 11:05:09 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	update_type_file(t_list	*lst)
 	t_list		*last_file;
 	t_expansion	*file;
 
-	last_file = ft_lstlast(list);
+	last_file = ft_lstlast(lst);
 	file = (t_expansion *)last_file->content;
 	file->type = type_file;
 }
@@ -29,7 +29,7 @@ int	init_path_lst(char **path, t_list **list)
 	int			i;
 
 	i = 0;
-	while(path[i] != '\0')
+	while(path[i])
 	{
 		file = init_file(path[i], type_dir);
 		if (!file)
@@ -46,6 +46,24 @@ int	init_path_lst(char **path, t_list **list)
 	return (0);
 }
 
+int	init_root_dir(t_list **list)
+{
+	t_list		*temp;
+	t_expansion	*file;
+
+	file = init_file("/", type_dir);
+	if (!file)
+		return (1);
+	temp = ft_lstnew(file);
+	if (!temp)
+	{
+		free_expansion_file_struct(file);
+		return (2);
+	}
+	ft_lstadd_back(list, temp);
+	return (0);
+}
+
 t_list	*get_path_for_expansion(char *str)
 {
 	char	**path;
@@ -53,18 +71,18 @@ t_list	*get_path_for_expansion(char *str)
 	int		end;
 
 	if (str[0] == '/')
-		if(/*root*/)
+		if(init_root_dir(&lst))
 			return (NULL);
 	path = ft_split(str, '/');
 	if (!path)
 	{
-		ft_lstclear(&lst);
+		ft_lstclear(&lst, &free_expansion_file_struct);
 		return (NULL);
 	}
 	if (init_path_lst(path, &lst) != 0)
 	{
 		/*free whole path */
-		ft_lstclear(&lst, &delete_lst_content);
+		ft_lstclear(&lst, &free_expansion_file_struct);
 		return (NULL);
 	}
 	/*free whole path */

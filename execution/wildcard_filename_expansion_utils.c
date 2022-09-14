@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_filename_expansion_utils.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:58:34 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 11:10:39 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ char	*get_path(char *dir_path, char *path)
 	return (join);
 }
 
+char	*get_file(t_list *list)
+{
+	t_expansion	*file;
+
+	file = (t_expansion *)list->content;
+	return (file->file);
+}
+
 void	get_full_redirlst(DIR *temp_dir, char *dir, t_list *path, t_list **lst)
 {
 	char			*next_dir;
@@ -41,7 +49,7 @@ void	get_full_redirlst(DIR *temp_dir, char *dir, t_list *path, t_list **lst)
 	{
 		if (file_cmp(get_file(path->next), entity->d_name) && dir_type(entity->d_type))
 		{
-			next_dir = get_path(entity->d_name, path);
+			next_dir = get_path(entity->d_name, dir);
 			if (next_dir)
 			{
 				push_to_redirlst(path, lst, next_dir);
