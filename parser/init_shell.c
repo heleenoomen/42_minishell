@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:40:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 11:56:42 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/14 12:57:30 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	init_minishell(t_minishell *shell, char **envp)
 	col = 0;
 	shell->line_len = 0;
 	shell->value = NULL;
-	shell->env = ft_malloc(sizeof(env), INIT, EXIT, shell);
+	shell->env = malloc(sizeof(t_env)); // add protection here //
 	init_env(shell->env, envp, shell);
-	shell->table = ft_malloc(NONTERM * sizeof(void***), INIT, EXIT, shell); /* added protection */
+	shell->table = malloc(NONTERM * sizeof(void***)); // add protection here //
 	while (col < NONTERM)
 	{
-		shell->table[col] = ft_malloc(TOKENS * sizeof(void**), INIT, EXIT, shell); /* added protection */
+		shell->table[col] = malloc(TOKENS * sizeof(void**)); // add protection here //
 		col++;
 	}
 	launch_table(shell->table);

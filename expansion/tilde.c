@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 17:24:22 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 16:35:14 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 12:53:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ void	tilde_to_new_buf(char *tilde, t_char_buf *buf, int tilde_len)
 
 	add = ((tilde_len / BUFSIZE) + 1) * BUFSIZE;
 	oldbufsize = ((buf->size / BUFSIZE) + 1) * BUFSIZE;
-	new_buf = ft_malloc((oldbufsize + add) * sizeof(char), NULL);
+	new_buf = malloc((oldbufsize + add) * sizeof(char));
 	if (new_buf == NULL)
 	{
+		g_global_exit_status = ENOMEM;
+		ft_putstr_fd("minishell: failed to expand tilde (out of memory)\n", 2);
 		free(buf->buf);
 		buf->buf = NULL;
 		return ;
@@ -63,10 +65,10 @@ void	expand_tilde(t_env *env, t_char_buf *buf)
 		return ;
 	tilde_len = (int) ft_strlen(tilde);
 	if (tilde_len + buf->size > buf->free)
-		return (tilde_to_new_buf(tilde, buf, len));
-	ft_memmove(buf->buf + len, buf->buf + 1, buf->size - 1);
-	ft_memmove(buf->buf, tilde, len);
-	buf->size += len - 1;
-	buf->free -= len + 1;
+		return (tilde_to_new_buf(tilde, buf, tilde_len));
+	ft_memmove(buf->buf + tilde_len, buf->buf + 1, buf->size - 1);
+	ft_memmove(buf->buf, tilde, tilde_len);
+	buf->size += tilde_len - 1;
+	buf->free -= tilde_len + 1;
 }
 

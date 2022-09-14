@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:02:42 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 12:50:35 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*expand_string(char *s, t_env *env)
 }
 
 /** traverses the list and expands all of its contents */
-int	expand_list(t_list *lst_of_strings, t_env *env, int status)
+int	expand_list(t_list *lst_of_strings, t_env *env, int status, int error_flag)
 {
 	t_list	*trav;
 	char	*new_content;
@@ -44,16 +44,18 @@ int	expand_list(t_list *lst_of_strings, t_env *env, int status)
 	trav = lst_of_strings;
 	while (trav != NULL)
 	{
-		new_content = expand_string(lst->content, env);
+		new_content = expand_string(lst_of_strings->content, env);
 		if (new_content == NULL)
 		{
 			g_global_exit_status = ENOMEM;
+			expansion_error(lst_of_strings->content, error_flag);
 			return (1);	
 		}
 		free(trav->content);
 		trav->content = (void *) new_content;
 		trav = trav->next;
 	}
+	return (0);
 }
 
 /** goes through the list of t_ast nodes. For every nodes, checks if the *cmds pointer is not
@@ -75,11 +77,11 @@ int	expander(t_list *nodes, t_env *env)
 		if (current->cmds)
 		{
 			if (current->cmds->cmd)
-				status = expand_list(current->cmds->cmd, env, status);
+				status = expand_list(current->cmds->cmd, env, status, ERROR_CMD);
 			if (current->cmds->redir && !status)
-				status = expand_list(current->cmds->redir, env, status);
+				status = expand_list(current->cmds->redir, env, status, ERROR_REDIR);
 			if (current->cmds->assign && !status)
-				status = expand_list(current->cmds->assign, env, status);
+				status = expand_list(current->cmds->assign, env, status, ERROR_CMD); // should be changed to error assign
 		}
 		ptr = ptr->next;
 	}

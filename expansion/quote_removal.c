@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:31:32 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 17:18:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 12:51:01 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	join_strings(t_char_buf *buf)
  * beginning or end of quotation and change quotes variable accordingly. If
  * the modus of quotes was changed, the quote is replaced by a nul byte.
  */
-void	remove_quotes(t_char_buf *buf)
+void	exp_remove_quotes(t_char_buf *buf)
 {
 	int		quotes;
 	char	*ptr;

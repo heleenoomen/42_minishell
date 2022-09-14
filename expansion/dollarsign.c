@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:48:03 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 15:55:36 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 12:49:46 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ void	expand_global_exit_status(t_char_buf *buf)
 	nbr = ft_itoa(g_global_exit_status);
 	if (nbr == NULL)
 	{
-		g_global_exit_status == ENOMEM;
+		g_global_exit_status = ENOMEM;
+		ft_putstr_fd("minishell: failed to expand exit status\
+(faild to allocate memory)\n", 2);
 		free(buf->buf);
-		buf->buf == NULL;
+		buf->buf = NULL;
 		return ;
 	}
 	add_str_to_buf(buf, nbr);

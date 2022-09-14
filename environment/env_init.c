@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:49:04 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/14 12:56:22 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	init_env(t_env *env, char **envp, t_minishell *minishell)
 {
 	int	i;
 
+	if (env == NULL)
+		return ;
 	init_env_struct(env, minishell);
 	if (envp == NULL || envp[0] == NULL)
 	{
