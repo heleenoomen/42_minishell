@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/15 12:30:26 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/15 13:16:37 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int				execute_redirect_append(char *file, int	*fd);
 int				execute_redirect_inout(char *file, int	*fd_in, int *fd_out);
 int				execute_redirection(t_exec	*exec, t_minishell *minishell);
 int				execute_heredoc(char *delim, t_exec *exec, t_minishell *shell);
-
+void			child_process_heredoc(char *delim, int *fd, t_exec *exec, t_minishell *shell);
 
 /* Run COMMANDS !!! ENV AND PATH NEEDED !!!*/
 int				run_cmd_child(t_exec *exec, t_cmd_def *cmd, \

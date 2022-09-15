@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:41:05 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/15 12:35:48 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/15 13:07:18 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static void	free_ast_recurs(t_ast **node)
 {
 	if (!(*node))
 		return ;
-	ft_ast_cleaner(&(*node)->child);
-	ft_ast_cleaner(&(*node)->next_sibling);
-	ft_destroy_command(&(*node)->cmds);
+	free_ast_recurs(&(*node)->child);
+	free_ast_recurs(&(*node)->next_sibling);
+	free_cmd_defs(&(*node)->cmds);
 	free(*node);
 	*node = NULL;
 }
@@ -89,17 +89,17 @@ void	free_minishell(t_minishell *minishell)
 		if (minishell->env)
 			/*free environment*/
 		if (minishell->table)
-			free_syntax_table(&minishell->table);
+			free_syntax_table(minishell->table);
 		minishell->line = NULL;
 	}
 }
 
 void	heredoc_child_helper_destruction(t_exec *exec_cmds, t_minishell *shell)
 {
-	free_minishell(minishell);
-	free_ast_node(exec->cmds_list);
-	free_cmd_defs(&exec->cmd_type);
-	rl_clear_history();
+	free_minishell(shell);
+	free_ast_node(exec_cmds->cmds_list);
+	free_cmd_defs(&exec_cmds->cmd_type);
+	// rl_clear_history();
 }
 
 void	heredoc_helper_destruction(char **update, char **line, int *fd, t_exec *exec_cmds)
@@ -107,10 +107,10 @@ void	heredoc_helper_destruction(char **update, char **line, int *fd, t_exec *exe
 	if (fd)
 	{
 		close(fd[1]);
-		if (exec_cmds->cmd)
-			free(exec_cmds->cmd);
-		free_cmd_defs(&exec->cmd_type)
-		free_ast_node(exec->cmds_list);
+		if (exec_cmds->curr_cmd)
+			free(exec_cmds->curr_cmd);
+		free_cmd_defs(&exec_cmds->cmd_type);
+		free_ast_node(exec_cmds->cmds_list);
 	}
 	free(*line);
 	*line = NULL;
@@ -127,7 +127,7 @@ void	heredoc_helper_destruction2(char *delim, int status)
 
 void	free_expansion_file(t_expansion *file)
 {
-	if (file->name)
+	if (file->file)
 		free(file->file);
 	file->file = NULL;
 	free(file);

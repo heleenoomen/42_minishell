@@ -6,7 +6,7 @@
 #    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/15 12:38:08 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/15 13:08:31 by kanykei          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC		=	main.c\
 			mini_export.c mini_pwd.c mini_unset.c\
 			add_to_env.c env_init.c env_print_tree.c env_tree.c env_utils.c\
 			make_envp.c update_env.c\
-			execute_and_or_cmd.c execute_assignment.c\
+			execute_and_or_cmd.c execute_assignment.c execute_heredoc.c \
 			execute_commands_and_pipes.c execute_redirection.c\
 			execution_utils.c list_to_argv.c main_execution.c path.c\
 			process_signal_sender.c run_processes.c\
