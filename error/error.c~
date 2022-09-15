@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/15 12:27:02 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:25:13 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	redirect_error(char *error_message)
 	ft_putstr_fd(error_message, 2);
 	ft_putendl_fd(": failed to redirect", 2);
 	g_global_exit_status = 1;
-	return (1); // ? this function had no return line, I changed it to make it compile (ho) //
 }
 
 int	expansion_error(char *error_message, int flag)

@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:23:56 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:11:26 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:11:04 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	*ft_malloc(size_t size, char *message, bool exit, t_minishell *minishell)
 			g_global_exit_status = ENOMEM;
 			/* print error message? >> NO! */
 		}
-	}
 	return (ret);
 }
 	

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:34:29 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:20:27 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:28:40 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <errno.h>
 # include <dirent.h>
 # include <termios.h>
+# include "minishell.h"
 # include "libft.h"
 # include "ast.h"
 # include "execution.h"

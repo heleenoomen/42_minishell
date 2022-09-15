@@ -6,7 +6,7 @@
 #    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/15 12:38:08 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/15 12:36:27 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC		=	main.c\
 			traverser_commands.c traverser_pipes.c traverser_pref_suff.c\
 			traverser_redirections.c traverser_utils.c\
 			error.c ft_malloc.c ms_signals.c ms_termios.c ms_utils.c exit_minishell.c\
-			destroy.c error.c
+			error.c
 LIBS	=	libft/libft.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))
 

@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/15 12:23:58 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:23:25 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # define ERROR_PERROR 5
 # define ERROR_REDIR 6
 # define ERROR_CMD 7
-# define SYS_ERR 8
 
 int		error_shell(char *error_message, int flag);
 void	exec_command_error(char *cmd, int flag);

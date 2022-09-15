@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 18:02:37 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:13:29 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:13:08 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	cancel_echoctl(struct termios *termios_cpy)
  */
 void	reset_echoctl(struct termios *termios_cpy)
 {
-	tcsetattr(1, TCSAFLUSH, termios_cpy);
+	tcsetattr(1, TCSAFLUSH, termios_reset);
 }

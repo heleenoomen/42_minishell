@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 15:13:41 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:07:18 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:06:48 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*error_ptr(int *status, int error_code)
 	if (status != NULL)
 		*status = error_code;
 	else
-		g_global_exit_status = error_code;
+		g_global_exit_variable = error_code;
 	return (NULL);
 }
 
@@ -30,6 +30,6 @@ void	error_void(int *status, int error_code)
 	if (status != NULL)
 		*status = error_code;
 	else
-		g_global_exit_status = error_code;
+		g_global_exit_variable = error_code;
 }
 

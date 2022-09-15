@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:47 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 17:22:53 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/15 12:11:12 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ void	error_void(int *status, int error_code);
 void	cancel_echoctl(struct termios *termios_cpy);
 void	reset_echoctl(struct termios *termios_cpy);
 
-void	*ft_malloc(size_t size, char *message, int flag, int *status);
-void	*ft_calloc2(size_t size, int *status);
+void	*ft_malloc(size_t size, char *message, bool exit, t_minishell *shell);
 
 /* ms_utils.c */ //*check if I use it in the end or not... *//
 int		free_ret(void *ptr, void *ptr2, int ret);

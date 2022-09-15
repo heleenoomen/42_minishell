@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:04:27 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/13 16:29:21 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ bool	is_valid(char *s)
 	{
 		if (i == (size_t) -1)
 			return (false);
-		if ((int) s[i] < 0)
+		if ((int) s[i] < 0 || (int) s[i] > 256)
 			return (false);
 		i++;
 	}
