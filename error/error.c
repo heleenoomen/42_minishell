@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/15 12:27:02 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/17 11:36:29 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ char	*path_error(char *s, int flag)
 	ft_putstr_fd(": ", 2);
 	if (flag == ENOENT)
 		ft_putstr_fd("No such file or directory\n", 2);
-	else if (flag == EACCES)
+	else if (flag == EACCESS)
 		ft_putstr_fd("Permission denied\n", 2);
 	else
 		ft_putstr_fd("Out of memory\n", 2);

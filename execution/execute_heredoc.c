@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:20:49 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/17 10:15:40 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/17 11:24:50 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	child_process_heredoc(char *delim, int *fd, t_exec *exec, t_minishell *shell)
 {
-	int	nline;
+	//int	nline;
 	char	*get_line;
 	char	*update_line;
 
-	nline = shell->line_len;
+	//nline = shell->line_len;
 	/*check heredoc error from nline later for end of function ?*/
 	child_send_signal();
 	heredoc_child_helper_destruction(exec, shell);

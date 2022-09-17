@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:41:05 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/15 13:07:18 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/17 11:37:06 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	free_minishell(t_minishell *minishell)
 		if (minishell->line)
 			free(minishell->line);
 		if (minishell->env)
-			/*free environment*/
+			clear_env(&(minishell->env));
 		if (minishell->table)
 			free_syntax_table(minishell->table);
 		minishell->line = NULL;

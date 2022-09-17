@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/14 09:56:30 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/17 11:33:56 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	*assemble_path(char **all_paths, char *command)
 		i++;
 	}
 	if (file_exists)
-		return (path_error(command, EACCES));
+		return (path_error(command, EACCESS));
 	return (path_error(command, ENOENT));
 }	
 
@@ -107,7 +107,7 @@ char	*check_full_path(char *command)
 		return (path);
 	}
 	if (file_exists)
-		return (path_error(command, EACCES));
+		return (path_error(command, EACCESS));
 	return (path_error(command, ENOENT));
 }
 

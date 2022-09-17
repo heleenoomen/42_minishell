@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:26:13 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/17 11:31:38 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	mini_cd(t_list *cmd, t_env *env)
 	oldpwd = getcwd(NULL, 0);
 	if (oldpwd == NULL)
 	{
-		g_global_exit_status = errno;
+		g_global_exit_status = SYS_ERR;
 		return (error_builtins("cd", ERROR_PERROR));
 	}
 	if (argc == 1)
@@ -54,7 +54,7 @@ void	mini_cd(t_list *cmd, t_env *env)
 	}
 	if (chdir(argv[1]) == -1)
 	{
-		g_global_exit_status = errno;
+		g_global_exit_status = SYS_ERR;
 		return (error_builtins("cd", ERROR_PERROR));
 	}
 	mini_cd_update_env(env, oldpwd, argv[1]);
