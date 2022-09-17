@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/17 11:36:29 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/17 12:16:23 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,19 @@ int	error_shell(char *error_message, int flag)
 void	error_builtins(char *s, int flag)
 {
 	ft_putstr_fd("minishell: ", 2);
-	if (flag == SYS_ERR)
+	if (flag == ERROR_PERROR)
+		perror(s);
+	else
 	{
 		ft_putstr_fd(s, 2);
 		ft_putstr_fd(": ", 2);
-		ft_putstr_fd("system error", 2);
+		if (flag == SYS_ERR)
+			ft_putstr_fd("system error\n", 2);
+		else if (flag == ENOENT)
+			ft_putstr_fd("no such file or directory\n", 2);
+		else
+			ft_putstr_fd("access denied\n", 2);
 	}
-	else if (flag == ERROR_PERROR)
-		perror(s);
 }
 
 char	*path_error(char *s, int flag)

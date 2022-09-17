@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/17 11:33:56 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/17 12:31:06 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // /* wrapper: sets global exit status and returns NULL in case path is not found, 
  // * has no access rights or malloc fails at some point
- // */
+ // 
 // char	*path_error(int error)
 // {
 	// g_global_exit_status = error;
@@ -103,7 +103,7 @@ char	*check_full_path(char *command)
 	{
 		path = ft_strdup(command);
 		if (path == NULL)
-			g_global_exit_status = ENOMEM;
+			return (path_error(command, ENOMEM));
 		return (path);
 	}
 	if (file_exists)
