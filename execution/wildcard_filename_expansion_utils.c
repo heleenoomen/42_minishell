@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_filename_expansion_utils.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:58:34 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/14 11:10:39 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/17 10:17:53 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,6 @@ char	*get_path(char *dir_path, char *path)
 			free(temp);
 	}
 	return (join);
-}
-
-char	*get_file(t_list *list)
-{
-	t_expansion	*file;
-
-	file = (t_expansion *)list->content;
-	return (file->file);
 }
 
 void	get_full_redirlst(DIR *temp_dir, char *dir, t_list *path, t_list **lst)

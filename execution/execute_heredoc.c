@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:20:49 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/15 13:14:18 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/17 10:15:40 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execution.h"
+#include "minishell.h"
 
 void	child_process_heredoc(char *delim, int *fd, t_exec *exec, t_minishell *shell)
 {
@@ -24,24 +24,24 @@ void	child_process_heredoc(char *delim, int *fd, t_exec *exec, t_minishell *shel
 	heredoc_child_helper_destruction(exec, shell);
 	close(fd[0]);
 	update_line = NULL;
-	ft_pustr_fd("heredoc>", 1);
-	get_line = get_next_line(0);
+	ft_putstr_fd("heredoc>", 1);
+	get_line = readline(STDIN_FILENO);
 	while (get_line)
 	{
 		update_line = ft_substr(get_line, 0, ft_strlen(get_line) - 1);
 		if (ft_strcmp(delim, update_line) == 0)
 		{
-			heredoc_helper_destruction(&update_line, &get_line, fd, exec_cmd);
+			heredoc_helper_destruction(&update_line, &get_line, fd, exec);
 			heredoc_helper_destruction2(delim, 0);
 			
 		}
 		if (write(fd[1], get_line, ft_strlen(get_line)) == -1)
 			error_shell("Failed to write into pipe", ERROR_UNDEFINED);
-		heredoc_helper_destruction(&update_line, &get_line, NULL, exec_cmd);
-		ft_pustr_fd("heredoc>", 1);
-		get_line = get_next_line(STDIN_FILENO);
+		heredoc_helper_destruction(&update_line, &get_line, NULL, exec);
+		ft_putstr_fd("heredoc>", 1);
+		get_line = readline(STDIN_FILENO);
 	}
-	heredoc_helper_destruction(&update_line, &get_line, fd, exec_cmd);
+	heredoc_helper_destruction(&update_line, &get_line, fd, exec);
 	heredoc_helper_destruction2(delim, 1);
 }
 

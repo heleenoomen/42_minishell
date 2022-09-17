@@ -3,29 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_assignment.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:57:38 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 21:24:05 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/17 10:17:14 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*remove_quotes(char *str)
-{
-	char	*removed;
-	int		len;
-
-	if (!str)
-		return (NULL);
-	len = ft_strlen(str);
-	if (str[0] == '\'' || str[0] == '\"')
-		removed = ft_substr(str, 1, len - 2);
-	else
-		removed = ft_strdup(str);
-	return (removed);
-}
 
 /* heleen: my env functions will do this for you :-) */
 //t_assigment	*get_keyvalue_pair(char	*arg)
