@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:26:35 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 16:16:20 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:47:30 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	run_commandset(t_list **stack_table, enum e_grammar type)
 		temp_node->node->type = N_CMD;
 		if (type == T_LBRACE)
 		{
-			branch_node(&node, temp_node, NT_CMD1);
+			branch_node(&node, temp_node, NT_COMMANDSET1);
 			ft_lstpush(stack_table, node);
 			branch_child_node(&node, temp_node, NT_SUBSHELL);
 			ft_lstpush(stack_table, node);
@@ -58,6 +58,7 @@ void	run_command(t_list **stack_table, enum e_grammar type)
 
 	if (type >= 0)
 	{
+		printf("here cmds");
 		temp_node = (t_parser *)lst_get_content(stack_table);
 		if (type == T_STRING)
 		{

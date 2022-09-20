@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 17:04:00 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:31:51 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	*create_node(enum e_grammar tok_type)
 a list of each type and saves into the node */
 void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd)
 {
-	t_list	*new;
 
-	if (node_p->node && node_p->node->cmds == NULL && \
+	printf("ADD Nodes\n");
+	if (node_p->node && !node_p->node->cmds && \
 	(node_p->node_type == N_CMD || node_p->node_type == N_ASSIGN \
 	|| node_p->node_type == N_REDIR))
 	{
@@ -39,13 +39,16 @@ void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd)
 		node_p->node->cmds->assign = NULL;
 		node_p->node->cmds->redir = NULL;
 	}
-	new = ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->input));
+
 	if (node_p->node_type == N_CMD)
-		ft_lstadd_back(&node_p->node->cmds->cmd, new);
+		ft_lstadd_back(&node_p->node->cmds->cmd, \
+		ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->input)));
 	if (node_p->node_type == N_ASSIGN)
-		ft_lstadd_back(&node_p->node->cmds->assign, new);
+		ft_lstadd_back(&node_p->node->cmds->assign, \
+		ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->input)));
 	if (node_p->node_type == N_REDIR)
-		ft_lstadd_back(&node_p->node->cmds->redir, new);
+		ft_lstadd_back(&node_p->node->cmds->redir, \
+		ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->input)));
 	*tokens = (*tokens)->next;
 	free(lst_get_content(cmd));
 }
@@ -59,11 +62,18 @@ t_list **cmds, void (***table)(t_list **, enum e_grammar))
 	void		(*tab)(t_list **, enum e_grammar);
 	enum e_grammar	token_type;
 
+	printf("SCAN Nodes\n");
 	flag = 1;
 	tab = NULL;
 	token_type = ((t_token *)token_list->content)->type;
+	printf("tk: %d\n", token_type);
+	printf("tk: %s\n", ((t_token *)token_list->content)->input);
+	printf("node_p: %d\n", node_p->node_type);
 	if (node_p->node_type < NONTERM)
+	{
+		printf("IN");
 		tab = table[node_p->node_type][token_type - NONTERM];
+	}
 	if (tab)
 		tab(cmds, ((t_token *)token_list->content)->type);
 	else

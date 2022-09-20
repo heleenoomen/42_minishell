@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:18:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 16:16:55 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:52:45 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	run_prefix_with_cmd(t_list **stack_table, enum e_grammar type)
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
-		branch_node(&node, temp_node, NT_PREFIX);
+		branch_node(&node, temp_node, NT_PREFIX1);
 		ft_lstpush(stack_table, node);
 		if (type == T_ASSIGN)
 		{
@@ -28,7 +28,7 @@ void	run_prefix_with_cmd(t_list **stack_table, enum e_grammar type)
 			node->node_type = N_ASSIGN;
 		}
 		else
-			branch_node(&node, temp_node, T_ASSIGN);
+			branch_node(&node, temp_node, NT_IO_REDIR);
 		ft_lstpush(stack_table, node);
 		free(temp_node);
 	}
@@ -64,7 +64,7 @@ void	run_cmd_suffix(t_list **stack_table, enum e_grammar type)
 			node->node_type = N_CMD;
 		}
 		else
-			branch_node(&node, temp_node, NT_REDIR);
+			branch_node(&node, temp_node, NT_IO_REDIR);
 		ft_lstpush(stack_table, node);
 		free(temp_node);
 	}
