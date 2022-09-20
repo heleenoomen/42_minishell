@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:41:05 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/17 11:37:06 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 17:05:22 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	free_cmd_defs(t_cmd_def **cmds)
 	}
 }
 
-void	free_syntax_table(void (***table)(t_list **, t_grammar))
+void	free_syntax_table(void (***table)(t_list **, enum e_grammar))
 {
 	int	col;
 

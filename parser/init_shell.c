@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:40:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/17 11:30:00 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 16:14:15 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	launch_table(void (***table)(t_list **, t_grammar))
+void	launch_table(void (***table)(t_list **, enum e_grammar))
 {
 	int	i;
 	int	j;

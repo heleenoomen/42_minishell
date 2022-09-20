@@ -6,13 +6,13 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:18:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 16:16:55 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_prefix_with_cmd(t_list **stack_table, t_grammar type)
+void	run_prefix_with_cmd(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -34,7 +34,7 @@ void	run_prefix_with_cmd(t_list **stack_table, t_grammar type)
 	}
 }
 
-void	run_prefix_with_cmd1(t_list **stack_table, t_grammar type)
+void	run_prefix_with_cmd1(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -48,7 +48,7 @@ void	run_prefix_with_cmd1(t_list **stack_table, t_grammar type)
 	}
 }
 
-void	run_cmd_suffix(t_list **stack_table, t_grammar type)
+void	run_cmd_suffix(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -70,7 +70,7 @@ void	run_cmd_suffix(t_list **stack_table, t_grammar type)
 	}
 }
 
-void	run_cmd_suffix1(t_list **stack_table, t_grammar type)
+void	run_cmd_suffix1(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   traverser_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:42:54 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 16:16:41 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	run_pipe(t_list **stack_table, t_grammar type)
+void	run_pipe(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -28,7 +28,7 @@ void	run_pipe(t_list **stack_table, t_grammar type)
 	}
 }
 
-void	run_pipe1(t_list **stack_table, t_grammar type)
+void	run_pipe1(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -45,7 +45,7 @@ void	run_pipe1(t_list **stack_table, t_grammar type)
 	}
 }
 
-void	run_subshell(t_list **stack_table, t_grammar type)
+void	run_subshell(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;

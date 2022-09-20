@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_typedefs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:43:23 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:50:56 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 17:06:52 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ typedef struct s_env
 	struct s_minishell	*minishell;
 }						t_env;
 
-typedef enum e_grammar
+enum e_grammar
 {
-	NT_START,
+	NT_START = 0,
 	NT_AND_OR,
 	NT_AND_OR1,
 	NT_PIPESPLIT,
@@ -74,8 +74,8 @@ typedef enum e_grammar
 	T_ASSIGN,
 	T_STRING,
 	T_EOF,
-	T_UNKNOWN,
-}	t_grammar;
+	T_UNKNOWN
+};
 
 typedef struct s_cmd_def
 {
@@ -84,7 +84,7 @@ typedef struct s_cmd_def
 	t_list	*assign;
 }			t_cmd_def;
 
-typedef enum e_node_type
+enum e_node_type
 {
 	N_CMD,
 	N_PIPE,
@@ -94,25 +94,25 @@ typedef enum e_node_type
 	N_AND,
 	N_SUB,
 	N_ASSIGN,
-	N_DUMM,
-}	t_node_type;
+	N_DUMM
+};
 
 typedef struct s_ast
 {
-	int				node_id;
-	int				nodes;
-	t_node_type		type;
-	t_cmd_def		*cmds;
-	struct s_ast	*child;
-	struct s_ast	*prev_sibling;
-	struct s_ast	*next_sibling;
+	int					node_id;
+	int					nodes;
+	enum e_node_type	type;
+	t_cmd_def			*cmds;
+	struct s_ast		*child;
+	struct s_ast		*prev_sibling;
+	struct s_ast		*next_sibling;
 }					t_ast;
 
 typedef struct s_minishell
 {
 	int		line_len;
 	char	*line;
-	void	(***table)(t_list **, t_grammar);
+	void	(***table)(t_list **, enum e_grammar);
 	t_env	*env;
 }			t_minishell;
 

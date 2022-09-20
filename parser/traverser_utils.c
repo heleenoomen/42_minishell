@@ -6,14 +6,14 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:16:34 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 16:17:27 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* creates new node and initializes it to default null */
-void	*create_new_node(t_grammar tok_type)
+void	*create_new_node(enum e_grammar tok_type)
 {
 	t_parser	*node;
 

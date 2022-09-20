@@ -6,13 +6,13 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:13:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/15 12:17:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 16:15:46 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	commandset_and_io_here_file(void (***table)(t_list **, t_grammar))
+void	commandset_and_io_here_file(void (***table)(t_list **, enum e_grammar))
 {
 	table[NT_COMMANDSET][T_LBRACE - NONTERM] = &run_commandset;
 	table[NT_COMMANDSET][T_STRING - NONTERM] = &run_commandset;
@@ -40,7 +40,7 @@ void	commandset_and_io_here_file(void (***table)(t_list **, t_grammar))
 	table[NT_IO_HERE][T_DLESS - NONTERM] = &run_io_here;
 }
 
-void	get_suffix_cmd(void (***table)(t_list **, t_grammar))
+void	get_suffix_cmd(void (***table)(t_list **, enum e_grammar))
 {
 	table[NT_SUFFIX][T_STRING - NONTERM] = &run_cmd_suffix;
 	table[NT_SUFFIX][T_LESS - NONTERM] = &run_cmd_suffix;
@@ -61,7 +61,7 @@ void	get_suffix_cmd(void (***table)(t_list **, t_grammar))
 	table[NT_SUFFIX1][T_DLESS - NONTERM] = &run_cmd_suffix1;
 }
 
-void	child_commands(void (***table)(t_list **, t_grammar))
+void	child_commands(void (***table)(t_list **, enum e_grammar))
 {
 	table[NT_CMD][T_STRING - NONTERM] = &run_command;
 	table[NT_CMD][T_ASSIGN - NONTERM] = &run_command;

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ll1_table_rules.c                                  :+:      :+:    :+:   */
+/*   syntax_table1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:40:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 16:15:36 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	start_and_or(void (***table)(t_list **, t_grammar ))
+void	start_and_or(void (***table)(t_list **, enum e_grammar ))
 {
 	table[NT_START][T_LBRACE - NONTERM] = &run_start;
 	table[NT_START][T_STRING - NONTERM] = &run_start;
@@ -36,7 +36,7 @@ void	start_and_or(void (***table)(t_list **, t_grammar ))
 	table[NT_AND_OR1][T_RBRACE - NONTERM] = &set_epsilon;
 }
 
-void	pipe_and_subshell(void (***table)(t_list **, t_grammar))
+void	pipe_and_subshell(void (***table)(t_list **, enum e_grammar))
 {
 	table[NT_PIPESPLIT][T_AND - NONTERM] = &run_pipe;
 	table[NT_PIPESPLIT][T_OR - NONTERM] = &run_pipe;
@@ -56,7 +56,7 @@ void	pipe_and_subshell(void (***table)(t_list **, t_grammar))
 	table[NT_SUBSHELL][T_LBRACE - NONTERM] = &run_subshell;
 }
 
-void	split_to_prefix(void (***table)(t_list **, t_grammar))
+void	split_to_prefix(void (***table)(t_list **, enum e_grammar))
 {
 	table[NT_PREFIX][T_ASSIGN - NONTERM] = &run_prefix_with_cmd;
 	table[NT_PREFIX][T_LESS - NONTERM] = &run_prefix_with_cmd;
@@ -82,7 +82,7 @@ void	split_to_prefix(void (***table)(t_list **, t_grammar))
 	table[NT_IO_REDIR][T_DLESS - NONTERM] = &redirect_to_file;
 }
 
-void	run_redirections_grand(void (***table)(t_list **, t_grammar))
+void	run_redirections_grand(void (***table)(t_list **, enum e_grammar))
 {
 	table[NT_REDIR][T_LESS - NONTERM] = &run_redirections;
 	table[NT_REDIR][T_GREAT - NONTERM] = &run_redirections;

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 11:54:36 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/20 17:04:00 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* Creates a new node for parser and assigns a token type */
-void	*create_node(t_grammar tok_type)
+void	*create_node(enum e_grammar tok_type)
 {
 	t_parser	*node;
 
@@ -53,22 +53,22 @@ void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd)
 /* scans node type and calls the production of nodes according
 to ll1 table, if nodes token type is not valid returns the flag zero*/
 int	scan_nodes_parser(t_list *token_list, t_parser *node_p, \
-t_list **cmds, void (***table)(t_list **, t_grammar))
+t_list **cmds, void (***table)(t_list **, enum e_grammar))
 {
 	int			flag;
-	void		(*tab)(t_list **, t_grammar);
-	t_grammar	token_type;
+	void		(*tab)(t_list **, enum e_grammar);
+	enum e_grammar	token_type;
 
 	flag = 1;
 	tab = NULL;
 	token_type = ((t_token *)token_list->content)->type;
 	if (node_p->node_type < NONTERM)
 		tab = table[node_p->node_type][token_type - NONTERM];
-	if (tab != NULL)
+	if (tab)
 		tab(cmds, ((t_token *)token_list->content)->type);
 	else
 		flag = 0;
-	if (flag == 0)
+	if (!flag)
 	{
 		while (ft_lstsize(*cmds) > 0)
 			free(lst_get_content(cmds));
@@ -83,7 +83,7 @@ the tree:
 existing tokens with grammar table;
 3. add nodes if node of commands, assignment or redirection is found;
 4. in case of error, frees the node of a tree */
-t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar))
+t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, enum e_grammar))
 {
 	t_ast		*node;
 	t_parser	*node_p;
@@ -95,13 +95,17 @@ t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, t_grammar))
 	while (flag && ft_lstsize(cmds) > 0)
 	{
 		node_p = (t_parser *)lst_get_cmd(cmds);
+		printf("Token type: %d\n", ((t_token *)token_list->content)->type);
+		printf("Node type: %d\n", node_p->token_type);
 		if (((t_token *)token_list->content)->type == node_p->token_type)
 			add_nodes_parser(&token_list, node_p, &cmds);
 		else
 			flag = scan_nodes_parser(token_list, node_p, &cmds, table);
 	}
+	exit(0);
 	if (!flag)
 	{
+		printf("here\n");
 		parsing_syntax_error(((t_token *)token_list->content)->input);
 		free_ast_tree(&node);
 	}

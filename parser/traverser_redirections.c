@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   traverser_redirections.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:25:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 16:17:08 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	redirect_to_file(t_list **stack_table, t_grammar type)
+void	redirect_to_file(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -30,7 +30,7 @@ void	redirect_to_file(t_list **stack_table, t_grammar type)
 	}
 }
 
-void	run_redirections(t_list **stack_table, t_grammar type)
+void	run_redirections(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -46,7 +46,7 @@ void	run_redirections(t_list **stack_table, t_grammar type)
 	}
 }
 
-void	run_redirections1(t_list **stack_table, t_grammar type)
+void	run_redirections1(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -60,7 +60,7 @@ void	run_redirections1(t_list **stack_table, t_grammar type)
 	}
 }
 
-void	run_io_file(t_list **stack_table, t_grammar type)
+void	run_io_file(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;
@@ -77,7 +77,7 @@ void	run_io_file(t_list **stack_table, t_grammar type)
 	}
 }
 
-void	run_io_here(t_list **stack_table, t_grammar type)
+void	run_io_here(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*node;
 	t_parser	*temp_node;

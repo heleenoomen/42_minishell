@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_builder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:10:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 11:34:00 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/20 16:07:09 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ Syntax check implements creation of nodes depending on the grammar
 and list of tokens.
 */
 
-t_ast	*ast_builder(char *input, void (***table)(t_list **, t_grammar))
+t_ast	*ast_builder(char *input, void (***table)(t_list **, enum e_grammar))
 {
 	t_prompt	content;
 	t_ast		*node;

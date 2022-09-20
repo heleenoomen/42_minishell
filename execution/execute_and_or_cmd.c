@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_and_or_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:58:52 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 17:39:47 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/20 17:04:57 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	reset_node(t_exec *exec)
 
 int	execute_and_or_cmd(t_exec *exec, t_ast *node)
 {
-	t_node_type	node_type;
-	int			last_status;
-	int			status;
+	enum e_node_type	node_type;
+	int					last_status;
+	int					status;
 
 	last_status = exec->status;
 	node_type = node->type;
