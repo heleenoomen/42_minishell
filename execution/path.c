@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/17 12:31:06 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/21 18:41:27 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*find_path(char *command, t_env *env)
 	char	**all_paths;
 	char	*path;
 
-	if (ft_strchr(command, '/'))
+	if (ft_strchr(command, '/') != NULL)
 		return (check_full_path(command));
 	all_paths = extract_all_paths(env, command);
 	if (all_paths == NULL)

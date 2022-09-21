@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands_and_pipes.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:11:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 21:28:51 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/21 17:56:01 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	execute_cmd_block(t_exec *exec_cmds, t_ast *node,t_minishell *minishell)
 	exec_cmds->pid = -1;
 	cmds_cpy = node->cmds;
 	exec_cmds->cmd_type = node->cmds;
+	char *s = exec_cmds->cmd_type->cmd->content;  // exec_cmds goes to fork_process and its cmd_type field is equal to cmds_cpy
+	dprintf(2, "execute_cmd_block: %s\n", s);
 	free(node);
 	exec_cmds->curr_cmd = NULL;
 	status = 0;

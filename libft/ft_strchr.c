@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 16:14:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/04/02 16:47:03 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/21 18:33:43 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*ft_strchr(const char *s, int c)
 	int	i;
 
 	i = 0;
+
 	while (s[i])
 	{
 		if ((unsigned char)s[i] == (unsigned char)c)
@@ -25,6 +26,5 @@ char	*ft_strchr(const char *s, int c)
 	}
 	if (s[i] == c)
 		return ((char *) s + i);
-	else
-		return (NULL);
+	return (NULL);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/14 12:50:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/21 15:51:08 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	expand_list(t_list *lst_of_strings, t_env *env, int status, int error_flag)
 			expansion_error(lst_of_strings->content, error_flag);
 			return (1);	
 		}
-		free(trav->content);
+		free(trav->content); //maybe I should not free this???
 		trav->content = (void *) new_content;
 		trav = trav->next;
 	}

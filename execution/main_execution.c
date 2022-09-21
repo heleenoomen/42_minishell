@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 21:55:40 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/21 18:08:21 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *min
 	t_ast	*temp;
 
 	exec_cmds->pipe = 0;
-	temp = (t_ast *)lst_get_content(exec_cmds->cmds_list);
+	temp = (t_ast *)lst_get_content(exec_cmds->cmds_list); // exec_cmds->cmds_list is already NULL at this point, it is freed by lst_get_content in execute_commands function
 	if (temp && temp->type == N_PIPE)
 		exec_cmds->pipe = 1;
-	exec_cmds->cmds_list = exec_cmds->cmds_list;
+	exec_cmds->cmds_list = exec_cmds->cmds_list;  // ?? this one is freed by lst_get_content 
+	char *s = (*node)->cmds->cmd->content; // thiss goes to execute_cmd_block
+	dprintf(2, "execute_cmds_and_builtins: %s\n", s);
 	execute_cmd_block(exec_cmds, *node, minishell);
 	*node = NULL;
 }
@@ -66,11 +68,18 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 	while (total_cmds > 0 && exec_cmds->cmds_list && status == 0)
 	{
 		node = (t_ast *)lst_get_content(exec_cmds->cmds_list);
-		if (node->type == N_CMD && minishell)
-			execute_cmds_and_builtins(exec_cmds, &node, minishell);
-		else if (node->type == N_PIPE)
+		if (node && node->cmds && node->cmds->cmd)
+		{
+			char *s = node->cmds->cmd->content;  // the address of this goed to execute_cmds_and_builtins
+			dprintf(2, "execute_commands: %s\n", s);
+		}
+		if (!node)
+			return (status);  // here exec_cmds->cmds_list is freed and set to NULL
+		if (node && node->type == N_CMD && minishell)
+			execute_cmds_and_builtins(exec_cmds, &node, minishell); // now this function in called...
+		else if (node && node->type == N_PIPE)
 			status = execute_pipe(exec_cmds);
-		else if (node->type == N_AND || node->type == N_OR)
+		else if (node && (node->type == N_AND || node->type == N_OR))
 			status = execute_and_or_cmd(exec_cmds, node);
 		if (node)
 		{
@@ -113,6 +122,8 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	status = 0;
 	fd_temp = dup(0);
 	init_exec_struct(&exec_cmds, nodes);
+	char *s = ((t_ast *)((*(exec_cmds.cmds_list))->content))->cmds->cmd->content;  // this goes to execute_commands
+	dprintf(2, "start execution: %s\n", s);
 	total_cmds = ft_lstsize(*nodes);
 	if (total_cmds == 1 && builtin(*nodes, minishell))
 		status = 1;
@@ -144,9 +155,13 @@ int	main_executor(char *readline, t_minishell *minishell)
 	status = 0;
 	nodes = NULL;
 	tree = ast_builder(readline, minishell->table);
+	char *cmd = tree->cmds->cmd->content;
+	dprintf(2, "main executor %s\n", cmd);
 	if (tree)
 	{
 		get_tree(&nodes, tree, 0);
+		cmd = ((t_ast *)(nodes->content))->cmds->cmd->content; // nodes go to start_execution
+		dprintf(2, "%s\n", cmd);
 		status = expander(nodes, minishell->env);
 		start_execution(&nodes, minishell);
 	}

@@ -6,14 +6,12 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/21 18:57:17 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/21 18:58:14 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
-
-//test_change//
 
 # include "ms_typedefs.h"
 

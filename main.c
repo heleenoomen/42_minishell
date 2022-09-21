@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/20 15:54:20 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:38:12 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	g_global_exit_status = 0;
 	init_minishell(&minishell, envp);
+	buf = ft_strdup("ls");
+	main_executor(buf, &minishell);
+	free(buf);
+	exit(0);
 	while (1)
 	{
 		cancel_echoctl(&termios_cpy);
