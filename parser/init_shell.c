@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_shell.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:40:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 16:14:15 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:47:13 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	launch_table(void (***table)(t_list **, enum e_grammar))
 	}
 	start_and_or(table);
 	pipe_and_subshell(table);
-	split_to_prefix(table);
-	run_redirections_grand(table);
 	commandset_and_io_here_file(table);
-	get_suffix_cmd(table);
 	child_commands(table);
+	split_to_prefix(table);
+	get_suffix_cmd(table);
+	run_redirections_grand(table);
 }
 
 void	init_minishell(t_minishell *shell, char **envp)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverser_commands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:26:35 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 19:47:30 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:24:28 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	run_command(t_list **stack_table, enum e_grammar type)
 
 	if (type >= 0)
 	{
-		printf("here cmds");
+		printf("here cmds\n");
 		temp_node = (t_parser *)lst_get_content(stack_table);
 		if (type == T_STRING)
 		{
@@ -70,7 +70,7 @@ void	run_command(t_list **stack_table, enum e_grammar type)
 		}
 		else
 		{
-			branch_node(&node, temp_node, NT_CMD2);
+			branch_node(&node, temp_node, NT_CMD1);
 			ft_lstpush(stack_table, node);
 			branch_node(&node, temp_node, NT_PREFIX);
 			ft_lstpush(stack_table, node);
