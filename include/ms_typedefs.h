@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_typedefs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:43:23 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/20 17:06:52 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/21 13:26:29 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,10 @@ enum e_node_type
 	N_PIPE,
 	N_REDIR,
 	N_AND_OR,
-	N_OR,
 	N_AND,
-	N_SUB,
+	N_OR,
 	N_ASSIGN,
+	N_SUB,
 	N_DUMM
 };
 
