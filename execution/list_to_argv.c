@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_to_argv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:02:25 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/08 17:40:12 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/21 18:41:37 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	**list_to_argv(t_list *cmd, int *argc)
 		argv[++i] = traverser->content;
 		traverser = traverser->next;
 	}
-	argv[i] = NULL;
+	argv[i + 1] = NULL;
 	return (argv);
 }
 
