@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 16:18:35 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/21 14:12:05 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void	run_command2(t_list **stack_table, enum e_grammar type);
 
 /* Traversing utils */
 void	branch_node(t_parser **new_node, t_parser *old_node, int node_type);
-void	branch_child_node(t_parser **new_node, t_parser *prev_node, int type);
+void	*branch_child_node(t_parser **new_node, t_parser *prev_node, int type);
 void	*create_new_node(enum e_grammar tok_type);
 void	*lst_get_content(t_list **lst);
 void	*lst_get_cmd(t_list *cmd);

@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:26:35 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/21 14:24:28 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/21 14:55:33 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	run_command(t_list **stack_table, enum e_grammar type)
 
 	if (type >= 0)
 	{
-		printf("here cmds\n");
 		temp_node = (t_parser *)lst_get_content(stack_table);
 		if (type == T_STRING)
 		{

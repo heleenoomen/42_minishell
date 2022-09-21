@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/21 14:13:18 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/21 14:50:46 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,9 @@ t_list **cmds, void (***table)(t_list **, enum e_grammar))
 	flag = 1;
 	tab = NULL;
 	token_type = ((t_token *)token_list->content)->type;
-	printf("tk: %d\n", token_type);
-	printf("tk: %s\n", ((t_token *)token_list->content)->input);
-	printf("node_p: %d\n", node_p->node_type);
 	if (node_p->node_type < NONTERM)
 	{
-		tab = table[node_p->node_type][token_type - NONTERM];
+		tab = table[node_p->token_type][token_type - NONTERM];
 	}
 	if (tab)
 		tab(cmds, ((t_token *)token_list->content)->type);
@@ -109,7 +106,6 @@ t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, enum e_gramma
 	}
 	if (!flag)
 	{
-		printf("here\n");
 		parsing_syntax_error(((t_token *)token_list->content)->input);
 		free_ast_tree(&node);
 	}
