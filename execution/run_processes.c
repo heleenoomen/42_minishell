@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/21 19:04:15 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/21 19:10:39 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 
 	status = 0;
 	child_send_signal();
-	//free_syntax_table(minishell->table);
-	//free_ast_node(&cmd->cmd);
+	free_syntax_table(minishell->table);
+	free_ast_node(&cmd->cmd);
 	/*clean history */
 	if (exec->fd_in >= 0 && exec->fd_out > 0)
 		status = run_cmd_child(exec, cmd, minishell);
