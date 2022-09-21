@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/14 10:16:00 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/21 19:04:15 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 
 	status = 0;
 	child_send_signal();
-	free_syntax_table(minishell->table);
-	free_ast_node(&cmd->cmd);
+	//free_syntax_table(minishell->table);
+	//free_ast_node(&cmd->cmd);
 	/*clean history */
 	if (exec->fd_in >= 0 && exec->fd_out > 0)
 		status = run_cmd_child(exec, cmd, minishell);
@@ -87,7 +87,7 @@ int	fork_process(t_exec *exec_cmds, t_cmd_def *cmds, t_minishell *minishell)
 
 	status = 0;
 	if (pipe(exec_cmds->pipe_fd) == -1)
-		status = 
+		status = 1;
 	exec_cmds->pid = fork();
 	if (exec_cmds->pid == -1)
 		status = error_shell("Failed to create a pipe", ERROR_PERROR);
