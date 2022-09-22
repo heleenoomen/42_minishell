@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 12:25:09 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/22 13:05:33 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	total_cmds = ft_lstsize(*nodes);
 	// printf("number of commands: %d\n", total_cmds);
 	// tester(nodes);
+	// exit(0);
 	if (total_cmds == 1 && builtin(*nodes, minishell))
 		status = 1;
 	status = execute_commands(&exec_cmds, minishell);

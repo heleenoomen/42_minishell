@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:13:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 12:16:49 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/22 13:05:00 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	commandset_and_io_here_file(void (***table)(t_list **, enum e_grammar))
 	table[NT_COMMANDSET1][T_DGREAT - NONTERM] = &run_commandset1;
 	table[NT_COMMANDSET1][T_LESSGREAT - NONTERM] = &run_commandset1;
 	table[NT_COMMANDSET1][T_DLESS - NONTERM] = &run_commandset1;
-	table[NT_IO_FILE][T_LESS - NONTERM] = &run_io_file;
-	table[NT_IO_FILE][T_GREAT - NONTERM] = &run_io_file;
-	table[NT_IO_FILE][T_DGREAT - NONTERM] = &run_io_file;
-	table[NT_IO_FILE][T_LESSGREAT - NONTERM] = &run_io_file;
-	table[NT_IO_FILE][T_DLESS - NONTERM] = &run_io_file;
+	table[NT_IO_FILE][T_LESS - NONTERM] = &redirect_to_file;
+	table[NT_IO_FILE][T_GREAT - NONTERM] = &redirect_to_file;
+	table[NT_IO_FILE][T_DGREAT - NONTERM] = &redirect_to_file;
+	table[NT_IO_FILE][T_LESSGREAT - NONTERM] = &redirect_to_file;
+	table[NT_IO_FILE][T_DLESS - NONTERM] = &redirect_to_file;
 	table[NT_IO_HERE][T_DLESS - NONTERM] = &run_io_here;
 }
 
