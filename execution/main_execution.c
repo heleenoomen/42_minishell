@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 13:05:33 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/22 13:12:15 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 	while (total_cmds > 0 && exec_cmds->cmds_list && status == 0)
 	{
 		node = (t_ast *)lst_get_content(exec_cmds->cmds_list);
+		if (node == NULL)
+			break ;
 		if (node->type == N_CMD && minishell)
 			execute_cmds_and_builtins(exec_cmds, &node, minishell);
 		else if (node->type == N_PIPE)
