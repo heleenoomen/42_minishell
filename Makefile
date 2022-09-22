@@ -6,12 +6,13 @@
 #    By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/22 10:06:47 by ktashbae         ###   ########.fr        #
+#    Updated: 2022/09/22 17:06:50 by ktashbae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 VPATH	=	builtins destructor environment error execution expansion parser utils
 INCFL	=	-I libft -I include
+INCGNL	=	-I libgnL -I include
 
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
@@ -41,15 +42,16 @@ SRC		=	main.c\
 			error.c ft_malloc.c ms_signals.c ms_termios.c ms_utils.c exit_minishell.c\
 			destroy.c error.c
 LIBS	=	libft/libft.a
+LIBSGNL	=	gnL/libgnL.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))
 
 all : $(NAME)
 
-$(NAME) : $(OBJ) | $(LIBS)
-	$(CC) $(CFLAGS) -o $@ $^ -Llibft -lft -lreadline -ltermcap
+$(NAME) : $(OBJ) | $(LIBS) $(LIBSGNL)
+	$(CC) $(CFLAGS) -o $@ $^ -Llibft -lft -LgnL -lgnL -lreadline -ltermcap
 
 obj/%.o : %.c | obj
-	$(CC) $(CFLAGS) $(INCFL) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCFL) $(INCGNL) -c $< -o $@
 
 obj :
 	mkdir obj
@@ -57,12 +59,16 @@ obj :
 $(LIBS) :
 	- (cd libft && make bonus && make clean)
 
+$(LIBSGNL) :
+	- (cd gnL && make && make clean)
+
 clean :
 	rm -rf obj
 
 fclean : clean
 	rm -f $(NAME)
 	-(cd libft && make fclean)
+	-(cd gnL && make fclean)
 
 re : clean all
 
