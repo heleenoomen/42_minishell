@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverser_commands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:26:35 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/21 14:55:33 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/22 12:20:10 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	run_commandset(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
+	printf("COMMANDSET\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -42,6 +43,7 @@ void	run_commandset1(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
+	printf("COMMANDSET1\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -56,6 +58,7 @@ void	run_command(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
+	printf("SIMPLE_CMD\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -83,6 +86,7 @@ void	run_command1(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
+	printf("SIMPLE_CMD1\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -100,6 +104,7 @@ void	run_command2(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
+	printf("SIMPLE_CMD2\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);

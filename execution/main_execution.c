@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 10:06:02 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/22 12:25:09 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,18 @@ actual execution
 - if more nodes, execution of commands verify node type and call
 functios according to operator 
 - if something goes wrong, lists are free and status 1 is returned -> SET GLOBAL STATUS*/
+
+// void	tester(t_list **nodes)
+// {
+// 	t_list	*temp;
+// 	temp = *nodes;
+// 	while ( temp->next)
+// 	{
+// 		printf("| %s |", temp->content);
+// 		temp = temp->next;
+// 	}
+// }
+
 int	start_execution(t_list **nodes, t_minishell *minishell)
 {
 	int		status;
@@ -114,6 +126,8 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	fd_temp = dup(0);
 	init_exec_struct(&exec_cmds, nodes);
 	total_cmds = ft_lstsize(*nodes);
+	// printf("number of commands: %d\n", total_cmds);
+	// tester(nodes);
 	if (total_cmds == 1 && builtin(*nodes, minishell))
 		status = 1;
 	status = execute_commands(&exec_cmds, minishell);

@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:18:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 19:52:45 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/22 12:21:45 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	run_prefix_with_cmd(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
+	printf("CMD_PREF_CMD\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -39,6 +40,7 @@ void	run_prefix_with_cmd1(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
+	printf("CMD_PREF_CMD1\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -53,6 +55,7 @@ void	run_cmd_suffix(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
+	printf("CMD_SUFFIX\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -75,6 +78,7 @@ void	run_cmd_suffix1(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
+	printf("CMD_SUFFIX1\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);

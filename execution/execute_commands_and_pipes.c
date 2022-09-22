@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands_and_pipes.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:11:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 21:28:51 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/22 10:30:24 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int	execute_cmd_block(t_exec *exec_cmds, t_ast *node,t_minishell *minishell)
 	t_cmd_def	*cmds_cpy;
 	int			status;
 
+	status = 0;
+	cmds_cpy = node->cmds;
+	free(node);
 	exec_cmds->fd_in = 0;
 	exec_cmds->fd_out = 1;
 	exec_cmds->pid = -1;
-	cmds_cpy = node->cmds;
-	exec_cmds->cmd_type = node->cmds;
-	free(node);
+	exec_cmds->cmd_type = cmds_cpy;
 	exec_cmds->curr_cmd = NULL;
-	status = 0;
 	status = execute_assignment(cmds_cpy->assign, minishell);
 	status = execute_redirection(exec_cmds, minishell);
 	status = fork_process(exec_cmds, cmds_cpy, minishell);
 	if (exec_cmds->curr_cmd)
-		free(exec_cmds);
+		free(exec_cmds->curr_cmd);
 	free_cmd_defs(&cmds_cpy);
 	return (status);
 }

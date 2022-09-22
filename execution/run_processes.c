@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/21 19:14:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 12:26:28 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // Helee
 {
 	char	**envp;
 	char	*path;
+	
 
 	close(exec->pipe_fd[0]);
 	if (!builtin(cmd->cmd, minishell))
@@ -23,6 +24,14 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // Helee
 		exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
 		envp = make_envp(minishell->env); /*get env */
 		path = find_path(exec->curr_cmd[0], minishell->env); /* get path */
+		// printf("Path: %s\n", path);
+		// printf("Argv list: ");
+		// while (*exec->curr_cmd)
+		// {
+		// 	printf("Here: %s |", *exec->curr_cmd);
+		// 	exec->curr_cmd++;
+		// }
+		// exit(0);
 		if (!builtin(cmd->cmd, minishell) && exec->curr_cmd != NULL && envp != NULL && path != NULL)
 		{
 			duplicate_fd(exec);
@@ -87,7 +96,7 @@ int	fork_process(t_exec *exec_cmds, t_cmd_def *cmds, t_minishell *minishell)
 
 	status = 0;
 	if (pipe(exec_cmds->pipe_fd) == -1)
-		status = 1;
+		status = error_shell("Failed to create a pipe", ERROR_PERROR);;
 	exec_cmds->pid = fork();
 	if (exec_cmds->pid == -1)
 		status = error_shell("Failed to create a pipe", ERROR_PERROR);
