@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:34:29 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/17 11:28:37 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:02:15 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <dirent.h>
 # include <termios.h>
 # include "libft.h"
+# include "../gnL/get_next_line.h"
 # include "ast.h"
 # include "execution.h"
 # include "environment.h"
