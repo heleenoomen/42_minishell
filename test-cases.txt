@@ -1,0 +1,20 @@
+
+Working test-cases:
+
+ls | wc
+ls || wc
+ls >> text.txt
+ls && ls
+ls | cat
+
+____________________
+____________________
+
+Not working test-cases:
+
+wc || ls
+exit
+
+
+
+

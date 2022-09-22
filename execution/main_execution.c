@@ -6,7 +6,7 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 13:12:15 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/22 15:44:31 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	get_tree(t_list **nodes, t_ast *tree, int node_id)
 	if (tree->child)
 		get_tree(nodes, tree->child->next_sibling, node_id + 1);
 	if (tree->type != N_SUB)
+	{
+		// printf("First: %s\n", (char*)((t_list*)tree->cmds->cmd)->content);
+		// printf("Second: %s\n", (char*)((t_list*)tree->cmds->cmd)->next->content);
 		ft_lstpush(nodes, tree);
+	}
 	get_tree(nodes, tree->child, node_id + 1);
 	if (tree->type == N_SUB)
 		ft_lstpush(nodes, tree);
@@ -110,7 +114,8 @@ functios according to operator
 // {
 // 	t_list	*temp;
 // 	temp = *nodes;
-// 	while ( temp->next)
+// 	printf("| %s |", temp->content);
+// 	while (temp)
 // 	{
 // 		printf("| %s |", temp->content);
 // 		temp = temp->next;
@@ -128,9 +133,7 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	fd_temp = dup(0);
 	init_exec_struct(&exec_cmds, nodes);
 	total_cmds = ft_lstsize(*nodes);
-	// printf("number of commands: %d\n", total_cmds);
-	// tester(nodes);
-	// exit(0);
+	printf("number of commands: %d\n", total_cmds);
 	if (total_cmds == 1 && builtin(*nodes, minishell))
 		status = 1;
 	status = execute_commands(&exec_cmds, minishell);
