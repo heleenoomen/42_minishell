@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 12:26:28 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:54:51 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // Helee
 	char	**envp;
 	char	*path;
 	
-
+	dprintf(2, "in run_cmd_child\n");
 	close(exec->pipe_fd[0]);
-	if (!builtin(cmd->cmd, minishell))
+	if (!builtin(exec, minishell, NOT_SINGLE_BUILTIN))
 	{		
+		dprintf(2, "passed builtin test in runc_cmd_child\n");
 		exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
 		envp = make_envp(minishell->env); /*get env */
 		path = find_path(exec->curr_cmd[0], minishell->env); /* get path */
@@ -32,7 +33,7 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // Helee
 		// 	exec->curr_cmd++;
 		// }
 		// exit(0);
-		if (!builtin(cmd->cmd, minishell) && exec->curr_cmd != NULL && envp != NULL && path != NULL)
+		if (exec->curr_cmd != NULL && envp != NULL && path != NULL)
 		{
 			duplicate_fd(exec);
 			if (execve(path, exec->curr_cmd, envp) == -1)
@@ -56,6 +57,7 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 
 	status = 0;
 	child_send_signal();
+	dprintf(2, "in child proces\n");
 	//free_syntax_table(minishell->table);   // this causes segfault
 	//free_ast_node(&cmd->cmd);   // this removes information that run_cmd_child needs later on > maybe free the node later on?
 	/*clean history */
