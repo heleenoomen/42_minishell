@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 17:32:28 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:39:32 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,9 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	init_exec_struct(&exec_cmds, nodes);
 	total_cmds = ft_lstsize(*nodes);
 	printf("number of commands: %d\n", total_cmds);
-	printf("exec_cmds->", ((t_ast *) (exec_cmds.cmds_list))->cmds->redir;
-	if (total_cmds == 1 && builtin(*nodes, minishell))
-		return (1); //status = 1;
-	dprintf(2, "status = %i\n", status);
+	if (total_cmds == 1 && builtin(&exec_cmds, minishell, SINGLE_BUILTIN))
+		return (1);
+	printf("passed builtin test\n");
 	status = execute_commands(&exec_cmds, minishell);
 	if (status && ft_lstsize(*nodes))
 		free_ast_node(nodes);

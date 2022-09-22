@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:04:27 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:07:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,18 +91,14 @@ void	mini_export_invalid_identifier(char *s)
 	g_global_exit_status = 1;
 }
 
-void	mini_export(t_list *cmd, t_env *env)
+void	mini_export(int argc, char **argv, t_env *env)
 {
 	int		i;
-	int		argc;
-	char	**argv;
 
-	argv = list_to_argv(cmd, &argc);
-	if (argv == NULL)
-		return (error_builtins("export", ERROR_PERROR));
 	if (argc == 1)
 	{
 		print_tree_mini_exp(env->tree);
+		free(argv);
 		return ;
 	}
 	i = 1;

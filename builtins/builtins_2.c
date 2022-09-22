@@ -1,22 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_exit.c                                        :+:      :+:    :+:   */
+/*   builtins_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 13:46:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 17:14:05 by hoomen           ###   ########.fr       */
+/*   Created: 2022/09/22 19:26:24 by hoomen            #+#    #+#             */
+/*   Updated: 2022/09/22 19:29:08 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_exit(t_minishell *minishell)
+bool	single_builtin(t_exec *exec_cmds, t_minishell *minishell)
 {
-	ft_putstr_fd("exit\n", 1);
-	free_minishell(minishell);
-	exit(g_global_exit_status);
-}
-
 

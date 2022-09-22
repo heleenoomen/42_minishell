@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/22 17:06:50 by ktashbae         ###   ########.fr        #
+#    Updated: 2022/09/22 20:37:24 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ INCFL	=	-I libft -I include
 INCGNL	=	-I libgnL -I include
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror -g
 
 NAME	=	minishell
 SRC		=	main.c\

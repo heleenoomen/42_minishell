@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:53:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:27:12 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:06:46 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,11 @@ int	set_newline(char **argv, bool *newline)
  * by spaces. Prints a newline after last arguments if newline was set
  * to 1.
  */
-void	mini_echo(t_list *cmd)
+void	mini_echo(int argc, char **argv)
 {
-	char	**argv;
-	int		argc;
 	bool	newline;
 	int		i;
 
-	argv = list_to_argv(cmd, &argc);
-	if (argv == NULL)
-		return (error_builtins("echo", ERROR_PERROR));
 	if (argc == 1)
 	{
 		write (1, "\n", 1);
