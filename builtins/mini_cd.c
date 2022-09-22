@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/17 12:27:07 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:00:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,11 @@ int	go_home(t_env *env, char *oldpwd, int *status)
 	return (0);
 }
 
-void	mini_cd(t_list *cmd, t_env *env)
+void	mini_cd(int argc, char **argv, t_env *env)
 {
 	char	*oldpwd;
-	int		argc;
 	int		status;
-	char	**argv;
 
-	argv = list_to_argv(cmd, &argc);
-	if (argv == NULL)
-		return (error_builtins("cd", ERROR_PERROR)); 	
 	if (set_oldpwd(&oldpwd))
 		return (error_builtins("cd", SYS_ERR));
 	if (argc == 1)
@@ -91,6 +86,5 @@ void	mini_cd(t_list *cmd, t_env *env)
 		return (error_builtins("cd", ERROR_PERROR));
 	}
 	mini_cd_update_env(env, oldpwd, argv[1]);
-	free(argv);
 }
 

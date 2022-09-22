@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:00:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:30:24 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:09:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,11 @@ bool	is_valid_mini_us(char *s)
 	return (true);
 }
 
-void	mini_unset(t_list *cmd, t_env *env)
+void	mini_unset(int argc, char **argv, t_env *env)
 {
 	int		i;
-	int		argc;
-	char	**argv;
 
-	argv = list_to_argv(cmd, &argc);
-	if (argv == NULL)
-		return ;
-	if (argc == 0)
+	if (argc == 1)
 		return ;
 	i = 0;
 	while (argv[i] != NULL)
@@ -52,6 +47,5 @@ void	mini_unset(t_list *cmd, t_env *env)
 		}
 		i++;
 	}
-	free(argv);
 }
 
