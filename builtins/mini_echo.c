@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_echo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:53:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:27:12 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 16:06:15 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	mini_echo(t_list *cmd)
 	int		i;
 
 	argv = list_to_argv(cmd, &argc);
+	dprintf(2, "argv[0] = %s\n", argv[0]);
+	dprintf(2, "argv[1] = %s\n", argv[1]);
 	if (argv == NULL)
 		return (error_builtins("echo", ERROR_PERROR));
 	if (argc == 1)

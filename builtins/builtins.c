@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/14 10:00:14 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 16:07:00 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,21 @@ void	print_error_builtins(char *builtin_name, char *error)
 bool	builtin(t_list *cmd, t_minishell *minishell)
 {
 	char	*s;
+	t_list	*args;
 
-	s = cmd->content;
+	args = ((t_ast *)(cmd->content))->cmds->cmd;
+	s = args->content;
+	dprintf(2, "builtin, s = %s\n", s);
 	if (ft_strncmp_uplo(s, "echo", 5) == 0)
-		mini_echo(cmd);
+		mini_echo(args);
 	else if (ft_strcmp(s, "cd") == 0)
-		mini_cd(cmd, minishell->env);
+		mini_cd(args, minishell->env);
 	else if (ft_strcmp(s, "pwd") == 0)
 		mini_pwd();
 	else if (ft_strcmp(s, "export") == 0)
-		mini_export(cmd, minishell->env);
+		mini_export(args, minishell->env);
 	else if (ft_strcmp(s, "unset") == 0)
-		mini_unset(cmd, minishell->env);
+		mini_unset(args, minishell->env);
 	else if (ft_strcmp(s, "env") == 0)
 		mini_env(minishell->env);
 	else if (ft_strcmp(s, "exit") == 0)
