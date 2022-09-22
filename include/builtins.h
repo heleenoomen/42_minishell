@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:20:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 17:13:13 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:10:37 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 bool	builtin(t_exec *exec_cmds, t_minishell *minishell, bool single_builtin);
 
 # define SINGLE_BUILTIN true
-# define NOT_SINGLE_BUILTIN false
+# define CHILD_PROCESS false
 
 /* builtin echo */
 void	mini_echo(int argc, char **argv);

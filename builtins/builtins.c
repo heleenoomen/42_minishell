@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 19:39:36 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:23:39 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	print_error_builtins(char *builtin_name, char *error)
 
 bool	is_builtin(char *s)
 {
+	if (s == NULL)
+		return (false);
 	if (ft_strncmp_uplo(s, "echo", 5) && ft_strcmp(s, "cd") && ft_strcmp(s, "pwd")
 		&& ft_strcmp(s, "export") && ft_strcmp(s, "unset") && ft_strcmp(s, "env")
 		&& ft_strcmp(s, "exit"))
@@ -29,8 +31,18 @@ bool	is_builtin(char *s)
 	return (true);
 }
 
-void	call_builtin(int argc, char **argv, t_minishell *minishell)
+void	call_builtin(t_ast *node, char *cmd, t_minishell *minishell)
 {
+	char	**argv;
+	int		argc;
+
+	argv = list_to_argv(node->cmds->cmd, &argc);
+	if (argv == NULL)
+	{
+		g_global_exit_status = ENOMEM;
+		error_builtins(cmd, ENOMEM);
+		return ;
+	}
 	if (ft_strncmp_uplo(argv[0], "echo", 5) == 0)
 		mini_echo(argc, argv);
 	else if (ft_strcmp(argv[0], "cd") == 0)
@@ -43,33 +55,58 @@ void	call_builtin(int argc, char **argv, t_minishell *minishell)
 		mini_env(minishell->env);
 }
 
-t_list	*get_args(t_exec *exec)
+t_ast	*get_ast_node(t_exec *exec)
 {
-	t_ast		*ast;
 	t_list		*cmds_list;
-	t_cmd_def	*cmds;
 
 	if (exec != NULL && exec->cmds_list != NULL)
 	{
 		cmds_list = *(exec->cmds_list);
 		if (cmds_list != NULL)
-		{
-			ast = (t_ast *)(cmds_list->content);
-			if (ast != NULL)
-			{
-				cmds = ast->cmds;
-				if (cmds != NULL)
-				{
-					return (cmds->cmd);
-				}
-			}
-		}
+			return ((t_ast *)(cmds_list->content));
 	}
-	return (NULL)
+	return (NULL);
 		// if (exec_cmds && exec_cmds->cmds_list && *(exec_cmds->cmds_list) 
 		// && (t_ast *)(*(exec_cmds->cmds_list))->content 
 		// && ((t_ast *)(*(exec_cmds->cmds_list))->content)->cmds)
 		// args = ((t_ast *)(*(exec_cmds->cmds_list))->content)->cmds->cmd;
+}
+
+int	run_redirections_single_builtin(t_exec *exec, t_ast *node, int fd_cpys[2], t_minishell *minishell)
+{
+	exec->cmd_type = node->cmds;
+	if (execute_redirection(exec, minishell))
+		return (-1);
+	printf("after execute_redirection\n");
+	printf("exec->fd_out = %d\n", exec->fd_out);
+	if (exec->fd_in > 0)
+	{
+		fd_cpys[0] = dup(STDIN_FILENO);
+		close(STDIN_FILENO);
+		dup(exec->fd_in);
+	}		
+	if (exec->fd_out > 1)
+	{
+		fd_cpys[1] = dup(STDOUT_FILENO);
+		close(STDOUT_FILENO);
+		dup(exec->fd_out);
+	}
+	return (0);
+}
+
+void	restore_stdin_stdout(t_exec *exec, int fd_cpys[2])
+{
+	if (exec->fd_in > 0)
+	{
+		close(STDIN_FILENO);
+		dup(fd_cpys[0]);
+	}
+	if (exec->fd_out > 1)
+	{
+		close(STDOUT_FILENO);
+		dup(fd_cpys[1]);
+	}
+
 }
 /* checks if a cmd is a builtin. If so, calls the builtin function to
  * execute the builtin command and returns true. If the command is not
@@ -77,65 +114,25 @@ t_list	*get_args(t_exec *exec)
  */
 bool	builtin(t_exec *exec, t_minishell *minishell, bool single_builtin)
 {
-	char	*s;
-	t_list	*args;
-	int		argc;
-	char	**argv;
-	int		fd_in_cpy;
-	int		fd_out_cpy;
+	t_ast	*node;
+	int		fd_cpys[2];
+	char	*cmd;
 
-	args = get_args(exec);
-	if (args == NULL)
+	node = get_ast_node(exec);
+	if (node == NULL || node->cmds == NULL || node->cmds->cmd == NULL)
 		return (false);
-	if (!is_builtin(args->content))
+	cmd = node->cmds->cmd->content;
+	if (!is_builtin(cmd))
 		return (false);
-	if (single_builtin)
-		run_redirecions_single_builtin(exec);
-	
-	if (single_builtin)
-	{
-		exec_cmds->cmd_type = ((t_ast *)(*(exec_cmds->cmds_list))->content)->cmds;
-		if (execute_redirection(exec_cmds, minishell))
-			return (true);
-		if (exec_cmds->fd_in > 0)
-		{
-			fd_in_cpy = dup(STDIN_FILENO);
-			dup2(exec_cmds->fd_in, 0);
-			close(exec_cmds->fd_in);
-		}		
-		if (exec_cmds->fd_out > 1)
-		{
-			fd_out_cpy = dup(STDOUT_FILENO);
-			dup2(exec_cmds->fd_out, STDOUT_FILENO);
-			close(exec_cmds->fd_out);
-		}
-	}
-	dprintf(2, "still in builtin");
-	if (!ft_strcmp(s, "pwd"))
+	if (single_builtin && run_redirections_single_builtin(exec, node, fd_cpys, minishell))
+		return (true);
+	if (!ft_strcmp(cmd, "pwd"))
 		mini_pwd();
-	else if (!ft_strcmp(s, "exit"))
+	else if (!ft_strcmp(cmd, "exit"))
 		mini_exit(minishell);
 	else
-	{
-		argv = list_to_argv(args, &argc);
-		if (argv == NULL)
-			error_builtins(s, ENOMEM);
-		else
-			call_builtin(argc, argv, minishell);
-		free(argv);
-	}
+		call_builtin(node, cmd, minishell);
 	if (single_builtin)
-	{
-		if (exec_cmds->fd_out > 1)
-		{
-			close(STDOUT_FILENO);
-			dup(fd_out_cpy);
-		}
-		if (exec_cmds->fd_in > 0)
-		{
-			close(STDIN_FILENO);
-			dup(fd_in_cpy);
-		}
-	}
+		restore_stdin_stdout(exec, fd_cpys);
 	return (true);
 }

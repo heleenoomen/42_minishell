@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 17:54:51 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:10:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // Helee
 	
 	dprintf(2, "in run_cmd_child\n");
 	close(exec->pipe_fd[0]);
-	if (!builtin(exec, minishell, NOT_SINGLE_BUILTIN))
+	if (!builtin(exec, minishell, CHILD_PROCESS))
 	{		
 		dprintf(2, "passed builtin test in runc_cmd_child\n");
 		exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
