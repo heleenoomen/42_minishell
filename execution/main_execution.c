@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 21:55:40 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/22 10:06:02 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *min
 	t_ast	*temp;
 
 	exec_cmds->pipe = 0;
-	temp = (t_ast *)lst_get_content(exec_cmds->cmds_list);
+	temp = (t_ast *)lst_get_cmd(*exec_cmds->cmds_list);
 	if (temp && temp->type == N_PIPE)
 		exec_cmds->pipe = 1;
 	exec_cmds->cmds_list = exec_cmds->cmds_list;

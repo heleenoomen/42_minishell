@@ -6,7 +6,7 @@
 #    By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/17 10:22:12 by ktashbae         ###   ########.fr        #
+#    Updated: 2022/09/22 10:06:47 by ktashbae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,9 @@ fclean : clean
 	-(cd libft && make fclean)
 
 re : clean all
+
+check: $(NAME)
+	./$(NAME)
 
 .PHONY : all clean fclean re
 
