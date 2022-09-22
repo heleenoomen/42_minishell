@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:24:26 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 21:39:17 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/22 18:05:54 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ int	execute_redirection(t_exec	*exec, t_minishell *minishell)
 	redir = exec->cmd_type->redir;
 	while (redir && status == 0)
 	{
+		
+		printf("redirs\n");
 		status = get_redirect_file(&redir->next, &file);
 		if (!status && ft_strcmp((char *)redir->content, "<") == 0)
 			status = execute_redirect_in(file, &exec->fd_in);
