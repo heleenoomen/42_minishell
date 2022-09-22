@@ -1,0 +1,23 @@
+
+Working test-cases:
+
+ls | wc
+ls || wc
+ls >> text.txt
+ls && ls
+<<<<<<< HEAD
+ls | cat
+=======
+>>>>>>> d17ba8d5071cab48a530af958266e4e92601d9cf
+
+____________________
+____________________
+
+Not working test-cases:
+
+wc || ls
+exit
+
+
+
+

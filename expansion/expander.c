@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/14 12:50:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/22 15:44:54 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	expand_list(t_list *lst_of_strings, t_env *env, int status, int error_flag)
 	trav = lst_of_strings;
 	while (trav != NULL)
 	{
-		new_content = expand_string(lst_of_strings->content, env);
+		new_content = expand_string(trav->content, env);
 		if (new_content == NULL)
 		{
 			g_global_exit_status = ENOMEM;
