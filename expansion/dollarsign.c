@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dollarsign.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:48:03 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/14 12:49:46 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 17:15:45 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ static bool	should_be_expanded(char **ptr, t_char_buf *buf, int quotes)
 	char	next_char;
 
 	next_char = *(*ptr + 1);
-	if (quotes == SINGLE_QUOTES)
-		return (false);
 	if (next_char == '\0')
 	{
 		add_char_to_buf(buf, **ptr);
@@ -120,7 +118,7 @@ void	expand_dollarsign(t_env *env, char *ptr, t_char_buf *buf)
 	quotes = NO_QUOTES;
 	while (*ptr)
 	{
-		if (*ptr == '$')
+		if (*ptr == '$' && quotes != SINGLE_QUOTES)
 		{
 			if (should_be_expanded(&ptr, buf, quotes))
 				ptr = expand_substr_ds(env, buf, ptr);
