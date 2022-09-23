@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:00:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 17:09:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 12:33:19 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	mini_unset(int argc, char **argv, t_env *env)
 		{
 			ft_putstr_fd("unset: ", 1);
 			ft_putstr_fd(argv[i], 1);
-			ft_putstr_fd(": invalid identifier\n", 1);
+			ft_putstr_fd(": not a valid identifier\n", 1);
 		}
 		i++;
 	}

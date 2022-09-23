@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/17 12:31:06 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 12:34:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// /* wrapper: sets global exit status and returns NULL in case path is not found, 
- // * has no access rights or malloc fails at some point
- // 
-// char	*path_error(int error)
-// {
-	// g_global_exit_status = error;
-	// return (NULL);
-// }
 
 /** checks if a file exists, in which case it sets file_exists (passed by reference)
  * to true and the checks if access rights are ok for execution. If so, returns 0.

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 11:32:44 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 12:28:13 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ void	mini_cd(int argc, char **argv, t_env *env)
 	newpwd = getcwd(NULL, 0);
 	mini_cd_update_env(env, oldpwd, argv[1]);
 }
-

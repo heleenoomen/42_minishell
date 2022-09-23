@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/23 12:00:08 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 12:35:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,17 +126,12 @@ void	error_builtins(char *s, int flag)
 	error_set_global_exit_status(flag);
 }
 
-char	*error_builtins_null(char *s, int flag)
-{
-	error_builtins(s, flag);
-	return (NULL);
-}
-
 int	error_builtins_int(char *s, int flag)
 {
 	error_builtins(s, flag);
 	return (-1);
 }
+
 char	*path_error(char *s, int flag)
 {
 	ft_putstr_fd("minishell: ", 2);

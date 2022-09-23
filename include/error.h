@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/23 11:46:25 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 12:35:35 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	simple_command_error(char *error_message);
 int		redirect_error(char *error_message);
 void	error_builtins(char *error_message, int flag);
 char	*path_error(char *s, int flag);
-char	*error_builtins_null(char *s, int flag);
 int		error_builtins_int(char *s, int flag);
 
 #endif

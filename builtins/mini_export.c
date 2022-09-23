@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 17:07:57 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 12:32:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,11 @@ void	mini_export(int argc, char **argv, t_env *env)
 		if (is_valid(argv[i]))
 		{
 			if (update_env_string(env, argv[i], EXPORT | KEY_DUP | VAL_DUP) == -1)
-			{
-				g_global_exit_status = ENOMEM;
-				return (error_builtins("cd", ERROR_PERROR));
-			}
+				return (error_builtins("cd", ENOMEM));
 		}
 		else
 			mini_export_invalid_identifier(argv[i]);
 		i++;
 	}
-	free(argv);
 }
 
