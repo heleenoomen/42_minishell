@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 20:10:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 16:42:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // Helee
 			duplicate_fd(exec);
 			if (execve(path, exec->curr_cmd, envp) == -1)
 				error_shell("exec failed", ERROR_PERROR);
-			ft_freestrarr(&exec->curr_cmd);
+			free(&exec->curr_cmd);
 			ft_freestrarr(&envp);
 			free(path);
 		}

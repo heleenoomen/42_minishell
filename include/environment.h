@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 13:21:37 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 15:39:46 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define KEY_DUP 0b10
 # define VAL_DUP 0b100
 # define VAL_OVERW 0b1000
+# define ASSIGN 0b10000
 
 # define WARNING_TOO_MANY_SHLVLS "Minishell: Warning: level of shells (1000) too high, resetting to 0"
 

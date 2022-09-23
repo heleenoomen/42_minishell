@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:23:30 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 13:55:00 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 16:38:24 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ int update_env(t_env *env, char *key, char *value, short flags)
 	char		*val_dup;
 
 	pos = position_in_tree(&(env->tree), key);
-	if (*pos == NULL)
+	if (pos == NULL || *pos == NULL)
 		return (add_key_value_to_env(env, key, value, flags));
-	if ((value != NULL && ft_strcmp((*pos)->value, value)) || flags & VAL_OVERW)
+	if ((value != NULL && ((*pos)->value == NULL 
+		|| ft_strcmp((*pos)->value, value))) || flags & VAL_OVERW)
 	{
 		if (flags & VAL_DUP)
 		{
@@ -32,7 +33,8 @@ int update_env(t_env *env, char *key, char *value, short flags)
 		free((*pos)->value);
 		(*pos)->value = val_dup;
 	}
-	(*pos)->for_export = flags & EXPORT;
+	if (!(flags & ASSIGN))
+		(*pos)->for_export = flags & EXPORT;
 	return (0);
 }
 
@@ -51,7 +53,8 @@ int update_env_node(t_tree_node *node, char *value, short flags)
 		val_dup = value;
 	free(node->value);
 	node->value = val_dup;
-	node->for_export = flags & EXPORT;
+	if (!(flags & ASSIGN))
+		node->for_export = flags & EXPORT;
 	return (0);
 }
 
@@ -61,12 +64,14 @@ int	update_env_string(t_env *env, char *s, short flags)
 	char	*key;
 	int		ret;
 
+	dprintf(2, "update_env_string, s = %s\n", s);
 	key = ft_strdup(s);
+	dprintf(2, "update_env_string, key = %s\n", key);
 	if (key == NULL)
 		return (-1);
 	value = manipulate_ptrs(key);
+	dprintf(2, "value = %s\n", value);
 	ret = update_env(env, key, value, flags | VAL_DUP | KEY_DUP);
 	free(key);
 	return (ret);
 }
-
