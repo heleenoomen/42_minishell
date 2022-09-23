@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/17 11:36:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 11:46:25 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define EXIT_ERROR_SIGNAL_N 128 /*"Fatal error signal “n”"*/
 # define EXIT_ERROR_CNRTL_C 130 /*"Script terminated by Control-C"*/
 # define EXIT_EXIT_OUT_OF_RANGE 255 /*"Exit status out of range"*/
+# define EXIT_OUT_OF_MEMORY 137
 
 # define ENOENT 2 /*"No such file or directory"*/
 # define ECHILD 10 /*"No child processes"*/
@@ -46,5 +47,7 @@ void	simple_command_error(char *error_message);
 int		redirect_error(char *error_message);
 void	error_builtins(char *error_message, int flag);
 char	*path_error(char *s, int flag);
+char	*error_builtins_null(char *s, int flag);
+int		error_builtins_int(char *s, int flag);
 
 #endif

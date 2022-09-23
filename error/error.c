@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 17:03:00 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 12:00:08 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,36 +89,60 @@ int	error_shell(char *error_message, int flag)
 	return (1);
 }
 
+void	error_set_global_exit_status(int flag)
+{
+	if (flag == ENOENT)
+	{
+		g_global_exit_status = EXIT_CMD_NOT_FOUND;
+		ft_putstr_fd("No such file or directory\n", 2);
+	}
+	else if (flag == EACCESS)
+	{
+		g_global_exit_status = EXIT_CANNOT_EXECUTE;
+		ft_putstr_fd("Permission denied\n", 2);
+	}
+	else if (flag == ENOMEM)
+	{
+		g_global_exit_status = EXIT_OUT_OF_MEMORY;
+		ft_putstr_fd("Out of memory\n", 2);
+	}	
+	else
+	{
+		g_global_exit_status = EXIT_ERROR_DEFAULT;
+		ft_putstr_fd("Undefined error\n", 2);
+	}
+}
 void	error_builtins(char *s, int flag)
 {
 	ft_putstr_fd("minishell: ", 2);
-	if (flag == ERROR_PERROR)
-		perror(s);
-	else
+	if (flag == EXIT_ERROR_DEFAULT)
 	{
-		ft_putstr_fd(s, 2);
-		ft_putstr_fd(": ", 2);
-		if (flag == SYS_ERR)
-			ft_putstr_fd("system error\n", 2);
-		else if (flag == ENOENT)
-			ft_putstr_fd("no such file or directory\n", 2);
-		else
-			ft_putstr_fd("access denied\n", 2);
+		g_global_exit_status = EXIT_ERROR_DEFAULT;
+		perror(s);
+		return ;
 	}
+	ft_putstr_fd(s, 2);
+	ft_putstr_fd(": ", 2);
+	error_set_global_exit_status(flag);
 }
 
+char	*error_builtins_null(char *s, int flag)
+{
+	error_builtins(s, flag);
+	return (NULL);
+}
+
+int	error_builtins_int(char *s, int flag)
+{
+	error_builtins(s, flag);
+	return (-1);
+}
 char	*path_error(char *s, int flag)
 {
-	g_global_exit_status = flag;
 	ft_putstr_fd("minishell: ", 2);
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd(": ", 2);
-	if (flag == ENOENT)
-		ft_putstr_fd("No such file or directory\n", 2);
-	else if (flag == EACCESS)
-		ft_putstr_fd("Permission denied\n", 2);
-	else
-		ft_putstr_fd("Out of memory\n", 2);
+	error_set_global_exit_status(flag);
 	return (NULL);
 }
 

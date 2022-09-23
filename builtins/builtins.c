@@ -6,18 +6,11 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 20:23:39 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 11:58:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_error_builtins(char *builtin_name, char *error)
-{
-	ft_putstr_fd(builtin_name, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(error, 2);
-}
 
 bool	is_builtin(char *s)
 {
@@ -27,7 +20,6 @@ bool	is_builtin(char *s)
 		&& ft_strcmp(s, "export") && ft_strcmp(s, "unset") && ft_strcmp(s, "env")
 		&& ft_strcmp(s, "exit"))
 		return (false);
-	dprintf(2, "is_builtin, return true\n");
 	return (true);
 }
 
@@ -38,11 +30,9 @@ void	call_builtin(t_ast *node, char *cmd, t_minishell *minishell)
 
 	argv = list_to_argv(node->cmds->cmd, &argc);
 	if (argv == NULL)
-	{
-		g_global_exit_status = ENOMEM;
-		error_builtins(cmd, ENOMEM);
-		return ;
-	}
+		return (error_builtins(cmd, ENOMEM));
+	if (argv[0] == NULL)
+		return (error_builtins(cmd, ERROR_UNDEFINED));
 	if (ft_strncmp_uplo(argv[0], "echo", 5) == 0)
 		mini_echo(argc, argv);
 	else if (ft_strcmp(argv[0], "cd") == 0)
@@ -66,10 +56,6 @@ t_ast	*get_ast_node(t_exec *exec)
 			return ((t_ast *)(cmds_list->content));
 	}
 	return (NULL);
-		// if (exec_cmds && exec_cmds->cmds_list && *(exec_cmds->cmds_list) 
-		// && (t_ast *)(*(exec_cmds->cmds_list))->content 
-		// && ((t_ast *)(*(exec_cmds->cmds_list))->content)->cmds)
-		// args = ((t_ast *)(*(exec_cmds->cmds_list))->content)->cmds->cmd;
 }
 
 int	run_redirections_single_builtin(t_exec *exec, t_ast *node, int fd_cpys[2], t_minishell *minishell)
@@ -106,6 +92,7 @@ void	restore_stdin_stdout(t_exec *exec, int fd_cpys[2])
 		close(STDOUT_FILENO);
 		dup(fd_cpys[1]);
 	}
+	exec->cmd_type = NULL;
 
 }
 /* checks if a cmd is a builtin. If so, calls the builtin function to
