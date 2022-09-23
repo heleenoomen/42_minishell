@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/23 16:47:34 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 21:18:43 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 void	init_exec_struct(t_exec *exec, t_list **cmds_list)
 {
 	exec->cmds_list = cmds_list;
+	exec->cmd_type = NULL;
+	exec->curr_cmd = NULL;
 	exec->status = 0;
 	exec->pid = -1;
 	exec->fd_in = 0;
@@ -145,6 +147,8 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 		waitpid(exec_cmds.pid, &status, 0);
 		if (!WIFSIGNALED(status))
 			g_global_exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			g_global_exit_status = WTERMSIG(status) + 128;
 	}
 	dup2(fd_temp, 0);
 	close(fd_temp);

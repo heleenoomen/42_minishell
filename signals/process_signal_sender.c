@@ -3,34 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   process_signal_sender.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:38:17 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/14 09:57:56 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 21:14:14 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* HO: question: This is the same as SIG_DFL for sigint, no? */
-void	call_process_exit(int signal)
-{
-	exit(128 + signal);
-}
-
-void	send_exit_status(int signal)
-{
-	g_global_exit_status = (128 + signal);
-	if (signal == SIGQUIT)
-		write(1, "Exit", 4);
-	write(1, "\n", 1);
-}
-
 void	parent_sigint(void)
 {
 	struct sigaction	sn;
 
-	sn.sa_handler = &send_exit_status;
+	sn.sa_handler = SIG_IGN;
 	sn.sa_flags = SA_RESTART;
 	sigemptyset(&sn.sa_mask);
 	sigaction(SIGINT, &sn, NULL);
@@ -40,7 +26,7 @@ void	parent_sigquit(void)
 {
 	struct sigaction	sn;
 
-	sn.sa_handler = &send_exit_status;
+	sn.sa_handler = SIG_IGN;
 	sn.sa_flags = SA_RESTART;
 	sigemptyset(&sn.sa_mask);
 	sigaction(SIGQUIT, &sn, NULL);
@@ -56,7 +42,7 @@ void	child_sigint(void)
 {
 	struct sigaction	sn;
 
-	sn.sa_handler = &call_process_exit;
+	sn.sa_handler = SIG_DFL;
 	sn.sa_flags = SA_RESTART;
 	sigemptyset(&sn.sa_mask);
 	sigaction(SIGINT, &sn, NULL);

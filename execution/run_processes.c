@@ -6,13 +6,13 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/23 16:42:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 21:13:48 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // Heleen: question for Kany: isn't t_cmd_def part of t_exec ? Why both params? I think I'm still confused which one to pass to the builtin checker. //
+int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 {
 	char	**envp;
 	char	*path;
@@ -25,29 +25,26 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell) // Helee
 		exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
 		envp = make_envp(minishell->env); /*get env */
 		path = find_path(exec->curr_cmd[0], minishell->env); /* get path */
-		// printf("Path: %s\n", path);
-		// printf("Argv list: ");
-		// while (*exec->curr_cmd)
-		// {
-		// 	printf("Here: %s |", *exec->curr_cmd);
-		// 	exec->curr_cmd++;
-		// }
-		// exit(0);
 		if (exec->curr_cmd != NULL && envp != NULL && path != NULL)
 		{
 			duplicate_fd(exec);
+			dprintf(2, "I will execute!\n");
 			if (execve(path, exec->curr_cmd, envp) == -1)
+			{
 				error_shell("exec failed", ERROR_PERROR);
+				g_global_exit_status = 1;
+			}
 			free(&exec->curr_cmd);
 			ft_freestrarr(&envp);
 			free(path);
+			exit(g_global_exit_status);
 		}
 	}
 	if (exec->fd_in > 0)
 		close(exec->fd_in);
 	close(exec->pipe_fd[1]);
-	free_cmd_defs(&cmd);
-	free_minishell(minishell);
+	// free_cmd_defs(&cmd);
+	// free_minishell(minishell);
 	exit(g_global_exit_status);
 }
 

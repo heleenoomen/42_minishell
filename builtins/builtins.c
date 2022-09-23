@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 11:58:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 20:14:16 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ bool	builtin(t_exec *exec, t_minishell *minishell, bool single_builtin)
 	int		fd_cpys[2];
 	char	*cmd;
 
+	if (single_builtin)
+		g_global_exit_status = 0;
 	node = get_ast_node(exec);
 	if (node == NULL || node->cmds == NULL || node->cmds->cmd == NULL)
 		return (false);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_typedefs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:43:23 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/21 13:26:29 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/23 18:07:43 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,15 @@ typedef struct s_ast
 	struct s_ast		*child;
 	struct s_ast		*prev_sibling;
 	struct s_ast		*next_sibling;
-}					t_ast;
+}						t_ast;
 
 typedef struct s_minishell
 {
-	int		line_len;
-	char	*line;
-	void	(***table)(t_list **, enum e_grammar);
-	t_env	*env;
-}			t_minishell;
+	int				line_len;
+	char			*line;
+	void			(***table)(t_list **, enum e_grammar);
+	t_env			*env;
+	struct termios	termios_cpy;
+}					t_minishell;
 
 #endif

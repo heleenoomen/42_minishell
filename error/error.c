@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/23 12:35:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 21:05:05 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ int	error_shell(char *error_message, int flag)
 		ft_putendl_fd(error_message, 2);
 	else if (flag == ERROR_PERROR)
 		perror(error_message);
+	g_global_exit_status = EXIT_FAILURE;
 	return (1);
 }
 

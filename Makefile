@@ -6,11 +6,12 @@
 #    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/22 20:37:24 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/23 20:36:48 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-VPATH	=	builtins destructor environment error execution expansion parser utils
+VPATH	=	builtins destructor environment error execution expansion parser\
+			utils signals
 INCFL	=	-I libft -I include
 INCGNL	=	-I libgnL -I include
 
@@ -39,7 +40,8 @@ SRC		=	main.c\
 			tokenizer.c tokenizer_utils.c tokenizer_utils_more.c \
 			traverser_commands.c traverser_pipes.c traverser_pref_suff.c\
 			traverser_redirections.c traverser_utils.c\
-			error.c ft_malloc.c ms_signals.c ms_termios.c ms_utils.c exit_minishell.c\
+			error.c ft_malloc.c ms_termios.c ms_utils.c exit_minishell.c\
+			process_signal_sender.c signals_interactive.c\
 			destroy.c error.c
 LIBS	=	libft/libft.a
 LIBSGNL	=	gnL/libgnL.a
