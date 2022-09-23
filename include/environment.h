@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:49:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 13:21:37 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		init_env(t_env *env, char **envp, t_minishell *minishell);
 /* add_to_env.c */
 int			add_to_tree(t_env *env, char *key, char *value, short flags);
 int			add_key_value_to_env(t_env *env, char *key, char *value, short flags);
-char		*manipulate_ptrs(char *s, char **value_ptr);
+char		*manipulate_ptrs(char *s);
 int			add_string_to_env(t_env *env, char *s, short flags);
 
 /* update_env.c */

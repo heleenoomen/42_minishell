@@ -1,7 +1,8 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	printf("%i\n", access("environment", X_OK));
+	printf("%p\n", envp);
+	printf("%p\n", envp[0]);
 }

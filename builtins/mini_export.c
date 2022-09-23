@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 12:32:10 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 13:38:31 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,18 @@ void	print_tree_mini_exp(t_tree_node *branch)
 	if (branch == NULL)
 		return ;
 	print_tree_mini_exp(branch->left);
-	ft_putstr_fd("declare -x ", 1);
-	ft_putstr_fd(branch->key, 1);
-	if (branch->value != NULL)
+	if (branch->for_export)
 	{
-		ft_putstr_fd("=\"", 1);
-		ft_putstr_fd(branch->value, 1);
-		write(1, "\"", 1);
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(branch->key, 1);
+		if (branch->value != NULL)
+		{
+			ft_putstr_fd("=\"", 1);
+			ft_putstr_fd(branch->value, 1);
+			write(1, "\"", 1);
+		}
+		write(1, "\n", 1);
 	}
-	write(1, "\n", 1);
 	print_tree_mini_exp(branch->right);
 }
 		

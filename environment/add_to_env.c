@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:28:51 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 18:10:10 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/23 13:28:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,18 @@ int	add_key_value_to_env(t_env *env, char *key, char *value, short flags)
  * (passed by referenc) to one byte after the equalsign and returns a pointer to 
  * the equalsign. If not found, sets value_pointer to NULL and returns NULL.
  */
-char	*manipulate_ptrs(char *s, char **value_ptr)
+char	*manipulate_ptrs(char *s)
 {
+	char	*value;
+
 	while (*s && *s != '=')
 		s++;
 	if (*s == '=')
 	{
-		*value_ptr = s + 1;
+		value = s + 1;
 		*s = '\0';
-		return (s);
+		return (value);
 	}
-	*value_ptr = NULL;
 	return (NULL);
 }
 
@@ -77,14 +78,15 @@ char	*manipulate_ptrs(char *s, char **value_ptr)
  */
 int	add_string_to_env(t_env *env, char *s, short flags)
 {
-	char	*value_ptr;
-	char	*equalsign;
+	char	*value;
+	char	*key;
 	int		ret;
 
-	equalsign = manipulate_ptrs(s, &value_ptr);
-	ret = add_key_value_to_env(env, s, value_ptr, flags | VAL_DUP | KEY_DUP);
-	if (equalsign != NULL)
-		*equalsign = '=';
+	key = ft_strdup(s);
+	if (key == NULL)
+		return (-1);
+	value = manipulate_ptrs(key);
+	ret = add_key_value_to_env(env, key, value, flags | VAL_DUP | KEY_DUP);
+	free(key);
 	return (ret);
 }
-

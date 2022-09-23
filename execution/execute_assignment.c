@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_assignment.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:57:38 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/17 10:17:14 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:26:42 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	execute_assignment(t_list *assign_lst, t_minishell *shell)
 		return (status);
 	while (assign_lst && status == 0)
 	{
+		dprintf(2, "assgin_lst->content = %s\n", assign_lst->content);
 		status = add_string_to_env(shell->env, assign_lst->content, NO_EXPORT); /* this function will take care of everything :-) */
 /*		pair = get_keyvalue_pair((char *)assign_lst->content);
  *			else add it into the env list 
