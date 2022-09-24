@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 18:26:28 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 21:27:38 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,8 @@ bool	is_valid(char *s)
 
 void	mini_export_invalid_identifier(char *s)
 {
-	ft_putstr_fd("export: '", 2);
-	ft_putstr_fd(s, 2);
-	ft_putstr_fd(": not a valid identifier", 2);
+	print_error("export", s, NULL, -1);
+	ft_putstr_fd("not a valid identifier\n", 2);
 	g_global_exit_status = 1;
 }
 
