@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 13:25:14 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 21:17:37 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 void	init_env_struct(t_env *env, t_minishell *minishell)
 {
 	env->tree = NULL;	
-	env->cwd = getcwd(NULL, 0);
-	if (env->cwd == NULL)
-		exit_minishell(INIT_ENV, "getcwd", minishell);
 	env->size = 0;
 	env->minishell = minishell;
 }
@@ -34,13 +31,18 @@ void	init_env_struct(t_env *env, t_minishell *minishell)
  * directory and set _= accordingly. It is beyond the scope of
  * this project to set it fully correctly.
  */
-void	startup_without_environment(t_env *env)
+void	startup_without_environment(t_env *env, t_minishell *minishell)
 {
-	if (add_key_value_to_env(env, "PWD", env->cwd, EXPORT | VAL_DUP | KEY_DUP) == -1)
+	char	*cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		exit_minishell(INIT_ENV, "getcwd", minishell);
+	if (add_key_value_to_env(env, "PWD", cwd, EXPORT | VAL_DUP | KEY_DUP) == -1)
 		exit_minishell(INIT_ENV, "memory allocation", env->minishell);
 	if (add_string_to_env(env, "SHLVL=1", EXPORT) == -1)
 		exit_minishell(INIT_ENV, "memory allocation", env->minishell);
-	if (add_key_value_to_env(env, "_=", env->cwd, EXPORT | VAL_DUP | KEY_DUP) == -1)	
+	if (add_key_value_to_env(env, "_=", cwd, EXPORT | KEY_DUP) == -1)
 		exit_minishell(INIT_ENV, "memory allocation", env->minishell);
 }
 
@@ -53,7 +55,7 @@ int	update_shlvl(t_env *env)
 	int			nbr;
 	char		*value;
 	
-	node = *(position_in_tree(&(env->tree), "SHLVL"));
+	node = get_env_node(&(env->tree), "SHLVL");
 	if (node == NULL)
 		return (add_key_value_to_env(env, "SHLVL", "1", EXPORT | VAL_DUP | KEY_DUP));
 	nbr = ft_atoi(node->value);
@@ -72,6 +74,9 @@ int	update_shlvl(t_env *env)
 	return (update_env_node(node, value, EXPORT));	
 }
 
+// 	node = *(position_in_tree(&(env->tree), "_"))
+// 	if (node == NULL);
+// }
 /*
  * initializes env struct. If no environment was given, calls
  * startup_without_environment to give minishell a minimal environment
@@ -87,15 +92,16 @@ void	init_env(t_env *env, char **envp, t_minishell *minishell)
 	init_env_struct(env, minishell);
 	if (envp == NULL || envp[0] == NULL)
 	{
-		startup_without_environment(env);
+		startup_without_environment(env, minishell);
 		return ;
 	}
-	i = 0;
-	while (envp[i] != NULL)
+	i = -1;
+	while (envp[++i] != NULL)
 	{
+		if (ft_strncmp(envp[i], "OLDPWD=", 7) == 0)
+			continue ;
 		if (add_string_to_env(env, envp[i], EXPORT) == -1)
 			exit_minishell(INIT_ENV, "memory allocation", minishell);
-		i++;
 	}
 	if (update_shlvl(env) == -1)
 		exit_minishell(INIT_ENV, "memory allocation", minishell);

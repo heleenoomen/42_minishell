@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 17:58:38 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 20:38:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	call_builtin(t_ast *node, char *cmd, t_minishell *minishell)
 		mini_unset(argc, argv, minishell->env);
 	else if (ft_strcmp(argv[0], "env") == 0)
 		mini_env(minishell->env);
+	else if (!ft_strcmp(argv[0], "exit"))
+		mini_exit(argc, argv, minishell);
 }
 
 t_ast	*get_ast_node(t_exec *exec)
@@ -117,8 +119,6 @@ bool	builtin(t_exec *exec, t_minishell *minishell, bool single_builtin)
 		return (true);
 	if (!ft_strcmp(cmd, "pwd"))
 		mini_pwd();
-	else if (!ft_strcmp(cmd, "exit"))
-		mini_exit(minishell);
 	else
 		call_builtin(node, cmd, minishell);
 	if (single_builtin)

@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/24 13:28:47 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/24 19:23:01 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRC		=	main.c\
 			error.c ft_malloc.c ms_termios.c ms_utils.c exit_minishell.c\
 			signals_interactive.c signals_parent.c signals_child.c\
 			signal_print.c\
-			destroy.c error.c
+			destroy.c error.c print_error.c
 LIBS	=	libft/libft.a
 LIBSGNL	=	gnL/libgnL.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))

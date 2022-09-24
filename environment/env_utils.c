@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:13:39 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/06 18:02:57 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 21:19:44 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	clear_env(t_env **env_dir)
 
 	env = *env_dir;
 	free_tree(&(env->tree));
-	free(env->cwd);
 	*env_dir = NULL;
 }
 

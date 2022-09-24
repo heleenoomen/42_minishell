@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:20:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 20:10:37 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 20:33:29 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool	first_char_valid(char c);
 void	mini_export(int argc, char **argv, t_env *env);
 
 /* builtin mini_exit */
-void	mini_exit(t_minishell *minishell);
+void	mini_exit(int argc, char **argv, t_minishell *minishell);
 
 # define WARNING_OLDPWD "minishell: unable to update OLDPWD variable\
 (System error)"

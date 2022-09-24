@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:23:30 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 16:38:24 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 18:26:55 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int update_env(t_env *env, char *key, char *value, short flags)
 		if (flags & VAL_DUP)
 		{
 			if (ft_strdup_int(&val_dup, value) == -1)
-				return (error_builtins_int(key, ENOMEM));
+				return (error_builtins_int(key, NULL, ENOMEM));
 		}
 		else
 			val_dup = value;

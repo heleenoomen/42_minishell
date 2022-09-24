@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:06:20 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 16:10:38 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 21:10:51 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,16 @@ t_tree_node	**position_in_tree(t_tree_node **tree, char *key)
 	if (ret < 0)
 		return (position_in_tree(&((*tree)->left), key));
 	return (position_in_tree(&((*tree)->right), key));
+}
+
+t_tree_node	*get_env_node(t_tree_node **tree, char *key)
+{
+	t_tree_node	**position;
+
+	position = position_in_tree(tree, key);
+	if (position == NULL)
+		return (NULL);
+	return (*position);
 }
 
 /* makes a new node based on a key value pair. Key and value should already be

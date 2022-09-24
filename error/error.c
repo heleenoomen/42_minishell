@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/24 17:54:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 19:34:15 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,50 +93,26 @@ int	error_shell(char *error_message, int flag)
 void	error_set_global_exit_status(int flag)
 {
 	if (flag == ENOENT)
-	{
 		g_global_exit_status = EXIT_CMD_NOT_FOUND;
-		ft_putstr_fd("No such file or directory\n", 2);
-	}
 	else if (flag == EACCESS)
-	{
 		g_global_exit_status = EXIT_CANNOT_EXECUTE;
-		ft_putstr_fd("Permission denied\n", 2);
-	}
 	else if (flag == ENOMEM)
-	{
 		g_global_exit_status = EXIT_OUT_OF_MEMORY;
-		ft_putstr_fd("Out of memory\n", 2);
-	}	
 	else
-	{
 		g_global_exit_status = EXIT_ERROR_DEFAULT;
-		ft_putstr_fd("Undefined error\n", 2);
-	}
 }
 void	error_builtins(char *builtin, char *argument, int flag)
 {
-	ft_putstr_fd("Minishell: ", 2);
-	if (flag == EXIT_ERROR_DEFAULT)
-	{
+	if (flag == ERROR_PERROR && argument != NULL)
+		print_error(builtin, NULL, argument, 0);
+	else if (flag == ERROR_PERROR)
+		print_error(NULL, NULL, builtin, 0);
+	else
+		print_error(builtin, argument, NULL, flag);
+	if (flag == ENOMEM)
+		g_global_exit_status = EXIT_OUT_OF_MEMORY;
+	else
 		g_global_exit_status = EXIT_ERROR_DEFAULT;
-		if (argument)
-		{
-			ft_putstr_fd(builtin, 2);
-			ft_putstr_fd(": ", 2);
-			perror(argument);
-		}
-		else
-			perror(builtin);
-		return ;
-	}
-	ft_putstr_fd(builtin, 2);
-	ft_putstr_fd(": ", 2);
-	if (argument)
-	{
-		ft_putstr_fd(argument, 2);
-		ft_putstr_fd(": ", 2);
-	}
-	error_set_global_exit_status(flag);
 }
 
 int	error_builtins_int(char *builtin, char *argument, int flag)
@@ -147,9 +123,9 @@ int	error_builtins_int(char *builtin, char *argument, int flag)
 
 char	*path_error(char *s, int flag)
 {
-	ft_putstr_fd("Minishell: ", 2);
-	ft_putstr_fd(s, 2);
-	ft_putstr_fd(": ", 2);
+	if (flag == ENOENT)
+		flag = EXIT_CMD_NOT_FOUND;
+	print_error(s, NULL, NULL, flag);
 	error_set_global_exit_status(flag);
 	return (NULL);
 }
