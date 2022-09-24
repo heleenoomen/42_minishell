@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 12:28:13 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 17:55:38 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	check_access(char *path)
 	{
 		if (access(path, X_OK) == 0)
 			return (0);
-		return (error_builtins_int("cd", EACCESS));
+		return (error_builtins_int("cd", path, EACCESS));
 	}
-	return (error_builtins_int("cd", ENOENT));
+	return (error_builtins_int("cd", path, ENOENT));
 }
 
 void	go_home(t_env *env, char *oldpwd)
@@ -48,11 +48,11 @@ void	go_home(t_env *env, char *oldpwd)
 
 	home = find_value(env, "HOME");
 	if (home == NULL)
-		return (error_builtins("cd", ENOENT));
+		return (error_builtins("cd", NULL, ENOENT));
 	if (check_access(home))
 		return ;
 	if (chdir(home) == -1)
-		return (error_builtins("cd", EXIT_ERROR_DEFAULT));
+		return (error_builtins("cd", NULL, EXIT_ERROR_DEFAULT));
 	mini_cd_update_env(env, oldpwd, home);
 }
 
@@ -63,13 +63,13 @@ void	mini_cd(int argc, char **argv, t_env *env)
 
 	oldpwd = getcwd(NULL, 0);
 	if (oldpwd == NULL)
-		return (error_builtins("cd", EXIT_ERROR_DEFAULT));
+		return (error_builtins("cd", NULL, EXIT_ERROR_DEFAULT));
 	if (argc == 1)
 		return (go_home(env, oldpwd));
 	if (check_access(argv[1]))
 		return ;	
 	if (chdir(argv[1]) == -1)
-		return (error_builtins("cd", EXIT_ERROR_DEFAULT));
+		return (error_builtins("cd", NULL, EXIT_ERROR_DEFAULT));
 	newpwd = getcwd(NULL, 0);
 	mini_cd_update_env(env, oldpwd, argv[1]);
 }

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 20:14:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 17:58:38 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	call_builtin(t_ast *node, char *cmd, t_minishell *minishell)
 
 	argv = list_to_argv(node->cmds->cmd, &argc);
 	if (argv == NULL)
-		return (error_builtins(cmd, ENOMEM));
+		return (error_builtins(cmd, NULL, ENOMEM));
 	if (argv[0] == NULL)
-		return (error_builtins(cmd, ERROR_UNDEFINED));
+		return (error_builtins(cmd, NULL, ERROR_UNDEFINED));
 	if (ft_strncmp_uplo(argv[0], "echo", 5) == 0)
 		mini_echo(argc, argv);
 	else if (ft_strcmp(argv[0], "cd") == 0)

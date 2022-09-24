@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/23 12:35:35 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 17:56:34 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	parsing_syntax_error(char *token);
 int		expansion_error(char *error_message, int flag);
 void	simple_command_error(char *error_message);
 int		redirect_error(char *error_message);
-void	error_builtins(char *error_message, int flag);
+void	error_builtins(char *builtin, char *argument, int flag);
 char	*path_error(char *s, int flag);
-int		error_builtins_int(char *s, int flag);
+int		error_builtins_int(char *builtin, char *argument, int flag);
 
 #endif

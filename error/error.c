@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/23 21:05:05 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 17:54:31 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,29 +113,41 @@ void	error_set_global_exit_status(int flag)
 		ft_putstr_fd("Undefined error\n", 2);
 	}
 }
-void	error_builtins(char *s, int flag)
+void	error_builtins(char *builtin, char *argument, int flag)
 {
-	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("Minishell: ", 2);
 	if (flag == EXIT_ERROR_DEFAULT)
 	{
 		g_global_exit_status = EXIT_ERROR_DEFAULT;
-		perror(s);
+		if (argument)
+		{
+			ft_putstr_fd(builtin, 2);
+			ft_putstr_fd(": ", 2);
+			perror(argument);
+		}
+		else
+			perror(builtin);
 		return ;
 	}
-	ft_putstr_fd(s, 2);
+	ft_putstr_fd(builtin, 2);
 	ft_putstr_fd(": ", 2);
+	if (argument)
+	{
+		ft_putstr_fd(argument, 2);
+		ft_putstr_fd(": ", 2);
+	}
 	error_set_global_exit_status(flag);
 }
 
-int	error_builtins_int(char *s, int flag)
+int	error_builtins_int(char *builtin, char *argument, int flag)
 {
-	error_builtins(s, flag);
+	error_builtins(builtin, argument, flag);
 	return (-1);
 }
 
 char	*path_error(char *s, int flag)
 {
-	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(s, 2);
 	ft_putstr_fd(": ", 2);
 	error_set_global_exit_status(flag);
