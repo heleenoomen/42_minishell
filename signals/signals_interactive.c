@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_signals.c                                       :+:      :+:    :+:   */
+/*   signals_interactive.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:32:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/20 15:43:32 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:01:05 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	sigint_interactive()
 	sigaction(SIGINT, &sn, NULL);
 }
 
-void	signal_interactive_mode(void)
+void	signals_interactive_mode(void)
 {
 	sigint_interactive();
 	sigquit_interactive();

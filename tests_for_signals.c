@@ -4,9 +4,9 @@
 int	main(int argc, char **argv, char **envp)
 {
 	//segfault
-	char *s = NULL;
+	// char *s = NULL;
 
-	printf("%c\n", *s);
+	// printf("%c\n", *s);
 
 	//bus error
 	// char *s = "hello";
@@ -14,7 +14,7 @@ int	main(int argc, char **argv, char **envp)
 	// s[1] = 'a';
 	
 	//endless loop
-	// while(1);
+	while(1);
 
 	//exit with status
 	// exit(87);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:20:49 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/22 18:22:45 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:02:50 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	child_process_heredoc(char *delim, int *fd, t_exec *exec, t_minishell *shel
 	nline = shell->line_len;
 	/*check heredoc error from nline later for end of function ?*/
 	printf("Child heredoc\n");
-	child_send_signal();
+	signals_child_process();
 	// heredoc_child_helper_destruction(exec, shell);
 	close(fd[0]);
 	update_line = NULL;
@@ -55,7 +55,7 @@ int	execute_heredoc(char *delim, t_exec *exec, t_minishell *shell)
 	printf("Heredoc\n");
 	if (pipe(fd) == -1)
 		error_shell("Failed to create a pipe in heredoc", ERROR_PERROR);
-	parent_send_signal();
+	signals_parent_process();
 	pid = fork();
 	if (pid == -1)
 		error_shell(NULL, ERROR_PERROR);

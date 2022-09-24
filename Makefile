@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/23 20:36:48 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/24 13:18:45 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRC		=	main.c\
 			execute_and_or_cmd.c execute_assignment.c execute_heredoc.c \
 			execute_commands_and_pipes.c execute_redirection.c\
 			execution_utils.c list_to_argv.c main_execution.c path.c\
-			process_signal_sender.c run_processes.c\
+			run_processes.c\
 			wildcard_filename_expansion.c\
 			wildcard_filename_expansion_comparison.c\
 			wildcard_filename_expansion_path.c\
@@ -41,7 +41,7 @@ SRC		=	main.c\
 			traverser_commands.c traverser_pipes.c traverser_pref_suff.c\
 			traverser_redirections.c traverser_utils.c\
 			error.c ft_malloc.c ms_termios.c ms_utils.c exit_minishell.c\
-			process_signal_sender.c signals_interactive.c\
+			signals_interactive.c signals_parent.c signals_child.c\
 			destroy.c error.c
 LIBS	=	libft/libft.a
 LIBSGNL	=	gnL/libgnL.a

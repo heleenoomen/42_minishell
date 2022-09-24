@@ -1,0 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals_child.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/27 21:38:17 by ktashbae          #+#    #+#             */
+/*   Updated: 2022/09/24 13:18:02 by hoomen           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+void	child_sigint(void)
+{
+	struct sigaction	sn;
+
+	sn.sa_handler = SIG_DFL;
+	sn.sa_flags = SA_RESTART;
+	sigemptyset(&sn.sa_mask);
+	sigaction(SIGINT, &sn, NULL);
+}
+
+void	child_sigquit(void)
+{
+	struct sigaction	sn;
+
+	sn.sa_handler = SIG_DFL;
+	sn.sa_flags = SA_RESTART;
+	sigemptyset(&sn.sa_mask);
+	sigaction(SIGQUIT, &sn, NULL);
+}
+
+void	signals_child_process(void)
+{
+	child_sigint();
+	child_sigquit();
+}

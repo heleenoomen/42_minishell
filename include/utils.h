@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 10:11:47 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:11:12 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 13:01:23 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void	*ft_malloc(size_t size, char *message, bool exit, t_minishell *shell);
 
 /* ms_utils.c */ //*check if I use it in the end or not... *//
 int		free_ret(void *ptr, void *ptr2, int ret);
-
-/* ms_signals.c */
-void	signal_interactive_mode(void);
 
 /* exit_minishell.c */
 void	exit_minishell(int flag, char *what_failed, t_minishell *minishell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:34:29 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 17:02:15 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/24 13:02:01 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@
 # include "utils.h"
 # include "error.h"
 # include "destroy.h"
+# include "ms_signals.h"
 
 #endif

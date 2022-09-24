@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/23 21:13:48 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 13:08:21 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 	int	status;
 
 	status = 0;
-	child_send_signal();
+	signals_child_process();
+	reset_echoctl(&(minishell->termios_cpy));
 	dprintf(2, "in child proces\n");
 	//free_syntax_table(minishell->table);   // this causes segfault
 	//free_ast_node(&cmd->cmd);   // this removes information that run_cmd_child needs later on > maybe free the node later on?
@@ -101,7 +102,7 @@ int	fork_process(t_exec *exec_cmds, t_cmd_def *cmds, t_minishell *minishell)
 		status = error_shell("Failed to create a pipe", ERROR_PERROR);
 	if (status == 0)
 		exec_cmds->forks = 1;
-	parent_send_signal();
+	signals_parent_process();
 	if (exec_cmds->pid == 0 && status == 0)
 		status = child_process(exec_cmds, cmds, minishell);
 	parent_process(exec_cmds, cmds);
