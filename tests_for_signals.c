@@ -8,13 +8,13 @@ int	main(int argc, char **argv, char **envp)
 
 	// printf("%c\n", *s);
 
-	//bus error
-	// char *s = "hello";
+	// bus error
+	char *s = "hello";
 
-	// s[1] = 'a';
+	s[1] = 'a';
 	
 	//endless loop
-	while(1);
+	// while(1);
 
 	//exit with status
 	// exit(87);

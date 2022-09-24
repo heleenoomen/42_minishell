@@ -1,21 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_signals.h                                       :+:      :+:    :+:   */
+/*   signal_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/24 12:37:31 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 13:28:29 by hoomen           ###   ########.fr       */
+/*   Created: 2022/09/24 13:27:19 by hoomen            #+#    #+#             */
+/*   Updated: 2022/09/24 13:32:03 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MS_SIGNALS_H
-# define MS_SIGNALS_H
+#include "minishell.h"
 
-void	signals_interactive_mode(struct termios *termios_cpy);
-void	signals_parent_process(void);
-void	signals_child_process(struct termios *termios_cpy);
-void	signal_print(int status);
-
-#endif
+void	signal_print(int status)
+{
+	if (status == SIGINT)
+		write(1, "\n", 1);
+	if (status == SIGQUIT)
+		write(1, "Quit: 3\n", 9);
+	if (status == SIGBUS)
+		write(1, "Bus error: 10\n", 15);
+	if (status == SIGSEGV)
+		write(1, "Segmentation fault: 11\n", 24);
+}

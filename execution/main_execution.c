@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/24 13:15:37 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 13:27:03 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,10 +154,7 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	close(fd_temp);
 	if (exec_cmds.fd_out > 1)
 		close(exec_cmds.fd_out);
-	if (status == SIGINT)
-		write(1, "\n", 1);
-	if (status == SIGQUIT)
-		write(1, "Quit: 3\n", 9);
+	signal_print(status);
 	return (status);
 }
 

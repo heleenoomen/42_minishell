@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:20:49 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/24 13:02:50 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 13:22:51 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	child_process_heredoc(char *delim, int *fd, t_exec *exec, t_minishell *shel
 	nline = shell->line_len;
 	/*check heredoc error from nline later for end of function ?*/
 	printf("Child heredoc\n");
-	signals_child_process();
+	signals_child_process(&(shell->termios_cpy));
 	// heredoc_child_helper_destruction(exec, shell);
 	close(fd[0]);
 	update_line = NULL;

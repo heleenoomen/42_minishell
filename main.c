@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 13:04:41 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 13:26:20 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	init_minishell(&minishell, envp);
 	while (1)
 	{
-		cancel_echoctl(&(minishell.termios_cpy));
-		signals_interactive_mode();
+		signals_interactive_mode(&(minishell.termios_cpy));
 		buf = readline("Minishell>>> ");
 		if (buf  == NULL)
 			break ;

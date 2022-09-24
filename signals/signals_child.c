@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:38:17 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/24 13:18:02 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/24 13:21:41 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ void	child_sigquit(void)
 	sigaction(SIGQUIT, &sn, NULL);
 }
 
-void	signals_child_process(void)
+void	signals_child_process(struct termios *termios_cpy)
 {
+	reset_echoctl(termios_cpy);
 	child_sigint();
 	child_sigquit();
 }
