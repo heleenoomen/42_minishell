@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:53:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 17:06:46 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 16:50:19 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,5 @@ void	mini_echo(int argc, char **argv)
 	ft_putstr_fd(argv[i], 1);
 	if (newline)
 		write(1, "\n", 1);
-	free(argv);
 }
 

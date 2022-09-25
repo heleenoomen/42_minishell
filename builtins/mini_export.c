@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 16:29:03 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 16:52:20 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ bool	is_valid(char *s)
 	return (true);
 }
 
-void	mini_export_invalid_identifier(char *s)
+void	mini_export_invalid_identifier(char *arg)
 {
-	print_error("export", s, NULL, -1);
+	print_error("export", arg, NULL, -1);
 	ft_putstr_fd("not a valid identifier\n", 2);
 	g_global_exit_status = 1;
 }
@@ -98,11 +98,7 @@ void	mini_export(int argc, char **argv, t_env *env)
 	int		i;
 
 	if (argc == 1)
-	{
-		print_tree_mini_exp(env->tree);
-		free(argv);
-		return ;
-	}
+		return (print_tree_mini_exp(env->tree));
 	i = 1;
 	while (argv[i] != NULL)
 	{
@@ -115,6 +111,4 @@ void	mini_export(int argc, char **argv, t_env *env)
 			mini_export_invalid_identifier(argv[i]);
 		i++;
 	}
-	free(argv);
 }
-

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 16:15:01 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 16:54:39 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	call_builtin(t_ast *node, char *cmd, t_minishell *minishell)
 	char	**argv;
 	int		argc;
 
+	if (!ft_strcmp(cmd, "pwd"))
+		return (mini_pwd());
+	else if (!ft_strcmp(cmd, "env"))
+		return (mini_env(minishell->env));
 	argv = list_to_argv(node->cmds->cmd, &argc);
 	if (argv == NULL)
 		return (error_builtins(cmd, NULL, ENOMEM));
@@ -41,10 +45,9 @@ void	call_builtin(t_ast *node, char *cmd, t_minishell *minishell)
 		mini_export(argc, argv, minishell->env);
 	else if (ft_strcmp(argv[0], "unset") == 0)
 		mini_unset(argc, argv, minishell->env);
-	else if (ft_strcmp(argv[0], "env") == 0)
-		mini_env(minishell->env);
 	else if (!ft_strcmp(argv[0], "exit"))
 		mini_exit(argc, argv, minishell);
+	free(argv);
 }
 
 t_ast	*get_ast_node(t_exec *exec)
@@ -117,10 +120,7 @@ bool	builtin(t_exec *exec, t_minishell *minishell, bool single_builtin)
 		return (false);
 	if (single_builtin && run_redirections_single_builtin(exec, node, fd_cpys, minishell))
 		return (true);
-	if (!ft_strcmp(cmd, "pwd"))
-		mini_pwd();
-	else
-		call_builtin(node, cmd, minishell);
+	call_builtin(node, cmd, minishell);
 	if (single_builtin)
 		restore_stdin_stdout(exec, fd_cpys);
 	free(*(exec->cmds_list));

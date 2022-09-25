@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:00:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 16:06:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 16:51:30 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,5 @@ void	mini_unset(int argc, char **argv, t_env *env)
 		}
 		i++;
 	}
-	free(argv);
 }
 
