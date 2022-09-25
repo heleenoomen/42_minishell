@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverser_pref_suff.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:18:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 12:21:45 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:04:31 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	run_prefix_with_cmd(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
-	printf("CMD_PREF_CMD\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);

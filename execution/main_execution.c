@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/24 14:09:01 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 12:07:48 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 		else if (node->type == N_PIPE)
 			status = execute_pipe(exec_cmds);
 		else if (node->type == N_AND || node->type == N_OR)
-			status = execute_and_or_cmd(exec_cmds, node);
+			execute_and_or_cmd(exec_cmds, node);
 		if (node)
 		{
 			if (node->cmds)
@@ -112,18 +112,6 @@ actual execution
 functios according to operator 
 - if something goes wrong, lists are free and status 1 is returned -> SET GLOBAL STATUS*/
 
-// void	tester(t_list **nodes)
-// {
-// 	t_list	*temp;
-// 	temp = *nodes;
-// 	printf("| %s |", temp->content);
-// 	while (temp)
-// 	{
-// 		printf("| %s |", temp->content);
-// 		temp = temp->next;
-// 	}
-// }
-
 int	start_execution(t_list **nodes, t_minishell *minishell)
 {
 	int		status;
@@ -135,10 +123,8 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	fd_temp = dup(0);
 	init_exec_struct(&exec_cmds, nodes);
 	total_cmds = ft_lstsize(*nodes);
-	printf("number of commands: %d\n", total_cmds);
 	if (total_cmds == 1 && builtin(&exec_cmds, minishell, SINGLE_BUILTIN))
 		return (1);
-	printf("passed builtin test\n");
 	status = execute_commands(&exec_cmds, minishell);
 	if (status && ft_lstsize(*nodes))
 		free_ast_node(nodes);
