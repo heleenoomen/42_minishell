@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 14:02:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 14:04:02 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	fork_process(t_exec *exec_cmds, t_cmd_def *cmds, t_minishell *minishell)
 
 	status = 0;
 	if (pipe(exec_cmds->pipe_fd) == -1)
-		status = error_shell("Failed to create a pipe", ERROR_PERROR);;
+		status = error_shell("Failed to create a pipe", ERROR_PERROR);
 	exec_cmds->pid = fork();
 	if (exec_cmds->pid == -1)
 		status = error_shell("Failed to create a pipe", ERROR_PERROR);
