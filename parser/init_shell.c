@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:40:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 13:44:30 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:58:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	launch_table(void (***table)(t_list **, enum e_grammar))
 	// int	j;
 
 	// i = 0;
-	// while (i < NONTERM)
+	// while (i < NONTERM)           /// >>> this is handled by ft_calloc (see below)
 	// {
 	// 	j = 0;
 	// 	while (j < TOKENS)
@@ -44,11 +44,11 @@ void	init_minishell(t_minishell *shell, char **envp)
 	col = 0;
 	shell->line_len = 0;
 	shell->line = NULL;
-	shell->env = malloc(sizeof(t_env));
+	shell->env = ft_calloc(1, sizeof(t_env));
 	if (shell->env == NULL)
 		exit_minishell(ENOMEM, INIT, NULL, shell);
 	init_env(shell->env, envp, shell);
-	shell->table = malloc(NONTERM * sizeof(void**));
+	shell->table = ft_calloc(NONTERM, sizeof(void**));
 	if (shell->table == NULL)
 		exit_minishell(ENOMEM, INIT, NULL, shell);
 	while (col < NONTERM)

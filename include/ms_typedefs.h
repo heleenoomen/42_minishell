@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:43:23 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 21:03:47 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:59:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_env
 {
 	t_tree_node			*tree;
 	int					size;
-	struct s_minishell	*minishell;
 }						t_env;
 
 enum e_grammar

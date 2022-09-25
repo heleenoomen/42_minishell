@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 13:15:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:59:27 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	init_env(t_env *env, char **envp, t_minishell *minishell)
 
 	if (env == NULL)
 		return ;
-	env->minishell = minishell;
 	if (envp == NULL || envp[0] == NULL)
 	{
 		startup_without_environment(env, minishell);
