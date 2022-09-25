@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/21 14:50:46 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/25 19:53:52 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ void	*create_node(enum e_grammar tok_type)
 a list of each type and saves into the node */
 void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd)
 {
+	t_token	*token;
+	char	*input;
+	int		type;
+
 
 	if (node_p->node && !node_p->node->cmds && \
 	(node_p->node_type == N_CMD || node_p->node_type == N_ASSIGN \
@@ -38,16 +42,19 @@ void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd)
 		node_p->node->cmds->assign = NULL;
 		node_p->node->cmds->redir = NULL;
 	}
-
+	type = node_p->node_type;
+	if (type == N_CMD || type == N_ASSIGN || type == N_REDIR)
+	{
+		token = (t_token *)(*tokens)->content;
+		input = token->input;
+		token->input = NULL;
+	}
 	if (node_p->node_type == N_CMD)
-		ft_lstadd_back(&node_p->node->cmds->cmd, \
-		ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->input)));
+		ft_lstadd_back(&node_p->node->cmds->cmd, ft_lstnew(input));
 	if (node_p->node_type == N_ASSIGN)
-		ft_lstadd_back(&node_p->node->cmds->assign, \
-		ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->input)));
+		ft_lstadd_back(&node_p->node->cmds->assign, ft_lstnew(input));
 	if (node_p->node_type == N_REDIR)
-		ft_lstadd_back(&node_p->node->cmds->redir, \
-		ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->input)));
+		ft_lstadd_back(&node_p->node->cmds->redir, ft_lstnew(input));  
 	*tokens = (*tokens)->next;
 	free(lst_get_content(cmd));
 }
