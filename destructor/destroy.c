@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:41:05 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 17:05:22 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:34:48 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,29 +68,23 @@ void	free_syntax_table(void (***table)(t_list **, enum e_grammar))
 	int	col;
 
 	col = 0;
-	if (*table)
+	while (col < NONTERM)
 	{
-		while (col < NONTERM)
-		{
-			free((*table)[col]);
-			col++;
-		}
-		free(*table);
-		*table = NULL;
+		free((table)[col]);
+		col++;
 	}
+	free(table);
 }
 
 void	free_minishell(t_minishell *minishell)
 {
 	if (minishell)
 	{
-		if (minishell->line)
-			free(minishell->line);
+		free(minishell->line);
 		if (minishell->env)
 			clear_env(&(minishell->env));
 		if (minishell->table)
 			free_syntax_table(minishell->table);
-		minishell->line = NULL;
 	}
 }
 

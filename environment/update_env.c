@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:23:30 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 18:26:55 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:41:50 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int update_env_node(t_tree_node *node, char *value, short flags)
 
 	if (value == NULL && flags ^ VAL_OVERW)
 		return (1);
-	if (VAL_DUP)
+	if (flags & VAL_DUP)
 	{
 		if (ft_strdup_int(&val_dup, value) == -1)
 			return (-1);

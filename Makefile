@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/24 19:23:01 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/25 13:51:23 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,10 +40,10 @@ SRC		=	main.c\
 			tokenizer.c tokenizer_utils.c tokenizer_utils_more.c \
 			traverser_commands.c traverser_pipes.c traverser_pref_suff.c\
 			traverser_redirections.c traverser_utils.c\
-			error.c ft_malloc.c ms_termios.c ms_utils.c exit_minishell.c\
+			ms_utils.c\
 			signals_interactive.c signals_parent.c signals_child.c\
-			signal_print.c\
-			destroy.c error.c print_error.c
+			signal_print.c ms_termios.c\
+			destroy.c error.c print_error.c exit_minishell.c
 LIBS	=	libft/libft.a
 LIBSGNL	=	gnL/libgnL.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))

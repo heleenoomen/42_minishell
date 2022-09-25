@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:13:39 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 21:19:44 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:42:40 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	clear_env(t_env **env_dir)
 
 	env = *env_dir;
 	free_tree(&(env->tree));
+	*env_dir = NULL;
+	free(env);
 	*env_dir = NULL;
 }
 

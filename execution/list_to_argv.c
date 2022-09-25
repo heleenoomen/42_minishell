@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:02:25 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 17:03:43 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:47:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	**list_to_argv(t_list *cmd, int *argc)
 	}
 	if (argc != NULL)
 		*argc = i;
-	argv = ft_malloc((i + 1) * sizeof(char *), cmd->content, NO_EXIT, NULL);
+	argv = malloc((i + 1) * sizeof(char *));
 	if (argv == NULL)
 	{
 		g_global_exit_status = ENOMEM;

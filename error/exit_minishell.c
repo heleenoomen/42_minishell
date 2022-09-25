@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   exit_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:36:04 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:33:13 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:01:09 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_minishell(int flag, char *what_failed, t_minishell *minishell)
+void	exit_minishell(int flag, int PHASE, char *error, t_minishell *minishell)
 {
-	if (flag == INIT_ENV)
-	{
-		clear_env(&(minishell->env));
-		ft_putstr_fd("Unable to initialize minishell: ", 2);
-		ft_putstr_fd(what_failed, 2);
-		ft_putstr_fd(" failed.", 2);
-		exit(EXIT_FAILURE);
-	}
+	free_minishell(minishell);
+	if (PHASE == INIT)
+		print_error("Unable to initialize minishell", NULL, NULL, flag);
+	else
+		print_error(error, NULL, NULL, flag);
+	error_set_global_exit_status(flag);
+	exit(g_global_exit_status);
 }
-	

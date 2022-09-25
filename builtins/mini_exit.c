@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 13:46:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 20:44:53 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:42:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,9 @@ void	mini_exit(int argc, char **argv, t_minishell *minishell)
 		print_error("exit", argv[1], NULL, -1);
 		ft_putstr_fd("numeric argument required\n", 2);
 	}
-	//free_minishell(minishell);
+	free_minishell(minishell);
 	free(argv);
 	reset_echoctl(&(minishell->termios_cpy));
+	system("leaks minishell");
 	exit(g_global_exit_status);
 }

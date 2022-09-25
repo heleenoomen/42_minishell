@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/24 19:29:13 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:14:29 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 # define ERROR_CMD 7
 # define SYS_ERR 8
 
+/* phase of the program where exit_minishell is called */
+# define INIT 0
+
 int		error_shell(char *error_message, int flag);
 void	exec_command_error(char *cmd, int flag);
 int		parsing_lexer_error(void);
@@ -48,6 +51,10 @@ int		redirect_error(char *error_message);
 void	error_builtins(char *builtin, char *argument, int flag);
 char	*path_error(char *s, int flag);
 int		error_builtins_int(char *builtin, char *argument, int flag);
+void	error_set_global_exit_status(int flag);
 void	print_error(char *arg1, char *arg2, char *arg_perror, int flag);
+
+/* exit minishell in case an error occurs (during initialization) */
+void	exit_minishell(int flag, int PHASE, char *error, t_minishell *minishell);
 
 #endif

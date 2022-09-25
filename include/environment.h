@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 10:59:21 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 21:11:06 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 13:13:04 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ int			del_tree_node(t_tree_node **tree, t_tree_node **node, char *key, int ret);
 void		free_tree(t_tree_node **tree);
 
 /* env_init.c */
-void		init_env_struct(t_env *env, t_minishell *minishell);
-void		startup_without_environment(t_env *env, t_minishell *minishell);
-int			update_shlvl(t_env *env);
 void		init_env(t_env *env, char **envp, t_minishell *minishell);
 
 /* add_to_env.c */
