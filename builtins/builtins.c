@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 20:38:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 16:15:01 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,8 @@ bool	builtin(t_exec *exec, t_minishell *minishell, bool single_builtin)
 		call_builtin(node, cmd, minishell);
 	if (single_builtin)
 		restore_stdin_stdout(exec, fd_cpys);
+	free(*(exec->cmds_list));
+	free_cmd_defs(&node->cmds);
+	free(node);
 	return (true);
 }
