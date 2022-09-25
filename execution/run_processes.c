@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 14:01:12 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 14:02:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 	status = 0;
 	// signals_child_process();
 	signals_child_process(&(minishell->termios_cpy));
-	//free_syntax_table(minishell->table);   // this causes segfault
+	free_syntax_table(minishell->table);   // this causes segfault
 	//free_ast_node(&cmd->cmd);   // this removes information that run_cmd_child needs later on > maybe free the node later on?
 	/*clean history */
 	if (exec->fd_in >= 0 && exec->fd_out > 0)
