@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 21:27:38 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 16:29:03 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,6 @@ void	mini_export(int argc, char **argv, t_env *env)
 			mini_export_invalid_identifier(argv[i]);
 		i++;
 	}
+	free(argv);
 }
 
