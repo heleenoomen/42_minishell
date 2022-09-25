@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 18:54:20 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 19:05:33 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ t_ast	*get_ast_node(t_exec *exec)
 	return (NULL);
 }
 
-int	run_redirections_single_builtin(t_exec *exec, t_ast *node, int fd_cpys[2], t_minishell *minishell)
+int	run_redirections_single_builtin(t_exec *exec, t_ast *node,
+	int fd_cpys[2], t_minishell *minishell)
 {
 	exec->cmd_type = node->cmds;
 	if (execute_redirection(exec, minishell))

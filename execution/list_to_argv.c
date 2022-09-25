@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:02:25 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 13:47:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 17:28:17 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	**list_to_argv(t_list *cmd, int *argc)
 	while (traverser != NULL)
 	{
 		argv[++i] = traverser->content;
+		traverser->content = NULL;
 		traverser = traverser->next;
 	}
 	argv[i + 1] = NULL;

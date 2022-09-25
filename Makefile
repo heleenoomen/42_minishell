@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/25 13:51:23 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/25 18:35:42 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS	=	-Wall -Wextra -Werror -g
 
 NAME	=	minishell
 SRC		=	main.c\
-			builtins.c mini_cd.c mini_echo.c mini_env.c mini_exit.c\
+			builtins2.c mini_cd.c mini_echo.c mini_env.c mini_exit.c\
 			mini_export.c mini_pwd.c mini_unset.c\
 			add_to_env.c env_init.c env_print_tree.c env_tree.c env_utils.c\
 			make_envp.c update_env.c\

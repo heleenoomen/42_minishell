@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands_and_pipes.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:11:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 10:30:24 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/25 19:04:15 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	execute_cmd_block(t_exec *exec_cmds, t_ast *node,t_minishell *minishell)
 	status = execute_assignment(cmds_cpy->assign, minishell);
 	status = execute_redirection(exec_cmds, minishell);
 	status = fork_process(exec_cmds, cmds_cpy, minishell);
-	if (exec_cmds->curr_cmd)
-		free(exec_cmds->curr_cmd);
+	free(exec_cmds->curr_cmd);
 	free_cmd_defs(&cmds_cpy);
 	return (status);
 }

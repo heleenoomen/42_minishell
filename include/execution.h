@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/23 10:36:00 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 17:53:56 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,7 @@ typedef struct s_expansion
 	enum e_type	type;
 }	t_expansion;
 
-typedef struct s_exec
-{
-	char		**curr_cmd;
-	t_list		**cmds_list;
-	t_cmd_def	*cmd_type;
-	int			status;
-	int			pipe_fd[2];
-	int			pid;
-	int			fd_in;
-	int			fd_out;
-	int			builtin;
-	int			pipe;
-	int			forks;
-}	t_exec;
+
 
 int				main_executor(char *readline, t_minishell *minishell);
 int				start_execution(t_list **nodes, t_minishell *minishell);

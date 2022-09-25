@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:20:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 20:33:29 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 18:33:18 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 # include "ms_typedefs.h"
 
 /* builins.c */
-bool	builtin(t_exec *exec_cmds, t_minishell *minishell, bool single_builtin);
+// bool	builtin(t_exec *exec_cmds, t_minishell *minishell, bool single_builtin);
+bool	single_builtin(t_exec *exec, t_minishell *minishell);
+bool	builtin_child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell);
 
-# define SINGLE_BUILTIN true
-# define CHILD_PROCESS false
+// # define SINGLE_BUILTIN true
+// # define CHILD_PROCESS false
 
 /* builtin echo */
 void	mini_echo(int argc, char **argv);

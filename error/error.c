@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:28:45 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/24 19:34:15 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 18:22:22 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,4 +130,8 @@ char	*path_error(char *s, int flag)
 	return (NULL);
 }
 
-
+bool	error_builtins_bool(char *builtin, char *argument, int flag, bool ret)
+{
+	error_builtins(builtin, argument, flag);
+	return (ret);
+}

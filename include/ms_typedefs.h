@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:43:23 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 13:59:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 18:33:57 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,6 @@ enum e_grammar
 	T_UNKNOWN
 };
 
-typedef struct s_cmd_def
-{
-	t_list	*cmd;
-	t_list	*redir;
-	t_list	*assign;
-}			t_cmd_def;
-
 enum e_node_type
 {
 	N_CMD,
@@ -94,6 +87,28 @@ enum e_node_type
 	N_SUB,
 	N_DUMM
 };
+
+typedef struct s_cmd_def
+{
+	t_list	*cmd;
+	t_list	*redir;
+	t_list	*assign;
+}			t_cmd_def;
+
+typedef struct s_exec
+{
+	char		**curr_cmd;
+	t_list		**cmds_list;
+	t_cmd_def	*cmd_type;
+	int			status;
+	int			pipe_fd[2];
+	int			pid;
+	int			fd_in;
+	int			fd_out;
+	int			builtin;
+	int			pipe;
+	int			forks;
+}	t_exec;
 
 typedef struct s_ast
 {

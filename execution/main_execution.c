@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 12:07:48 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/25 18:54:56 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	fd_temp = dup(0);
 	init_exec_struct(&exec_cmds, nodes);
 	total_cmds = ft_lstsize(*nodes);
-	if (total_cmds == 1 && builtin(&exec_cmds, minishell, SINGLE_BUILTIN))
+	if (total_cmds == 1 && single_builtin(&exec_cmds, minishell))
 		return (1);
 	status = execute_commands(&exec_cmds, minishell);
 	if (status && ft_lstsize(*nodes))
