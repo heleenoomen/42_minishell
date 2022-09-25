@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_filename_expansion_utils.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:58:34 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/17 10:17:53 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/25 22:03:09 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
