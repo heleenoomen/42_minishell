@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/24 13:23:55 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/09/25 12:05:51 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,15 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 	char	**envp;
 	char	*path;
 	
-	dprintf(2, "in run_cmd_child\n");
 	close(exec->pipe_fd[0]);
 	if (!builtin(exec, minishell, CHILD_PROCESS))
 	{		
-		dprintf(2, "passed builtin test in runc_cmd_child\n");
 		exec->curr_cmd = list_to_argv(cmd->cmd, NULL); /* put into array the list of cmds*/;
 		envp = make_envp(minishell->env); /*get env */
 		path = find_path(exec->curr_cmd[0], minishell->env); /* get path */
 		if (exec->curr_cmd != NULL && envp != NULL && path != NULL)
 		{
 			duplicate_fd(exec);
-			dprintf(2, "I will execute!\n");
 			if (execve(path, exec->curr_cmd, envp) == -1)
 			{
 				error_shell("exec failed", ERROR_PERROR);
@@ -55,7 +52,6 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 	status = 0;
 	// signals_child_process();
 	signals_child_process(&(minishell->termios_cpy));
-	dprintf(2, "in child proces\n");
 	//free_syntax_table(minishell->table);   // this causes segfault
 	//free_ast_node(&cmd->cmd);   // this removes information that run_cmd_child needs later on > maybe free the node later on?
 	/*clean history */

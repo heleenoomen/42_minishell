@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   grand_traverser.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:21:22 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 12:46:25 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:04:05 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	run_start(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
-	printf("START\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -32,7 +31,6 @@ void	run_and_or(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
-	printf("AND_OR\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -49,7 +47,6 @@ void	run_and_or1(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
-	printf("AND_OR1\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);
@@ -70,7 +67,6 @@ void	set_epsilon(t_list **stack_table, enum e_grammar type)
 {
 	t_parser	*temp_node;
 
-	printf("set->epsilon\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverser_redirections.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:25:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 12:22:35 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:04:35 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	redirect_to_file(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
-	printf("REDIR_FILE\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);

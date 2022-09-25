@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   traverser_pipes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:42:54 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 12:21:11 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:04:28 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	run_pipe(t_list **stack_table, enum e_grammar type)
 	t_parser	*node;
 	t_parser	*temp_node;
 
-	printf("PIPESPLIT\n");
 	if (type >= 0)
 	{
 		temp_node = (t_parser *)lst_get_content(stack_table);

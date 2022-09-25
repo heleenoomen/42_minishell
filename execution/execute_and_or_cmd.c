@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_and_or_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:58:52 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 17:04:57 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/25 11:55:28 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	reset_node(t_exec *exec)
 	t_ast	*node;
 	int		node_id;
 
-	node = lst_get_cmd(*exec->cmds_list);
+	node = (t_ast *)lst_get_cmd(*exec->cmds_list);
 	node_id = node->node_id - 1;
 	while (node && (node->node_id > node_id))
 	{
-		node = lst_get_content(exec->cmds_list);
+		node = (t_ast *)lst_get_content(exec->cmds_list);
 		if (node->cmds)
 			free_cmd_defs(&node->cmds);
 		free(node);
