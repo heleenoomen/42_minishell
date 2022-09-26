@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 22:22:34 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/26 14:09:22 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 
 	status = 0;
 	signals_child_process(&(minishell->termios_cpy));
-	status = wildcard_expander(&cmd->cmd);
+	//status = wildcard_expander(&cmd->cmd);
 	if (exec->fd_in >= 0 && exec->fd_out > 0)
 		status = run_cmd_child(exec, cmd, minishell);
 	else
