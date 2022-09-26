@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_filename_expansion.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:57:57 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 16:37:33 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/09/25 22:02:41 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* More error handling functions to write :
-free whole path 
-delete_lst_content
-*/
 t_expansion	*init_file(char	*file, enum e_type type)
 {
 	t_expansion	*new_file;
@@ -32,7 +28,6 @@ t_expansion	*init_file(char	*file, enum e_type type)
 	new_file->type = type;
 	return (new_file);
 }
-
 
 int	dir_type_checker(enum e_type d_type, int type)
 {
@@ -101,25 +96,22 @@ t_list	*expand_star(char *str)
 	t_expansion	*file;
 	int			list_len;
 
+	if (!str)
+		return (NULL);
 	new_lst = NULL;
-	if (str)
-	{
-		get_listed = get_path_for_expansion(str);
-		if (!get_listed)
-			return (NULL);
-		file = (t_expansion *)get_listed->content;
-		list_len = ft_lstsize(get_listed);
-		if (list_len > 1 && ft_strchr(file->file, '*'))
-			get_expand_direct(&new_lst, get_listed);
-		else if (!get_listed->next)
-			add_redirlst(NULL, get_listed, &new_lst);
-		else
-			push_to_redirlst(new_lst, &get_listed, file->file);
-		ft_lstclear(&get_listed, &free_expansion_file_struct);
-		return (new_lst);
-	}
+	get_listed = get_path_for_expansion(str);
+	if (!get_listed)
+		return (NULL);
+	file = (t_expansion *)get_listed->content;
+	list_len = ft_lstsize(get_listed);
+	if (list_len > 1 && ft_strchr(file->file, '*'))
+		get_expand_direct(&new_lst, get_listed);
+	else if (!get_listed->next)
+		add_redirlst(NULL, get_listed, &new_lst);
 	else
-		return (new_lst);
+		push_to_redirlst(new_lst, &get_listed, file->file);
+	ft_lstclear(&get_listed, &free_expansion_file_struct);
+	return (new_lst);
 }
 
 void	merge_to_list(t_list **curr_lst, t_list *new, t_list *prev, t_list **lst)
@@ -131,16 +123,16 @@ void	merge_to_list(t_list **curr_lst, t_list *new, t_list *prev, t_list **lst)
 	{
 		prev->next = new;
 		temp = ft_lstlast(new);
-		temp->next = (*lst)->next;
+		temp->next = (*curr_lst)->next;
 	}
 	else
 	{
 		temp = ft_lstlast(new);
-		*curr_lst = new;
-		temp->next = (*lst)->next;
+		*lst = new;
+		temp->next = (*curr_lst)->next;
 	}
-	update_lst = *lst;
-	*lst = ft_lstlast(new);
+	update_lst = *curr_lst;
+	*curr_lst = ft_lstlast(new);
 	ft_lstdelone(update_lst, &free);
 }
 

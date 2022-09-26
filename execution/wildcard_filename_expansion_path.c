@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/14 11:05:09 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/25 22:03:40 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ int	init_path_lst(char **path, t_list **list)
 	{
 		file = init_file(path[i], type_dir);
 		if (!file)
-			return (-1);
+			return (0);
 		new_path = ft_lstnew(file);
 		if (!new_path)
 		{
 			free_expansion_file(file);
-			return (-1);
+			return (0);
 		}
 		ft_lstadd_back(list, new_path);
 		i++;
 	}
-	return (0);
+	return (1);
 }
 
 int	init_root_dir(t_list **list)
@@ -53,15 +53,28 @@ int	init_root_dir(t_list **list)
 
 	file = init_file("/", type_dir);
 	if (!file)
-		return (1);
+		return (0);
 	temp = ft_lstnew(file);
 	if (!temp)
 	{
 		free_expansion_file_struct(file);
-		return (2);
+		return (0);
 	}
 	ft_lstadd_back(list, temp);
-	return (0);
+	return (1);
+}
+
+void	free_path_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
 
 t_list	*get_path_for_expansion(char *str)
@@ -70,22 +83,25 @@ t_list	*get_path_for_expansion(char *str)
 	t_list	*lst;
 	int		end;
 
+	lst = NULL;
 	if (str[0] == '/')
-		if(init_root_dir(&lst))
+	{
+		if(!init_root_dir(&lst))
 			return (NULL);
+	}
 	path = ft_split(str, '/');
 	if (!path)
 	{
 		ft_lstclear(&lst, &free_expansion_file_struct);
 		return (NULL);
 	}
-	if (init_path_lst(path, &lst) != 0)
+	if (!init_path_lst(path, &lst))
 	{
-		/*free whole path */
+		free_path_split(path);
 		ft_lstclear(&lst, &free_expansion_file_struct);
 		return (NULL);
 	}
-	/*free whole path */
+	free_path_split(path);
 	end = ft_strlen(str) - 1;
 	if (str[end] != '/')
 		update_type_file(lst);

@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 14:03:52 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/14 10:51:27 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/09/25 22:04:09 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ size_t	no_star_part(char *text)
 		len++;
 	return (len);
 }
-
 
 char	*ft_strstr(char *haystack, char *needle)
 {
@@ -52,9 +51,9 @@ int	file_list_comparison(char *search, char *files)
 			return (1);
 		len_text = no_star_part(search);
 		match = ft_substr(search, 0, len_text);
-		search = ft_strstr(search, match);
+		files = ft_strstr(files, match);
 		free(match);
-		if (!search)
+		if (!files)
 			return (0);
 	}
 	while (*files && *search && *search == *files)
@@ -71,16 +70,11 @@ int	file_list_comparison(char *search, char *files)
 
 int	file_cmp(char *search, char	*files)
 {
-	int	cmp;
-
 	if (!files || ! search)
 		return (0);
 	if (ft_strcmp(search, files) == 0)
 		return (1);
 	if (!ft_strcmp(files,".") || !ft_strcmp(files, ".."))
 		return (0);
-	cmp = file_list_comparison(search, files);
-	return (cmp);
+	return (file_list_comparison(search, files));
 }
-
-
