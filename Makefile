@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/09/25 19:15:06 by hoomen           ###   ########.fr        #
+#    Updated: 2022/09/26 13:50:59 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,6 @@ SRC		=	main.c\
 			tokenizer.c tokenizer_utils.c tokenizer_utils_more.c \
 			traverser_commands.c traverser_pipes.c traverser_pref_suff.c\
 			traverser_redirections.c traverser_utils.c\
-			ms_utils.c\
 			signals_interactive.c signals_parent.c signals_child.c\
 			signal_print.c ms_termios.c\
 			destroy.c error.c print_error.c exit_minishell.c
