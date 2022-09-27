@@ -132,6 +132,7 @@ bool	single_builtin(t_exec *exec, t_minishell *minishell)
 		return (false);
 	if (run_redirections_single_builtin(exec, node, fd_cpys, minishell))
 		return (true);
+	wildcard_expander(&node->cmds->cmd);
 	argv = list_to_argv(node->cmds->cmd, &argc);
 	if (argv != NULL)
 		call_builtin(argc, argv, minishell);

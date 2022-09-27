@@ -89,6 +89,8 @@ t_expansion		*init_file(char	*file, enum e_type type);
 int				init_root_dir(t_list **list);
 char			*get_file(t_list *list);
 void			add_redirlst(char *curr_dir, t_list *dir_list, t_list **lst);
+int				wildcard_expander(t_list **cmds);
+
 /* Find path */
 char			*find_path(char *command, t_env *env);
 

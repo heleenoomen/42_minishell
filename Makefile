@@ -32,7 +32,7 @@ SRC		=	main.c\
 			wildcard_filename_expansion_comparison.c\
 			wildcard_filename_expansion_path.c\
 			wildcard_filename_expansion_utils.c\
-			buf_utils.c dollarsign.c exp_utils.c expander2.c quote_removal.c\
+			buf_utils.c dollarsign.c exp_utils.c expander.c quote_removal.c\
 			tilde.c\
 			ast_builder.c ast_builder_utils.c char_lexer.c\
 			grand_traverser.c init_shell.c lexer.c lexer_utils.c\
