@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:32:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 13:33:12 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:32:08 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	display_newline(int signal)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
-		// rl_replace_line("", 0);
+		rl_replace_line("", 0);
 		rl_redisplay();
 		g_global_exit_status = 1;
 	}
 }
 
-void	sigquit_interactive()
+void	sigquit_interactive(void)
 {
 	struct sigaction	sn;
 
@@ -34,7 +34,7 @@ void	sigquit_interactive()
 	sigaction(SIGQUIT, &sn, NULL);
 }
 
-void	sigint_interactive()
+void	sigint_interactive(void)
 {
 	struct sigaction	sn;
 

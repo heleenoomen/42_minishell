@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_termios.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 18:02:37 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:13:29 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:36:04 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  */
 void	cancel_echoctl(struct termios *termios_cpy)
 {
-	struct termios settings;
+	struct termios	settings;
 
 	tcgetattr(1, termios_cpy);
 	tcgetattr(1, &settings);

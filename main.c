@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 13:26:20 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:39:22 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	g_global_exit_status = 0;
 	init_minishell(&minishell, envp);
+	buf = NULL;
 	while (1)
 	{
 		signals_interactive_mode(&(minishell.termios_cpy));
+		free(buf);
 		buf = readline("Minishell>>> ");
 		if (buf  == NULL)
 			break ;
@@ -37,13 +39,13 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		main_executor(buf, &minishell);
 		add_history(buf);
-		free(buf);
 		buf = NULL;
 	}
 	clear_history();
-	/* clear minishell struct */
 	ft_putstr_fd("exit\n", 1);
 	reset_echoctl(&(minishell.termios_cpy));
+	free_minishell(&minishell);
+	system("leaks minishell");
 	return (g_global_exit_status);
 }
 

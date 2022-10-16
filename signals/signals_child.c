@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:38:17 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 11:23:47 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/16 18:31:40 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	child_sigquit(void)
 	sigemptyset(&sn.sa_mask);
 	sigaction(SIGQUIT, &sn, NULL);
 }
-
 
 void	signals_child_process(struct termios *termios_cpy)
 {

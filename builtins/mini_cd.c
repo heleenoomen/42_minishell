@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 17:59:03 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:42:19 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	go_home(t_env *env, char *oldpwd)
 	if (chdir(home) == -1)
 		return (error_builtins("cd", NULL, EXIT_ERROR_DEFAULT));
 	mini_cd_update_env(env, oldpwd, home);
+	free(home);
+	free(oldpwd);
 }
 
 void	mini_cd(int argc, char **argv, t_env *env)
