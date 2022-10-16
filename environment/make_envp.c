@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:29:15 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/18 12:10:40 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:52:36 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	free_strarr_int(char ***strarr, int ret)
 	return (ret);
 }
 
-int		triple_strjoin_int(char **triple, char *s1, char *s2, char *s3)
+int	triple_strjoin_int(char **triple, char *s1, char *s2, char *s3)
 {
 	char	*join;
 
@@ -58,7 +58,8 @@ int	tree_to_strarr(t_tree_node *branch, char ***envp, int *i)
 		}
 		else
 		{
-			if (triple_strjoin_int((*envp) + *i, branch->key, "=", branch->value) == -1)
+			if (triple_strjoin_int((*envp) + *i, branch->key, "=",
+					branch->value) == -1)
 				return (free_strarr_int(envp, -1));
 		}
 		(*i)++;
@@ -81,4 +82,3 @@ char	**make_envp(t_env *env)
 		return (NULL);
 	return (envp);
 }
-

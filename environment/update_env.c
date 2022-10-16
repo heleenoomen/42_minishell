@@ -6,13 +6,13 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:23:30 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 13:41:50 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:53:23 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int update_env(t_env *env, char *key, char *value, short flags)
+int	update_env(t_env *env, char *key, char *value, short flags)
 {
 	t_tree_node	**pos;
 	char		*val_dup;
@@ -20,8 +20,8 @@ int update_env(t_env *env, char *key, char *value, short flags)
 	pos = position_in_tree(&(env->tree), key);
 	if (pos == NULL || *pos == NULL)
 		return (add_key_value_to_env(env, key, value, flags));
-	if ((value != NULL && ((*pos)->value == NULL 
-		|| ft_strcmp((*pos)->value, value))) || flags & VAL_OVERW)
+	if ((value != NULL && ((*pos)->value == NULL
+				|| ft_strcmp((*pos)->value, value))) || flags & VAL_OVERW)
 	{
 		if (flags & VAL_DUP)
 		{
@@ -38,7 +38,7 @@ int update_env(t_env *env, char *key, char *value, short flags)
 	return (0);
 }
 
-int update_env_node(t_tree_node *node, char *value, short flags)
+int	update_env_node(t_tree_node *node, char *value, short flags)
 {
 	char	*val_dup;
 

@@ -6,7 +6,7 @@
 #    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/10/16 16:17:28 by hoomen           ###   ########.fr        #
+#    Updated: 2022/10/16 16:43:43 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,9 @@ SRC		=	main.c\
 			builtin_utils.c builtins.c mini_cd.c mini_echo.c mini_env.c\
 			mini_exit.c mini_export.c mini_pwd.c mini_unset.c\
 			redirections_builtin.c\
-			add_to_env.c env_init.c env_print_tree.c env_tree.c env_utils.c\
-			make_envp.c update_env.c\
-			execute_and_or_cmd.c execute_assignment.c execute_heredoc.c \
+			add_to_env.c env_free.c env_init.c env_print_tree.c env_tree.c\
+			env_utils.c make_envp.c update_env.c execute_and_or_cmd.c\
+			execute_assignment.c execute_heredoc.c\
 			execute_commands_and_pipes.c execute_redirection.c\
 			execution_utils.c list_to_argv.c main_execution.c path.c\
 			run_processes.c\

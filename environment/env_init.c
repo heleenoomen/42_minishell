@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 14:59:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 13:59:27 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:30:44 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,11 @@ int	update_shlvl(t_env *env, t_minishell *minishell)
 	t_tree_node	*node;
 	int			nbr;
 	char		*value;
-	
+
 	node = get_env_node(&(env->tree), "SHLVL");
 	if (node == NULL)
-		return (add_key_value_to_env(env, "SHLVL", "1", EXPORT | VAL_DUP | KEY_DUP));
+		return (add_key_value_to_env(env, "SHLVL", "1", EXPORT | VAL_DUP \
+				| KEY_DUP));
 	nbr = ft_atoi(node->value);
 	if (nbr < 1)
 		return (update_env_node(node, "1", EXPORT | VAL_DUP));
@@ -58,7 +59,7 @@ int	update_shlvl(t_env *env, t_minishell *minishell)
 	value = ft_itoa(nbr + 1);
 	if (value == NULL)
 		exit_minishell(ENOMEM, INIT, NULL, minishell);
-	return (update_env_node(node, value, EXPORT));	
+	return (update_env_node(node, value, EXPORT));
 }
 
 void	init_env(t_env *env, char **envp, t_minishell *minishell)

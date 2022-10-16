@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:28:51 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 16:20:14 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:29:21 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  */
 int	add_to_tree(t_env *env, char *key, char *value, short flags)
 {
-	t_tree_node *new;
+	t_tree_node	*new;
 
 	new = new_node(key, value, flags);
 	if (new == NULL)
@@ -32,7 +32,7 @@ int	add_key_value_to_env(t_env *env, char *key, char *value, short flags)
 {
 	char		*key_dup;
 	char		*val_dup;
-	
+
 	if (flags & KEY_DUP)
 	{
 		if (ft_strdup_int(&key_dup, key) == -1)
@@ -72,9 +72,10 @@ char	*manipulate_ptrs(char *s)
 }
 
 /* takes a string s of type "KEY" or "KEY=VALUE" and manipulates ptrs so that s
- * becomes a nul terminated string to key and value_ptr becomes a pointer to value.
- * Calls add_key_value_to_env to add the elements to the environment struct.
- * Places back the equal sign if it was found. Returns 0 upon success, -1 if malloc fails.
+ * becomes a nul terminated string to key and value_ptr becomes a pointer to
+ * value. Calls add_key_value_to_env to add the elements to the environment
+ * struct. Places back the equal sign if it was found. Returns 0 upon success,
+ * -1 if malloc fails.
  */
 int	add_string_to_env(t_env *env, char *s, short flags)
 {
