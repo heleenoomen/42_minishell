@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:00:35 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/13 16:03:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 19:12:52 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_char_buf
 # define BUFSIZE 128
 
 /* expander.c */
-int	expander(t_list *nodes, t_env *env);
+int			expander(t_list *nodes, t_env *env);
 
 /* dollarsign.c */
 void		expand_dollarsign(t_env *env, char *ptr, t_char_buf *buf);

@@ -6,19 +6,19 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 18:42:19 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 19:10:26 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	mini_cd_update_env(t_env *env, char *oldpwd, char *newpwd)
+void	mini_cd_update_env(t_env *env, char *oldpwd, char *newpwd, short valdup)
 {
 	int	upd_oldpwd;
 	int	upd_newpwd;
 
-	upd_oldpwd = update_env(env, "OLDPWD", oldpwd, EXPORT | KEY_DUP | VAL_DUP);
-	upd_newpwd = update_env(env, "PWD", newpwd, EXPORT | KEY_DUP | VAL_DUP);
+	upd_oldpwd = update_env(env, "OLDPWD", oldpwd, EXPORT | KEY_DUP);
+	upd_newpwd = update_env(env, "PWD", newpwd, EXPORT | KEY_DUP | valdup);
 	if (upd_oldpwd)
 	{
 		ft_putstr_fd(WARNING_OLDPWD, 2);
@@ -53,9 +53,7 @@ void	go_home(t_env *env, char *oldpwd)
 		return ;
 	if (chdir(home) == -1)
 		return (error_builtins("cd", NULL, EXIT_ERROR_DEFAULT));
-	mini_cd_update_env(env, oldpwd, home);
-	free(home);
-	free(oldpwd);
+	mini_cd_update_env(env, oldpwd, home, VAL_DUP);
 }
 
 void	mini_cd(int argc, char **argv, t_env *env)
@@ -73,7 +71,5 @@ void	mini_cd(int argc, char **argv, t_env *env)
 	if (chdir(argv[1]) == -1)
 		return (error_builtins("cd", NULL, EXIT_ERROR_DEFAULT));
 	newpwd = getcwd(NULL, 0);
-	mini_cd_update_env(env, oldpwd, argv[1]);
-	free(oldpwd);
-	free(newpwd);
+	mini_cd_update_env(env, oldpwd, newpwd, 0);
 }

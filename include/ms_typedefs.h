@@ -6,15 +6,15 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:43:23 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 18:33:57 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 19:13:38 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_TYPEDEFS_H
 # define MS_TYPEDEFS_H
 
-#include <stdbool.h>
-#include "libft.h"
+# include <stdbool.h>
+# include "libft.h"
 
 /* tree structure where key/value pairs of environment are stored */
 typedef struct s_tree_node
@@ -28,8 +28,8 @@ typedef struct s_tree_node
 
 /* env structure stores a pointer to the key and the current working directory
  * also stores a hash table (array of t_env_hash structs) that grows in size when
- * needed. Struct keeps track of how many entries in hash table, how much entries are
- * free and how much entries were deleted
+ * needed. Struct keeps track of how many entries in hash table, how much entries
+ * are free and how much entries were deleted.
  */
 typedef struct s_env
 {

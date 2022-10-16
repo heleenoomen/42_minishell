@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:20:44 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 16:16:46 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 19:11:30 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
 /* builins.c */
 // bool	builtin(t_exec *exec_cmds, t_minishell *minishell, bool single_builtin);
 bool	single_builtin(t_exec *exec, t_minishell *minishell);
-bool	builtin_child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell);
+bool	builtin_child_process(t_exec *exec, t_cmd_def *cmd, \
+t_minishell *minishell);
 
 /* redirections_builtin.c*/
-int		run_redirections_single_builtin(t_exec *exec, t_ast *node, int fd_cpys[2], \
-t_minishell *minishell);
+int		run_redirections_single_builtin(t_exec *exec, t_ast *node, \
+int fd_cpys[2], t_minishell *minishell);
 void	restore_stdin_stdout_builtin(t_exec *exec, int fd_cpys[2]);
 
 /* builtin_utils.c */

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 18:39:22 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:54:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 	clear_history();
 	ft_putstr_fd("exit\n", 1);
 	reset_echoctl(&(minishell.termios_cpy));
-	free_minishell(&minishell);
+	//free_minishell(&minishell);
 	system("leaks minishell");
 	return (g_global_exit_status);
 }
