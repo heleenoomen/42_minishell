@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:21:57 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 20:59:47 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:29:27 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	expand_list(t_list *lst_of_strings, t_env *env, int status, int error_flag)
 		{
 			g_global_exit_status = ENOMEM;
 			expansion_error(lst_of_strings->content, error_flag);
-			return (1);	
+			return (1);
 		}
 		free(trav->content);
 		trav->content = (void *) new_content;
@@ -58,11 +58,11 @@ int	expand_list(t_list *lst_of_strings, t_env *env, int status, int error_flag)
 	return (0);
 }
 
-/** goes through the list of t_ast nodes. For every nodes, checks if the *cmds pointer is not
- * NULL. If it is not NULL, checks for every pointer in the t_cmd_def struct if the pointers to
- * *cmd, *redir and *assign are not NULL. If they are not NULL, calls expand_list to expand the nodes
- * in the list
- **/ 
+/** goes through the list of t_ast nodes. For every nodes, checks if the *cmds
+ * pointer is not NULL. If it is not NULL, checks for every pointer in the
+ * t_cmd_def struct if the pointers to cmd, *redir and *assign are not NULL. If
+ * they are not NULL, calls expand_list to expand the nodes in the list
+ **/
 int	expander(t_list *nodes, t_env *env)
 {
 	t_list	*ptr;
@@ -77,14 +77,16 @@ int	expander(t_list *nodes, t_env *env)
 		if (current->cmds)
 		{
 			if (current->cmds->cmd)
-				status = expand_list(current->cmds->cmd, env, status, ERROR_CMD);
+				status = expand_list(current->cmds->cmd, env, status, \
+				ERROR_CMD);
 			if (current->cmds->redir && !status)
-				status = expand_list(current->cmds->redir, env, status, ERROR_REDIR);
+				status = expand_list(current->cmds->redir, env, status, \
+				ERROR_REDIR);
 			if (current->cmds->assign && !status)
-				status = expand_list(current->cmds->assign, env, status, ERROR_CMD); // should be changed to error assign
+				status = expand_list(current->cmds->assign, env, status, \
+				ERROR_CMD);
 		}
 		ptr = ptr->next;
 	}
 	return (status);
 }
-

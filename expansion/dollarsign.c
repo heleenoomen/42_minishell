@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:48:03 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/23 17:15:45 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 17:00:49 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static bool	is_end_of_key(char c)
 }
 
 /* converts g_global_exit_status to string (ft_itoa) and copies
- * this string to the char buffer. In case malloc fails, sets global exit status, frees buffer and sets it to NULL, so that no further expansion will happen.
+ * this string to the char buffer. In case malloc fails, sets global exit status,
+ * frees buffer and sets it to NULL, so that no further expansion will happen.
  */
 void	expand_global_exit_status(t_char_buf *buf)
 {
@@ -76,7 +77,7 @@ static char	*expand_substr_ds(t_env *env, t_char_buf *buf, char *ptr)
 /* if a dollarsign is found, checks if it should be expanded. If not,
  * adds dollarsign to buffer, moves ptr passed dollarsign and returns false.
  * Returns true if the dollar sign should indeed be expanded.
- */ 
+ */
 static bool	should_be_expanded(char **ptr, t_char_buf *buf, int quotes)
 {
 	char	next_char;
@@ -123,7 +124,7 @@ void	expand_dollarsign(t_env *env, char *ptr, t_char_buf *buf)
 			if (should_be_expanded(&ptr, buf, quotes))
 				ptr = expand_substr_ds(env, buf, ptr);
 		}
-		else 
+		else
 		{
 			if (*ptr == '\'' || *ptr == '\"')
 				change_quote_modus(&quotes, *ptr);

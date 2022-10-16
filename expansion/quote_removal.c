@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_removal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:31:32 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/14 12:51:01 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:29:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,3 @@ void	exp_remove_quotes(t_char_buf *buf)
 	}
 	join_strings(buf);
 }
-

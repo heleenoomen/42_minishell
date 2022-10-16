@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 17:24:22 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/15 12:05:02 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 18:30:14 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	tilde_to_new_buf(char *tilde, t_char_buf *buf, int tilde_len)
 	free(buf->buf);
 	buf->buf = new_buf;
 }
-			
+
 /* tilde is only expanded if it is at the beginning of a token and if it's
  * immediately followd by a slash. If there is enough space in the buffer, the
  * existing chars are moved to the right (with memmove) so that the HOME string
@@ -69,4 +69,3 @@ void	expand_tilde(t_env *env, t_char_buf *buf)
 	buf->size += tilde_len - 1;
 	buf->free -= tilde_len + 1;
 }
-

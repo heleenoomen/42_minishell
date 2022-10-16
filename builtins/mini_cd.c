@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 16:18:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 17:59:03 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	mini_cd_update_env(t_env *env, char *oldpwd, char *newpwd)
 	int	upd_oldpwd;
 	int	upd_newpwd;
 
-	upd_oldpwd = update_env(env, "OLDPWD", oldpwd, EXPORT | KEY_DUP);
+	upd_oldpwd = update_env(env, "OLDPWD", oldpwd, EXPORT | KEY_DUP | VAL_DUP);
 	upd_newpwd = update_env(env, "PWD", newpwd, EXPORT | KEY_DUP | VAL_DUP);
 	if (upd_oldpwd)
 	{
@@ -72,4 +72,6 @@ void	mini_cd(int argc, char **argv, t_env *env)
 		return (error_builtins("cd", NULL, EXIT_ERROR_DEFAULT));
 	newpwd = getcwd(NULL, 0);
 	mini_cd_update_env(env, oldpwd, argv[1]);
+	free(oldpwd);
+	free(newpwd);
 }

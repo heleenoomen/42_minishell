@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   buf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:52:19 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/14 12:46:44 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:55:26 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*initialize the buffer struct. Allocates an initial BUFSIZE bytes in the char_buf,
- * enough for 127 characters plus terminating nul byte). Sets size to 0 and free
- * to 127*/
+/*initialize the buffer struct. Allocates an initial BUFSIZE bytes in the
+ * char_buf, enough for 127 characters plus terminating nul byte). Sets size to
+ * 0 and free to 127.
+ */
 void	init_char_buf(t_char_buf *buf)
 {
 	buf->buf = ft_calloc(BUFSIZE, sizeof(char));
@@ -33,7 +34,7 @@ void	resize_buffer(t_char_buf *buf)
 	char	*new;
 	int		i;
 	int		j;
-	
+
 	new = malloc(buf->size + 1 + BUFSIZE);
 	if (new != NULL)
 	{
@@ -89,5 +90,3 @@ void	add_str_to_buf(t_char_buf *buf, char *s)
 		i++;
 	}
 }
-
-
