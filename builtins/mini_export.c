@@ -6,16 +6,16 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 16:52:20 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:26:13 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* traverses the environment tree. Prints everything on the left of branch first,
- * the prints the branch itself: "declar -x " prefix, followed by the key. If
- * value is not NULL, value is printed in between dubble quotes. Finally, a new-
- * line is printed. Then everything to the right is printed.
+/* traverses the environment tree. Prints everything on the left of branch
+ * first, the prints the branch itself: "declar -x " prefix, followed by the 
+ * key. If value is not NULL, value is printed in between dubble quotes.
+ * Finally,a newline is printed. Then everything to the right is printed.
  */
 void	print_tree_mini_exp(t_tree_node *branch)
 {
@@ -36,7 +36,6 @@ void	print_tree_mini_exp(t_tree_node *branch)
 	}
 	print_tree_mini_exp(branch->right);
 }
-		
 
 /* checks if the first char of the key is either alphabetical or underscore
  * if not, the key or key value pair is not valid
@@ -52,32 +51,31 @@ bool	first_char_valid(char c)
 	return (false);
 }
 
-/* checks if argument for export is valid. Before the '=' sign, only alphanumerical
- * characters and underscores are permitted. After the equal sign, all ascii-chars are
- * permitted. If the length of s is size_t max or bigger, returns false.
+/* checks if argument for export is valid. Before the '=' sign, only
+ * alphanumerical characters and underscores are permitted. After the equal
+ * sign, all ascii-chars are permitted. If the length of s is size_t max or
+ * bigger, returns false.
  */
 bool	is_valid(char *s)
 {
 	size_t	i;
-	
+
 	i = 0;
 	if (!first_char_valid(s[i]))
 		return (false);
 	i = 0;
-	while (s[i])
+	while (s[i] && s[i] != '=')
 	{
-		if (s[i] == '=')
-			break ;
 		if (!ft_isalnum(s[i]) && s[i] != '_')
 			return (false);
 		i++;
-		if (i == (size_t) -1)
+		if (i == (size_t) - 1)
 			return (false);
 	}
 	i++;
 	while (s[i])
 	{
-		if (i == (size_t) -1)
+		if (i == (size_t) - 1)
 			return (false);
 		if ((int) s[i] < 0)
 			return (false);
@@ -104,7 +102,8 @@ void	mini_export(int argc, char **argv, t_env *env)
 	{
 		if (is_valid(argv[i]))
 		{
-			if (update_env_string(env, argv[i], EXPORT | KEY_DUP | VAL_DUP) == -1)
+			if (update_env_string(env, argv[i], EXPORT | KEY_DUP
+					| VAL_DUP) == -1)
 				return (error_builtins("export", argv[i], ENOMEM));
 		}
 		else

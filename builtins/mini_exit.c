@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 13:46:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 13:42:10 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:21:24 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,13 @@ bool	exit_is_valid(char *arg)
 
 void	mini_exit(int argc, char **argv, t_minishell *minishell)
 {
-	(void) minishell;
 	bool	valid;
-	
+
 	if (argc > 1)
 	{
 		valid = exit_is_valid(argv[1]);
 		if (valid)
-			g_global_exit_status = (int) ((unsigned char) ft_atoi(argv[1]));
+			g_global_exit_status = (int)((unsigned char)ft_atoi(argv[1]));
 		else
 			g_global_exit_status = 255;
 	}

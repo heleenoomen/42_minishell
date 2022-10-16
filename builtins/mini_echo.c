@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:53:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 16:50:19 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:20:00 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ bool	is_minus_n(char *s)
 	return (true);
 }
 
-/* sets newline to false if output should not be followed by a newline, sets it to true
- * if there should be a newline. Returns the index of the first non -n type string in argv.
- * if only -n type options are found, followed by NULL, they should be treated as arguments
- * and thus newline is set to true and i is set back to 1.
+/* sets newline to false if output should not be followed by a newline, sets it
+ * to true if there should be a newline. Returns the index of the first non -n
+ * type string in argv. If only -n type options are found, followed by NULL,
+ * they should be treated as arguments and thus newline is set to true and i is
+ * set back to 1.
  */
 int	set_newline(char **argv, bool *newline)
 {
@@ -81,4 +82,3 @@ void	mini_echo(int argc, char **argv)
 	if (newline)
 		write(1, "\n", 1);
 }
-

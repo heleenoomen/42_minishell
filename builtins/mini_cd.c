@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/13 18:39:14 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 16:59:25 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:18:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_access(char *path)
 
 void	go_home(t_env *env, char *oldpwd)
 {
-	char *home;
+	char	*home;
 
 	home = find_value(env, "HOME");
 	if (home == NULL)
@@ -67,7 +67,7 @@ void	mini_cd(int argc, char **argv, t_env *env)
 	if (argc == 1)
 		return (go_home(env, oldpwd));
 	if (check_access(argv[1]))
-		return ;	
+		return ;
 	if (chdir(argv[1]) == -1)
 		return (error_builtins("cd", NULL, EXIT_ERROR_DEFAULT));
 	newpwd = getcwd(NULL, 0);

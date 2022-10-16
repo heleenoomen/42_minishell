@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:00:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 16:51:30 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/16 16:27:16 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	is_valid_mini_us(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (i == (size_t) -1)
+		if (i == (size_t) - 1)
 			return (false);
 		if (!ft_isalnum(s[i]) && s[i] != '_')
 			return (false);
@@ -48,4 +48,3 @@ void	mini_unset(int argc, char **argv, t_env *env)
 		i++;
 	}
 }
-
