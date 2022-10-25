@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 10:49:36 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 16:53:01 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:48:25 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr_gnL(char *s, int c)
+char	*ft_strchr_gnl(char *s, int c)
 {
 	int		i;
 
@@ -32,7 +32,7 @@ char	*ft_strchr_gnL(char *s, int c)
 	return (0);
 }
 
-char	*ft_strdup_gnL(char *src)
+char	*ft_strdup_gnl(char *src)
 {
 	size_t	len;
 	int		i;
@@ -77,7 +77,7 @@ static void	ft_strlcpy_d(char *str, char *s1, char *s2, size_t pref)
 	str[count] = '\0';
 }
 
-char	*ft_strjoin_gnL(char *s1, char *s2)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	pref;
@@ -86,7 +86,7 @@ char	*ft_strjoin_gnL(char *s1, char *s2)
 
 	i = 0;
 	if (!s1)
-		s1 = ft_strdup_gnL("");
+		s1 = ft_strdup_gnl("");
 	if (!s1 || !s2)
 		return (NULL);
 	pref = ft_strlen(s1);

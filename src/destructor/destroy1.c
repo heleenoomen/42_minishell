@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy.c                                          :+:      :+:    :+:   */
+/*   destroy1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 14:41:05 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 16:18:29 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 12:19:44 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,59 +74,4 @@ void	free_syntax_table(void (***table)(t_list **, enum e_grammar))
 		col++;
 	}
 	free(table);
-}
-
-void	free_minishell(t_minishell *minishell)
-{
-	if (minishell)
-	{
-		free(minishell->line);
-		clear_env(&(minishell->env));
-		if (minishell->table)
-			free_syntax_table(minishell->table);
-	}
-}
-
-void	heredoc_child_helper_destruction(t_exec *exec_cmds, t_minishell *shell)
-{
-	free_minishell(shell);
-	free_ast_node(exec_cmds->cmds_list);
-	free_cmd_defs(&exec_cmds->cmd_type);
-	// rl_clear_history();
-}
-
-void	heredoc_helper_destruction(char **update, char **line, int *fd, t_exec *exec_cmds)
-{
-	if (fd)
-	{
-		close(fd[1]);
-		if (exec_cmds->curr_cmd)
-			free(exec_cmds->curr_cmd);
-		free_cmd_defs(&exec_cmds->cmd_type);
-		free_ast_node(exec_cmds->cmds_list);
-	}
-	free(*line);
-	*line = NULL;
-	free(*update);
-	*update = NULL;
-}
-
-void	heredoc_helper_destruction2(char *delim, int status)
-{
-	if (delim)
-		free(delim);
-	exit(status);
-}
-
-void	free_expansion_file(t_expansion *file)
-{
-	if (file->file)
-		free(file->file);
-	file->file = NULL;
-	free(file);
-}
-
-void	free_expansion_file_struct(void *content)
-{
-	free_expansion_file((t_expansion *)content);
 }

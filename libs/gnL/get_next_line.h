@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:47:44 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 16:52:45 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:48:58 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include <stdlib.h>
 # include <stddef.h>
 
-char	*ft_strjoin_gnL(char *s1, char *s2);
-char	*ft_strchr_gnL(char *s, int c);
-char	*ft_strdup_gnL(char *src);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*ft_strchr_gnl(char *s, int c);
+char	*ft_strdup_gnl(char *src);
 char	*get_next_line(int fd);
 
 #endif

@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exit_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 16:36:04 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 13:01:09 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 12:22:01 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_minishell(t_minishell *minishell)
+{
+	if (minishell)
+	{
+		free(minishell->line);
+		clear_env(&(minishell->env));
+		if (minishell->table)
+			free_syntax_table(minishell->table);
+	}
+}
 
 void	exit_minishell(int flag, int PHASE, char *error, t_minishell *minishell)
 {

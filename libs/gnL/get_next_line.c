@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 18:49:18 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 16:59:07 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:48:42 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	n = 1;
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	while (n != 0 && !(ft_strchr_gnL(text, '\n')))
+	while (n != 0 && !(ft_strchr_gnl(text, '\n')))
 	{
 		n = read(fd, buff, BUFFER_SIZE);
 		if (n == -1)
@@ -88,7 +88,7 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		buff[n] = '\0';
-		text = ft_strjoin_gnL(text, buff);
+		text = ft_strjoin_gnl(text, buff);
 	}
 	free(buff);
 	line = ft_get_line(text);

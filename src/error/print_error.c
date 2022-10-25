@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 18:48:12 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 20:43:34 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 12:26:13 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_arg_suffix(char *arg, char *suffix)
 void	print_flag2(int flag)
 {
 	char	*message;
-	
+
 	if (flag == EXIT_CANNOT_EXECUTE)
 		message = "Command invoked cannot execute";
 	else if (flag == EXIT_CMD_NOT_FOUND)
@@ -56,7 +56,7 @@ void	print_flag(int flag)
 	else if (flag == ENODATA)
 		message = "No data available";
 	else
-		return(print_flag2(flag));
+		return (print_flag2(flag));
 	print_arg_suffix(message, "\n");
 }
 
