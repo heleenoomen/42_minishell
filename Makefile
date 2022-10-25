@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
+#    By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/10/25 18:22:26 by hoomen           ###   ########.fr        #
+#    Updated: 2022/10/25 19:37:01 by ktashbae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC		=	main.c\
 			execute_assignment.c execute_heredoc.c\
 			execute_commands_and_pipes.c execute_redirection.c\
 			execute_utils.c list_to_argv.c main_execution.c path.c\
-			run_processes.c run_cmd.c\
+			main_execution_utils.c run_processes.c run_cmd.c\
 			wildcard_bonus.c wildcard_filename.c wildcard_path.c wildcard_traverse.c\
 			wildcard_utils.c buf_utils.c dollarsign.c exp_utils.c expander.c quote_removal.c\
 			tilde.c\

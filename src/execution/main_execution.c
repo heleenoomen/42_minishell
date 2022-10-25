@@ -6,46 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 16:20:42 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/25 19:37:49 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/* get nodes from tree into the ordered linked lists */
-void	get_tree(t_list **nodes, t_ast *tree, int node_id)
-{
-	if (!tree)
-		return ;
-	tree->node_id = node_id;
-	if (tree->child)
-		get_tree(nodes, tree->child->next_sibling, node_id + 1);
-	if (tree->type != N_SUB)
-		ft_lstpush(nodes, tree);
-	get_tree(nodes, tree->child, node_id + 1);
-	if (tree->type == N_SUB)
-		ft_lstpush(nodes, tree);
-}
-
-/*
-- extract the next node to check if there is pipe, if so set the pipe flag
-- update the list of cmds
-- check if there is a builtin and call the builtin function
-- if not builtin - call simple cmd black function
-*/
-void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, \
-	t_minishell *minishell)
-{
-	t_ast	*temp;
-
-	exec_cmds->pipe = 0;
-	temp = (t_ast *)lst_get_cmd(*exec_cmds->cmds_list);
-	if (temp && temp->type == N_PIPE)
-		exec_cmds->pipe = 1;
-	exec_cmds->cmds_list = exec_cmds->cmds_list;
-	execute_cmd_block(exec_cmds, *node, minishell);
-	*node = NULL;
-}
 
 /* main part of execution where commands are divided into 
 separate functions
@@ -62,15 +27,24 @@ the execution.
 - At each step -> STATUS is saved to keep track on the process 
 EXIT status.
 */
+static void	execute_commands_helper(t_ast *node)
+{
+	if (node)
+	{
+		if (node->cmds)
+			free_cmd_defs(&node->cmds);
+		free(node);
+	}
+}
+
 int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 {
 	int		status;
 	t_ast	*node;
-	int		total_cmds;
 
 	status = 0;
-	total_cmds = ft_lstsize(*exec_cmds->cmds_list);
-	while (total_cmds > 0 && exec_cmds->cmds_list && status == 0)
+	while (ft_lstsize(*exec_cmds->cmds_list) > 0 && \
+		exec_cmds->cmds_list && status == 0)
 	{
 		node = (t_ast *)lst_get_content(exec_cmds->cmds_list);
 		if (node == NULL)
@@ -81,12 +55,7 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 			status = execute_pipe(exec_cmds);
 		else if (node->type == N_AND || node->type == N_OR)
 			execute_and_or_cmd(exec_cmds, node);
-		if (node)
-		{
-			if (node->cmds)
-				free_cmd_defs(&node->cmds);
-			free(node);
-		}
+		execute_commands_helper(node);
 	}
 	if (exec_cmds->forks)
 		close(exec_cmds->pipe_fd[0]);
@@ -101,6 +70,13 @@ of nodes for actual execution
 functios according to operator 
 - if something goes wrong, lists are free and status 1 is returned 
 -> SET GLOBAL STATUS*/
+static void	update_exit_status(int status)
+{
+	if (!WIFSIGNALED(status))
+		g_global_exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_global_exit_status = WTERMSIG(status) + 128;
+}
 
 int	start_execution(t_list **nodes, t_minishell *minishell)
 {
@@ -121,10 +97,7 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	if (exec_cmds.forks && (!exec_cmds.builtin || total_cmds > 1))
 	{
 		waitpid(exec_cmds.pid, &status, 0);
-		if (!WIFSIGNALED(status))
-			g_global_exit_status = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			g_global_exit_status = WTERMSIG(status) + 128;
+		update_exit_status(status);
 	}
 	dup2(fd_temp, 0);
 	close(fd_temp);
