@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:58:18 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/25 14:04:39 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:37:27 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 static void	free_functions(t_minishell *minishell, t_cmd_def *cmd)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quote_removal.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:31:32 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 18:29:54 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:51:33 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 /* 
  * shifts bytes in buffer to the left whenever it finds a nul byte, so that

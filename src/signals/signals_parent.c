@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals_parent.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:16:13 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/24 13:16:56 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:51:56 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	parent_sigint(void)
 {

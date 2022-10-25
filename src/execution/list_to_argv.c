@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   list_to_argv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:02:25 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/25 17:28:17 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:37:15 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 /* traverses the list that starts at cmd. Counts the nodes in order to
  * know argc. mallocs an array of char pointers the size argc + 1. 

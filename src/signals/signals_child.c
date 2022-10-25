@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals_child.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:38:17 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/16 18:31:40 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:51:51 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	child_sigint(void)
 {

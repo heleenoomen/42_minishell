@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:33:10 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 16:51:17 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:50:33 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 /* deletes a given node and frees all memory associated with it.
  * Reinserts sub trees starting at the deleted node back into the tree.

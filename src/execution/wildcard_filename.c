@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_filename.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 14:03:52 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 13:55:08 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:37:45 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 size_t	no_star_part(char *text)
 {

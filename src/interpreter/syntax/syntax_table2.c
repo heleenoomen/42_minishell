@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:13:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 13:05:00 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:48:56 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 void	commandset_and_io_here_file(void (***table)(t_list **, enum e_grammar))
 {

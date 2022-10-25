@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 10:19:31 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 11:44:53 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:49:02 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 /* initializes the structure of a lexer and sets all 
 values to NULL */

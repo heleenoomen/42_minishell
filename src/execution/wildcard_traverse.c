@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_traverse.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:42:19 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/25 13:52:18 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:37:54 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	add_redirlst(char *curr_dir, t_list *dir_list, t_list **lst)
 {

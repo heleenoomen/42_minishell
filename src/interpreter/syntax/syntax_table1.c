@@ -6,11 +6,11 @@
 /*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:40:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/22 13:03:55 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/25 16:48:52 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 void	start_and_or(void (***table)(t_list **, enum e_grammar ))
 {

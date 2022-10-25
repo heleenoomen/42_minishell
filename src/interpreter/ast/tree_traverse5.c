@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traverser_redirections.c                           :+:      :+:    :+:   */
+/*   tree_traverse5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:25:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 22:24:39 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:44:35 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 void	redirect_to_file(t_list **stack_table, enum e_grammar type)
 {

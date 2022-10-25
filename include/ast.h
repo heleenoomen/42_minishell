@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 14:19:17 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 17:13:22 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ typedef struct s_parser
 	t_ast				*node;
 }	t_parser;
 
-void	init_minishell(t_minishell *shell, char **envp);
-void	copy_input_line(t_prompt *line, char *readline);
-
-/* LEXER and support functions*/
+// Lexer
 t_list	*lexer(t_prompt *line);
 t_lexer	*init_lexer(void);
 t_list	*get_token_list(t_lexer *lex, t_prompt *line);
@@ -71,16 +68,15 @@ char	*increase_buffer(void *temp1, int current_size, int update_size);
 void	init_buffer(t_lexer *lexer);
 void	lexer_get_value(t_lexer *lex, t_prompt *line);
 
-/* TOKENIZER and support functions*/
+// Tokenizer
 t_token	*tokenizer(t_lexer *lex, t_prompt *line);
 t_token	*create_token(t_token *token, t_prompt *line, char *value);
 void	token_operator(t_lexer *lex, t_prompt *line, char c);
 void	set_token_type(t_token *token, char *lex);
 void	token_operator(t_lexer *lex, t_prompt *line, char c);
 int		check_value_assign(char *str);
-t_token	*init_token(void);
 
-/* PARSER and AST building */
+// Ast builder
 t_ast	*ast_builder(char *input, void (***table)(t_list **, enum e_grammar));
 void	init_content(t_prompt *content, char *input);
 t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, \
@@ -99,8 +95,9 @@ t_ast	*add_child(t_ast *top, t_ast *child);
 void	free_node(t_ast *node);
 void	init_parser(t_list **cmds_list, t_ast **node);
 void	*create_node(enum e_grammar tok_type);
+void	init_minishell(t_minishell *shell, char **envp);
 
-/* Parse TRAVERSER */
+// Tree traverser
 void	run_start(t_list **stack_table, enum e_grammar type);
 void	run_and_or(t_list **stack_table, enum e_grammar type);
 void	run_and_or1(t_list **stack_table, enum e_grammar type);
@@ -130,7 +127,7 @@ void	*create_new_node(enum e_grammar tok_type);
 void	*lst_get_content(t_list **lst);
 void	*lst_get_cmd(t_list *cmd);
 
-/* LL1 main table */
+// Syntax Table
 void	start_and_or(void (***table)(t_list **, enum e_grammar ));
 void	pipe_and_subshell(void (***table)(t_list **, enum e_grammar));
 void	split_to_prefix(void (***table)(t_list **, enum e_grammar));

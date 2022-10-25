@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ast_builder_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 14:58:11 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 11:37:57 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:44:10 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 /* After saving string into the node of AST, frees the token input that was 
 allocated before*/

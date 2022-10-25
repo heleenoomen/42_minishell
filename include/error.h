@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 14:21:30 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 15:57:47 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
-# include "libft.h"
+# include "../libs/libft/libft.h"
 # include <stdio.h>
 
 # define EXIT_MINISHELL_SUCCESS 0

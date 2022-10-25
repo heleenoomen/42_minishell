@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_assignment.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:57:38 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 14:09:02 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:36:46 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 int	execute_assignment(t_list *assign_lst, t_minishell *shell)
 {

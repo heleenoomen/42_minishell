@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   execute_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:20:49 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/25 14:11:53 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 17:09:21 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
-// heredoc_child_helper_destruction(exec, shell);
 void	child_process_heredoc(char *delim, int *fd, \
 	t_exec *exec, t_minishell *shell)
 {
@@ -21,6 +20,7 @@ void	child_process_heredoc(char *delim, int *fd, \
 
 	signals_child_heredoc();
 	close(fd[0]);
+	heredoc_child_helper_destruction(exec, shell);
 	update_line = NULL;
 	ft_putstr_fd("heredoc> ", 1);
 	get_line = get_next_line(STDIN_FILENO);

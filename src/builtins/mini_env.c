@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mini_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:29:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/09/22 17:13:44 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:49:39 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	print_tree_mini_env(t_tree_node *branch)
 {

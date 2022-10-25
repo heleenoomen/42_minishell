@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 14:23:59 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 17:35:27 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
  */
 	// (void)argc;
 	// (void)argv;
-	//free_minishell(&minishell);
 int	main(int argc, char **argv, char **envp)
 {
 	char			*buf;
 	t_minishell		minishell;
 
+	(void)argc;
+	(void)argv;
 	g_global_exit_status = 0;
 	init_minishell(&minishell, envp);
 	buf = NULL;
@@ -45,5 +46,6 @@ int	main(int argc, char **argv, char **envp)
 	clear_history();
 	ft_putstr_fd("exit\n", 1);
 	reset_echoctl(&(minishell.termios_cpy));
+	free_minishell(&minishell);
 	return (g_global_exit_status);
 }

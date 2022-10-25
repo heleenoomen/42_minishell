@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 14:12:48 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:37:21 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 /** checks if a file exists, in which case it sets file_exists (passed by reference)
  * to true and the checks if access rights are ok for execution. If so, returns 0.

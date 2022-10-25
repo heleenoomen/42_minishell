@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ast_builder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:10:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 11:37:27 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:44:15 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 /* Initializes the prompt structure by saving the input line */
 static void	copy_input_line(t_prompt *line, char *readline)

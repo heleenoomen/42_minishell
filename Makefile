@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
+#    By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/10/25 14:25:57 by kanykei          ###   ########.fr        #
+#    Updated: 2022/10/25 17:32:48 by ktashbae         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-VPATH	=	src/builtins src/destructor src/environment src/error src/execution src/expansion src/interpreter \
-			src/signals
+VPATH	=	src/builtins src/destructor src/environment src/error src/execution src/expansion src/interpreter\
+			src/signals src/interpreter/ast src/interpreter/lexer src/interpreter/parser src/interpreter/syntax\
+			src/interpreter/tokenizer
 INCFL	=	-I libs/ibft -I include
 INCGNL	=	-I libs/libgnL -I include
 
@@ -27,23 +28,21 @@ SRC		=	main.c\
 			env_utils.c make_envp.c update_env.c execute_and_or_cmd.c\
 			execute_assignment.c execute_heredoc.c\
 			execute_commands_and_pipes.c execute_redirection.c\
-			execution_utils.c list_to_argv.c main_execution.c path.c\
-			run_processes.c\
-			wildcard_filename_expansion.c\
-			wildcard_filename_expansion_comparison.c\
-			wildcard_filename_expansion_path.c\
-			wildcard_filename_expansion_utils.c\
-			buf_utils.c dollarsign.c exp_utils.c expander.c quote_removal.c\
+			execute_utils.c list_to_argv.c main_execution.c path.c\
+			run_processes.c run_cmd.c\
+			wildcard_bonus.c wildcard_filename.c wildcard_path.c wildcard_traverse.c\
+			wildcard_utils.c buf_utils.c dollarsign.c exp_utils.c expander.c quote_removal.c\
 			tilde.c\
 			ast_builder.c ast_builder_utils.c char_lexer.c\
-			grand_traverser.c init_shell.c lexer.c lexer_utils.c\
+			init_shell.c lexer.c lexer_utils.c\
 			syntax_table1.c syntax_table2.c parser.c parser_utils.c\
-			tokenizer.c tokenizer_utils.c tokenizer_utils_more.c \
-			traverser_commands.c traverser_pipes.c traverser_pref_suff.c\
-			traverser_redirections.c traverser_utils.c\
+			tokenizer.c tokenizer_utils.c \
+			traverse_utils.c tree_traverse1.c tree_traverse2.c tree_traverse3.c\
+			tree_traverse4.c tree_traverse5.c\
 			signals_interactive.c signals_parent.c signals_child.c\
 			signal_print.c ms_termios.c\
-			destroy.c error.c print_error.c exit_minishell.c
+			destroy1.c destroy2.c error1.c error2.c error3.c\
+			print_error.c exit_minishell.c
 LIBS	=	libs/libft/libft.a
 LIBSGNL	=	libs/gnL/libgnL.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 11:34:29 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 14:19:43 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 15:56:59 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <readline/history.h>
 # include <dirent.h>
 # include <termios.h>
-# include "libft.h"
-# include "../gnL/get_next_line.h"
+# include "../libs/libft/libft.h"
+# include "../libs/gnL/get_next_line.h"
 # include "ast.h"
 # include "execution.h"
 # include "environment.h"

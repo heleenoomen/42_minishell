@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals_interactive.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 17:32:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 18:32:08 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 17:14:01 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	display_newline(int signal)
 {
@@ -18,7 +18,7 @@ void	display_newline(int signal)
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();
-		rl_replace_line("", 0);
+		//rl_replace_line("", 0);
 		rl_redisplay();
 		g_global_exit_status = 1;
 	}

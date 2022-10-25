@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:57:57 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 13:52:51 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:37:38 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	get_redirlst(DIR *temp_dir, char *dir, t_list *path, t_list **lst)
 {

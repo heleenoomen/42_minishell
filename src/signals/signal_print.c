@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signal_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 13:27:19 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 18:31:30 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:51:49 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	signal_print(int status)
 {

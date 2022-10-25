@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dollarsign.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:48:03 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 17:00:49 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:51:25 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 static bool	is_end_of_key(char c)
 {

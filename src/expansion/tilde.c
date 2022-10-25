@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tilde.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 17:24:22 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 18:30:14 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:51:41 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 /* called when there is not enough space in the buffer to add the HOME string.
  * A new buffer is created, the size of the old buffer + enough BUFSIZE units to

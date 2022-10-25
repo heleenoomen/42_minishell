@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   traverser_pipes.c                                  :+:      :+:    :+:   */
+/*   tree_traverse3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:42:54 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 22:24:52 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:44:28 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../../include/minishell.h"
 
 void	run_pipe(t_list **stack_table, enum e_grammar type)
 {

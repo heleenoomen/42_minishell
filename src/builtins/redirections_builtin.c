@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_builtin.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 16:09:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 16:12:42 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:50:01 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 int	run_redirections_single_builtin(t_exec *exec, t_ast *node, int fd_cpys[2], \
 t_minishell *minishell)

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:24:26 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 14:07:46 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:37:05 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
-int	execute_redirect_in(char *file, int	*fd)
+static int	execute_redirect_in(char *file, int	*fd)
 {
 	int	status;
 
@@ -33,7 +33,7 @@ int	execute_redirect_in(char *file, int	*fd)
 	return (status);
 }
 
-int	execute_redirect_overwrite(char *file, int	*fd)
+static int	execute_redirect_overwrite(char *file, int	*fd)
 {
 	int	status;
 
@@ -54,7 +54,7 @@ int	execute_redirect_overwrite(char *file, int	*fd)
 	return (status);
 }
 
-int	execute_redirect_append(char *file, int	*fd)
+static int	execute_redirect_append(char *file, int	*fd)
 {
 	int	status;
 
@@ -75,7 +75,7 @@ int	execute_redirect_append(char *file, int	*fd)
 	return (status);
 }
 
-int	execute_redirect_inout(char *file, int	*fd_in, int *fd_out)
+static int	execute_redirect_inout(char *file, int	*fd_in, int *fd_out)
 {
 	int	status;
 

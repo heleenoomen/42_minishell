@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_typedefs.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 15:43:23 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 19:13:38 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 15:57:30 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MS_TYPEDEFS_H
 
 # include <stdbool.h>
-# include "libft.h"
+# include "../libs/libft/libft.h"
 
 /* tree structure where key/value pairs of environment are stored */
 typedef struct s_tree_node

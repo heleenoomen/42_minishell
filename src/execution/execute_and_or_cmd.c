@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_and_or_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:58:52 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 12:36:23 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:36:41 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
-void	reset_node(t_exec *exec)
+static void	reset_node(t_exec *exec)
 {
 	t_ast	*node;
 	int		node_id;

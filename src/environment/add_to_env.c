@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   add_to_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:28:51 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 16:29:21 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 16:50:30 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 /* adds duplicated tree and value to the tree
  */

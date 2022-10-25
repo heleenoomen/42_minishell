@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 13:50:00 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 17:12:09 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 void	free_path_split(char **split)
 {
@@ -99,16 +99,17 @@ t_list	*get_path_for_expansion(char *str)
 			return (NULL);
 	}
 	path = ft_split(str, '/');
-	if (!path)
-		return (ft_lstclear(&lst, &free_expansion_file_struct));
 	if (!init_path_lst(path, &lst))
 	{
 		free_path_split(path);
-		return (ft_lstclear(&lst, &free_expansion_file_struct));
+		ft_lstclear(&lst, &free_expansion_file_struct);
 	}
-	free_path_split(path);
-	end = ft_strlen(str) - 1;
-	if (str[end] != '/')
-		update_type_file(lst);
+	else
+	{
+		free_path_split(path);
+		end = ft_strlen(str) - 1;
+		if (str[end] != '/')
+			update_type_file(lst);
+	}
 	return (lst);
 }

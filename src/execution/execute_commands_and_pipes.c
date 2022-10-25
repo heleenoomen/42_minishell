@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands_and_pipes.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:11:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 14:05:27 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 16:36:53 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 int	execute_cmd_block(t_exec *exec_cmds, t_ast *node, t_minishell *minishell)
 {

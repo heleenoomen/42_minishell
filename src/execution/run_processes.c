@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 13:59:17 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 17:08:01 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../include/minishell.h"
 
 int	wildcard_expander(t_list **cmds)
 {
@@ -26,7 +26,7 @@ int	wildcard_expander(t_list **cmds)
 	return (status);
 }
 
-int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
+static int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 {
 	int	status;
 
@@ -49,7 +49,7 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 	return (status);
 }
 
-void	parent_process(t_exec *exec, t_cmd_def *cmd)
+static void	parent_process(t_exec *exec, t_cmd_def *cmd)
 {
 	t_ast	*node;
 
