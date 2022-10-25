@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 10:19:31 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:39:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 11:44:53 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* initializes the structure of a lexer and sets all 
+values to NULL */
+void	init_buffer(t_lexer *lexer)
+{
+	lexer->tokens = malloc(526);
+	lexer->len = 526;
+	lexer->index = 0;
+	if (lexer->tokens == NULL)
+		return ;
+}
 
 /* checks for assignment operator and type of character, returns
 flag as false if assignment and alphanumeric type is found*/

@@ -3,54 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ast_builder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:10:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/20 16:07:09 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/25 11:37:27 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* to existing parent node adds child node, if child node exists - 
-assigns incoming to a next sibling */
-t_ast	*add_child(t_ast *top, t_ast *child)
+/* Initializes the prompt structure by saving the input line */
+static void	copy_input_line(t_prompt *line, char *readline)
 {
-	t_ast	*sibling;
-
-	if (!top || !child)
-		return (NULL);
-	if (!top->child)
-		top->child = child;
-	else
-	{
-		sibling = top->child;
-		while (sibling->next_sibling)
-			sibling = sibling->next_sibling;
-		sibling->next_sibling = child;
-		child->prev_sibling = sibling;
-	}
-	top->nodes++;
-	return (child);
-}
-
-void	free_node(t_ast *node)
-{
-	t_ast	*sibling;
-	t_ast	*temp;
-
-	if (node == NULL)
-		return ;
-	temp = node->child;
-	while (temp)
-	{
-		sibling = temp->next_sibling;
-		free_node(temp);
-		temp = sibling;
-	}
-	if (node->cmds != NULL)
-		free(node->cmds);
-	free(node);
+	line->input = ft_strdup(readline);
+	line->len = ft_strlen(readline);
+	line->index = -2;
 }
 
 /* AST builder:
@@ -61,7 +28,6 @@ structure;
 Syntax check implements creation of nodes depending on the grammar 
 and list of tokens.
 */
-
 t_ast	*ast_builder(char *input, void (***table)(t_list **, enum e_grammar))
 {
 	t_prompt	content;

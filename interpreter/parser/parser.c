@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/21 14:50:46 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 11:42:29 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	*create_node(enum e_grammar tok_type)
 	t_parser	*node;
 
 	node = malloc(sizeof(t_parser));
+	if (!node)
+		return (NULL);
 	node->token_type = tok_type;
 	node->node_type = N_DUMM;
 	node->node = NULL;
@@ -28,7 +30,6 @@ void	*create_node(enum e_grammar tok_type)
 a list of each type and saves into the node */
 void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd)
 {
-
 	if (node_p->node && !node_p->node->cmds && \
 	(node_p->node_type == N_CMD || node_p->node_type == N_ASSIGN \
 	|| node_p->node_type == N_REDIR))
@@ -38,7 +39,6 @@ void	add_nodes_parser(t_list **tokens, t_parser *node_p, t_list **cmd)
 		node_p->node->cmds->assign = NULL;
 		node_p->node->cmds->redir = NULL;
 	}
-
 	if (node_p->node_type == N_CMD)
 		ft_lstadd_back(&node_p->node->cmds->cmd, \
 		ft_lstnew(ft_strdup(((t_token *)(*tokens)->content)->input)));
@@ -57,8 +57,8 @@ to ll1 table, if nodes token type is not valid returns the flag zero*/
 int	scan_nodes_parser(t_list *token_list, t_parser *node_p, \
 t_list **cmds, void (***table)(t_list **, enum e_grammar))
 {
-	int			flag;
-	void		(*tab)(t_list **, enum e_grammar);
+	int				flag;
+	void			(*tab)(t_list **, enum e_grammar);
 	enum e_grammar	token_type;
 
 	flag = 1;
@@ -87,7 +87,8 @@ the tree:
 existing tokens with grammar table;
 3. add nodes if node of commands, assignment or redirection is found;
 4. in case of error, frees the node of a tree */
-t_ast	*check_syntax(t_list *token_list, void (***table)(t_list **, enum e_grammar))
+t_ast	*check_syntax(t_list *token_list, void (***table) \
+	(t_list **, enum e_grammar))
 {
 	t_ast		*node;
 	t_parser	*node_p;

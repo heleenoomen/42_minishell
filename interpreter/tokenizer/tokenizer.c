@@ -6,11 +6,30 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:30:14 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/13 12:15:20 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 11:44:22 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* initializes the structure of a token and sets all 
+values to NULL */
+static t_token	*init_token(void)
+{
+	t_token	*token;
+
+	token = malloc(sizeof(t_token));
+	if (!token)
+	{
+		error_shell("Token not initialized", ERROR_PERROR);
+		return (NULL);
+	}
+	token->input_len = 0;
+	token->input = NULL;
+	token->type = T_UNKNOWN;
+	token->line = NULL;
+	return (token);
+}
 
 /* sets the current operator symbol that as a peek, in case of
 redirection it gets next character to save into the lexing buffer.
