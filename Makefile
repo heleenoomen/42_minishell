@@ -3,18 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/10/25 17:32:48 by ktashbae         ###   ########.fr        #
+#    Updated: 2022/10/25 18:22:26 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 VPATH	=	src/builtins src/destructor src/environment src/error src/execution src/expansion src/interpreter\
 			src/signals src/interpreter/ast src/interpreter/lexer src/interpreter/parser src/interpreter/syntax\
 			src/interpreter/tokenizer
-INCFL	=	-I libs/ibft -I include
-INCGNL	=	-I libs/libgnL -I include
+INCFL	=	-I libs/ibft -I include -I libs/libgnL
 
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -g
@@ -53,7 +52,7 @@ $(NAME) : $(OBJ) | $(LIBS) $(LIBSGNL)
 	$(CC) $(CFLAGS) -o $@ $^ -Llibs/libft -lft -Llibs/gnL -lgnL -lreadline -ltermcap
 
 obj/%.o : %.c | obj
-	$(CC) $(CFLAGS) $(INCFL) $(INCGNL) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCFL) -c $< -o $@
 
 obj :
 	mkdir obj

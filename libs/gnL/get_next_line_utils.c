@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 10:49:36 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 11:48:25 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 18:20:24 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,10 @@ static void	ft_strlcpy_d(char *str, char *s1, char *s2, size_t pref)
 
 char	*ft_strjoin_gnl(char *s1, char *s2)
 {
-	size_t	i;
 	size_t	pref;
 	size_t	suff;
 	char	*str;
 
-	i = 0;
 	if (!s1)
 		s1 = ft_strdup_gnl("");
 	if (!s1 || !s2)

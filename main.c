@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 17:35:27 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/25 18:34:54 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
+
+bool	isempty(char *buf)
+{
+	int	i;
+
+	if (*buf == '\0')
+		return (true);
+	i = -1;
+	while (buf[++i])
+	{
+		if (buf[i] != ' ' && buf[i] != '\t')
+			return (false);
+	}
+	return (true);
+}
 
 /* general structure for minishell main function. Kany, I will 
  * clean this up when time comes ;-) Also, I pass now my t_env
@@ -37,15 +52,11 @@ int	main(int argc, char **argv, char **envp)
 		buf = readline("Minishell>>> ");
 		if (buf == NULL)
 			break ;
-		if (*buf == '\0')
+		if (isempty(buf))
 			continue ;
 		main_executor(buf, &minishell);
 		add_history(buf);
-		buf = NULL;
 	}
 	clear_history();
-	ft_putstr_fd("exit\n", 1);
-	reset_echoctl(&(minishell.termios_cpy));
-	free_minishell(&minishell);
-	return (g_global_exit_status);
+	mini_exit(0, NULL, &minishell);
 }
