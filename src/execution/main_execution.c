@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 18:54:56 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:15:48 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,7 @@ void	get_tree(t_list **nodes, t_ast *tree, int node_id)
 	if (tree->child)
 		get_tree(nodes, tree->child->next_sibling, node_id + 1);
 	if (tree->type != N_SUB)
-	{
-		// printf("First: %s\n", (char*)((t_list*)tree->cmds->cmd)->content);
-		// printf("Second: %s\n", (char*)((t_list*)tree->cmds->cmd)->next->content);
 		ft_lstpush(nodes, tree);
-	}
 	get_tree(nodes, tree->child, node_id + 1);
 	if (tree->type == N_SUB)
 		ft_lstpush(nodes, tree);
@@ -37,7 +33,8 @@ void	get_tree(t_list **nodes, t_ast *tree, int node_id)
 - check if there is a builtin and call the builtin function
 - if not builtin - call simple cmd black function
 */
-void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *minishell)
+void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, \
+	t_minishell *minishell)
 {
 	t_ast	*temp;
 
@@ -50,14 +47,20 @@ void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, t_minishell *min
 	*node = NULL;
 }
 
-/* main part of execution where commands are divided into separate functions
-- while looping over each node, checks each node type and calls relevant functions
-- if N_CMD with T_STRING tokens -> goes to simple command/ builtin execution
+/* main part of execution where commands are divided into 
+separate functions
+- while looping over each node, checks each node type and calls 
+relevant functions
+- if N_CMD with T_STRING tokens -> goes to simple command/ 
+builtin execution
 - if the  N_PIPE -> to pipe function
 - if N_AND && N_OR -> and_or function
-- after execution, the current node is freed ... loop continues if there are more nodes
-- if forks flag exists -> closes fd_read that was launched during the execution.
-- At each step -> STATUS is saved to keep track on the process EXIT status.
+- after execution, the current node is freed ... loop continues 
+if there are more nodes
+- if forks flag exists -> closes fd_read that was launched during 
+the execution.
+- At each step -> STATUS is saved to keep track on the process 
+EXIT status.
 */
 int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 {
@@ -90,27 +93,14 @@ int	execute_commands(t_exec *exec_cmds, t_minishell *minishell)
 	return (status);
 }
 
-/*init the exec struct */
-void	init_exec_struct(t_exec *exec, t_list **cmds_list)
-{
-	exec->cmds_list = cmds_list;
-	exec->cmd_type = NULL;
-	exec->curr_cmd = NULL;
-	exec->status = 0;
-	exec->pid = -1;
-	exec->fd_in = 0;
-	exec->fd_out = 1;
-	exec->builtin = 0;
-	exec->forks = 0;
-}
-
-/* initialization of exec structure and passing list of nodes for 
-actual execution
+/* initialization of exec structure and passing list 
+of nodes for actual execution
 - dup stdin into free fd and dup2 back to stdin in the end of execution
 - if list of nodes is 1 -> single builtin is called
 - if more nodes, execution of commands verify node type and call
 functios according to operator 
-- if something goes wrong, lists are free and status 1 is returned -> SET GLOBAL STATUS*/
+- if something goes wrong, lists are free and status 1 is returned 
+-> SET GLOBAL STATUS*/
 
 int	start_execution(t_list **nodes, t_minishell *minishell)
 {
@@ -118,7 +108,7 @@ int	start_execution(t_list **nodes, t_minishell *minishell)
 	int		fd_temp;
 	int		total_cmds;
 	t_exec	exec_cmds;
-	
+
 	status = 0;
 	fd_temp = dup(0);
 	init_exec_struct(&exec_cmds, nodes);

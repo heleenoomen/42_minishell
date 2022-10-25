@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard_filename_expansion_path.c                 :+:      :+:    :+:   */
+/*   wildcard_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 13:04:08 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 22:03:40 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 13:50:00 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	update_type_file(t_list	*lst)
+void	free_path_split(char **split)
 {
-	t_list		*last_file;
-	t_expansion	*file;
+	int	i;
 
-	last_file = ft_lstlast(lst);
-	file = (t_expansion *)last_file->content;
-	file->type = type_file;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }
 
 int	init_path_lst(char **path, t_list **list)
@@ -29,7 +32,7 @@ int	init_path_lst(char **path, t_list **list)
 	int			i;
 
 	i = 0;
-	while(path[i])
+	while (path[i])
 	{
 		file = init_file(path[i], type_dir);
 		if (!file)
@@ -64,17 +67,23 @@ int	init_root_dir(t_list **list)
 	return (1);
 }
 
-void	free_path_split(char **split)
+char	*get_path(char *dir_path, char *path)
 {
-	int	i;
+	int		len_path;
+	char	*join;
+	char	*temp;
 
-	i = 0;
-	while (split[i])
+	len_path = ft_strlen(path);
+	if (path[len_path - 1] == '/')
+		join = ft_strjoin(path, dir_path);
+	else
 	{
-		free(split[i]);
-		i++;
+		temp = ft_strjoin(path, "/");
+		join = ft_strjoin(temp, dir_path);
+		if (temp)
+			free(temp);
 	}
-	free(split);
+	return (join);
 }
 
 t_list	*get_path_for_expansion(char *str)
@@ -86,20 +95,16 @@ t_list	*get_path_for_expansion(char *str)
 	lst = NULL;
 	if (str[0] == '/')
 	{
-		if(!init_root_dir(&lst))
+		if (!init_root_dir(&lst))
 			return (NULL);
 	}
 	path = ft_split(str, '/');
 	if (!path)
-	{
-		ft_lstclear(&lst, &free_expansion_file_struct);
-		return (NULL);
-	}
+		return (ft_lstclear(&lst, &free_expansion_file_struct));
 	if (!init_path_lst(path, &lst))
 	{
 		free_path_split(path);
-		ft_lstclear(&lst, &free_expansion_file_struct);
-		return (NULL);
+		return (ft_lstclear(&lst, &free_expansion_file_struct));
 	}
 	free_path_split(path);
 	end = ft_strlen(str) - 1;

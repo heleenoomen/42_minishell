@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 07:51:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/21 14:12:05 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 14:19:17 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define AST_H
 
 # include "ms_typedefs.h"
-
 # define EOL -1
 # define SUCCESS 0
 # define ERROR 1
@@ -43,7 +42,6 @@ typedef struct s_lexer
 	int				len;
 	int				index;
 }					t_lexer;
-
 
 typedef struct s_parser
 {

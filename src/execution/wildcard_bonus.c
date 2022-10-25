@@ -1,53 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard_filename_expansion.c                      :+:      :+:    :+:   */
+/*   wildcard_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:57:57 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 22:02:41 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 13:52:51 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_expansion	*init_file(char	*file, enum e_type type)
-{
-	t_expansion	*new_file;
-
-	new_file =  malloc(sizeof(t_expansion));
-	if (!new_file)
-		return (NULL);
-	new_file->file = ft_strdup(file);
-	if (!new_file->file)
-	{
-		free(new_file);
-		return (NULL);
-	}
-	new_file->type = type;
-	return (new_file);
-}
-
-int	dir_type_checker(enum e_type d_type, int type)
-{
-	if (d_type == type_dir)
-	{
-		type = dir_type(type);
-		return (type);
-	}
-	return (1);
-}
-
-char	*get_file(t_list *lst)
-{
-	t_expansion	*file;
-	char 		*name;
-
-	file = (t_expansion *)lst->content;
-	name = file->file;
-	return (name);
-}
 
 void	get_redirlst(DIR *temp_dir, char *dir, t_list *path, t_list **lst)
 {
@@ -72,20 +35,6 @@ void	get_redirlst(DIR *temp_dir, char *dir, t_list *path, t_list **lst)
 		}
 		entity = readdir(temp_dir);
 	}
-}
-
-void	add_redirlst(char *curr_dir, t_list *dir_list, t_list **lst)
-{
-	DIR *temp_dir;
-
-	if (curr_dir)
-		temp_dir = opendir(curr_dir);
-	else
-		temp_dir = opendir(".");
-	if (!temp_dir)
-		return ;
-	get_redirlst(temp_dir, curr_dir, dir_list, lst);
-	closedir(temp_dir);
 }
 
 /* write function for freeing &free_get_listed */
@@ -114,7 +63,8 @@ t_list	*expand_star(char *str)
 	return (new_lst);
 }
 
-void	merge_to_list(t_list **curr_lst, t_list *new, t_list *prev, t_list **lst)
+void	merge_to_list(t_list **curr_lst, t_list *new, \
+	t_list *prev, t_list **lst)
 {
 	t_list	*temp;
 	t_list	*update_lst;

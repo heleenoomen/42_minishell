@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/25 17:53:56 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:20:53 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ typedef struct s_expansion
 	char		*file;
 	enum e_type	type;
 }	t_expansion;
-
-
 
 int				main_executor(char *readline, t_minishell *minishell);
 int				start_execution(t_list **nodes, t_minishell *minishell);
@@ -54,7 +52,8 @@ int				execute_redirect_append(char *file, int	*fd);
 int				execute_redirect_inout(char *file, int	*fd_in, int *fd_out);
 int				execute_redirection(t_exec	*exec, t_minishell *minishell);
 int				execute_heredoc(char *delim, t_exec *exec, t_minishell *shell);
-void			child_process_heredoc(char *delim, int *fd, t_exec *exec, t_minishell *shell);
+void			child_process_heredoc(char *delim, int *fd, \
+				t_exec *exec, t_minishell *shell);
 
 /* Run COMMANDS !!! ENV AND PATH NEEDED !!!*/
 int				run_cmd_child(t_exec *exec, t_cmd_def *cmd, \
@@ -78,7 +77,8 @@ void			send_exit_status(int signal);
 char			*remove_quotes(char *str);
 void			filename_expansion(t_list **redir_list);
 t_list			*expand_star(char *str);
-void			merge_to_list(t_list **curr_lst, t_list *new_item, t_list *prev, t_list **lst);
+void			merge_to_list(t_list **curr_lst, t_list *new_item, \
+				t_list *prev, t_list **lst);
 void			get_expand_direct(t_list **lst, t_list *path);
 t_list			*get_path_for_expansion(char *str);
 char			*get_path(char *dir_path, char *path);
@@ -98,4 +98,3 @@ char			*find_path(char *command, t_env *env);
 char			**list_to_argv(t_list *cmd, int *argc);
 
 #endif
-

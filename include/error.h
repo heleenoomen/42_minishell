@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 12:18:10 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 13:14:29 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:21:30 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@
 # define EACCESS 13 /*"Permission denied"*/
 # define ENOTDIR 20 /*"Not a directory"*/
 # define ENODATA 61 /*"No data available"*/
-
 # define ERROR_UNDEFINED 4
 # define ERROR_PERROR 5
 # define ERROR_REDIR 6
 # define ERROR_CMD 7
 # define SYS_ERR 8
-
 /* phase of the program where exit_minishell is called */
 # define INIT 0
 
@@ -53,8 +51,8 @@ char	*path_error(char *s, int flag);
 int		error_builtins_int(char *builtin, char *argument, int flag);
 void	error_set_global_exit_status(int flag);
 void	print_error(char *arg1, char *arg2, char *arg_perror, int flag);
-
 /* exit minishell in case an error occurs (during initialization) */
-void	exit_minishell(int flag, int PHASE, char *error, t_minishell *minishell);
+void	exit_minishell(int flag, int PHASE, char *error, \
+		t_minishell *minishell);
 
 #endif

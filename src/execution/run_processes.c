@@ -3,51 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/26 14:09:22 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 13:59:17 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
-{
-	char	**envp;
-	char	*path;
-	
-	close(exec->pipe_fd[0]);
-	if (!builtin_child_process(exec, cmd, minishell))
-	{		
-		exec->curr_cmd = list_to_argv(cmd->cmd, NULL);
-		envp = make_envp(minishell->env);
-		path = find_path(exec->curr_cmd[0], minishell->env);
-		free_minishell(minishell);
-		free_cmd_defs(&cmd);
-		if (exec->curr_cmd != NULL && envp != NULL && path != NULL)
-		{
-			duplicate_fd(exec);
-			if (execve(path, exec->curr_cmd, envp) == -1)
-			{
-				error_shell("exec failed", ERROR_PERROR);
-				g_global_exit_status = 1;
-			}
-		}
-		ft_freestrarr(&exec->curr_cmd);
-		ft_freestrarr(&envp);
-		free(path);
-	}
-	if (exec->fd_in > 0)
-		close(exec->fd_in);
-	close(exec->pipe_fd[1]);
-	exit(g_global_exit_status);
-}
-
 int	wildcard_expander(t_list **cmds)
 {
 	int	status;
-	
+
 	status = 0;
 	filename_expansion(cmds);
 	if (ft_lstsize(*cmds) > 512)
@@ -64,7 +32,7 @@ int	child_process(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 
 	status = 0;
 	signals_child_process(&(minishell->termios_cpy));
-	//status = wildcard_expander(&cmd->cmd);
+	status = wildcard_expander(&cmd->cmd);
 	if (exec->fd_in >= 0 && exec->fd_out > 0)
 		status = run_cmd_child(exec, cmd, minishell);
 	else
@@ -105,7 +73,7 @@ int	fork_process(t_exec *exec_cmds, t_cmd_def *cmds, t_minishell *minishell)
 		return (0);
 	status = 0;
 	if (pipe(exec_cmds->pipe_fd) == -1)
-		return(error_shell("Failed to create a pipe", ERROR_PERROR));
+		return (error_shell("Failed to create a pipe", ERROR_PERROR));
 	exec_cmds->pid = fork();
 	if (exec_cmds->pid == -1)
 		status = error_shell("Failed to create a pipe", ERROR_PERROR);

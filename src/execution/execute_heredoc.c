@@ -3,26 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   execute_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:20:49 by kanykei           #+#    #+#             */
-/*   Updated: 2022/09/24 14:01:01 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:11:53 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	child_process_heredoc(char *delim, int *fd, t_exec *exec, t_minishell *shell)
+// heredoc_child_helper_destruction(exec, shell);
+void	child_process_heredoc(char *delim, int *fd, \
+	t_exec *exec, t_minishell *shell)
 {
-	int	nline;
 	char	*get_line;
 	char	*update_line;
 
-	nline = shell->line_len;
-	/*check heredoc error from nline later for end of function ?*/
-	printf("Child heredoc\n");
 	signals_child_heredoc();
-	// heredoc_child_helper_destruction(exec, shell);
 	close(fd[0]);
 	update_line = NULL;
 	ft_putstr_fd("heredoc> ", 1);
@@ -34,7 +31,6 @@ void	child_process_heredoc(char *delim, int *fd, t_exec *exec, t_minishell *shel
 		{
 			heredoc_helper_destruction(&update_line, &get_line, fd, exec);
 			heredoc_helper_destruction2(delim, 0);
-			
 		}
 		if (write(fd[1], get_line, ft_strlen(get_line)) == -1)
 			error_shell("Failed to write into pipe", ERROR_UNDEFINED);
@@ -52,7 +48,6 @@ int	execute_heredoc(char *delim, t_exec *exec, t_minishell *shell)
 	int	fd[2];
 	int	pid;
 
-	printf("Heredoc\n");
 	if (pipe(fd) == -1)
 		error_shell("Failed to create a pipe in heredoc", ERROR_PERROR);
 	signals_parent_process();

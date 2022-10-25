@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:58:52 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 11:55:28 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 12:36:23 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	execute_and_or_cmd(t_exec *exec, t_ast *node)
 	}
 	if (exec->fd_out > 1)
 		close(exec->fd_out);
-	if ((node_type == N_OR && !last_status) || (last_status && node_type == N_AND))
+	if ((node_type == N_OR && !last_status) || \
+		(last_status && node_type == N_AND))
 		reset_node(exec);
 	exec->forks = 0;
 	exec->status = last_status;

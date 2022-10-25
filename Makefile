@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
+#    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/10/16 16:43:43 by hoomen           ###   ########.fr        #
+#    Updated: 2022/10/25 14:25:57 by kanykei          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-VPATH	=	builtins destructor environment error execution expansion parser\
-			utils signals
-INCFL	=	-I libft -I include
-INCGNL	=	-I libgnL -I include
+VPATH	=	src/builtins src/destructor src/environment src/error src/execution src/expansion src/interpreter \
+			src/signals
+INCFL	=	-I libs/ibft -I include
+INCGNL	=	-I libs/libgnL -I include
 
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -g
@@ -44,14 +44,14 @@ SRC		=	main.c\
 			signals_interactive.c signals_parent.c signals_child.c\
 			signal_print.c ms_termios.c\
 			destroy.c error.c print_error.c exit_minishell.c
-LIBS	=	libft/libft.a
-LIBSGNL	=	gnL/libgnL.a
+LIBS	=	libs/libft/libft.a
+LIBSGNL	=	libs/gnL/libgnL.a
 OBJ		=	$(addprefix obj/,$(notdir $(SRC:.c=.o)))
 
 all : $(NAME)
 
 $(NAME) : $(OBJ) | $(LIBS) $(LIBSGNL)
-	$(CC) $(CFLAGS) -o $@ $^ -Llibft -lft -LgnL -lgnL -lreadline -ltermcap
+	$(CC) $(CFLAGS) -o $@ $^ -Llibs/libft -lft -Llibs/gnL -lgnL -lreadline -ltermcap
 
 obj/%.o : %.c | obj
 	$(CC) $(CFLAGS) $(INCFL) $(INCGNL) -c $< -o $@
@@ -60,18 +60,18 @@ obj :
 	mkdir obj
 
 $(LIBS) :
-	- (cd libft && make bonus && make clean)
+	- (cd libs/libft && make bonus && make clean)
 
 $(LIBSGNL) :
-	- (cd gnL && make && make clean)
+	- (cd libs/gnL && make && make clean)
 
 clean :
 	rm -rf obj
 
 fclean : clean
 	rm -f $(NAME)
-	-(cd libft && make fclean)
-	-(cd gnL && make fclean)
+	-(cd libs/libft && make fclean)
+	-(cd libs/gnL && make fclean)
 
 re : clean all
 

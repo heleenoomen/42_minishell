@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute_commands_and_pipes.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:11:51 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 19:04:15 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:05:27 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	execute_cmd_block(t_exec *exec_cmds, t_ast *node,t_minishell *minishell)
+int	execute_cmd_block(t_exec *exec_cmds, t_ast *node, t_minishell *minishell)
 {
 	t_cmd_def	*cmds_cpy;
 	int			status;

@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:24:26 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 22:32:22 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 14:07:46 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	execute_redirect_overwrite(char *file, int	*fd)
 		close(*fd);
 	if (file)
 	{
-		*fd = open( file, O_CREAT | O_WRONLY | O_TRUNC, 0664);
+		*fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0664);
 		if (*fd < 0)
 		{
 			status = 1;
@@ -99,32 +99,6 @@ int	execute_redirect_inout(char *file, int	*fd_in, int *fd_out)
 	return (status);
 }
 
-int	get_redirect_file(t_list **redir_list, char **file)
-{
-	t_list	*temp;
-	void	*hold;
-	int		status;
-
-	status = 0;
-	temp = ft_lstnew(ft_strdup((*redir_list)->content));
-	filename_expansion(&temp);
-	if (ft_lstsize(temp) > 1)
-	{
-		status = expansion_error((char *)(*redir_list)->content, ERROR_REDIR);
-		ft_lstclear(&temp, &free);
-		*file = NULL;
-	}
-	else
-	{
-		hold = (*redir_list)->content;
-		(*redir_list)->content = temp->content;
-		temp->content = hold;
-		*file = remove_quotes((char *)(*redir_list)->content);
-		ft_lstdelone(temp, &free);
-	}
-	return (status);
-}
-
 int	execute_redirection(t_exec	*exec, t_minishell *minishell)
 {
 	t_list	*redir;
@@ -135,7 +109,6 @@ int	execute_redirection(t_exec	*exec, t_minishell *minishell)
 	redir = exec->cmd_type->redir;
 	while (redir && status == 0)
 	{
-		
 		status = get_redirect_file(&redir->next, &file);
 		if (!status && ft_strcmp((char *)redir->content, "<") == 0)
 			status = execute_redirect_in(file, &exec->fd_in);

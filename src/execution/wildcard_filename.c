@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   wildcard_filename_expansion_comparison.c           :+:      :+:    :+:   */
+/*   wildcard_filename.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 14:03:52 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/25 22:04:09 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/25 13:55:08 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char	*ft_strstr(char *haystack, char *needle)
 int	file_list_comparison(char *search, char *files)
 {
 	char	*match;
-	size_t	len_text;
 
 	if (*search == '*')
 	{
@@ -49,8 +48,7 @@ int	file_list_comparison(char *search, char *files)
 			search++;
 		if (!*search)
 			return (1);
-		len_text = no_star_part(search);
-		match = ft_substr(search, 0, len_text);
+		match = ft_substr(search, 0, no_star_part(search));
 		files = ft_strstr(files, match);
 		free(match);
 		if (!files)
@@ -74,7 +72,7 @@ int	file_cmp(char *search, char	*files)
 		return (0);
 	if (ft_strcmp(search, files) == 0)
 		return (1);
-	if (!ft_strcmp(files,".") || !ft_strcmp(files, ".."))
+	if (!ft_strcmp(files, ".") || !ft_strcmp(files, ".."))
 		return (0);
 	return (file_list_comparison(search, files));
 }

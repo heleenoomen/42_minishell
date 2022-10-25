@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:50:25 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/09/08 19:45:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/25 14:15:55 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,44 @@ char	*remove_quotes(char *str)
 	else
 		removed = NULL;
 	return (removed);
+}
+
+int	get_redirect_file(t_list **redir_list, char **file)
+{
+	t_list	*temp;
+	void	*hold;
+	int		status;
+
+	status = 0;
+	temp = ft_lstnew(ft_strdup((*redir_list)->content));
+	filename_expansion(&temp);
+	if (ft_lstsize(temp) > 1)
+	{
+		status = expansion_error((char *)(*redir_list)->content, ERROR_REDIR);
+		ft_lstclear(&temp, &free);
+		*file = NULL;
+	}
+	else
+	{
+		hold = (*redir_list)->content;
+		(*redir_list)->content = temp->content;
+		temp->content = hold;
+		*file = remove_quotes((char *)(*redir_list)->content);
+		ft_lstdelone(temp, &free);
+	}
+	return (status);
+}
+
+/*init the exec struct */
+void	init_exec_struct(t_exec *exec, t_list **cmds_list)
+{
+	exec->cmds_list = cmds_list;
+	exec->cmd_type = NULL;
+	exec->curr_cmd = NULL;
+	exec->status = 0;
+	exec->pid = -1;
+	exec->fd_in = 0;
+	exec->fd_out = 1;
+	exec->builtin = 0;
+	exec->forks = 0;
 }
