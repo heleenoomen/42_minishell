@@ -350,3 +350,5 @@ echo "$PWD		   "a
 echo "		   $PWD"
 		 /Users/wollio/Desktop/projects/4/minishell
 
+
+

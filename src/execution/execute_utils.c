@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:50:25 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/27 01:16:17 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/27 01:49:04 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,8 @@ int	redirect_here_doc(char *file, int flag, t_exec *exec, \
 	if (flag == 0)
 		return (execute_heredoc("*", exec, minishell));
 	else
+	{
+		file = heredoc_rm_quotes(file);
 		return (execute_heredoc(file, exec, minishell));
+	}
 }
