@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:02:25 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 18:57:53 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/26 20:08:14 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ char	**list_to_argv(t_list *cmd, int *argc)
 	t_list	*trav;
 	char	**argv;
 	int		i;
+	int		args;
 
-	if (argc != NULL)
-		*argc = count_args(cmd);
-	argv = malloc((*argc + 1) * sizeof(char *));
+	args = count_args(cmd);
+	argv = malloc((args + 1) * sizeof(char *));
 	if (argv == NULL)
 	{
 		g_global_exit_status = ENOMEM;
@@ -56,10 +56,7 @@ char	**list_to_argv(t_list *cmd, int *argc)
 		trav = trav->next;
 	}
 	argv[i + 1] = NULL;
+	if (argc != NULL)
+		*argc = args;
 	return (argv);
 }
-
-/* NB Currently the strings in the cmd list are NOT strdupped, i.e. when the
- * t_list *cmd gets freed, we should NOT free the content because it will
- * leave garbage in the argv.
- */
