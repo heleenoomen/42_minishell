@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/26 21:48:58 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 01:18:00 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, \
 			t_minishell *minishell);
 void		get_tree(t_list **nodes, t_ast *tree, int node_id);
 void		init_exec_struct(t_exec *exec, t_list **cmds_list);
-int			get_redirect_file(t_list **redir_list, char **file);
+int			get_redirect_file(t_list **redir_list, char **file, int here_doc);
 char		*remove_quotes(char *str);
 
 // && ||
@@ -53,6 +53,9 @@ int			execute_heredoc(char *delim, t_exec *exec, t_minishell *shell);
 
 // Execute redirections
 int			execute_redirection(t_exec	*exec, t_minishell *minishell);
+void		update_redir(t_exec *exec, t_list **redir, int *here_doc);
+int			redirect_here_doc(char *file, int flag, t_exec *exec, \
+			t_minishell *minishell);
 
 // Execute commands
 int			execute_cmd_block(t_exec *exec_cmds, t_ast *node, \

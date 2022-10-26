@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:24:26 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/26 21:50:22 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 01:22:14 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,17 +99,18 @@ static int	execute_redirect_inout(char *file, int	*fd_in, int *fd_out)
 	return (status);
 }
 
-int	execute_redirection(t_exec	*exec, t_minishell *minishell)
+int	execute_redirection(t_exec *exec, t_minishell *minishell)
 {
 	t_list	*redir;
 	char	*file;
 	int		status;
+	int		here_doc[2];
 
 	status = 0;
-	redir = exec->cmd_type->redir;
+	update_redir(exec, &redir, here_doc);
 	while (redir && status == 0)
 	{
-		status = get_redirect_file(&redir->next, &file);
+		status = get_redirect_file(&redir->next, &file, here_doc[1]);
 		if (!status && ft_strcmp((char *)redir->content, "<") == 0)
 			status = execute_redirect_in(file, &exec->fd_in);
 		else if (!status && ft_strcmp((char *)redir->content, ">") == 0)
@@ -117,10 +118,7 @@ int	execute_redirection(t_exec	*exec, t_minishell *minishell)
 		else if (!status && ft_strcmp((char *)redir->content, ">>") == 0)
 			status = execute_redirect_append(file, &exec->fd_out);
 		else if (!status && ft_strcmp((char *)redir->content, "<<") == 0)
-		{
-			status = execute_heredoc(file, exec, minishell);
-			file = NULL;
-		}
+			status = redirect_here_doc(file, here_doc[0], exec, minishell);
 		else if (!status && ft_strcmp((char *)redir->content, "<>") == 0)
 			status = execute_redirect_inout(file, &exec->fd_in, &exec->fd_out);
 		if (redir->next)

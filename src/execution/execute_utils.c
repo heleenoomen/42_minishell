@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:50:25 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/26 21:42:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 01:16:17 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*remove_quotes(char *str)
 	return (removed);
 }
 
-int	get_redirect_file(t_list **redir_list, char **file)
+int	get_redirect_file(t_list **redir_list, char **file, int here_doc)
 {
 	t_list	*temp;
 	void	*hold;
@@ -40,7 +40,7 @@ int	get_redirect_file(t_list **redir_list, char **file)
 	status = 0;
 	temp = ft_lstnew(ft_strdup((*redir_list)->content));
 	filename_expansion(&temp);
-	if (ft_lstsize(temp) > 1)
+	if (ft_lstsize(temp) > 1 && here_doc == 1)
 	{
 		status = expansion_error((char *)(*redir_list)->content, ERROR_REDIR);
 		ft_lstclear(&temp, &free);
@@ -69,4 +69,24 @@ void	init_exec_struct(t_exec *exec, t_list **cmds_list)
 	exec->fd_out = 1;
 	exec->builtin = 0;
 	exec->forks = 0;
+}
+
+void	update_redir(t_exec *exec, t_list **redir, int *here_doc)
+{
+	*redir = exec->cmd_type->redir;
+	if (*redir)
+	{
+		if ((char *)(*redir)->next != NULL)
+			here_doc[0] = ft_strcmp((char *)(*redir)->next->content, "*");
+		here_doc[1] = ft_strcmp((char *)(*redir)->content, "<<");
+	}
+}
+
+int	redirect_here_doc(char *file, int flag, t_exec *exec, \
+	t_minishell *minishell)
+{
+	if (flag == 0)
+		return (execute_heredoc("*", exec, minishell));
+	else
+		return (execute_heredoc(file, exec, minishell));
 }
