@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:20:49 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/26 21:42:18 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/26 21:49:56 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	execute_heredoc(char *delim, t_exec *exec, t_minishell *shell)
 	int	pid;
 
 	delim = heredoc_rm_quotes(delim);
-	printf("here\n");
 	if (pipe(fd) == -1)
 		error_shell("Failed to create a pipe in heredoc", ERROR_PERROR);
 	signals_parent_process();
