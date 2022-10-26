@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 18:14:00 by hoomen            #+#    #+#             */
-/*   Updated: 2022/07/17 18:46:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/26 19:37:56 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	size_t	i;
 
 	i = 0;
-	while ((s1[i] || s2[i])) 
+	while ((s1[i] || s2[i]))
 	{
 		if (s1[i] != s2[i])
 			return ((unsigned char) s1[i] - (unsigned char) s2[i]);

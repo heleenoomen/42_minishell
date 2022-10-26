@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   traverse_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 16:16:34 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 16:44:19 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:05:53 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 /* creates new node and initializes it to default null */
 void	*create_new_node(enum e_grammar tok_type)

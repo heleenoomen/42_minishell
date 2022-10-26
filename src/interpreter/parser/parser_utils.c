@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:45:15 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 16:48:38 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:06:40 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 /* Initializes a new node and assigns a node type to it*/
 t_ast	*init_new_node(enum e_node_type n_type)

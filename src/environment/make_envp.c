@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   make_envp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 16:29:15 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 16:50:48 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:08:35 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	free_strarr_int(char ***strarr, int ret)
 {

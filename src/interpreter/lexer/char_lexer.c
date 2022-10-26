@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   char_lexer.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 08:32:38 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 16:48:20 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:06:23 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 /* from the source string reads character by character and updates the prompt 
 structure that holds information of the input. In case of an error, returns 

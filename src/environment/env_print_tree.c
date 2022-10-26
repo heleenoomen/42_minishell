@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_print_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 18:57:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 16:50:39 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:08:23 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	print_tree(t_tree_node *root, int fd)
 {

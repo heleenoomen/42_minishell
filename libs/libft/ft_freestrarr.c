@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_freestrarr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42heilbronn.de      +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:00:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/14 13:05:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/26 19:40:40 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,3 @@ void	ft_freestrarr(char ***strarr)
 	free(ptr);
 	*strarr = NULL;
 }
-

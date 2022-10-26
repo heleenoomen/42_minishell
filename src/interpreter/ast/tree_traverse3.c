@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tree_traverse3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:42:54 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 16:44:28 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:06:06 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 void	run_pipe(t_list **stack_table, enum e_grammar type)
 {

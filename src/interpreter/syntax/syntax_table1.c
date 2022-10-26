@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_table1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 14:40:23 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/26 14:59:42 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/26 19:06:51 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 void	start_and_or(void (***table)(t_list **, enum e_grammar ))
 {

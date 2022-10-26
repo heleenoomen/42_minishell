@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 14:34:28 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 16:37:21 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:03:50 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
-/** checks if a file exists, in which case it sets file_exists (passed by reference)
- * to true and the checks if access rights are ok for execution. If so, returns 0.
- * If no file exists, or there are no permissions, -1 is returned.
+/** checks if a file exists, in which case it sets file_exists (passed by
+ * reference) to true and the checks if access rights are ok for execution. If
+ * so, returns 0. If no file exists, or there are no permissions, -1 is
+ * returned.
  */
 int	my_access(char *command, bool *file_exists)
 {
@@ -27,10 +28,11 @@ int	my_access(char *command, bool *file_exists)
 	return (-1);
 }
 
-/* calls find_value to get a pointer to the value associated with PATH variable. If PATH is
- * unset, return NULL and sets global exit status to ENOENT. If malloc fails in the splitting
- * of the path value, also returns NULL and sets global exit status to ENOMEM. 
- * If all goes correctly, returns an array of paths.
+/* calls find_value to get a pointer to the value associated with PATH variable.
+ * If PATH is unset, return NULL and sets global exit status to ENOENT. If
+ * malloc fails in the splitting of the path value, also returns NULL and sets
+ * global exit status to ENOMEM. If all goes correctly, returns an array of
+ * paths.
  */
 char	**extract_all_paths(t_env *env, char *command)
 {
@@ -46,11 +48,11 @@ char	**extract_all_paths(t_env *env, char *command)
 	return (paths);
 }
 
-/* goes through the array of all paths, for every one, first adds a slash, then adds
- * the command. If my_access returns 0, returns the created path. If not, tries the
- * next path. Keeps track of whether the file exists, in order to set global access status
- * correctly (to EACCES or ENOENT) and return NULL if no file is found or if for all files
- * found the access is prohibited
+/* goes through the array of all paths, for every one, first adds a slash, then
+ * adds the command. If my_access returns 0, returns the created path. If not,
+ * tries the next path. Keeps track of whether the file exists, in order to set
+ * global access status correctly (to EACCES or ENOENT) and return NULL if no
+ * file is found or if for all files found the access is prohibited.
  */
 char	*assemble_path(char **all_paths, char *command)
 {
@@ -80,9 +82,10 @@ char	*assemble_path(char **all_paths, char *command)
 	return (path_error(command, ENOENT));
 }	
 
-/* function is called in case command contains a forward slash. Checks if the path exists
- * and if permissions are given. If so, strdups command and returns it. If not, or if malloc
- * fails (strdup return NULL), NULL is returned and global exit status is set accordingly
+/* function is called in case command contains a forward slash. Checks if the
+ * path exists and if permissions are given. If so, strdups command and returns
+ * it. If not, or if malloc fails (strdup return NULL), NULL is returned and
+ * global exit status is set accordingly
  */
 char	*check_full_path(char *command)
 {
@@ -102,12 +105,13 @@ char	*check_full_path(char *command)
 	return (path_error(command, ENOENT));
 }
 
-/* if command contains a forward slash, it means that it is a full path. check_ful_path
- * is called to strdup command, check access and return the path or set global acces status
- * if there is no such file, if access is denied or if strdup failed 
- * If command does not contain a slash, all_paths are extracted from the env tree, the path
- * is assembled and the access is checked. Function returns the full path when found, returns
- * NULL when not found or when no access or when malloc failed at some point. In all those cases,
+/* if command contains a forward slash, it means that it is a full path.
+ * check_ful_path is called to strdup command, check access and return the path
+ * or set global acces status if there is no such file, if access is denied or
+ * if strdup failed. If command does not contain a slash, all_paths are
+ * extracted from the env tree, the path is assembled and the access is checked.
+ * Function returns the full path when found, returns NULL when not found or
+ * when no access or when malloc failed at some point. In all those cases,
  * g_global_exit_status is set accordingly.
  * */
 char	*find_path(char *command, t_env *env)

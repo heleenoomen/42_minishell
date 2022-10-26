@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exp_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 14:27:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 16:51:27 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:07:24 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /* Sets found variable according to the quote character that was found.
  * If the quotes_modus was NO_QUOTES, we are entering quotes, so quote_modus is

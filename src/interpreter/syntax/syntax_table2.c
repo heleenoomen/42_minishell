@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_table2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 14:13:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/26 14:59:26 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/26 19:06:55 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 void	commandset_and_io_here_file(void (***table)(t_list **, enum e_grammar))
 {

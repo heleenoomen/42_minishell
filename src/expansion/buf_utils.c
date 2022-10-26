@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   buf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 15:52:19 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 16:51:23 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:07:13 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /*initialize the buffer struct. Allocates an initial BUFSIZE bytes in the
  * char_buf, enough for 127 characters plus terminating nul byte). Sets size to

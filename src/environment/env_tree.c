@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env_tree.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 11:06:20 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 16:50:42 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:08:28 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /* returns the address where a new node should be inserted, based on the key
  * of the new node. If the key already exists, it returns the address of the 

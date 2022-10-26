@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   error3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 12:25:10 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/25 16:51:07 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:07:52 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	error_builtins_int(char *builtin, char *argument, int flag)
 {

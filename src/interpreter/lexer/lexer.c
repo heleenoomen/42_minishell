@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:15:57 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 16:48:26 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:06:31 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/minishell.h"
+#include "minishell.h"
 
 /* checks for token, if pipe, and, or operators are found it sets cmd 
 value to zero, if type is string - recognized as cmd. If previous type 

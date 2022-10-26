@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   destroy2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 12:18:47 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/25 16:50:20 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:36:07 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 void	heredoc_child_helper_destruction(t_exec *exec_cmds, t_minishell *shell)
 {

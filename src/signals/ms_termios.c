@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_termios.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 18:02:37 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/25 16:51:47 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 19:05:20 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /* makes sure that the ctrl-keystroke does not get printed while minishell is
  * running.

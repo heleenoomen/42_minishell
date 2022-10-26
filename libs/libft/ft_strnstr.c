@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/25 11:33:35 by hoomen            #+#    #+#             */
-/*   Updated: 2022/08/17 17:09:43 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/26 19:40:10 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	while (i < len && haystack[i])
 	{
 		if (haystack[i] == needle[0])
-			if (ft_strcmp_strnstr((char *)haystack + i, (char *)needle, len - i))
+			if (ft_strcmp_strnstr((char *)haystack + i, \
+			(char *)needle, len - i))
 				return ((char *)haystack + i);
 		i ++;
 	}
