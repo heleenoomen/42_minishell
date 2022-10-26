@@ -6,13 +6,13 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/14 13:48:03 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 19:07:17 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/26 21:41:04 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	is_end_of_key(char c)
+bool	is_end_of_key(char c)
 {
 	if (!ft_isalnum(c) && c != '_')
 		return (1);
@@ -48,7 +48,7 @@ void	expand_global_exit_status(t_char_buf *buf)
  * value to the key and the result is added to the buffer. A pointer to the 
  * first byte after the key is returned
  */
-static char	*expand_substr_ds(t_env *env, t_char_buf *buf, char *ptr)
+char	*expand_substr_ds(t_env *env, t_char_buf *buf, char *ptr)
 {
 	char	*key;
 	char	*end_of_key;

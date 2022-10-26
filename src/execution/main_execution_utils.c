@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_execution_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:36:16 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 19:36:28 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 21:42:49 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /* get nodes from tree into the ordered linked lists */
 void	get_tree(t_list **nodes, t_ast *tree, int node_id)

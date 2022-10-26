@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/19 17:00:35 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/16 19:12:52 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/26 20:33:28 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_char_buf
 int			expander(t_list *nodes, t_env *env);
 
 /* dollarsign.c */
+bool		is_end_of_key(char c);
+char		*expand_substr_ds(t_env *env, t_char_buf *buf, char *ptr);
 void		expand_dollarsign(t_env *env, char *ptr, t_char_buf *buf);
 
 /* quote_removal.c */
@@ -49,4 +51,7 @@ void		add_str_to_buf(t_char_buf *buf, char *s);
 /* exp_utils.c */
 int			change_quote_modus(int *quote_modus, char quote_found);
 
+/* exp_here.c */
+char		*heredoc_rm_quotes(char *delim);
+char		*expand_here(t_env *env, char *s);
 #endif

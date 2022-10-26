@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_redirection.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/28 18:24:26 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 19:42:18 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 21:42:23 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static int	execute_redirect_in(char *file, int	*fd)
 {
@@ -117,7 +117,10 @@ int	execute_redirection(t_exec	*exec, t_minishell *minishell)
 		else if (!status && ft_strcmp((char *)redir->content, ">>") == 0)
 			status = execute_redirect_append(file, &exec->fd_out);
 		else if (!status && ft_strcmp((char *)redir->content, "<<") == 0)
+		{
 			status = execute_heredoc(file, exec, minishell);
+			file = NULL;
+		}
 		else if (!status && ft_strcmp((char *)redir->content, "<>") == 0)
 			status = execute_redirect_inout(file, &exec->fd_in, &exec->fd_out);
 		if (redir->next)
