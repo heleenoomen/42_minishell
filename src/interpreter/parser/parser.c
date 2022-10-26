@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:02:41 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 19:55:00 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/26 15:55:34 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ t_list **cmds, void (***table)(t_list **, enum e_grammar))
 	flag = 1;
 	tab = NULL;
 	token_type = ((t_token *)token_list->content)->type;
-	if (node_p->node_type < NONTERM)
+	if (node_p->token_type < NONTERM)
 	{
-		tab = table[node_p->token_type][token_type - NONTERM];
+		tab = *table[node_p->token_type][token_type - NONTERM];
 	}
 	if (tab)
 		tab(cmds, ((t_token *)token_list->content)->type);
