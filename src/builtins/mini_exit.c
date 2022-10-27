@@ -6,27 +6,20 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 13:46:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/27 21:16:16 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 23:09:23 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	check_edge(char *arg)
+void	error_exit(char *arg, char *message)
 {
-	if (ft_strcmp(arg, "9223372036854775808") == 0)
-		return (false);
-	if (ft_strcmp(arg, "-9223372036854775809") == 0)
-		return (false);
-	if (ft_strlen(arg) > 21)
-		return (false);
-	return (true);
+	print_error("exit", arg, NULL, -1);
+	ft_putstr_fd(message, 2);
 }
 
 bool	exit_is_valid(char *arg)
 {
-	if (check_edge(arg) == false)
-		return (false);
 	while (*arg == ' ' || *arg == '\t')
 		arg++;
 	if (*arg == '\0')
@@ -52,61 +45,72 @@ bool	exit_is_valid(char *arg)
 	return (false);
 }
 
-static long int	calculate_number(const char *str, int i, int sign)
+void	space_and_sign(const char *str, int *sign, int *i)
 {
-	unsigned long long	nb;
+	int	index;
 
+	index = 0;
+	*sign = 1;
+	while (ft_isspace(str[index]))
+		index++;
+	if (str[index] && (str[index] == '+' || str[index] == '-'))
+	{
+		if (str[index] == '-')
+			*sign = -1;
+		index++;
+	}
+	*i = index;
+}
+
+long long	ft_atoll(char *str)
+{
+	int			i;
+	long long	nb;
+	long long	nb_previous;
+	int			sign;
+
+	if (str == NULL)
+		return (0);
+	space_and_sign(str, &sign, &i);
 	nb = 0;
+	nb_previous = 0;
 	while (ft_isdigit(str[i]))
 	{
 		nb = nb * 10 + ((str[i]) - '0');
+		if (nb < nb_previous)
+		{
+			if (ft_strcmp(str, LLONG_MIN_STR) == 0)
+				return (LLONG_MIN);
+			error_exit(str, EARG_NONNUM);
+			return (255);
+		}
+		nb_previous = nb;
 		i++;
 	}
 	return (nb * sign);
 }
 
-long long	ft_atoll(const char *str)
-{
-	int			i;
-	long long	nb;
-	int			sign;
-
-	if (str == NULL)
-		return (0);
-	i = 0;
-	sign = 1;
-	while (ft_isspace(str[i]))
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign = -1;
-		i++;
-	}
-	nb = calculate_number(str, i, sign);
-	return (nb);
-}
-
 void	mini_exit(int argc, char **argv, t_minishell *minishell)
 {
-	bool	valid;
-
-	if (argc > 1)
+	if (argc > 2)
 	{
-		valid = exit_is_valid(argv[1]);
-		if (valid)
-			g_global_exit_status = (int)((unsigned char)ft_atoll(argv[1]));
-		else
-			g_global_exit_status = 255;
+		error_exit(NULL, EARG_TOOMANY);
+		g_global_exit_status = 1;
+		return ;
 	}
 	ft_putstr_fd("exit\n", 1);
-	if (argc > 1 && !valid)
+	if (argc == 2)
 	{
-		print_error("exit", argv[1], NULL, -1);
-		ft_putstr_fd("numeric argument required\n", 2);
+		if (exit_is_valid(argv[1]) == true)
+			g_global_exit_status = (unsigned char)ft_atoll(argv[1]);
+		else
+		{
+			error_exit(argv[1], EARG_NONNUM);
+			g_global_exit_status = 255;
+		}
 	}
+	ft_freestrarr(&argv);
 	free_minishell(minishell);
-	free(argv);
 	reset_echoctl(&(minishell->termios_cpy));
 	//system("leaks minishell");
 	exit(g_global_exit_status);

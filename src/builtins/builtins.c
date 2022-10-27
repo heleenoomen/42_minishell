@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 19:36:26 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 23:08:06 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ t_minishell *minishell)
 	if (!is_builtin(cmd_s))
 		return (false);
 	argv = list_to_argv(exec->cmd_type->cmd, &argc);
+	free_cmd_defs(&cmd);
 	duplicate_fd(exec);
 	if (argv != NULL)
 		call_builtin(argc, argv, minishell);
 	else
 		error_builtins(cmd_s, NULL, ENOMEM);
 	ft_freestrarr(&argv);
-	free_cmd_defs(&cmd);
 	free_minishell(minishell);
 	return (true);
 }
@@ -89,11 +89,12 @@ bool	single_builtin(t_exec *exec, t_minishell *minishell)
 		return (true);
 	wildcard_expander(&node->cmds->cmd);
 	argv = list_to_argv(node->cmds->cmd, &argc);
+	free_single_builtin(exec, node);
 	if (argv != NULL)
 		call_builtin(argc, argv, minishell);
 	else
 		error_builtins(cmd, NULL, ENOMEM);
 	restore_stdin_stdout_builtin(exec, fd_cpys);
-	free_single_builtin(argv, exec, node);
+	ft_freestrarr(&argv);
 	return (true);
 }
