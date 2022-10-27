@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:23:30 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 19:08:43 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 17:45:45 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,10 @@ int	update_env_string(t_env *env, char *s, short flags)
 	char	*key;
 	int		ret;
 
-	dprintf(2, "update_env_string, s = %s\n", s);
 	key = ft_strdup(s);
-	dprintf(2, "update_env_string, key = %s\n", key);
 	if (key == NULL)
 		return (-1);
 	value = manipulate_ptrs(key);
-	dprintf(2, "value = %s\n", value);
 	ret = update_env(env, key, value, flags | VAL_DUP | KEY_DUP);
 	free(key);
 	return (ret);

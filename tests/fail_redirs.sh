@@ -2,6 +2,4 @@
 #   REDIRS                                                                     #
 # **************************************************************************** #
 
-cat | cat | ls
-"" >tmp_std_outfile && ls | grep tmp_std_outfile
 /bin/echo 1 >/dev/null | /usr/bin/grep 1

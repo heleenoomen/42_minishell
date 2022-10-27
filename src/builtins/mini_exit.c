@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 13:46:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 19:36:53 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 17:42:35 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void	mini_exit(int argc, char **argv, t_minishell *minishell)
 	free_minishell(minishell);
 	free(argv);
 	reset_echoctl(&(minishell->termios_cpy));
-	system("leaks minishell");
+	//system("leaks minishell");
 	exit(g_global_exit_status);
 }

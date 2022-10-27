@@ -13,6 +13,9 @@ rm tmp_redir_out
 
 cat < /dev/null
 
+cat | cat | ls
+("" >tmp_std_outfile) && (ls | grep tmp_std_outfile)
+
 /bin/echo 42 > /dev/null
 
 /bin/echo 42 >> /dev/null
