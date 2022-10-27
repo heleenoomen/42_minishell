@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+         #
+#    By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/11 15:22:26 by hoomen            #+#    #+#              #
-#    Updated: 2022/10/27 01:18:59 by kanykei          ###   ########.fr        #
+#    Updated: 2022/10/27 22:09:23 by hoomen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 VPATH	=	src/builtins src/destructor src/environment src/error src/execution src/expansion src/interpreter\
 			src/signals src/interpreter/ast src/interpreter/lexer src/interpreter/parser src/interpreter/syntax\
 			src/interpreter/tokenizer
-INCFL	=	-I libs/ibft -I include -I libs/libgnL
+INCFL	=	-I libs/libft -I include -I libs/libgnL
 
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror -g -fsanitize=address
