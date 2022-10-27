@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:58:18 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/26 21:42:59 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 17:29:28 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 			duplicate_fd(exec);
 			if (execve(path, exec->curr_cmd, envp) == -1)
 			{
-				error_shell("exec failed", ERROR_PERROR);
+				error_shell("failed to execute", ERROR_PERROR);
 				g_global_exit_status = 1;
 			}
 		}

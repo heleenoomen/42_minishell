@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/26 21:43:05 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 17:40:29 by ktashbae         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,11 @@ static void	parent_process(t_exec *exec, t_cmd_def *cmd)
 	signals_parent_process();
 	node = lst_get_cmd(*exec->cmds_list);
 	if (ft_lstsize(*exec->cmds_list) && cmd && cmd->cmd && \
-		node->type != N_AND && node->type != N_OR)
+		node->type != N_AND && node->type != N_OR && \
+		(!ft_strstr((char *)cmd->cmd->content, "cat") && node->type == N_REDIR))
+	{
 		waitpid(exec->pid, NULL, 0);
+	}
 	else
 		waitpid(exec->pid, NULL, 1);
 	close(exec->pipe_fd[1]);

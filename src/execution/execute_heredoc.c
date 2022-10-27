@@ -6,7 +6,7 @@
 /*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:20:49 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/27 01:48:36 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/27 12:00:00 by kanykei          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	child_process_heredoc(char *delim, int *fd, \
 
 	signals_child_heredoc();
 	close(fd[0]);
-	heredoc_child_helper_destruction(exec, shell);
+	(void)shell;
+	//heredoc_child_helper_destruction(exec, shell);
 	update_line = NULL;
 	ft_putstr_fd("heredoc> ", 1);
 	get_line = get_next_line(STDIN_FILENO);
@@ -28,10 +29,7 @@ void	child_process_heredoc(char *delim, int *fd, \
 	{
 		update_line = ft_substr(get_line, 0, ft_strlen(get_line) - 1);
 		if (ft_strcmp(delim, update_line) == 0)
-		{
-			heredoc_helper_destruction(&update_line, &get_line, fd, exec);
 			heredoc_helper_destruction2(delim, 0);
-		}
 		if (write(fd[1], get_line, ft_strlen(get_line)) == -1)
 			error_shell("Failed to write into pipe", ERROR_UNDEFINED);
 		heredoc_helper_destruction(&update_line, &get_line, NULL, exec);
