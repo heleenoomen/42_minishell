@@ -3,17 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   mini_exit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 13:46:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/27 17:42:35 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/27 21:16:16 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+bool	check_edge(char *arg)
+{
+	if (ft_strcmp(arg, "9223372036854775808") == 0)
+		return (false);
+	if (ft_strcmp(arg, "-9223372036854775809") == 0)
+		return (false);
+	if (ft_strlen(arg) > 21)
+		return (false);
+	return (true);
+}
+
 bool	exit_is_valid(char *arg)
 {
+	if (check_edge(arg) == false)
+		return (false);
 	while (*arg == ' ' || *arg == '\t')
 		arg++;
 	if (*arg == '\0')
@@ -39,6 +52,41 @@ bool	exit_is_valid(char *arg)
 	return (false);
 }
 
+static long int	calculate_number(const char *str, int i, int sign)
+{
+	unsigned long long	nb;
+
+	nb = 0;
+	while (ft_isdigit(str[i]))
+	{
+		nb = nb * 10 + ((str[i]) - '0');
+		i++;
+	}
+	return (nb * sign);
+}
+
+long long	ft_atoll(const char *str)
+{
+	int			i;
+	long long	nb;
+	int			sign;
+
+	if (str == NULL)
+		return (0);
+	i = 0;
+	sign = 1;
+	while (ft_isspace(str[i]))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	nb = calculate_number(str, i, sign);
+	return (nb);
+}
+
 void	mini_exit(int argc, char **argv, t_minishell *minishell)
 {
 	bool	valid;
@@ -47,7 +95,7 @@ void	mini_exit(int argc, char **argv, t_minishell *minishell)
 	{
 		valid = exit_is_valid(argv[1]);
 		if (valid)
-			g_global_exit_status = (int)((unsigned char)ft_atoi(argv[1]));
+			g_global_exit_status = (int)((unsigned char)ft_atoll(argv[1]));
 		else
 			g_global_exit_status = 255;
 	}
