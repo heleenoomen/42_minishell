@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 19:05:27 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 23:12:33 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int	main(int argc, char **argv, char **envp)
 		add_history(buf);
 	}
 	clear_history();
+	write(1, "\n", 1);
 	mini_exit(0, NULL, &minishell);
 }
