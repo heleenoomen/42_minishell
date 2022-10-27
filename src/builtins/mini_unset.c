@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:00:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 19:37:21 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 10:11:31 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ void	mini_unset(int argc, char **argv, t_env *env)
 	i = 1;
 	while (argv[i] != NULL)
 	{
+		if (!ft_strcmp("_", argv[i]))
+		{
+			i++;
+			continue;
+		}
 		if (is_valid_mini_us(argv[i]))
 			del_tree_node(&(env->tree), NULL, argv[i], 0);
 		else

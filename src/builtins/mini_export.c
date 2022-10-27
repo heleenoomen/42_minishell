@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 13:16:07 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 19:37:10 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/27 10:17:59 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,11 @@ void	mini_export(int argc, char **argv, t_env *env)
 	i = 1;
 	while (argv[i] != NULL)
 	{
+		if (!ft_strncmp("_=", argv[i], 2))
+		{
+			i++;
+			continue;
+		}
 		if (is_valid(argv[i]))
 		{
 			if (update_env_string(env, argv[i], EXPORT | KEY_DUP
