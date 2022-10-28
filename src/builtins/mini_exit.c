@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 13:46:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/27 23:09:23 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/28 17:49:50 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,10 @@ long long	ft_atoll(char *str)
 
 void	mini_exit(int argc, char **argv, t_minishell *minishell)
 {
-	if (argc > 2)
-	{
-		error_exit(NULL, EARG_TOOMANY);
-		g_global_exit_status = 1;
-		return ;
-	}
-	ft_putstr_fd("exit\n", 1);
-	if (argc == 2)
+	bool	error;
+
+	error = false;
+	if (argc > 1)
 	{
 		if (exit_is_valid(argv[1]) == true)
 			g_global_exit_status = (unsigned char)ft_atoll(argv[1]);
@@ -107,11 +103,18 @@ void	mini_exit(int argc, char **argv, t_minishell *minishell)
 		{
 			error_exit(argv[1], EARG_NONNUM);
 			g_global_exit_status = 255;
+			error = true;
 		}
 	}
+	if (argc > 2 && error == false)
+	{
+		error_exit(NULL, EARG_TOOMANY);
+		g_global_exit_status = 1;
+		return ;
+	}
+	ft_putstr_fd("exit\n", 1);
 	ft_freestrarr(&argv);
 	free_minishell(minishell);
 	reset_echoctl(&(minishell->termios_cpy));
-	//system("leaks minishell");
 	exit(g_global_exit_status);
 }

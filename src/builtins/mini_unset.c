@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 16:00:45 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/27 10:11:31 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/28 17:49:18 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ bool	is_valid_mini_us(char *s)
 {
 	size_t	i;
 
+	if (s[0] == '\0')
+		return (false);
 	i = 0;
 	while (s[i])
 	{
@@ -40,15 +42,16 @@ void	mini_unset(int argc, char **argv, t_env *env)
 		if (!ft_strcmp("_", argv[i]))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (is_valid_mini_us(argv[i]))
 			del_tree_node(&(env->tree), NULL, argv[i], 0);
 		else
 		{
-			ft_putstr_fd("unset: ", 1);
+			ft_putstr_fd("minishell: unset: `", 1);
 			ft_putstr_fd(argv[i], 1);
-			ft_putstr_fd(": not a valid identifier\n", 1);
+			ft_putstr_fd("\': not a valid identifier\n", 1);
+			g_global_exit_status = 1;
 		}
 		i++;
 	}
