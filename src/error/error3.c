@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 12:25:10 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/28 17:37:27 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/28 18:17:29 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ char	*path_error(char *s, int flag)
 {
 	if (flag == ENOENT)
 		g_global_exit_status = EXIT_CMD_NOT_FOUND;
+	else if (flag == EACCESS)
+		g_global_exit_status = EXIT_CANNOT_EXECUTE;
+	else
+		g_global_exit_status = EXIT_OUT_OF_MEMORY;
 	print_error(s, NULL, NULL, flag);
 	error_set_global_exit_status(flag);
 	return (NULL);
