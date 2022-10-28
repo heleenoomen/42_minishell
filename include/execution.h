@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 14:26:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/27 01:18:00 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/28 18:34:34 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, \
 			t_minishell *minishell);
 void		get_tree(t_list **nodes, t_ast *tree, int node_id);
 void		init_exec_struct(t_exec *exec, t_list **cmds_list);
-int			get_redirect_file(t_list **redir_list, char **file, int here_doc);
+int			get_redirect_file(t_list **redir_list, char **file, int here_doc, t_env *env);
 char		*remove_quotes(char *str);
 
 // && ||
@@ -98,6 +98,6 @@ int			dir_type_checker(enum e_type d_type, int type);
 char		*find_path(char *command, t_env *env);
 
 // Convert t_list with cmd + argument into argv for execve
-char		**list_to_argv(t_list *cmd, int *argc);
+char		**list_to_argv(t_list *cmd, int *argc, t_env *env);
 
 #endif

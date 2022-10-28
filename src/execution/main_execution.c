@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 17:02:28 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/27 16:39:17 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:22:28 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	main_executor(char *readline, t_minishell *minishell)
 	if (tree)
 	{
 		get_tree(&nodes, tree, 0);
-		status = expander(nodes, minishell->env);
+		//status = expander(nodes, minishell->env);
 		start_execution(&nodes, minishell);
 	}
 	else

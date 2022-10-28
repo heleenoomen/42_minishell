@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:53:06 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/28 17:57:11 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/28 18:53:39 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,7 @@ void	call_builtin(int argc, char **argv, t_minishell *minishell)
 	if (argv[0] == NULL)
 		return (error_builtins(argv[0], NULL, ERROR_UNDEFINED));
 	if (!ft_strcmp(argv[0], "exit"))
-	{
 		mini_exit(argc, argv, minishell);
-		return ;
-	}
-	g_global_exit_status = 0;
 	if (!ft_strcmp(argv[0], "pwd"))
 		mini_pwd();
 	else if (!ft_strcmp(argv[0], "env"))
@@ -58,7 +54,9 @@ t_minishell *minishell)
 	cmd_s = exec->cmd_type->cmd->content;
 	if (!is_builtin(cmd_s))
 		return (false);
-	argv = list_to_argv(exec->cmd_type->cmd, &argc);
+	if (ft_strcmp(cmd_s, "exit"))
+		g_global_exit_status = 0;
+	argv = list_to_argv(exec->cmd_type->cmd, &argc, minishell->env);
 	free_cmd_defs(&cmd);
 	duplicate_fd(exec);
 	if (argv != NULL)
@@ -91,7 +89,9 @@ bool	single_builtin(t_exec *exec, t_minishell *minishell)
 	if (run_redirections_single_builtin(exec, node, fd_cpys, minishell))
 		return (true);
 	wildcard_expander(&node->cmds->cmd);
-	argv = list_to_argv(node->cmds->cmd, &argc);
+	if (cmd != NULL && ft_strcmp(cmd, "exit"))
+		g_global_exit_status = 0;
+	argv = list_to_argv(node->cmds->cmd, &argc, minishell->env);
 	free_single_builtin(exec, node);
 	if (argv == NULL)
 		error_builtins(cmd, NULL, ENOMEM);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kanykei <kanykei@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 19:50:25 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/27 01:49:04 by kanykei          ###   ########.fr       */
+/*   Updated: 2022/10/28 18:57:04 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,15 @@ char	*remove_quotes(char *str)
 	return (removed);
 }
 
-int	get_redirect_file(t_list **redir_list, char **file, int here_doc)
+int	get_redirect_file(t_list **redir_list, char **file, int here_doc, \
+t_env *env)
 {
 	t_list	*temp;
 	void	*hold;
 	int		status;
 
 	status = 0;
+	expand_list(*redir_list, env, status, ERROR_CMD);
 	temp = ft_lstnew(ft_strdup((*redir_list)->content));
 	filename_expansion(&temp);
 	if (ft_lstsize(temp) > 1 && here_doc == 1)

@@ -1,0 +1,10 @@
+127
+Makefile
+include
+libs
+main.c
+minishell
+obj
+outfile
+src
+tests

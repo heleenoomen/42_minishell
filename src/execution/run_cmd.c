@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:58:18 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/27 17:29:28 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/10/28 18:34:05 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 	close(exec->pipe_fd[0]);
 	if (!builtin_child_process(exec, cmd, minishell))
 	{		
-		exec->curr_cmd = list_to_argv(cmd->cmd, NULL);
+		exec->curr_cmd = list_to_argv(cmd->cmd, NULL, minishell->env);
 		envp = make_envp(minishell->env);
 		path = find_path(exec->curr_cmd[0], minishell->env);
 		free_functions(minishell, cmd);

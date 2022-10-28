@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 10:02:25 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 20:08:14 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/10/28 19:12:06 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,7 @@ static int	count_args(t_list *cmd)
 	return (count);
 }
 
-/* traverses the list that starts at cmd. Counts the nodes in order to
- * know argc. mallocs an array of char pointers the size argc + 1. 
- * lets every entry in argv point to the content of the nodes in the list.
- * NULL terminates the argv. returns the argv and sets argc (passed by 
- * reference)
- */
-char	**list_to_argv(t_list *cmd, int *argc)
+char	**conv_list_to_argv(t_list *cmd, int *argc)
 {
 	t_list	*trav;
 	char	**argv;
@@ -59,4 +53,17 @@ char	**list_to_argv(t_list *cmd, int *argc)
 	if (argc != NULL)
 		*argc = args;
 	return (argv);
+}
+
+/* traverses the list that starts at cmd. Counts the nodes in order to
+ * know argc. mallocs an array of char pointers the size argc + 1. 
+ * lets every entry in argv point to the content of the nodes in the list.
+ * NULL terminates the argv. returns the argv and sets argc (passed by 
+ * reference)
+ */
+char	**list_to_argv(t_list *cmd, int *argc, t_env *env)
+{
+	if (expand_list(cmd, env, 0, ERROR_CMD))
+		return (NULL);
+	return (conv_list_to_argv(cmd, argc));
 }
