@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_and_or_cmd.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:58:52 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 16:36:41 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/11/08 12:14:00 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static void	reset_node(t_exec *exec)
 {

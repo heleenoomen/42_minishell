@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run_processes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 21:27:43 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 17:08:01 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/11/08 12:14:53 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	wildcard_expander(t_list **cmds)
 {
@@ -56,8 +56,11 @@ static void	parent_process(t_exec *exec, t_cmd_def *cmd)
 	signals_parent_process();
 	node = lst_get_cmd(*exec->cmds_list);
 	if (ft_lstsize(*exec->cmds_list) && cmd && cmd->cmd && \
-		node->type != N_AND && node->type != N_OR)
+		node->type != N_AND && node->type != N_OR && \
+		(!ft_strstr((char *)cmd->cmd->content, "cat") && node->type == N_REDIR))
+	{
 		waitpid(exec->pid, NULL, 0);
+	}
 	else
 		waitpid(exec->pid, NULL, 1);
 	close(exec->pipe_fd[1]);

@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 12:18:47 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/26 19:36:07 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/11/08 12:13:11 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	heredoc_helper_destruction(char **update, char **line, int *fd, \
 
 void	heredoc_helper_destruction2(char *delim, int status)
 {
-	if (delim)
+	if (delim[0] != '*')
 		free(delim);
 	exit(status);
 }

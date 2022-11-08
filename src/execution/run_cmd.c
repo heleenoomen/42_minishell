@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:58:18 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/25 16:37:27 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/11/08 12:14:48 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 static void	free_functions(t_minishell *minishell, t_cmd_def *cmd)
 {
@@ -42,8 +42,8 @@ int	run_cmd_child(t_exec *exec, t_cmd_def *cmd, t_minishell *minishell)
 			duplicate_fd(exec);
 			if (execve(path, exec->curr_cmd, envp) == -1)
 			{
-				error_shell("exec failed", ERROR_PERROR);
-				g_global_exit_status = 1;
+				error_shell("failed to execute", ERROR_PERROR);
+				g_global_exit_status = EXIT_CANNOT_EXECUTE;
 			}
 		}
 		free_env(exec, envp, path);

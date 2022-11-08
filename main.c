@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 15:45:54 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 19:05:27 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/11/08 12:11:02 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,6 @@ bool	isempty(char *buf)
 	return (true);
 }
 
-/* general structure for minishell main function. Kany, I will 
- * clean this up when time comes ;-) Also, I pass now my t_env
- * struct to everywhere, but in the end we will of course pass
- * one general minishell struct in which we insert t_env.
- * I will adapt it.
- */
-	// (void)argc;
-	// (void)argv;
 int	main(int argc, char **argv, char **envp)
 {
 	char			*buf;

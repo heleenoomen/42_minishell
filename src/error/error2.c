@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 12:24:01 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/26 19:07:48 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/11/08 12:13:52 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,12 @@ int	error_shell(char *error_message, int flag)
 		ft_putendl_fd(error_message, 2);
 	else if (flag == ERROR_PERROR)
 		perror(error_message);
-	g_global_exit_status = EXIT_FAILURE;
 	return (1);
 }
 
 void	error_set_global_exit_status(int flag)
 {
-	if (flag == ENOENT)
+	if (flag == ENOENT || flag == EXIT_CMD_NOT_FOUND)
 		g_global_exit_status = EXIT_CMD_NOT_FOUND;
 	else if (flag == EACCESS)
 		g_global_exit_status = EXIT_CANNOT_EXECUTE;

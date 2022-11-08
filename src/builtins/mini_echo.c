@@ -6,7 +6,7 @@
 /*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:53:53 by hoomen            #+#    #+#             */
-/*   Updated: 2022/10/26 19:36:41 by hoomen           ###   ########.fr       */
+/*   Updated: 2022/11/08 12:12:33 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ int	set_newline(char **argv, bool *newline)
 	while (argv[i] != NULL && is_minus_n(argv[i]))
 		i++;
 	if (argv[i] == NULL)
-	{
 		*newline = true;
-		i = 1;
-	}
 	else
 		*newline = false;
 	return (i);
@@ -72,13 +69,16 @@ void	mini_echo(int argc, char **argv)
 		return ;
 	}
 	i = set_newline(argv, &newline);
+	if (argv[i] == NULL)
+		return ;
 	while (argv[i + 1] != NULL)
 	{
 		ft_putstr_fd(argv[i], 1);
 		write(1, " ", 1);
 		i++;
 	}
-	ft_putstr_fd(argv[i], 1);
+	if (argv[i])
+		ft_putstr_fd(argv[i], 1);
 	if (newline)
 		write(1, "\n", 1);
 }

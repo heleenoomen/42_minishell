@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main_execution_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 19:36:16 by ktashbae          #+#    #+#             */
-/*   Updated: 2022/10/25 19:36:28 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/11/08 12:14:26 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 /* get nodes from tree into the ordered linked lists */
 void	get_tree(t_list **nodes, t_ast *tree, int node_id)
@@ -42,7 +42,12 @@ void	execute_cmds_and_builtins(t_exec *exec_cmds, t_ast **node, \
 	temp = (t_ast *)lst_get_cmd(*exec_cmds->cmds_list);
 	if (temp && temp->type == N_PIPE)
 		exec_cmds->pipe = 1;
-	exec_cmds->cmds_list = exec_cmds->cmds_list;
 	execute_cmd_block(exec_cmds, *node, minishell);
 	*node = NULL;
+}
+
+void	free_file_redirection(char *file, int *here_doc)
+{
+	if (here_doc[1] != 0)
+		free(file);
 }

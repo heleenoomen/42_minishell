@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wildcard_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktashbae <ktashbae@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: hoomen <hoomen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 13:41:29 by kanykei           #+#    #+#             */
-/*   Updated: 2022/10/25 16:37:58 by ktashbae         ###   ########.fr       */
+/*   Updated: 2022/11/08 12:15:17 by hoomen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "minishell.h"
 
 int	dir_type_checker(enum e_type d_type, int type)
 {
